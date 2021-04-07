@@ -1,0 +1,20 @@
+
+.site-menubar {
+  background: $site-menubar-bg;
+  color: $site-menubar-color;
+  $shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 5px rgba(0,0,0,.075);
+  box-shadow: $shadow;
+
+  //Site Menubar Light
+  &.site-menubar-light {
+    background: $site-menubar-light-bg;
+    color: $site-menubar-light-color;
+  }
+}
+
+// @include media-breakpoint-down(sm) {
+//   .site-menubar {
+//     background: $site-menubar-bg;
+//     color: $site-menubar-color;
+//   }
+// }

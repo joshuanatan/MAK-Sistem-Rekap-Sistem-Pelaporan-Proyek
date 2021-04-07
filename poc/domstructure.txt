@@ -1,0 +1,52 @@
+DOMElement Object ( 
+    
+    [tagName] => div 
+    
+    [schemaTypeInfo] => 
+        [nodeName] => div 
+        [nodeValue] => 
+            Kode RUP 27182910 
+            Nama Paket Pengadaan Personal Komputer (Laptop) Puskesmas Rawat Inap Leuwidamar (BLUD) 
+            Nama KLPD Pemerintah Daerah Kabupaten Lebak 
+            Satuan Kerja DINAS KESEHATAN KAB LEBAK 
+            Tahun Anggaran 2021 
+            Lokasi Pekerjaan 
+                No. Provinsi Kabupaten/Kota Detail Lokasi 
+                1. Banten Lebak (Kab.) Puskesmas Rawat Inap Leuwidamar 
+            Volume Pekerjaan 1 Unit 
+            Uraian Pekerjaan Pengadaan Personal Komputer (Laptop) Puskesmas Rawat Inap Leuwidamar (BLUD) 
+            Spesifikasi Pekerjaan Laptop 
+            Produk Dalam Negeri Ya Usaha Kecil Ya Pra DIPA / DPA Tidak 
+            Sumber Dana 
+                No. Sumber Dana T.A. KLPD MAK Pagu 
+                1. BLUD 2021 Pemerintah Daerah Kabupaten Lebak - 10300000 Total Pagu 10300000 
+            Jenis Pengadaan Barang, 
+            Total Pagu 10300000 
+            Metode Pemilihan E-Purchasing 
+            Pemanfaatan Barang/Jasa 
+                Mulai Akhir 
+                Oktober 2021 
+                Desember 2021 
+            Jadwal Pelaksanaan Kontrak 
+                Mulai Akhir 
+                Oktober 2021 
+                Desember 2021 
+            Jadwal Pemilihan Penyedia 
+                Mulai Akhir 
+                Oktober 2021 
+                Oktober 2021 
+            Tanggal Perbarui Paket 2021-02-14 14:38:45.9 
+        [nodeType] => 1 
+        [parentNode] => (object value omitted) 
+        [childNodes] => (object value omitted) 
+        [firstChild] => (object value omitted) 
+        [lastChild] => (object value omitted) 
+        [previousSibling] => (object value omitted) 
+        [nextSibling] => (object value omitted) 
+        [attributes] => (object value omitted) 
+        [ownerDocument] => (object value omitted) 
+        [namespaceURI] => 
+        [prefix] => 
+        [localName] => div 
+        [baseURI] => 
+        [textContent] => Kode RUP 27182910 Nama Paket Pengadaan Personal Komputer (Laptop) Puskesmas Rawat Inap Leuwidamar (BLUD) Nama KLPD Pemerintah Daerah Kabupaten Lebak Satuan Kerja DINAS KESEHATAN KAB LEBAK Tahun Anggaran 2021 Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi 1. Banten Lebak (Kab.) Puskesmas Rawat Inap Leuwidamar Volume Pekerjaan 1 Unit Uraian Pekerjaan Pengadaan Personal Komputer (Laptop) Puskesmas Rawat Inap Leuwidamar (BLUD) Spesifikasi Pekerjaan Laptop Produk Dalam Negeri Ya Usaha Kecil Ya Pra DIPA / DPA Tidak Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu 1. BLUD 2021 Pemerintah Daerah Kabupaten Lebak - 10300000 Total Pagu 10300000 Jenis Pengadaan Barang, Total Pagu 10300000 Metode Pemilihan E-Purchasing Pemanfaatan Barang/Jasa Mulai Akhir Oktober 2021 Desember 2021 Jadwal Pelaksanaan Kontrak Mulai Akhir Oktober 2021 Desember 2021 Jadwal Pemilihan Penyedia Mulai Akhir Oktober 2021 Oktober 2021 Tanggal Perbarui Paket 2021-02-14 14:38:45.9 )

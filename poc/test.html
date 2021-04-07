@@ -1,0 +1,228 @@
+<script type="text/javascript" language="javascript" src="/sirup/public/javascripts/printThis.js"></script>
+<script>
+        let x = document.querySelectorAll(".rupiah2");
+        for (let i = 0, len = x.length; i < len; i++) {
+            let num = Number(x[i].innerHTML)
+                      .toLocaleString('id');
+            x[i].innerHTML = num;
+            x[i].classList.add("currSign");
+        }
+    </script>
+<style>
+  td, th {
+  text-align: left;
+}
+ .label-left{
+ 	width : 20%;
+ }
+ .mid{
+ 	width : 50%;
+ }
+ .currSign:before {
+ 	content: 'Rp. ';
+ }
+
+</style>
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<div class="modal-title"><h4 style="font-size: medium;">Paket Penyedia</h4></div>
+</div>
+<div class="modal-body" id="modal-body-id">
+	<!--TAB-->
+
+	<div id="detil">
+		<div class="row">
+			<div class="col-md-12 col-xs-12">
+				
+			</div>
+		</div>
+		<table class="table">
+						</tr>
+			<tr>
+				<td class="label-left">Kode RUP</td>
+				<td>27182910</td>
+			</tr>
+			<tr>
+				<td class="label-left">Nama Paket</td>
+				<td>Pengadaan Personal Komputer (Laptop) Puskesmas Rawat Inap Leuwidamar (BLUD)</td>
+			</tr>
+			<tr>
+				<td class="label-left">Nama KLPD</td>
+				<td>Pemerintah Daerah Kabupaten Lebak</td>
+			</tr>
+			<tr>
+				<td class="label-left">Satuan Kerja</td>
+				<td>DINAS KESEHATAN KAB LEBAK</td>
+			</tr>
+			<tr>
+				<td class="label-left">Tahun Anggaran</td>
+				<td>2021</td>
+			</tr>
+						<tr>
+				<td class="label-left">Lokasi Pekerjaan</td>
+				<td> <!--dalam sini ada list lokasi-->
+					<table class="table table-striped table-hover" style="font-size : x-small;">
+						<tr>
+							<th>No.</th>
+							<th>Provinsi</th>
+							<th>Kabupaten/Kota</th>
+							<th>Detail Lokasi</th>
+						</tr>
+																								<tr>
+							<td>1.</td>
+							<td>Banten</td>
+							<td>Lebak (Kab.)</td>
+							<td>Puskesmas Rawat Inap Leuwidamar</td>
+						</tr>
+											</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="label-left">Volume Pekerjaan</td>
+				<td>1 Unit</td>
+			</tr>
+			<tr>
+				<td class="label-left">Uraian Pekerjaan</td>
+				<td>Pengadaan Personal Komputer (Laptop) Puskesmas Rawat Inap Leuwidamar (BLUD)</td>
+			</tr>
+			<tr>
+				<td class="label-left">Spesifikasi Pekerjaan</td>
+				<td>Laptop</td>
+			</tr>
+			<tr>
+				<td class="label-left">Produk Dalam Negeri</td>
+				<td><span class="badge">Ya</span></td>
+			</tr>
+			<tr>
+				<td class="label-left">Usaha Kecil</td>
+				<td><span class="badge">Ya</span></td>
+			</tr>
+			<tr>
+				<td class="label-left">Pra DIPA / DPA</td>
+				<td><span class="badge">Tidak</span></td>
+			</tr>
+						<tr>
+				<td class="label-left">Sumber Dana</td>
+				<td> <!--dalam sini ada list paket anggaran-->
+					<table class="table table-striped table-hover" style="font-size : x-small;">
+						<tr>
+							<th>No.</th>
+							<th>Sumber Dana</th>
+							<th>T.A.</th>
+							<th>KLPD</th>
+							<th>MAK</th>
+							<th>Pagu</th>
+						</tr>
+																								<tr>
+							<td>1.</td>
+							<td>BLUD</td>
+							<td>2021</td>
+							<td>Pemerintah Daerah Kabupaten Lebak</td>
+							<td>-</td>
+							<td style="text-align:right"><span class="rupiah2">10300000</span></td>
+						</tr>
+												<tr>
+							<th colspan="5" align="right">Total Pagu</th>
+							<th style="text-align:right"><span class="rupiah2"> 10300000</span></th>
+						</tr>
+					</table>
+				</td>
+							</tr>
+			<tr>
+				<td class="label-left">Jenis Pengadaan</td>
+				<td>Barang,</td>
+			</tr>
+			<tr>
+				<td class="label-left">Total Pagu</td>
+				<td class="rupiah2">10300000</td>
+			</tr>
+			<tr>
+				<td class="label-left">Metode Pemilihan</td>
+				<td>E-Purchasing</td>
+			</tr>
+			<tr>
+				<td class="label-left">Pemanfaatan Barang/Jasa</td>
+				<td>
+					<table class="table table-striped table-hover" style="font-size : x-small;">
+						<tr>
+							<th class="mid">Mulai</th>
+							<th class="mid">Akhir</th>
+						</tr>
+						<tr>
+							<td class="mid">Oktober 2021</td>
+							<td class="mid">Desember 2021</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="label-left">Jadwal Pelaksanaan Kontrak</td>
+				<td>
+					<table class="table table-striped table-hover" style="font-size : x-small;">
+						<tr>
+							<th class="mid">Mulai</th>
+							<th class="mid">Akhir</th>
+						</tr>
+						<tr>
+							<td class="mid">Oktober 2021</td>
+							<td class="mid">Desember 2021</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="label-left">Jadwal Pemilihan Penyedia</td>
+				<td>
+					<table class="table table-striped table-hover" style="font-size : x-small;">
+						<tr>
+							<th class="mid">Mulai</th>
+							<th class="mid">Akhir</th>
+						</tr>
+						<tr>
+							<td class="mid">Oktober 2021</td>
+							<td class="mid"> Oktober 2021</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+									<tr>
+				<td class="label-left">Tanggal Perbarui Paket</td>
+				<td>2021-02-14 14:38:45.9</td>
+			</tr>
+		</table> <!--tabel konten end-->
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-rup btn-redPastel" data-dismiss="modal">Tutup</button>
+	<button type="button" class="btn btn-primary" onclick="printId();">Print</button>
+</div>
+<script>
+    function printId(){
+         $("#modal-body-id").printThis({
+            debug: false,
+            importCSS: true,
+            importStyle: true,
+            printContainer: true,
+            pageTitle: "Detail Paket",
+            removeInline: false,
+            printDelay: 10,
+            header: null,
+            formValues: true
+        });
+    }
+	$('#renja').hide();
+    $('#renja-info').click(function() {
+		$('#detil').hide();
+		$('#renja').show();
+		$('#renja-info').addClass('active');
+		$('#paket-info').removeClass('active');
+	});
+
+	$('#paket-info').click(function() {
+		$('#renja').hide();
+		$('#detil').show();
+		$('#renja-info').removeClass('active');
+		$('#paket-info').addClass('active');
+	});
+</script>
