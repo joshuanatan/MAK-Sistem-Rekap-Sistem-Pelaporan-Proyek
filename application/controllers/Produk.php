@@ -19,7 +19,7 @@ class Produk extends CI_Controller{
   	}
     public function get() {
       $this->load->model("m_produk");
-      $result = $this->m_produk->get_product();
+      $result = $this->m_produk->get_produk();
 
       $data = array (
         "datadb" => $result->result_array()
