@@ -2,7 +2,13 @@
 
 class Produk extends CI_Controller{
     public function index(){
-        $this->load->view("produk/index");
+      $this->load->model("m_produk");
+      $result = $this->m_produk->get_produk();
+
+      $data = array (
+        "datadb" => $result->result_array()
+      );
+      $this->load->view("produk/index",$data);
     }
     public function insert() {
       $temp_produk_no_katalog = $this->input->post('nokatalogproduk');
@@ -17,14 +23,5 @@ class Produk extends CI_Controller{
   		$this->m_produk->tes_insert($temp_produk_no_katalog,$temp_produk_principal,$temp_produk_no_sap,$temp_produk_nama,$temp_produk_kategori,$temp_produk_price_list,$temp_produk_harga_ekat,$temp_produk_deskripsi);
       Redirect("produk/index");
   	}
-    public function get() {
-      $this->load->model("m_produk");
-      $result = $this->m_produk->get_produk();
-
-      $data = array (
-        "datadb" => $result->result_array()
-      );
-      $this->load->view("produk/index",$data);
-    }
 }
 ?>
