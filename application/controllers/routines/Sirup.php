@@ -3,6 +3,9 @@ class Sirup extends CI_Controller{
     public function __construct(){
         parent::__construct();
     }
+    public function index(){
+        echo 'controller accepted, dont forget to call the function';
+    }
     public function load_sirup(){
         #query semua, ambil yg mau di cari dari dB
         #insert ke table raw 
@@ -50,5 +53,66 @@ class Sirup extends CI_Controller{
             $this->m_sirup->insert_key_word($keyword[$a]);
         }
     }
-    
+    public function load_detail_sirup(){
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->load_sirup();
+        $result = $result->result_array();
+        $curl = curl_init();
+        for($a = 0; $a<count($result); $a++){
+            $sirup = $result[$a]["sirup"];
+            $url = "https://sirup.lkpp.go.id/sirup/home/detailPaketPenyediaPublic2017/".$sirup;
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+            ));
+            $response = curl_exec($curl);
+            if($response){
+                echo htmlentities($response);
+                #$this->extract_data($response);
+            }
+        }
+    }
+    private function extract_data2($response){
+        $dom = new domDocument;
+        // load the html into the object
+        $dom->loadHTML($response);
+        $content = $dom->getElementsByTagName("tr");
+        foreach ($content as $a) {
+            $test = $a->getElementsByTagName("td");
+            $counter = 0;
+            print_r($test);
+            foreach ($test as $b){
+                echo $b->nodeValue;
+                $counter++;
+            }
+            echo "<br/>";
+        }   
+    }
+    // private function extract_data($response){
+    //     error_reporting(0);
+    //     $dom = new domDocument;
+    //     // load the html into the object
+    //     $dom->loadHTML($response);
+    //     $content = $dom->getElementsByTagName("tr");
+    //     foreach($content as $a){
+    //         $child = $a->childNodes;
+    //         $temp_array = array();
+    //         $flag = 0;
+    //         foreach($child as $b){
+    //             if($b->nodeValue && $b->nodeType == 1){
+    //                 $temp_array[$flag] = $b->nodeValue;
+    //                 $flag++;
+    //             }
+    //             if($flag % 2 == 0){
+    //                 echo $temp_array[0]." - ".$temp_array[1];
+    //                 echo "<br/>";
+    //             }
+    //         }
+    //     }
+    // }
 }
