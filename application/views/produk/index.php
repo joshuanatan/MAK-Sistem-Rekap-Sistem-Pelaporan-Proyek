@@ -74,7 +74,63 @@
                               <td><?php echo $datadb[$a]["produk_harga_ekat"];?></td>
                               <td><?php echo $datadb[$a]["produk_deskripsi"];?></td>
                               <td>
-                                <button type = "button" class = "btn btn-primary btn-sm" data-target="#editProduk" data-toggle="modal"><i class = "icon md-edit"></i></button>
+                                <button type = "button" class = "btn btn-primary btn-sm" data-target="#editProduk<?php echo $datadb[$a]["id_pk_produk"];?>" data-toggle="modal"><i class = "icon md-edit"></i></button>
+
+                                <div class="modal fade" id="editProduk<?php echo $datadb[$a]["id_pk_produk"];?>">
+                                    <div class="modal-dialog modal-simple modal-top">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="exampleModalTitle">Edit Produk</h4>
+                                            </div>
+                                            <form action="<?php echo base_url();?>produk/edit" autocomplete="off" method="post">
+                                                <div class="modal-body">
+                                                  <div class="form-group">
+                                                      <input type="hidden" class="form-control" name="idproduk" value="<?php echo $datadb[$a]["id_pk_produk"];?>" autocomplete="off">
+                                                  </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">No. Katalog</label>
+                                                        <input type="text" class="form-control" name="nokatalogproduk" value="<?php echo $datadb[$a]["produk_no_katalog"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Principal</label>
+                                                        <input type="text" class="form-control" name="principalproduk" value="<?php echo $datadb[$a]["produk_principal"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">No. SAP</label>
+                                                        <input type="text" class="form-control" name="nosapproduk" value="<?php echo $datadb[$a]["produk_no_sap"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Nama Produk</label>
+                                                        <input type="text" class="form-control" name="namaproduk" value="<?php echo $datadb[$a]["produk_nama"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Kategori</label>
+                                                        <input type="text" class="form-control" name="kategoriproduk" value="<?php echo $datadb[$a]["produk_kategori"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Price List</label>
+                                                        <input type="text" class="form-control" name="pricelistproduk" value="<?php echo $datadb[$a]["produk_price_list"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Harga Ekat</label>
+                                                        <input type="text" class="form-control" name="hargaekatproduk" value="<?php echo $datadb[$a]["produk_harga_ekat"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Deskripsi</label>
+                                                        <textarea class="form-control" name="deskripsiproduk" autocomplete="off"><?php echo $datadb[$a]["produk_deskripsi"];?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <button type = "button" class = "btn btn-danger btn-sm" "btn btn-primary" data-target="#examplePositionCenter<?php echo $datadb[$a]["id_pk_produk"];?>" data-toggle="modal"><i class = "icon md-delete"></i></button>
 

@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 class M_produk extends CI_Model{
-  
+
      private $id_pk_produk;
      private $produk_no_katalog;
      private $produk_principal;
@@ -26,7 +26,7 @@ class M_produk extends CI_Model{
          return $result;
      }
 
-     public function tes_insert($produk_no_katalog, $produk_principal, $produk_no_sap, $produk_nama, $produk_kategori, $produk_price_list, $produk_harga_ekat, $produk_deskripsi) {
+     public function tes_insert($produk_no_katalog, $produk_principal, $produk_no_sap, $produk_nama, $produk_kategori, $produk_price_list, $produk_harga_ekat, $produk_deskripsi, $produk_status) {
  			$data = array(
         "produk_no_katalog"=>$produk_no_katalog,
         "produk_principal"=>$produk_principal,
@@ -35,13 +35,19 @@ class M_produk extends CI_Model{
         "produk_kategori"=>$produk_kategori,
         "produk_price_list"=>$produk_price_list,
         "produk_harga_ekat"=>$produk_harga_ekat,
-        "produk_deskripsi"=>$produk_deskripsi
+        "produk_deskripsi"=>$produk_deskripsi,
+        "produk_status"=>"aktif"
  			);
  			$this->db->insert("test_produk_MAK",$data);
  		}
 
     public function delete_produk($id_pk_produk) {
       $sql = "UPDATE test_produk_MAK SET produk_status = 'nonaktif' WHERE id_pk_produk = $id_pk_produk";
+      $result = $this->db->query($sql);
+    }
+
+    public function edit_produk($id_pk_produk, $produk_no_katalog, $produk_principal, $produk_no_sap, $produk_nama, $produk_kategori, $produk_price_list, $produk_harga_ekat, $produk_deskripsi) {
+      $sql = "UPDATE test_produk_MAK SET produk_no_katalog = '$produk_no_katalog', produk_principal = '$produk_principal', produk_no_sap = '$produk_no_sap', produk_nama = '$produk_nama', produk_kategori = '$produk_kategori', produk_price_list = '$produk_price_list', produk_harga_ekat = '$produk_harga_ekat', produk_deskripsi = '$produk_deskripsi' WHERE id_pk_produk = $id_pk_produk";
       $result = $this->db->query($sql);
     }
 }
