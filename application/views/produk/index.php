@@ -49,32 +49,112 @@
                     <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
                         <thead>
                             <tr>
-                                <th>No. Katalog Produk</th>
-                                <th>Principal</th>
-                                <th>No. SAP</th>
-                                <th>Nama Produk</th>
-                                <th>Kategori</th>
-                                <th>Price List</th>
-                                <th>Harga Ekat</th>
-                                <th>Deskripsi</th>
-                                <th>Action</th>
+                              <th>ID Produk</th>
+                              <th>No. Katalog Produk</th>
+                              <th>Principal</th>
+                              <th>No. SAP</th>
+                              <th>Nama Produk</th>
+                              <th>Kategori</th>
+                              <th>Price List</th>
+                              <th>Harga Ekat</th>
+                              <th>Deskripsi</th>
+                              <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                           <?php for($a = 0; $a < count($datadb); $a++):?>
                             <tr>
-                                <td><?php echo $datadb[$a]["produk_no_katalog"];?></td>
-                                <td><?php echo $datadb[$a]["produk_principal"];?></td>
-                                <td><?php echo $datadb[$a]["produk_no_sap"];?></td>
-                                <td><?php echo $datadb[$a]["produk_nama"];?></td>
-                                <td><?php echo $datadb[$a]["produk_kategori"];?></td>
-                                <td><?php echo $datadb[$a]["produk_price_list"];?></td>
-                                <td><?php echo $datadb[$a]["produk_harga_ekat"];?></td>
-                                <td><?php echo $datadb[$a]["produk_deskripsi"];?></td>
-                                <td>
-                                    <button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
-                                    <button type = "button" class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button>
-                                </td>
+                              <td><?php echo $datadb[$a]["id_pk_produk"];?></td>
+                              <td><?php echo $datadb[$a]["produk_no_katalog"];?></td>
+                              <td><?php echo $datadb[$a]["produk_principal"];?></td>
+                              <td><?php echo $datadb[$a]["produk_no_sap"];?></td>
+                              <td><?php echo $datadb[$a]["produk_nama"];?></td>
+                              <td><?php echo $datadb[$a]["produk_kategori"];?></td>
+                              <td><?php echo $datadb[$a]["produk_price_list"];?></td>
+                              <td><?php echo $datadb[$a]["produk_harga_ekat"];?></td>
+                              <td><?php echo $datadb[$a]["produk_deskripsi"];?></td>
+                              <td>
+                                <button type = "button" class = "btn btn-primary btn-sm" data-target="#editProduk<?php echo $datadb[$a]["id_pk_produk"];?>" data-toggle="modal"><i class = "icon md-edit"></i></button>
+
+                                <div class="modal fade" id="editProduk<?php echo $datadb[$a]["id_pk_produk"];?>">
+                                    <div class="modal-dialog modal-simple modal-top">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                                </button>
+                                                <h4 class="modal-title" id="exampleModalTitle">Edit Produk</h4>
+                                            </div>
+                                            <form action="<?php echo base_url();?>produk/edit" autocomplete="off" method="post">
+                                                <div class="modal-body">
+                                                  <div class="form-group">
+                                                      <input type="hidden" class="form-control" name="idproduk" value="<?php echo $datadb[$a]["id_pk_produk"];?>" autocomplete="off">
+                                                  </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">No. Katalog</label>
+                                                        <input type="text" class="form-control" name="nokatalogproduk" value="<?php echo $datadb[$a]["produk_no_katalog"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Principal</label>
+                                                        <input type="text" class="form-control" name="principalproduk" value="<?php echo $datadb[$a]["produk_principal"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">No. SAP</label>
+                                                        <input type="text" class="form-control" name="nosapproduk" value="<?php echo $datadb[$a]["produk_no_sap"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Nama Produk</label>
+                                                        <input type="text" class="form-control" name="namaproduk" value="<?php echo $datadb[$a]["produk_nama"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Kategori</label>
+                                                        <input type="text" class="form-control" name="kategoriproduk" value="<?php echo $datadb[$a]["produk_kategori"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Price List</label>
+                                                        <input type="text" class="form-control" name="pricelistproduk" value="<?php echo $datadb[$a]["produk_price_list"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Harga Ekat</label>
+                                                        <input type="text" class="form-control" name="hargaekatproduk" value="<?php echo $datadb[$a]["produk_harga_ekat"];?>" autocomplete="off">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="form-control-label" for="inputBasicFirstName">Deskripsi</label>
+                                                        <textarea class="form-control" name="deskripsiproduk" autocomplete="off"><?php echo $datadb[$a]["produk_deskripsi"];?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type = "button" class = "btn btn-danger btn-sm" "btn btn-primary" data-target="#examplePositionCenter<?php echo $datadb[$a]["id_pk_produk"];?>" data-toggle="modal"><i class = "icon md-delete"></i></button>
+
+                                <div class="modal fade" id="examplePositionCenter<?php echo $datadb[$a]["id_pk_produk"];?>" aria-labelledby="examplePositionCenter" role="dialog" tabindex="-1" style="display: none;" aria-hidden="true">
+                                  <div class="modal-dialog modal-simple modal-center">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                        <h4 class="modal-title">Confirmation Delete</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>Are you sure you want to delete?</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <a href="<?php echo base_url();?>produk/delete/<?php echo $datadb[$a]["id_pk_produk"];?>" class="btn btn-primary">Delete</a></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </td>
                             </tr>
                           <?php endfor;?>
                         </tbody>
@@ -109,6 +189,9 @@
 
   </body>
 </html>
+
+
+
 
 <div class="modal fade" id="examplePositionTop">
     <div class="modal-dialog modal-simple modal-top">
@@ -152,20 +235,6 @@
                     <div class="form-group">
                         <label class="form-control-label" for="inputBasicFirstName">Deskripsi</label>
                         <textarea class="form-control" name="deskripsiproduk" placeholder="Deskripsi" autocomplete="off"></textarea>
-                    </div>
-                    <div class="example-wrap">
-                      <h4 class="example-title">Upload Foto Produk</h4>
-                      <div class="form-group">
-                        <div class="input-group input-group-file" data-plugin="inputGroupFile">
-                          <input type="text" class="form-control" readonly="">
-                          <div class="input-group-append">
-                            <span class="btn btn-outline btn-file">
-                              <i class="icon wb-upload" aria-hidden="true"></i>
-                              <input type="file" name="foto" multiple="">
-                            </span>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                 </div>
                 <div class="modal-footer">

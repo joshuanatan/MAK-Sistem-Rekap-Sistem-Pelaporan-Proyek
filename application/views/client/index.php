@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html class="no-js css-menubar" lang="en">
   <head>
-    
+
     <?php $this->load->view("includes/meta");?>
-    
+
     <title>ITin Bisnis | Client</title>
-    
+
     <?php $this->load->view("includes/core-head");?>
-    
+
     <style>
       .scroll-detail-table-wrapper{
         overflow-y:scroll;
@@ -186,7 +186,7 @@
     </div>
     <!-- End Page -->
     <?php $this->load->view("includes/core-script");?>
-        
+
   </body>
 </html>
 
@@ -252,7 +252,7 @@
       data:formData,
       dataType:"JSON",
       contentType: false,
-      processData: false, 
+      processData: false,
       success:function(respond){
         $("#tambah-client").modal("toggle");
         var html = `
