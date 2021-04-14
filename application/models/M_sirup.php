@@ -28,6 +28,36 @@
         sirup_id_delete int,
         id_fk_pencarian_sirup int
     );
+
+    create table tbl_sirup_lokasi_pekerjaan(
+        id_pk_lokasi_pekerjaan int primary key auto_increment,
+        lokasi_pekerjaan varchar(1000),
+        id_fk_sirup int
+    );
+    select * from tbl_sirup_lokasi_pekerjaan;
+    create table tbl_sirup_sumber_dana(
+        id_pk_sumber_dana int primary key auto_increment,
+        sumber_dana varchar(1000),
+        id_fk_sirup int
+    );
+    select * from tbl_sirup_sumber_dana;
+    create table tbl_sirup_pemanfaatan_barang(
+        id_pk_pemanfaatan_barang int primary key auto_increment,
+        pemanfaatan_barang varchar(1000),
+        id_fk_sirup int
+    );
+    select * from tbl_sirup_pemanfaatan_barang;
+    create table tbl_sirup_jadwal_pelaksanaan(
+        id_pk_jadwal_pelaksanaan int primary key auto_increment,
+        jadwal_pelaksanaan varchar(1000),
+        id_fk_sirup int
+    );
+    select * from tbl_sirup_jadwal_pelaksanaan;
+    create table tbl_sirup_pemilihan_penyedia(
+        id_pk_pemilihan_penyedia int primary key auto_increment,
+        pemilihan_penyedia varchar(1000),
+        id_fk_sirup int
+    );
 */
 class M_sirup extends CI_Model{
     private $id_pk_sirup;
