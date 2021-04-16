@@ -1,40 +1,51 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 class M_user extends CI_Model{
-    private $id_submit_user;
-    private $no_user;
-    private $nama_user;
-    private $email_user;
-    private $password_user;
+    private $id_pk_user;
+    private $id_fk_user_level;
+    private $user_username;
+    private $user_password;
+    private $user_email;
+    private $user_telepon;
 	private $role_user;
-    private $status_user;
-    private $tgl_create_user;
-    private $tgl_edit_user;
-    private $tgl_delete_user;
-    private $id_user_create_user;
-    private $id_user_edit_user;
-    private $id_user_delete_user;
-    
+    private $user_status;
+    private $user_tgl_create;
+    private $user_tgl_update;
+    private $user_tgl_delete;
+    private $user_id_create;
+    private $user_id_update;
+    private $user_id_delete;
+
+
     public function get_user(){
-        $sql = "select no_user, nama_user, email_user, role_user, status_user from mstr_user";
-        $result = executeQuery($sql);
-        if($result->num_rows() > 0){
-            $data = $result->result_array();
-            $result = array(
-                "status" => true,
-                "msg" => "Data found",
-                "data" => $data
-            );
-        }
-        else{
-            $result = array(
-                "status" => false,
-                "msg" => "Data not found",
-            );
-        }
+        $sql = "select id_pk_user, id_fk_user_level, user_username, user_password, user_email, user_telepon, user_status, user_tgl_create, user_tgl_update, user_tgl_delete, user_id_create, user_id_update, user_id_delete FROM mstr_user WHERE user_status='aktif'";
+        $result = $this->db->query($sql);
         return $result;
     }
-    public function insert($nama_user, $email_user, $password_user, $role_user){
+
+    public function test_insert($user_username, $user_password, $user_email, $user_telepon){
+        $data = array(
+          //"id_fk_user_level"=>$id_fk_user_level,
+          "user_username"=>$user_username,
+          "user_password"=>$user_password,
+          "user_email"=>$user_email,
+          "user_telepon"=>$user_telepon,
+          "user_status"=>"aktif"
+        );
+        $this->db->insert("mstr_user", $data);
+    }
+
+    public function delete_user($id_pk_user) {
+        $sql = "UPDATE mstr_user SET user_status = 'nonaktif' WHERE id_pk_user = $id_pk_user";
+        $result = $this->db->query($sql);
+    }
+
+    public function test_edit($id_pk_user, $user_username, $user_password, $user_email, $user_telepon){
+        $sql = "UPDATE mstr_user SET user_username = '$user_username', user_password = '$user_password', user_email = '$user_email', user_telepon = '$user_telepon' WHERE id_pk_user = $id_pk_user";
+        $result = $this->db->query($sql);
+    }
+
+    public function insert($id_fk_user_level, $user_username, $user_password, $user_email, $user_telepon, $user_status){
         $nama_result = $this->set_nama_user($nama_user);
         $email_result = $this->set_email_user($email_user);
         $password_result = $this->set_password_user($password_user);
@@ -53,7 +64,7 @@ class M_user extends CI_Model{
                 "role_user" => $this->role_user,
                 "status_user" => "aktif",
                 "tgl_create_user" => $date,
-                "id_user_create_user" => $this->session->id_user 
+                "id_user_create_user" => $this->session->id_user
             );
             $id_user = insertRow("mstr_user",$data);
             $where = array(
