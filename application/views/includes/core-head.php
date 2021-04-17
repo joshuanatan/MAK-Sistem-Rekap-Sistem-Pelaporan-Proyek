@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/flag-icon-css/flag-icon.css">
 <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/waves/waves.css">
 
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css">
+
 
 <!-- Fonts -->
 <link rel="stylesheet" href="<?php echo base_url();?>global/fonts/material-design/material-design.min.css">
