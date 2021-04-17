@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="ITin Bisnis | Project Management System">
+    <meta name="description" content="MAK | Customer Relationship Management">
     <meta name="author" content="">
     
-    <title>ITin Bisnis | Welcome</title>
+    <title>MAK - CRM | Welcome</title>
     
     <link rel="apple-touch-icon" href="<?php echo base_url();?>assets/images/apple-touch-icon.png">
     <link rel="shortcut icon" href="<?php echo base_url();?>assets/images/favicon.ico">
@@ -32,17 +32,6 @@
     <link rel="stylesheet" href="<?php echo base_url();?>global/fonts/material-design/material-design.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>global/fonts/brand-icons/brand-icons.min.css">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
-    
-    <!--[if lt IE 9]>
-    <script src="<?php echo base_url();?>global/vendor/html5shiv/html5shiv.min.js"></script>
-    <![endif]-->
-    
-    <!--[if lt IE 10]>
-    <script src="<?php echo base_url();?>global/vendor/media-match/media.match.min.js"></script>
-    <script src="<?php echo base_url();?>global/vendor/respond/respond.min.js"></script>
-    <![endif]-->
-    
-    <!-- Scripts -->
     <script src="<?php echo base_url();?>global/vendor/breakpoints/breakpoints.js"></script>
     <script>
       Breakpoints();
@@ -55,13 +44,13 @@
 
 
     <!-- Page -->
-    <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
+    <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
       <div class="page-content vertical-align-middle">
-        <div class="panel">
+        <div class="panel ">
           <div class="panel-body">
             <div class="brand">
               <img class="brand-img" src="<?php echo base_url();?>assets/images/logo-colored.png" alt="...">
-              <h2 class="brand-text font-size-18">ITin Bisnis - Project Management</h2>
+              <h2 class="brand-text font-size-18"><strong>MAK</strong><br/>Customer Relationship Management</h2>
             </div>
             <form method="post" action="<?php echo base_url();?>welcome/process" autocomplete="off">
               <div class="form-group form-material floating">
