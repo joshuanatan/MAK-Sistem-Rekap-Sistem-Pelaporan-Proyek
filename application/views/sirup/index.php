@@ -69,25 +69,23 @@
                   <th>Paket</th>
                   <th>Pagu</th>
                   <th>Jenis Pengadaan</th>
-                  <th>Metode</th>
-                  <th>Pemilihan</th>
+                  <th>Metode Pemilihan</th>
                   <th>K/L/PD</th>
                   <th>Satuan Kerja</th>
-                  <th>Lokasi</th>
                 </tr>
               </thead>
               <tbody>
+                <?php for($a = 0; $a<count($sirup); $a++):?>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><?php echo $sirup[$a]["sirup_rup"];?></td>
+                  <td><?php echo $sirup[$a]["sirup_paket"];?></td>
+                  <td><?php echo $sirup[$a]["sirup_total"];?></td>
+                  <td><?php echo $sirup[$a]["sirup_jenis_pengadaan"];?></td>
+                  <td><?php echo $sirup[$a]["sirup_metode_pemilihan"];?></td>
+                  <td><?php echo $sirup[$a]["sirup_klpd"];?></td>
+                  <td><?php echo $sirup[$a]["sirup_satuan_kerja"];?></td>
                 </tr>
+                <?php endfor;?>
               </tbody>
             </table>
             
