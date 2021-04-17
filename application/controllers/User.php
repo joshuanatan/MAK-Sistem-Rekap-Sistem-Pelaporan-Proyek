@@ -7,13 +7,13 @@ class User extends CI_Controller{
     }
     public function index(){
         $this->load->model("m_user");
-        $this->load->model("m_kabupaten");
+
         $result_user = $this->m_user->get_user();
-        $result_kabupaten = $this->m_kabupaten->get_kabupaten();
+
 
         $data = array (
           "data_user" => $result_user->result_array(),
-          "data_kabupaten" => $result_kabupaten->result_array(),
+
         );
 
         $this->load->view("user/index", $data);
@@ -26,7 +26,7 @@ class User extends CI_Controller{
       $temp_user_email = $this->input->post('email');
       $temp_user_telepon = $this->input->post('telepon');
   		$this->load->model("m_user");
-  		$this->m_user->test_insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon);
+  		$this->m_user->insert_user($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon);
       Redirect("user/index");
   	}
 
@@ -43,7 +43,7 @@ class User extends CI_Controller{
       $temp_user_email = $this->input->post('email');
       $temp_user_telepon = $this->input->post('telepon');
       $this->load->model("m_user");
-      $this->m_user->test_edit($temp_id_pk_produk, $temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon);
+      $this->m_user->edit_user($temp_id_pk_produk, $temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon);
       Redirect("user/index");
     }
 
