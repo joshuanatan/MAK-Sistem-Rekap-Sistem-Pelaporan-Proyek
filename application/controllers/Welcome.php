@@ -12,9 +12,9 @@ class Welcome extends CI_Controller{
         $password = $this->input->post("password");
         $result = $this->user->authentication($email,$password);
         if($result["status"]){
-            $this->session->id_submit_user = $result["msg"][0]["id_submit_user"];
-            $this->session->no_user = $result["msg"][0]["no_user"];
-            $this->session->nama_user = $result["msg"][0]["nama_user"];
+            $this->session->id_submit_user = $result["msg"][0]["id_pk_user"];
+            $this->session->nama_user = $result["msg"][0]["user_username"];
+            $this->session->user_role = $result["msg"][0]["user_role"];
             redirect("welcome/home");
         }
         else{

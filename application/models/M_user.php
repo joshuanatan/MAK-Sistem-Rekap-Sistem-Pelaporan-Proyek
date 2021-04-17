@@ -40,4 +40,21 @@ class M_user extends CI_Model{
     );
     $this->db->update("mstr_user",$data,$where);
   }
+  public function authentication($email, $password){
+    $password = md5($password);
+    $sql = "select id_pk_user,user_role,user_username,user_email,user_status from mstr_user where user_email = ? and user_password = ? and user_status = 'aktif'";
+    $args = array(
+      $email, $password
+    );
+    $result = executeQuery($sql, $args);
+    if($result->num_rows() > 0){
+      $response["status"] = true;
+      $response["msg"] = $result->result_array();
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "Data tidak ditemukan";
+    }
+    return $response;
+  }
 }
