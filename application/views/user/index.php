@@ -82,7 +82,7 @@
                 <?php for($a = 0; $a < count($data_user); $a++):?>
                   <tr>
                       <td><?php echo $data_user[$a]["id_pk_user"];?></td>
-                      <td><?php echo $data_user[$a]["id_fk_user_level"];?></td>
+                      <td><?php echo $data_user[$a]["id_fk_atasan"];?></td>
                       <td><?php echo $data_user[$a]["user_username"];?></td>
                       <td><?php echo $data_user[$a]["user_password"];?></td>
                       <td><?php echo $data_user[$a]["user_email"];?></td>
