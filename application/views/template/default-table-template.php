@@ -14,17 +14,11 @@
     <div class="page">
       <div class="page-header">
         <h1 class="page-title">DataTables</h1>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Tables</a></li>
-            <li class="breadcrumb-item active">DataTables</li>
-          </ol>
-          <div class="page-header-actions">
-            <a class="btn btn-sm btn-default btn-outline btn-round" href="http://datatables.net" target="_blank">
-            <i class="icon wb-link" aria-hidden="true"></i>
-            <span class="hidden-sm-down">Official Website</span>
-          </a>
-        </div>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Tables</a></li>
+          <li class="breadcrumb-item active">DataTables</li>
+        </ol>
       </div>
       <div class="page-content">
         <div class="panel">

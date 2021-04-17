@@ -8,6 +8,9 @@ class Sirup Extends CI_Controller{
         $result = $this->m_pencarian_sirup->get_data();
         $data["pencarian_sirup"] = $result->result_array();
         
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->get_data();
+        $data["sirup"] = $result->result_array();
         $this->load->view("sirup/index",$data);
     }
     public function insert_pencarian(){
