@@ -5,7 +5,7 @@
     
     <?php $this->load->view("includes/meta");?>
     
-    <title>ITin Bisnis | Home</title>
+    <title>MAK-CRM | Home</title>
     
     <?php $this->load->view("includes/core-head");?>
     
