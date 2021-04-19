@@ -22,15 +22,18 @@
       <div class="page-content">
         <div class="panel">
           <div class="panel-body">
+            
             <div class = "row">
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
-                <button type = "button" class = "btn btn-primary btn-sm" data-target="#insertModal" data-toggle="modal">Tambah Data</button>
+                <!--<button type = "button" class = "btn btn-primary btn-sm" data-target="#insertModal" data-toggle="modal">Tambah Data</button>-->
+                <a href = "<?php echo base_url();?>routines/sirup/load_sirup" target = "_blank" class = "btn btn-primary btn-sm">Query ke SiRUP</a>
               </div>
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
                 <button type = "button" class = "btn btn-primary btn-sm" data-target="#pencarianModal" data-toggle="modal">Lihat Pencarian</button>
               </div>
+              <!--
               <div class = "form-group col-lg-3">
                 <h5>Kolom Pengurutan</h5>
                 <select class = "form-control"></select>
@@ -61,6 +64,7 @@
                   <option value = "100">100</option>
                 </select>
               </div>
+            -->
             </div>
             <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
               <thead>
@@ -88,7 +92,7 @@
                 <?php endfor;?>
               </tbody>
             </table>
-            
+            <!--
             <nav class = "d-flex justify-content-center">
               <ul class="pagination">
                 <li class="disabled page-item">
@@ -108,6 +112,7 @@
                 </li>
               </ul>
             </nav>
+            -->
           </div>
         </div>
       </div>
@@ -157,7 +162,7 @@
   </div>
 </div>
 <div class="modal fade" id="pencarianModal">
-  <div class="modal-dialog modal-lg modal-simple modal-top">
+  <div class="modal-dialog modal-lg modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">

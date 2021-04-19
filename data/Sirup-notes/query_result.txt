@@ -1,0 +1,24 @@
+Array ( 
+    [recordsFiltered] => 11 
+    [data] => Array ( 
+        [0] => Array ( 
+            [idBulan] => 7 [metode] => Pengadaan Langsung [nama] => Ranjang Susun [kldi] => Badan Nasional Penempatan Dan Perlindungan Tenaga Kerja Indonesia [lokasi] => Banten~Tangerang (Kota), [jenis] => Barang, [waktu] => July 2021 [idMetode] => 8 [id] => 28915643 [pagu] => 50000000 [idJenisPengadaan] => 1 [satuan_kerja] => BALAI PELAYANAN PENEMPATAN DAN PERLINDUNGAN TENAGA KERJA INDONESIA BP3TKI SERANG ) 
+        [1] => Array ( 
+            [idBulan] => 4 [metode] => Pengadaan Langsung [nama] => Ranjang periksa [kldi] => Pusat Pelaporan Dan Analisis Transaksi Keuangan [lokasi] => [jenis] => Barang [waktu] => April 2021 [idMetode] => 8 [id] => 29210675 [pagu] => 3699000 [idJenisPengadaan] => 1 [satuan_kerja] => Pendidikan dan Pelatihan Anti Pencucian Uang PPATK ) 
+        [2] => Array ( 
+            [idBulan] => 4 [metode] => Pengadaan Langsung [nama] => Belanja Modal Mebel I KDH [kldi] => Pemerintah Daerah Kota Bontang [lokasi] => Kalimantan Timur,Bontang (Kota) [jenis] => Barang [waktu] => April 2021 [idMetode] => 8 [id] => 28222074 [pagu] => 134250000 [idJenisPengadaan] => 1 [satuan_kerja] => SEKRETARIAT DAERAH KOTA BONTANG ) 
+        [3] => Array ( 
+            [idBulan] => 4 [metode] => E-Purchasing [nama] => Belanja Ranjang Ginekologi [kldi] => Pemerintah Daerah Kota Singkawang [lokasi] => Kalimantan Barat,Singkawang (Kota) [jenis] => Barang [waktu] => April 2021 [idMetode] => 9 [id] => 27921732 [pagu] => 108900000 [idJenisPengadaan] => 1 [satuan_kerja] => DINAS KESEHATAN DAN KELUARGA BERENCANA KOTA SINGKAWANG ) 
+        [4] => Array ( 
+            [idBulan] => 3 [metode] => Pengadaan Langsung [nama] => Belanja Pengadaan Ranjang Ruang Laktasi [kldi] => Pemerintah Daerah Kota Balikpapan [lokasi] => Kalimantan Timur,Balikpapan (Kota) [jenis] => Barang [waktu] => March 2021 [idMetode] => 8 [id] => 27604740 [pagu] => 3000000 [idJenisPengadaan] => 1 [satuan_kerja] => Dinas Koperasi Usaha Mikro Kecil Menengah Dan Perindustrian ) 
+        [5] => Array ( 
+            [idBulan] => 1 [metode] => Pengadaan Langsung [nama] => Belanja Ranjang Aloha Tanpa Kasur [kldi] => Pemerintah Daerah Kota Kendari [lokasi] => Sulawesi Tenggara,Kendari (Kota) [jenis] => Barang [waktu] => January 2021 [idMetode] => 8 [id] => 27681364 [pagu] => 3627000 [idJenisPengadaan] => 1 [satuan_kerja] => DINAS KESEHATAN ) 
+        [6] => Array ( 
+            [idBulan] => 1 [metode] => Pengadaan Langsung [nama] => Pengadaan Ranjang Susun, 2 Buah [kldi] => Kementerian Perhubungan [lokasi] => Sulawesi Tenggara,Konawe Selatan (Kab.) [jenis] => Barang [waktu] => January 2021 [idMetode] => 8 [id] => 26919156 [pagu] => 6000000 [idJenisPengadaan] => 1 [satuan_kerja] => BANDAR UDARA HALU OLEOKENDARI ) 
+        [7] => Array ( 
+            [idBulan] => 1 [metode] => Pengadaan Langsung [nama] => Belanja Modal Lemari Berkas, Lemari Obat, Ranjang Periksa Pasien dan Timbangan [kldi] => Kementerian Keuangan [lokasi] => Jawa Barat,Bandung (Kota) [jenis] => Barang [waktu] => January 2021 [idMetode] => 8 [id] => 27336036 [pagu] => 18000000 [idJenisPengadaan] => 1 [satuan_kerja] => KANTOR PENGAWASAN DAN PELAYANAN BC BANDUNG ) 
+        [8] => Array ( 
+            [idBulan] => 1 [metode] => Pengadaan Langsung [nama] => PENGADAAN TEMPAT TIDUR RANJANG 200 x 200 [kldi] => Pemerintah Daerah Kabupaten Minahasa Selatan [lokasi] => Sulawesi Utara,Minahasa Selatan (Kab.) [jenis] => Barang [waktu] => January 2021 [idMetode] => 8 [id] => 28345909 [pagu] => 197239600 [idJenisPengadaan] => 1 [satuan_kerja] => SEKRETARIAT DAERAH KAB. MINAHASA SELATAN ) 
+        [9] => Array ( 
+            [idBulan] => 1 [metode] => Pengadaan Langsung [nama] => pengadaan ranjang [kldi] => Pemerintah Daerah Kabupaten Pasaman [lokasi] => Sumatera Barat,Pasaman (Kab.) [jenis] => Barang [waktu] => January 2021 [idMetode] => 8 [id] => 27986172 [pagu] => 40869562 [idJenisPengadaan] => 1 [satuan_kerja] => SEKRETARIAT DAERAH KAB PASAMAN ) 
+        [10] => Array ( [idBulan] => 1 [metode] => E-Purchasing [nama] => Pengelolaan Kegiatan SDN Magersari 1 dari Dana Bosnas 2021- belanja modal Ranjang UKS [kldi] => Pemerintah Daerah Kota Mojokerto [lokasi] => Jawa Timur,Mojokerto (Kota) [jenis] => Barang [waktu] => January 2021 [idMetode] => 9 [id] => 28091748 [pagu] => 2750000 [idJenisPengadaan] => 1 [satuan_kerja] => DINAS PENDIDIKAN DAN KEBUDAYAAN ) ) [draw] => 1 [recordsTotal] => 11 )

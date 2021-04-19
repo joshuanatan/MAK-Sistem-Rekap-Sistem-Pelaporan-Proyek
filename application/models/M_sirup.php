@@ -147,7 +147,14 @@ class M_sirup extends CI_Model{
         insertRow("tbl_sirup_pemilihan_penyedia",$data);
     }
     public function get_data(){
-        $sql = "select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup from mstr_sirup where sirup_status = 'aktif'";
+        $sql = "select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup from mstr_sirup where sirup_status = 'aktif' order by sirup_tgl_create DESC";
         return executeQuery($sql);
+    }
+    public function is_id_exists($id){
+        $where = array(
+            "sirup_rup" => $id,
+            "sirup_status" => "aktif"
+        );
+        return isExistsInTable("mstr_sirup",$where);
     }
 }

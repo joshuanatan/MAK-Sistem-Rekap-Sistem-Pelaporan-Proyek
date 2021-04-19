@@ -67,9 +67,9 @@ if ( ! function_exists('isExistsInTable')){
         $CI =& get_instance();
         $result = $CI->db->get_where($table,$where);
         if($result->num_rows() > 0){
-            return 0; /*exists*/
+            return true; /*exists*/
         }
-        else return 1; /*not exists*/
+        else return false; /*not exists*/
     }   
 }
 if ( ! function_exists('getMaxId')){
