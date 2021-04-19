@@ -97,53 +97,6 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="modalTambahProvinsi">
-      <div class="modal-dialog modal-simple modal-center">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-            <h4 class="modal-title" id="exampleModalTitle">Tambah provinsi</h4>
-          </div>
-          <form action="<?php echo base_url();?>provinsi/insert" autocomplete="off" method="post">
-            <div class="modal-body">
-              <div class="form-group">
-                <label class="form-control-label" for="inputBasicFirstName">provinsiname</label>
-                <input type="text" class="form-control" name="provinsiname" placeholder="provinsiname" autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label" for="inputBasicFirstName">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label" for="inputBasicFirstName">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Email" autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label" for="inputBasicFirstName">Telepon</label>
-                <input type="text" class="form-control" name="telepon" placeholder="Telepon" autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label" for="inputBasicFirstName">Jabatan</label>
-                <select onchange = "function1()" id = "select_access" class = "form-control" name = "role">
-                  <option >Pilih</option>
-                  <option value = "Administrator">Administrator</option>
-                  <option value = "Sales Engineer">Sales Engineer</option>
-                  <option value = "Supervisor">Supervisor</option>
-                  <option value = "Area Sales manager">Area Sales Manager</option>
-                  <option value = "Sales Manager">Sales Manager</option>
-                </select>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
     
     <?php $this->load->view("includes/footer")?>
     <?php $this->load->view("includes/core-script")?>
