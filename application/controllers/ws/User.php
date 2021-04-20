@@ -10,4 +10,11 @@ class User extends CI_Controller{
       echo json_encode($options);
     }
 
+    public function data_kabupaten($id_pk_provinsi){
+      $this->load->model("m_user");
+      $result = $this->m_user->get_kabupaten($id_pk_provinsi)->result_array();
+      echo json_encode($result);
+    }
+
 }
+?>
