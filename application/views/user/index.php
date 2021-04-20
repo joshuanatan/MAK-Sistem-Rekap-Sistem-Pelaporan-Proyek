@@ -136,7 +136,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>  
+                    </div>
                   </td>
                 </tr>
                 <?php endfor;?>
@@ -178,7 +178,8 @@
                 </div>
                 <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Jabatan</label>
-                  <select onchange = "function1()" id = "select_access" class = "form-control" name = "role">
+                  <br>
+                  <select onchange = "function1()" id = "drop_access" name = "role">
                     <option >Pilih</option>
                     <option value = "Administrator">Administrator</option>
                     <option value = "Sales Engineer">Sales Engineer</option>
@@ -186,6 +187,24 @@
                     <option value = "Area Sales manager">Area Sales Manager</option>
                     <option value = "Sales Manager">Sales Manager</option>
                   </select>
+                </div>
+                <div id="div_sales_engineer" style="display:none;">
+                  <div id="drop_provinsi">
+                    <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
+                    <br>
+                    <select onchange = "function2()" id = "select_provinsi" name = "role">
+                        <option>Pilih</option>
+                      <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                        <option value = "<?php echo $data_provinsi[$a]["id_pk_provinsi"];?>"><?php echo $data_provinsi[$a]["provinsi_nama"];?></option>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                      <label class="form-control-label" for="inputBasicFirstName">Kabupaten</label>
+                      <br>
+                      <select name= "kabupaten" id = "select_kabupaten">
+                      </select>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -200,23 +219,32 @@
     <!-- Function -->
     <script>
     function function1(){
-      $.ajax({
-        url:"<?php echo base_url();?>ws/user/get_data_sales_engineer",
-        type:"GET",
-        dataType:"JSON",
-        success:function(respond){
-          $("#div_kabupaten").removeAttr("style");
-          var html = "";
-          for(var a = 0; a<respond.length; a++){
-            html += 
-            `<tr>
-              <td>${respond[a]}</td>
-              <td><input type="checkbox" value="${respond[a]}"></td>
-            </tr>`;
-          }
-          $("#tbody_data").html(html);
-        }
-      });
+      var jabatan = $("#drop_access").val();
+      if (jabatan == "Sales Engineer") {
+        $.ajax({
+            success:function(respond){
+                $("#div_sales_engineer").removeAttr("style");
+            }
+        });
+      } else {
+        $("#div_sales_engineer").hide();
+      }
+    }
+
+    function function2(){
+      var id_provinsi = $("#select_provinsi").val();
+        $.ajax({
+            url:"<?php echo base_url();?>ws/user/data_kabupaten/"+id_provinsi,
+            type:"GET",
+            dataType:"JSON",
+            success:function(respond){
+                var html = "";
+                for(var a = 0; a<respond.length; a++){
+                    html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
+                }
+                $("#select_kabupaten").html(html);
+            }
+        });
     }
     </script>
 
