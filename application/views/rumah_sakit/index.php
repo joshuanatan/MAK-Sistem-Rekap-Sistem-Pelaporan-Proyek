@@ -69,7 +69,6 @@
             <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
               <thead>
                 <tr>
-                  <th>ID Rumah Sakit</th>
                   <th>Kode RS</th>
                   <th>Nama RS</th>
                   <th>Kelas</th>
@@ -88,95 +87,20 @@
               <tbody>
                 <?php for($a = 0; $a < count($datadb); $a++):?>
                   <tr>
-                    <td><?php echo $datadb[$a]["id_pk_rs"];?></td>
                     <td><?php echo $datadb[$a]["rs_kode"];?></td>
                     <td><?php echo $datadb[$a]["rs_nama"];?></td>
                     <td><?php echo $datadb[$a]["rs_kelas"];?></td>
                     <td><?php echo $datadb[$a]["rs_direktur"];?></td>
                     <td><?php echo $datadb[$a]["rs_alamat"];?></td>
                     <td><?php echo $datadb[$a]["rs_kategori"];?></td>
-                    <td><?php echo $datakabupaten[$a]["kabupaten_nama"];?></td>
+                    <td><?php echo $datadb[$a]["nama_kabupaten"];?></td>
                     <td><?php echo $datadb[$a]["rs_kode_pos"];?></td>
                     <td><?php echo $datadb[$a]["rs_telepon"];?></td>
                     <td><?php echo $datadb[$a]["rs_fax"];?></td>
-                    <td><?php echo $datadb[$a]["id_fk_jenis_rs"];?></td>
-                    <td><?php echo $datadb[$a]["id_fk_penyelenggara"];?></td>
+                    <td><?php echo $datadb[$a]["jenis_rs"];?></td>
+                    <td><?php echo $datadb[$a]["penyelenggara"];?></td>
                     <td>
-                      <button type = "button" class = "btn btn-primary btn-sm" data-target="#editrs<?php echo $datadb[$a]["id_pk_rs"];?>" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                      <div class="modal fade" id="editrs<?php echo $datadb[$a]["id_pk_rs"];?>">
-                        <div class="modal-dialog modal-simple modal-top">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <h4 class="modal-title" id="exampleModalTitle">Edit Rumah Sakit</h4>
-                            </div>
-                            <form action="<?php echo base_url();?>rumah_sakit/edit" autocomplete="off" method="post">
-                              <div class="modal-body">
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Kode Rumah Sakit</label>
-                                  <input type="text" class="form-control" name="koderumahsakit" value="<?php echo $datadb[$a]["rs_kode"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Nama Rumah Sakit</label>
-                                  <input type="text" class="form-control" name="namarumahsakit" value="<?php echo $datadb[$a]["rs_nama"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Kelas Rumah Sakit</label>
-                                  <input type="text" class="form-control" name="kelasrumahsakit" value="<?php echo $datadb[$a]["rs_kelas"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Direktur</label>
-                                  <input type="text" class="form-control" name="direktur" value="<?php echo $datadb[$a]["rs_direktur"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Alamat</label>
-                                  <input type="text" class="form-control" name="alamat" value="<?php echo $datadb[$a]["rs_alamat"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Kategori</label>
-                                  <input type="text" class="form-control" name="kategori" value="<?php echo $datadb[$a]["rs_kategori"];?>" autocomplete="off">
-                                </div>
-                                <!----------- ini belum bisa ------------>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
-                                  <br>
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Kabupaten</label>
-                                  <br>
-                                </div>
-                                <!----------- until here ------------>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Kode Pos</label>
-                                  <input type="text" class="form-control" name="kodepos" value="<?php echo $datadb[$a]["rs_kode_pos"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Telepon</label>
-                                  <input type="text" class="form-control" name="telepon" value="<?php echo $datadb[$a]["rs_telepon"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Fax</label>
-                                  <input type="text" class="form-control" name="fax" value="<?php echo $datadb[$a]["rs_fax"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Jenis Rumah Sakit</label>
-                                  <input type="text" class="form-control" name="jenisrumahsakit" value="<?php echo $datadb[$a]["id_fk_jenis_rs"];?>" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                  <label class="form-control-label" for="inputBasicFirstName">Penyelenggara</label>
-                                  <input type="text" class="form-control" name="penyelenggara" value="<?php echo $datadb[$a]["id_fk_penyelenggara"];?>" autocomplete="off">
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
+                      <button type = "button" id="edit_button<?php echo $a?>" onclick ="load_kabupaten_provinsi(<?php echo $datadb[$a]["nama_kabupaten"];?>)" class = "btn btn-primary btn-sm" data-toggle="modal"><i class = "icon md-edit"></i></button>
 
                       <button type = "button" class = "btn btn-danger btn-sm" "btn btn-primary" data-target="#examplePositionCenter<?php echo $datadb[$a]["id_pk_rs"];?>" data-toggle="modal"><i class = "icon md-delete"></i></button>
 
@@ -194,7 +118,7 @@
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                              <a href="<?php echo base_url();?>produk/delete/<?php echo $datadb[$a]["id_pk_rs"];?>" class="btn btn-primary">Delete</a></button>
+                              <a href="<?php echo base_url();?>rumah_sakit/delete/<?php echo $datadb[$a]["id_pk_rs"];?>" class="btn btn-primary">Delete</a></button>
                             </div>
                           </div>
                         </div>
@@ -251,8 +175,25 @@
               $("#select1").html(html);
           }
       });
-
   }
+  </script>
+  <script>
+    var active_provinsi = "";
+
+    $("#id_provinsi").val();
+
+    var active_id_provinsi = "";
+    function load_kabupaten_provinsi(nama_kabupaten){
+      active_provinsi = nama_kabupaten;
+      $.ajax({
+        url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+provinsi,
+        data:"GET",
+        dataType:"JSON",
+        success:function(respond){
+          
+        }
+      });
+    }
   </script>
 </html>
 
@@ -273,11 +214,19 @@
               </div>
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Nama Rumah Sakit</label>
-                  <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" autocomplete="off">
+                  <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" autocomplete="off" required>
               </div>
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Kelas Rumah Sakit</label>
-                  <input type="text" class="form-control" name="kelasrumahsakit" placeholder="Kelas Rumah Sakit" autocomplete="off">
+                  <br>
+                  <select class="form-control" name="kelasrumahsakit">
+                    <option value="none" selected disabled hidden>-- Silahkan Pilih Kelas --</option>
+                    <option value="Belum Ditentukan">Belum Ditentukan</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                  </select>
               </div>
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Direktur</label>
@@ -285,16 +234,22 @@
               </div>
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Alamat</label>
-                  <input type="text" class="form-control" name="alamat" placeholder="Alamat" autocomplete="off">
+                  <textarea type="text" class="form-control" name="alamat" placeholder="Alamat" autocomplete="off"></textarea>
               </div>
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Kategori</label>
-                  <input type="text" class="form-control" name="kategori" placeholder="Kategori" autocomplete="off">
+                  <br>
+                  <select class="form-control" name="kategori">
+                    <option value="none" selected disabled hidden>-- Silahkan Pilih Kategori --</option>
+                    <option value="Pemerintah">Pemerintah</option>
+                    <option value="Swasta">Swasta</option>
+                  </select>
               </div>
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
                   <br>
-                  <select onchange = "function1()" id="drop_provinsi">
+                  <select class="form-control" onchange = "function1()" id="drop_provinsi">
+                    <option value="none" selected disabled hidden>-- Silahkan Pilih Provinsi --</option>
                     <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
                       <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
                       <?php endfor;?>
@@ -303,7 +258,7 @@
               <div class="form-group">
                   <label class="form-control-label" for="inputBasicFirstName">Kabupaten</label>
                   <br>
-                  <select name= "kabupaten" id = "select1">
+                  <select class="form-control" name= "kabupaten" id = "select1">
                   </select>
               </div>
               <div class="form-group">

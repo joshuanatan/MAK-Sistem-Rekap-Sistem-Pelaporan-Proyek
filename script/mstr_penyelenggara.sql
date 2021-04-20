@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2021 at 05:02 PM
+-- Generation Time: Apr 20, 2021 at 10:58 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `test`
+-- Database: `mak_crm`
 --
 
 -- --------------------------------------------------------
@@ -40,6 +40,15 @@ CREATE TABLE `mstr_penyelenggara` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `mstr_penyelenggara`
+--
+
+INSERT INTO `mstr_penyelenggara` (`id_pk_penyelenggara`, `penyelenggara_nama`, `penyelenggara_status`, `penyelenggara_tgl_create`, `penyelenggara_tgl_update`, `penyelenggara_tgl_delete`, `penyelenggara_id_create`, `penyelenggara_id_update`, `penyelenggara_id_delete`) VALUES
+(1, 'Pemkab', 'aktif', '2021-04-20', '2021-04-20', '2021-04-20', 0, 0, 0),
+(2, 'Pemkot', 'aktif', '2021-04-20', '2021-04-20', '2021-04-20', 0, 0, 0),
+(3, 'Organisasi Sosial', 'aktif', '2021-04-20', '2021-04-20', '2021-04-20', 0, 0, 0);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -57,7 +66,7 @@ ALTER TABLE `mstr_penyelenggara`
 -- AUTO_INCREMENT for table `mstr_penyelenggara`
 --
 ALTER TABLE `mstr_penyelenggara`
-  MODIFY `id_pk_penyelenggara` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pk_penyelenggara` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

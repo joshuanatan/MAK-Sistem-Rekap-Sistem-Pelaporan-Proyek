@@ -6,11 +6,9 @@ class Rumah_sakit extends CI_Controller{
       $this->load->model("m_rumah_sakit");
       $result1 = $this->m_rumah_sakit->get_rs();
       $result2 = $this->m_rumah_sakit->get_provinsi();
-      $result3 = $this->m_rumah_sakit->kabupaten_default();
       $data = array (
         "datadb" => $result1->result_array(),
-        "dataprovinsi" => $result2->result_array(),
-        "datakabupaten" => $result3->result_array()
+        "dataprovinsi" => $result2->result_array()
       );
       $this->load->view("rumah_sakit/index",$data);
     }
@@ -36,7 +34,7 @@ class Rumah_sakit extends CI_Controller{
 
     public function delete($id_pk_rs) {
       $this->load->model("m_rumah_sakit");
-      $this->m_rumah_sakit->delete_produk($id_pk_rs);
+      $this->m_rumah_sakit->delete_rs($id_pk_rs);
       Redirect("rumah_sakit/index");
     }
 
@@ -56,6 +54,10 @@ class Rumah_sakit extends CI_Controller{
       $this->load->model("m_rumah_sakit");
       $this->m_rumah_sakit->edit_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara);
       Redirect("produk/index");
+    }
+
+    public function getKabupaten($id_fk_kabupaten){
+      // code...
     }
 
 }
