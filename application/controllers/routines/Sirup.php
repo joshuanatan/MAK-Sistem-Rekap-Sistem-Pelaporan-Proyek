@@ -84,16 +84,16 @@ class Sirup extends CI_Controller{
                     $response = preg_replace('/\t+/', ' ', $response);
                     $response = preg_replace('/\n\r+/', '', $response);
                     #echo $response;
-                    $this->extract_data($response,$pagu,$id_pk_pencarian_sirup, $search_phrase);
+                    $this->extract_data($response,$pagu,$id_pk_pencarian_sirup, $search_phrase, $search_keys[$a]["pencarian_sirup_frase"]);
                     sleep(3);
                 }
             }
         }
     }
-    private function extract_data($response, $sirup_total, $id_fk_pencarian_sirup, $search_phrase){
+    private function extract_data($response, $sirup_total, $id_fk_pencarian_sirup, $search_combination, $search_phrase){
         #asumsi history paket aja yang beda
         $sirup_rup = explode("Nama Paket",explode("Kode RUP",$response)[1])[0];
-        $sirup_paket = "(".$search_phrase.") ".explode("Nama KLPD",explode("Nama Paket",$response)[1])[0];
+        $sirup_paket = "(".$search_combination.") ".explode("Nama KLPD",explode("Nama Paket",$response)[1])[0];
         $sirup_klpd = explode("Satuan Kerja",explode("Nama KLPD",$response)[1])[0];
         $sirup_satuan_kerja = explode("Tahun Anggaran",explode("Satuan Kerja",$response)[1])[0];
         $sirup_tahun_anggaran = explode("Lokasi Pekerjaan",explode("Tahun Anggaran",$response)[1])[0];
@@ -126,7 +126,12 @@ class Sirup extends CI_Controller{
             $sirup_id_create = $this->session->id_user; 
         }
         $this->load->model("m_sirup");
-        $id_pk_sirup = $this->m_sirup->insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup);
+        if (strpos($sirup_paket, $search_phrase) !== false) {
+            $id_pk_sirup = $this->m_sirup->insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup,"aktif");
+        }
+        else{
+            $id_pk_sirup = $this->m_sirup->insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup,"nonaktif");
+        }
 
         $preg = '/[0-9]\.\ /';
         $lokasi_pekerjaan = preg_split($preg,$lokasi_pekerjaan);
