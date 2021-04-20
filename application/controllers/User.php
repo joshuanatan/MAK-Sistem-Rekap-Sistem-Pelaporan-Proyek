@@ -8,12 +8,15 @@ class User extends CI_Controller{
   public function index(){
     $this->load->model("m_user");
     $this->load->model("m_kabupaten");
+    $this->load->model("m_provinsi");
     $result_user = $this->m_user->get_user();
     $result_kabupaten = $this->m_kabupaten->get_kabupaten();
+    $result_provinsi = $this->m_provinsi->get_data();
 
     $data = array (
       "data_user" => $result_user->result_array(),
       "data_kabupaten" => $result_kabupaten->result_array(),
+      "data_provinsi" => $result_provinsi->result_array()
     );
 
     $this->load->view("user/index", $data);
