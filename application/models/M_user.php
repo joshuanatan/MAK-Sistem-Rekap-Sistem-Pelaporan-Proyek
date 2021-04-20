@@ -57,4 +57,10 @@ class M_user extends CI_Model{
     }
     return $response;
   }
+
+  public function get_kabupaten($id_pk_provinsi) {
+    $sql = "SELECT id_pk_kabupaten, id_fk_provinsi, kabupaten_nama FROM mstr_kabupaten WHERE id_fk_provinsi = $id_pk_provinsi";
+    $result = $this->db->query($sql);
+    return $result;
+  }
 }
