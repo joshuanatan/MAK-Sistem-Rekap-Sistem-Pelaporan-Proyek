@@ -26,8 +26,7 @@
             <div class = "row">
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
-                <!--<button type = "button" class = "btn btn-primary btn-sm" data-target="#insertModal" data-toggle="modal">Tambah Data</button>-->
-                <a href = "<?php echo base_url();?>routines/sirup/load_sirup" target = "_blank" class = "btn btn-primary btn-sm">Query ke SiRUP</a>
+                <button type = "button" class = "btn btn-primary btn-sm" data-target="#insertModal" data-toggle="modal">Tambah Data</button>
               </div>
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
@@ -126,36 +125,172 @@
 </html>
 
 <div class="modal fade" id="insertModal">
-  <div class="modal-dialog modal-simple modal-top">
+  <div class="modal-dialog modal-center modal-lg">
     <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title" id="exampleModalTitle">Modal Title</h4>
+          <h4 class="modal-title" id="exampleModalTitle">Tambah Data SiRUP</h4>
       </div>
-      <form autocomplete="off">
+      <form action = "<?php echo base_url();?>sirup/insert" method = "POST">
         <div class="modal-body">
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">First Name</label>
-            <input type="text" class="form-control" name="inputFirstName" placeholder="First Name" autocomplete="off">
+            <label class="form-control-label" for="inputBasicFirstName">Kode RUP</label>
+            <input type = "text" class = "form-control" name = "kode_rup">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">First Name</label>
-            <input type="text" class="form-control" name="inputFirstName" placeholder="First Name" autocomplete="off">
+            <label class="form-control-label" for="inputBasicFirstName">Nama Paket</label>
+            <input type = "text" class = "form-control" name = "nama_paket">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">First Name</label>
-            <input type="text" class="form-control" name="inputFirstName" placeholder="First Name" autocomplete="off">
+            <label class="form-control-label" for="inputBasicFirstName">Nama KLPD</label>
+            <input type = "text" class = "form-control" name = "nama_klpd">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">First Name</label>
-            <textarea class="form-control" name="inputFirstName" placeholder="First Name" autocomplete="off"></textarea>
+            <label class="form-control-label" for="inputBasicFirstName">Satuan Kerja</label>
+            <input type = "text" class = "form-control" name = "satuan_kerja">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Tahun Anggaran</label>
+            <input type = "number" class = "form-control" name = "tahun_anggaran">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Lokasi Pekerjaan</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>No.</th>
+                <th>Provinsi</th>
+                <th>Kabupaten/Kota</th>
+                <th>Detail Lokasi</th>
+              </thead>
+              <tbody>
+                <tr id = "add_lokasi_pekerjaan_button_container">
+                  <td colspan = "4"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_lokasi_pekerjaan_row()">Tambah Lokasi Pekerjaan</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Volume Pekerjaan</label>
+            <input type = "text" class = "form-control" name = "volume_pekerjaan">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Uraian Pekerjaan</label>
+            <textarea class="form-control" name = "uraian_pekerjaan"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Spesifikasi Pekerjaan</label>
+            <textarea class="form-control" name = "spesifikasi_pekerjaan"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Produk Dalam Negeri</label>
+            <select class = "form-control" name = "produk_dalam_negeri">
+              <option value = "ya">YA</option>
+              <option value = "tidak">Tidak</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Usaha Kecil</label>
+            <select class = "form-control" name = "usaha_kecil">
+              <option value = "ya">YA</option>
+              <option value = "tidak">Tidak</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Pra DIPA/DPA</label>
+            <select class = "form-control" name = "pra_dipa_dpa">
+              <option value = "ya">YA</option>
+              <option value = "tidak">Tidak</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Sumber Dana</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>No.</th>
+                <th>Sumber Dana</th>
+                <th>T.A</th>
+                <th>KLPD</th>
+                <th>MAK</th>
+                <th>Pagu</th>
+              </thead>
+              <tbody>
+                <tr id = "add_sumber_dana_button_container">
+                  <td colspan = "6"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_sumber_dana_row()">Tambah Sumber Dana</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Jenis Pengadaan</label>
+            <input type = "text" class = "form-control" name = "jenis_pengadaan">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Total Pagu</label>
+            <input type = "text" class = "form-control" name = "total_pagu">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Metode Pemilihan</label>
+            <input type = "text" class = "form-control" name = "metode_pemilihan">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Pemanfaatan Barang/Jasa</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>#</th>
+                <th>Mulai</th>
+                <th>Akhir</th>
+              </thead>
+              <tbody>
+                <tr id = "add_pemanfaatan_barang_button_container">
+                  <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemanfaatan_barang_row()">Tambah Pemanfaatan Barang/Jasa</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Jadwal Pelaksanaan Kontrak</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>#</th>
+                <th>Mulai</th>
+                <th>Akhir</th>
+              </thead>
+              <tbody>
+                <tr id = "add_pelaksanaan_kontrak_button_container">
+                  <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pelaksanaan_kontrak_row()">Tambah Pelaksanaan Kontrak</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Jadwal Pemilihan Penyedia</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>#</th>
+                <th>Mulai</th>
+                <th>Akhir</th>
+              </thead>
+              <tbody>
+                <tr id = "add_jadwal_pemilihan_button_container">
+                  <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemilihan_penyedia_row()">Tambah Jadwal Pemilihan Penyedia</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Histori Paket</label>
+            <input type = "text" class = "form-control" name = "histori_paket">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="inputBasicFirstName">Tanggal Perbaharui Paket</label>
+            <input type = "date" class = "form-control" name = "tgl_perbarui_paket">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
@@ -239,6 +374,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
+          <a href = "<?php echo base_url();?>routines/sirup/load_sirup" target = "_blank" class = "btn btn-primary">Query ke SiRUP</a>
         </div>
       </form>
     </div>
@@ -327,3 +463,75 @@
     </div>
   </div>
 </div>
+
+<script>
+  function add_lokasi_pekerjaan_row(){
+    var count = $(".lokasi_pekerjaan_row").length;
+    var html = `
+    <tr class = "lokasi_pekerjaan_row">
+      <td>
+        <input type = "checkbox" checked name = "lokasi_pekerjaan_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "provinsi${count}"></td>
+      <td><input type = "text" class = "form-control" name = "kabupaten${count}"></td>
+      <td><input type = "text" class = "form-control" name = "detail_lokasi${count}"></td>
+    </tr>
+    `;
+    $("#add_lokasi_pekerjaan_button_container").before(html);
+  }
+  function add_sumber_dana_row(){
+    var count = $(".sumber_dana_row").length;
+    var html = `
+    <tr class = "sumber_dana_row">
+      <td>
+        <input type = "checkbox" checked name = "sumber_dana_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "sumber_dana${count}"></td>
+      <td><input type = "text" class = "form-control" name = "ta${count}"></td>
+      <td><input type = "text" class = "form-control" name = "klpd${count}"></td>
+      <td><input type = "text" class = "form-control" name = "mak${count}"></td>
+      <td><input type = "text" class = "form-control" name = "pagu${count}"></td>
+    </tr>
+    `;
+    $("#add_sumber_dana_button_container").before(html);
+  }
+  function add_pemanfaatan_barang_row(){
+    var count = $(".pemanfaatan_barang_row").length;
+    var html = `
+    <tr class = "pemanfaatan_barang_row">
+      <td>
+        <input type = "checkbox" checked name = "pemanfaatan_barang_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "mulai_pemanfaatan_barang${count}"></td>
+      <td><input type = "text" class = "form-control" name = "akhir_pemanfaatan_barang${count}"></td>
+    </tr>
+    `;
+    $("#add_pemanfaatan_barang_button_container").before(html);
+  }
+  function add_pelaksanaan_kontrak_row(){
+    var count = $(".pelaksanaan_kontrak_row").length;
+    var html = `
+    <tr class = "pelaksanaan_kontrak_row">
+      <td>
+        <input type = "checkbox" checked name = "pelaksanaan_kontrak_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "mulai_pelaksanaan_kontrak${count}"></td>
+      <td><input type = "text" class = "form-control" name = "akhir_pelaksanaan_kontrak${count}"></td>
+    </tr>
+    `;
+    $("#add_pelaksanaan_kontrak_button_container").before(html);
+  }
+  function add_pemilihan_penyedia_row(){
+    var count = $(".pemilihan_penyedia_row").length;
+    var html = `
+    <tr class = "pemilihan_penyedia_row">
+      <td>
+        <input type = "checkbox" checked name = "pemilihan_penyedia_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "mulai_pemilihan_penyedia${count}"></td>
+      <td><input type = "text" class = "form-control" name = "akhir_pemilihan_penyedia${count}"></td>
+    </tr>
+    `;
+    $("#add_jadwal_pemilihan_button_container").before(html);
+  }
+</script>

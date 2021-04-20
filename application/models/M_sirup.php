@@ -86,7 +86,7 @@ class M_sirup extends CI_Model{
     private $sirup_id_delete;
     private $id_fk_pencarian_sirup;
     
-    public function insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup){
+    public function insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup, $sirup_status){
         $data = array(
             "sirup_rup" => $sirup_rup,
             "sirup_paket" => $sirup_paket,
@@ -104,7 +104,7 @@ class M_sirup extends CI_Model{
             "sirup_metode_pemilihan" => $sirup_metode_pemilihan,
             "sirup_histori_paket" => $sirup_histori_paket,
             "sirup_tgl_perbarui_paket" => $sirup_tgl_perbarui_paket,
-            "sirup_status" => "aktif",
+            "sirup_status" => $sirup_status,
             "sirup_tgl_create" => date("Y-m-d H:i:s"),
             "sirup_id_create" => $sirup_id_create,
             "id_fk_pencarian_sirup" => $id_fk_pencarian_sirup
