@@ -202,8 +202,24 @@
                   <div class="form-group">
                       <label class="form-control-label" for="inputBasicFirstName">Kabupaten</label>
                       <br>
-                      <select name= "kabupaten" id = "select_kabupaten">
+                      <select onchange="function3()" name= "kabupaten" id = "select_kabupaten">
                       </select>
+                  </div>
+                  <div class="form-group">
+                    <table class="table table-hover dataTable table-striped w-full">
+                      <thead>
+                        <tr>
+                          <th>Rumah Sakit</th>
+                          <th>Kelas</th>
+                          <th>Alamat</th>
+                          <th>Kategori</th>
+                          <th>Checklist</th>
+                        </tr>
+                      </thead>
+                      <tbody id="table_rs">
+
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -243,6 +259,26 @@
                     html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
                 }
                 $("#select_kabupaten").html(html);
+            }
+        });
+    }
+
+    function function3(){
+      var id_kabupaten = $("#select_kabupaten").val();
+        $.ajax({
+            url:"<?php echo base_url();?>ws/user/data_rs/"+id_kabupaten,
+            type:"GET",
+            dataType:"JSON",
+            success:function(respond){
+                var html = "";
+                for(var a = 0; a<respond.length; a++){
+                    html += `<tr><td>${respond[a]['rs_nama']}</td>
+                             <td>${respond[a]['rs_kelas']}</td>
+                             <td>${respond[a]['rs_alamat']}</td>
+                             <td>${respond[a]['rs_kategori']}</td>
+                             <td><input type="checkbox" value="${respond[a]['rs_nama']}"></td></tr>`;
+                }
+                $("#table_rs").html(html);
             }
         });
     }
