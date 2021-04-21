@@ -22,7 +22,6 @@
       <div class="page-content">
         <div class="panel">
           <div class="panel-body">
-            
             <div class = "row">
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
@@ -63,9 +62,9 @@
                   <option value = "100">100</option>
                 </select>
               </div>
-            -->
+              -->
             </div>
-            <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+            <table class="table table-hover dataTable table-striped w-full">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -75,18 +74,20 @@
                   <th>Metode Pemilihan</th>
                   <th>K/L/PD</th>
                   <th>Satuan Kerja</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php for($a = 0; $a<count($sirup); $a++):?>
                 <tr>
-                  <td><?php echo $sirup[$a]["sirup_rup"];?></td>
-                  <td><?php echo $sirup[$a]["sirup_paket"];?></td>
-                  <td><?php echo $sirup[$a]["sirup_total"];?></td>
-                  <td><?php echo $sirup[$a]["sirup_jenis_pengadaan"];?></td>
-                  <td><?php echo $sirup[$a]["sirup_metode_pemilihan"];?></td>
-                  <td><?php echo $sirup[$a]["sirup_klpd"];?></td>
-                  <td><?php echo $sirup[$a]["sirup_satuan_kerja"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_rup"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_paket"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_total"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_jenis_pengadaan"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_metode_pemilihan"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_klpd"];?></td>
+                  <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_satuan_kerja"];?></td>
+                  <td><button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit_sirup(<?php echo $a;?>)"><i class = "icon md-edit"></i></button></td>
                 </tr>
                 <?php endfor;?>
               </tbody>
@@ -136,27 +137,27 @@
       <form action = "<?php echo base_url();?>sirup/insert" method = "POST">
         <div class="modal-body">
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Kode RUP</label>
+            <label class="form-control-label">Kode RUP</label>
             <input type = "text" class = "form-control" name = "kode_rup">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Nama Paket</label>
+            <label class="form-control-label">Nama Paket</label>
             <input type = "text" class = "form-control" name = "nama_paket">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Nama KLPD</label>
+            <label class="form-control-label">Nama KLPD</label>
             <input type = "text" class = "form-control" name = "nama_klpd">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Satuan Kerja</label>
+            <label class="form-control-label">Satuan Kerja</label>
             <input type = "text" class = "form-control" name = "satuan_kerja">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Tahun Anggaran</label>
+            <label class="form-control-label">Tahun Anggaran</label>
             <input type = "number" class = "form-control" name = "tahun_anggaran">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Lokasi Pekerjaan</label>
+            <label class="form-control-label">Lokasi Pekerjaan</label>
             <table class = "table table-bordered table-stripped">
               <thead>
                 <th>No.</th>
@@ -172,40 +173,40 @@
             </table>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Volume Pekerjaan</label>
+            <label class="form-control-label">Volume Pekerjaan</label>
             <input type = "text" class = "form-control" name = "volume_pekerjaan">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Uraian Pekerjaan</label>
+            <label class="form-control-label">Uraian Pekerjaan</label>
             <textarea class="form-control" name = "uraian_pekerjaan"></textarea>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Spesifikasi Pekerjaan</label>
+            <label class="form-control-label">Spesifikasi Pekerjaan</label>
             <textarea class="form-control" name = "spesifikasi_pekerjaan"></textarea>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Produk Dalam Negeri</label>
+            <label class="form-control-label">Produk Dalam Negeri</label>
             <select class = "form-control" name = "produk_dalam_negeri">
               <option value = "ya">YA</option>
               <option value = "tidak">Tidak</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Usaha Kecil</label>
+            <label class="form-control-label">Usaha Kecil</label>
             <select class = "form-control" name = "usaha_kecil">
               <option value = "ya">YA</option>
               <option value = "tidak">Tidak</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Pra DIPA/DPA</label>
+            <label class="form-control-label">Pra DIPA/DPA</label>
             <select class = "form-control" name = "pra_dipa_dpa">
               <option value = "ya">YA</option>
               <option value = "tidak">Tidak</option>
             </select>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Sumber Dana</label>
+            <label class="form-control-label">Sumber Dana</label>
             <table class = "table table-bordered table-stripped">
               <thead>
                 <th>No.</th>
@@ -223,19 +224,19 @@
             </table>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Jenis Pengadaan</label>
+            <label class="form-control-label">Jenis Pengadaan</label>
             <input type = "text" class = "form-control" name = "jenis_pengadaan">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Total Pagu</label>
+            <label class="form-control-label">Total Pagu</label>
             <input type = "text" class = "form-control" name = "total_pagu">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Metode Pemilihan</label>
+            <label class="form-control-label">Metode Pemilihan</label>
             <input type = "text" class = "form-control" name = "metode_pemilihan">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Pemanfaatan Barang/Jasa</label>
+            <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
             <table class = "table table-bordered table-stripped">
               <thead>
                 <th>#</th>
@@ -250,7 +251,7 @@
             </table>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Jadwal Pelaksanaan Kontrak</label>
+            <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
             <table class = "table table-bordered table-stripped">
               <thead>
                 <th>#</th>
@@ -265,7 +266,7 @@
             </table>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Jadwal Pemilihan Penyedia</label>
+            <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
             <table class = "table table-bordered table-stripped">
               <thead>
                 <th>#</th>
@@ -280,17 +281,329 @@
             </table>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Histori Paket</label>
+            <label class="form-control-label">Histori Paket</label>
             <input type = "text" class = "form-control" name = "histori_paket">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Tanggal Perbaharui Paket</label>
+            <label class="form-control-label">Tanggal Perbaharui Paket</label>
             <input type = "date" class = "form-control" name = "tgl_perbarui_paket">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="detailModal">
+  <div class="modal-dialog modal-center modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalTitle">Detail Data SiRUP</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-control-label">Kode RUP</label>
+          <input type = "text" class = "form-control" disabled id = "detail_kode_rup">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Nama Paket</label>
+          <input type = "text" class = "form-control" disabled id = "detail_nama_paket">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Nama KLPD</label>
+          <input type = "text" class = "form-control" disabled id = "detail_nama_klpd">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Satuan Kerja</label>
+          <input type = "text" class = "form-control" disabled id = "detail_satuan_kerja">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Tahun Anggaran</label>
+          <input type = "number" class = "form-control" disabled id = "detail_tahun_anggaran">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Lokasi Pekerjaan</label>
+          <table class = "table table-bordered table-stripped">
+            <thead>
+              <th>No.</th>
+              <th>Provinsi</th>
+              <th>Kabupaten/Kota</th>
+              <th>Detail Lokasi</th>
+            </thead>
+            <tbody id = "detail_lokasi_pekerjaan">
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Volume Pekerjaan</label>
+          <input type = "text" class = "form-control" disabled id = "detail_volume_pekerjaan">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Uraian Pekerjaan</label>
+          <textarea class="form-control" disabled id = "detail_uraian_pekerjaan"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Spesifikasi Pekerjaan</label>
+          <textarea class="form-control" disabled id = "detail_spesifikasi_pekerjaan"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Produk Dalam Negeri</label>
+          <select class = "form-control" disabled id = "detail_produk_dalam_negeri">
+            <option value = "ya">YA</option>
+            <option value = "tidak">Tidak</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Usaha Kecil</label>
+          <select class = "form-control" disabled id = "detail_usaha_kecil">
+            <option value = "ya">YA</option>
+            <option value = "tidak">Tidak</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Pra DIPA/DPA</label>
+          <select class = "form-control" disabled id = "detail_pra_dipa_dpa">
+            <option value = "ya">YA</option>
+            <option value = "tidak">Tidak</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Sumber Dana</label>
+          <table class = "table table-bordered table-stripped">
+            <thead>
+              <th>No.</th>
+              <th>Sumber Dana</th>
+              <th>T.A</th>
+              <th>KLPD</th>
+              <th>MAK</th>
+              <th>Pagu</th>
+            </thead>
+            <tbody id = "detail_sumber_dana">
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Jenis Pengadaan</label>
+          <input type = "text" class = "form-control" disabled id = "detail_jenis_pengadaan">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Total Pagu</label>
+          <input type = "text" class = "form-control" disabled id = "detail_total_pagu">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Metode Pemilihan</label>
+          <input type = "text" class = "form-control" disabled id = "detail_metode_pemilihan">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
+          <table class = "table table-bordered table-stripped">
+            <thead>
+              <th>#</th>
+              <th>Mulai</th>
+              <th>Akhir</th>
+            </thead>
+            <tbody id = "detail_pemanfaatan_barang">
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
+          <table class = "table table-bordered table-stripped">
+            <thead>
+              <th>#</th>
+              <th>Mulai</th>
+              <th>Akhir</th>
+            </thead>
+            <tbody id = "detail_pelaksanaan_kontrak">
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
+          <table class = "table table-bordered table-stripped">
+            <thead>
+              <th>#</th>
+              <th>Mulai</th>
+              <th>Akhir</th>
+            </thead>
+            <tbody id = "detail_jadwal_pemilihan">
+            </tbody>
+          </table>
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Histori Paket</label>
+          <input type = "text" class = "form-control" disabled id = "detail_histori_paket">
+        </div>
+        <div class="form-group">
+          <label class="form-control-label">Tanggal Perbaharui Paket</label>
+          <input type = "date" class = "form-control" disabled id = "detail_tgl_perbarui_paket">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog modal-center modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalTitle">Update Data SiRUP</h4>
+      </div>
+      <form action = "<?php echo base_url();?>sirup/update" type = "POST">
+        <input type = "hidden" name = "id_sirup" id = "edit_id_sirup">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-control-label">Kode RUP</label>
+            <input type = "text" class = "form-control" name = "kode_rup" id = "edit_kode_rup">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Nama Paket</label>
+            <input type = "text" class = "form-control" name = "nama_paket" id = "edit_nama_paket">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Nama KLPD</label>
+            <input type = "text" class = "form-control" name = "nama_klpd" id = "edit_nama_klpd">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Satuan Kerja</label>
+            <input type = "text" class = "form-control" name = "satuan_kerja" id = "edit_satuan_kerja">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Tahun Anggaran</label>
+            <input type = "number" class = "form-control" name = "tahun_anggaran" id = "edit_tahun_anggaran">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Lokasi Pekerjaan</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>No.</th>
+                <th>Provinsi</th>
+                <th>Kabupaten/Kota</th>
+                <th>Detail Lokasi</th>
+              </thead>
+              <tbody id = "edit_lokasi_pekerjaan">
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Volume Pekerjaan</label>
+            <input type = "text" class = "form-control" name = "volume_pekerjaan" id = "edit_volume_pekerjaan">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Uraian Pekerjaan</label>
+            <textarea class="form-control" name = "uraian_pekerjaan" id = "edit_uraian_pekerjaan"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Spesifikasi Pekerjaan</label>
+            <textarea class="form-control" name = "spesifikasi_pekerjaan" id = "edit_spesifikasi_pekerjaan"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Produk Dalam Negeri</label>
+            <select class = "form-control" name = "produk_dalam_negeri" id = "edit_produk_dalam_negeri">
+              <option value = "ya">YA</option>
+              <option value = "tidak">Tidak</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Usaha Kecil</label>
+            <select class = "form-control" name = "usaha_kecil" id = "edit_usaha_kecil">
+              <option value = "ya">YA</option>
+              <option value = "tidak">Tidak</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Pra DIPA/DPA</label>
+            <select class = "form-control" name = "pra_dipa_dpa" id = "edit_pra_dipa_dpa">
+              <option value = "ya">YA</option>
+              <option value = "tidak">Tidak</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Sumber Dana</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>No.</th>
+                <th>Sumber Dana</th>
+                <th>T.A</th>
+                <th>KLPD</th>
+                <th>MAK</th>
+                <th>Pagu</th>
+              </thead>
+              <tbody id = "edit_sumber_dana">
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jenis Pengadaan</label>
+            <input type = "text" class = "form-control" name = "jenis_pengadaan" id = "edit_jenis_pengadaan">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Total Pagu</label>
+            <input type = "text" class = "form-control" name = "total_pagu" id = "edit_total_pagu">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Metode Pemilihan</label>
+            <input type = "text" class = "form-control" name = "metode_pemilihan" id = "edit_metode_pemilihan">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>#</th>
+                <th>Mulai</th>
+                <th>Akhir</th>
+              </thead>
+              <tbody id = "edit_pemanfaatan_barang">
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>#</th>
+                <th>Mulai</th>
+                <th>Akhir</th>
+              </thead>
+              <tbody id = "edit_pelaksanaan_kontrak">
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
+            <table class = "table table-bordered table-stripped">
+              <thead>
+                <th>#</th>
+                <th>Mulai</th>
+                <th>Akhir</th>
+              </thead>
+              <tbody id = "edit_jadwal_pemilihan">
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Histori Paket</label>
+            <input type = "text" class = "form-control" id = "edit_histori_paket">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Tanggal Perbaharui Paket</label>
+            <input type = "date" class = "form-control" id = "edit_tgl_perbarui_paket">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
         </div>
       </form>
     </div>
@@ -533,5 +846,352 @@
     </tr>
     `;
     $("#add_jadwal_pemilihan_button_container").before(html);
+  }
+</script>
+<script>
+  var content = <?php echo json_encode($sirup);?>;
+  function load_detail_sirup(row){
+    $("#detail_kode_rup").val(content[row]["sirup_rup"]);
+    $("#detail_nama_paket").val(content[row]["sirup_paket"]);
+    $("#detail_nama_klpd").val(content[row]["sirup_klpd"]);
+    $("#detail_satuan_kerja").val(content[row]["sirup_satuan_kerja"]);
+    $("#detail_tahun_anggaran").val(content[row]["sirup_tahun_anggaran"]);
+    $("#detail_volume_pekerjaan").val(content[row]["sirup_volume_pekerjaan"]);
+    $("#detail_uraian_pekerjaan").val(content[row]["sirup_uraian_pekerjaan"]);
+    $("#detail_spesifikasi_pekerjaan").val(content[row]["sirup_spesifikasi_pekerjaan"]);
+    $("#detail_produk_dalam_negeri").val(content[row]["sirup_produk_dalam_negri"]);
+    $("#detail_usaha_kecil").val(content[row]["sirup_usaha_kecil"]);
+    $("#detail_pra_dipa_dpa").val(content[row]["sirup_pra_dipa"]);
+    $("#detail_jenis_pengadaan").val(content[row]["sirup_jenis_pengadaan"]);
+    $("#detail_total_pagu").val(content[row]["sirup_total"]);
+    $("#detail_metode_pemilihan").val(content[row]["sirup_metode_pemilihan"]);
+    $("#detail_histori_paket").val(content[row]["sirup_histori_paket"]);
+    $("#detail_tgl_perbarui_paket").val(content[row]["sirup_tgl_perbarui_paket"]);
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_lokasi_pekerjaan/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["lokasi_pekerjaan"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${split[0]}</td>
+              <td>${split[1]}</td>
+              <td>${split[2]}</td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td colspan = 3>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#detail_lokasi_pekerjaan").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_sumber_dana/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["sumber_dana"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${split[0]}</td>
+              <td>${split[1]}</td>
+              <td>${split[2]}</td>
+              <td>${split[3]}</td>
+              <td>${split[4]}</td>
+            </tr>
+            `;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td colspan = "5">${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#detail_sumber_dana").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_pemanfaatan_barang/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["pemanfaatan_barang"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${split[0]}</td>
+              <td>${split[1]}</td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#detail_pemanfaatan_barang").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_pelaksanaan_kontrak/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["jadwal_pelaksanaan"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${split[0]}</td>
+              <td>${split[1]}</td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#detail_pelaksanaan_kontrak").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_jadwal_pemilihan/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["pemilihan_penyedia"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${split[0]}</td>
+              <td>${split[1]}</td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#detail_jadwal_pemilihan").html(html);
+      }
+    });
+    $("#detailModal").modal("show");
+  }
+  function load_edit_sirup(row){
+    $("#edit_id_sirup").val(content[row]["id_pk_sirup"]);
+    $("#edit_kode_rup").val(content[row]["sirup_rup"]);
+    $("#edit_nama_paket").val(content[row]["sirup_paket"]);
+    $("#edit_nama_klpd").val(content[row]["sirup_klpd"]);
+    $("#edit_satuan_kerja").val(content[row]["sirup_satuan_kerja"]);
+    $("#edit_tahun_anggaran").val(content[row]["sirup_tahun_anggaran"]);
+    $("#edit_volume_pekerjaan").val(content[row]["sirup_volume_pekerjaan"]);
+    $("#edit_uraian_pekerjaan").val(content[row]["sirup_uraian_pekerjaan"]);
+    $("#edit_spesifikasi_pekerjaan").val(content[row]["sirup_spesifikasi_pekerjaan"]);
+    $("#edit_produk_dalam_negeri").val(content[row]["sirup_produk_dalam_negri"]);
+    $("#edit_usaha_kecil").val(content[row]["sirup_usaha_kecil"]);
+    $("#edit_pra_dipa_dpa").val(content[row]["sirup_pra_dipa"]);
+    $("#edit_jenis_pengadaan").val(content[row]["sirup_jenis_pengadaan"]);
+    $("#edit_total_pagu").val(content[row]["sirup_total"]);
+    $("#edit_metode_pemilihan").val(content[row]["sirup_metode_pemilihan"]);
+    $("#edit_histori_paket").val(content[row]["sirup_histori_paket"]);
+    $("#edit_tgl_perbarui_paket").val(content[row]["sirup_tgl_perbarui_paket"]);
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_lokasi_pekerjaan/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["lokasi_pekerjaan"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "id_pk_lokasi_pekerjaan${a}">
+              <td><input checked type = "checkbox" name = "edit_lokasi_pekerjaan[]" value = "${a}"></td>
+              <td><input type = "text" class = "form-control" name = "provinsi${a}" value = "${split[0]}"></td>
+              <td><input type = "text" class = "form-control" name = "kabupaten${a}" value = "${split[1]}"></td>
+              <td><input type = "text" class = "form-control" name = "detail_lokasi${a}" value = "${split[2]}"></td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td colspan = 3>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#edit_lokasi_pekerjaan").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_sumber_dana/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["sumber_dana"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" name = "id_pk_sumber_dana${a}">
+              <td><input checked type = "checkbox" name = "edit_sumber_dana[]" value = "${a}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_sumber_dana${a}" value = "${split[0]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_ta${a}" value = "${split[1]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_klpd${a}" value = "${split[2]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_mak${a}" value = "${split[3]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_pagu${a}" value = "${split[4]}"></td>
+            </tr>
+            `;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td colspan = "5">${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#edit_sumber_dana").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_pemanfaatan_barang/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["pemanfaatan_barang"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" name = "id_pk_pemanfaatan_barang${a}">
+              <td><input type = "checkbox" name = "edit_pemanfaatan_barang[]" value = "${a}" checked></td>
+              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "mulai_pemanfaatan_barang${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "akhir_pemanfaatan_barang${a}"></td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#edit_pemanfaatan_barang").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_pelaksanaan_kontrak/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["jadwal_pelaksanaan"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" name = "id_pk_jadwal_pelaksanaan${a}">
+              <td><input type = "checkbox" name = "edit_jadwal_pelaksanaan[]" value = "${a}" checked></td>
+              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "mulai_jadwal_pelaksanaan${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "akhir_jadwal_pelaksanaan${a}"></td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#edit_pelaksanaan_kontrak").html(html);
+      }
+    });
+
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/get_detail_jadwal_pemilihan/"+content[row]["id_pk_sirup"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          var split = respond[a]["pemilihan_penyedia"].split("|");
+          if(split.length > 0){
+            html += `
+            <tr>
+              <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" name = "id_pk_pemilihan_penyedia${a}">
+              <td><input type = "checkbox" name = "edit_pemilihan_penyedia[]" value = "${a}" checked></td>
+              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "mulai_pemilihan_penyedia${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "akhir_pemilihan_penyedia${a}"></td>
+            </tr>`;
+          }
+          else{
+            html += `
+            <tr>
+              <td>${a+1}</td>
+              <td>${respond[a]}</td>
+            </tr>
+            `;
+          }
+        }
+        $("#edit_jadwal_pemilihan").html(html);
+      }
+    });
+    $("#editModal").modal("show");
   }
 </script>

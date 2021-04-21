@@ -23,4 +23,34 @@ class Sirup extends CI_Controller{
         }
         echo json_encode($respond);
     }   
+    public function get_detail_lokasi_pekerjaan($id_pk_sirup){
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->get_detail_lokasi_pekerjaan($id_pk_sirup);
+        $result = $result->result_array();
+        echo json_encode($result);
+    }
+    public function get_detail_sumber_dana($id_pk_sirup){
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->get_detail_sumber_dana($id_pk_sirup);
+        $result = $result->result_array();
+        echo json_encode($result);
+    }
+    public function get_detail_pemanfaatan_barang($id_pk_sirup){
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->get_detail_pemanfaatan_barang($id_pk_sirup);
+        $result = $result->result_array();
+        echo json_encode($result);
+    }
+    public function get_detail_pelaksanaan_kontrak($id_pk_sirup){
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->get_detail_pelaksanaan_kontrak($id_pk_sirup);
+        $result = $result->result_array();
+        echo json_encode($result);
+    }
+    public function get_detail_jadwal_pemilihan($id_pk_sirup){
+        $this->load->model("m_sirup");
+        $result = $this->m_sirup->get_detail_jadwal_pemilihan($id_pk_sirup);
+        $result = $result->result_array();
+        echo json_encode($result);
+    }
 }

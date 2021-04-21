@@ -157,4 +157,39 @@ class M_sirup extends CI_Model{
         );
         return isExistsInTable("mstr_sirup",$where);
     }
+    public function get_detail_lokasi_pekerjaan($id_fk_sirup){
+        $sql = "select id_pk_lokasi_pekerjaan, lokasi_pekerjaan from tbl_sirup_lokasi_pekerjaan where id_fk_sirup = ?"; #2
+        $args = array(
+            $id_fk_sirup
+        );
+        return executeQuery($sql, $args);
+    }
+    public function get_detail_sumber_dana($id_fk_sirup){
+        $sql = "select id_pk_sumber_dana, sumber_dana from tbl_sirup_sumber_dana where id_fk_sirup = ?"; #5
+        $args = array(
+            $id_fk_sirup
+        );
+        return executeQuery($sql, $args);
+    }
+    public function get_detail_pemanfaatan_barang($id_fk_sirup){
+        $sql = "select id_pk_pemanfaatan_barang, pemanfaatan_barang from tbl_sirup_pemanfaatan_barang where id_fk_sirup = ?"; #3
+        $args = array(
+            $id_fk_sirup
+        );
+        return executeQuery($sql, $args);
+    }
+    public function get_detail_pelaksanaan_kontrak($id_fk_sirup){
+        $sql = "select id_pk_jadwal_pelaksanaan, jadwal_pelaksanaan from tbl_sirup_jadwal_pelaksanaan where id_fk_sirup = ?"; #1
+        $args = array(
+            $id_fk_sirup
+        );
+        return executeQuery($sql, $args);
+    }
+    public function get_detail_jadwal_pemilihan($id_fk_sirup){
+        $sql = "select id_pk_pemilihan_penyedia, pemilihan_penyedia from tbl_sirup_pemilihan_penyedia where id_fk_sirup = ?"; #4
+        $args = array(
+            $id_fk_sirup
+        );
+        return executeQuery($sql, $args);
+    }
 }
