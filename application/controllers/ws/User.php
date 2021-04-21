@@ -16,5 +16,10 @@ class User extends CI_Controller{
       echo json_encode($result);
     }
 
+    public function data_rs($id_pk_kabupaten){
+      $this->load->model("m_user");
+      $result = $this->m_user->get_rs($id_pk_kabupaten)->result_array();
+      echo json_encode($result);
+    }
 }
 ?>
