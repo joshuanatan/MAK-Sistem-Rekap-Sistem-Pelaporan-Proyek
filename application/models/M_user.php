@@ -63,4 +63,10 @@ class M_user extends CI_Model{
     $result = $this->db->query($sql);
     return $result;
   }
+
+  public function get_rs($id_pk_kabupaten) {
+    $sql = "SELECT rs_nama, rs_kelas, rs_alamat, rs_kategori, id_fk_kabupaten FROM mstr_rs WHERE id_fk_kabupaten = $id_pk_kabupaten";
+    $result = $this->db->query($sql);
+    return $result;
+  }
 }

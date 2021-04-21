@@ -9,14 +9,17 @@ class User extends CI_Controller{
     $this->load->model("m_user");
     $this->load->model("m_kabupaten");
     $this->load->model("m_provinsi");
+    $this->load->model("m_rumah_sakit");
     $result_user = $this->m_user->get_user();
     $result_kabupaten = $this->m_kabupaten->get_kabupaten();
     $result_provinsi = $this->m_provinsi->get_data();
+    $result_rs = $this->m_rumah_sakit->get_rs();
 
     $data = array (
       "data_user" => $result_user->result_array(),
       "data_kabupaten" => $result_kabupaten->result_array(),
-      "data_provinsi" => $result_provinsi->result_array()
+      "data_provinsi" => $result_provinsi->result_array(),
+      "data_rs" => $result_rs->result_array()
     );
 
     $this->load->view("user/index", $data);
