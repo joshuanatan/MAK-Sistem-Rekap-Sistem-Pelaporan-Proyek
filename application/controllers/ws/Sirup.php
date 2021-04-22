@@ -53,4 +53,10 @@ class Sirup extends CI_Controller{
         $result = $result->result_array();
         echo json_encode($result);
     }
+    public function delete($id_pk_sirup){
+        $this->load->model("m_sirup");
+        $this->m_sirup->delete($id_pk_sirup);
+        $result["status"] = "success";
+        echo json_encode($result);
+    }
 }

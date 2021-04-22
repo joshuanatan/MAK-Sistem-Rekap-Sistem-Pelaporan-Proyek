@@ -79,7 +79,7 @@
               </thead>
               <tbody>
                 <?php for($a = 0; $a<count($sirup); $a++):?>
-                <tr>
+                <tr id = "sirup_row<?php echo $a;?>">
                   <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_rup"];?></td>
                   <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_paket"];?></td>
                   <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_total"];?></td>
@@ -87,7 +87,10 @@
                   <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_metode_pemilihan"];?></td>
                   <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_klpd"];?></td>
                   <td onclick = "load_detail_sirup(<?php echo $a;?>)"><?php echo $sirup[$a]["sirup_satuan_kerja"];?></td>
-                  <td><button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit_sirup(<?php echo $a;?>)"><i class = "icon md-edit"></i></button></td>
+                  <td>
+                    <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit_sirup(<?php echo $a;?>)"><i class = "icon md-edit"></i></button>
+                    <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete_sirup(<?php echo $a;?>)"><i class = "icon md-delete"></i></button>
+                  </td>
                 </tr>
                 <?php endfor;?>
               </tbody>
@@ -460,7 +463,7 @@
           </button>
           <h4 class="modal-title" id="exampleModalTitle">Update Data SiRUP</h4>
       </div>
-      <form action = "<?php echo base_url();?>sirup/update" type = "POST">
+      <form action = "<?php echo base_url();?>sirup/update" method = "POST">
         <input type = "hidden" name = "id_sirup" id = "edit_id_sirup">
         <div class="modal-body">
           <div class="form-group">
@@ -492,7 +495,10 @@
                 <th>Kabupaten/Kota</th>
                 <th>Detail Lokasi</th>
               </thead>
-              <tbody id = "edit_lokasi_pekerjaan">
+              <tbody>
+                <tr id = "edit_lokasi_pekerjaan">
+                  <td colspan = 4><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_lokasi_pekerjaan_edit()">Tambah Lokasi Pekerjaan</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -540,7 +546,10 @@
                 <th>MAK</th>
                 <th>Pagu</th>
               </thead>
-              <tbody id = "edit_sumber_dana">
+              <tbody>
+                <tr id = "edit_sumber_dana">
+                  <td colspan = 6><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_sumber_dana_edit()">Tambah Sumber Dana</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -564,7 +573,10 @@
                 <th>Mulai</th>
                 <th>Akhir</th>
               </thead>
-              <tbody id = "edit_pemanfaatan_barang">
+              <tbody>
+                <tr id = "edit_pemanfaatan_barang">
+                  <td colspan = 3><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemanfaatan_barang_edit()">Tambah Pemanfaatan Barang</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -576,7 +588,10 @@
                 <th>Mulai</th>
                 <th>Akhir</th>
               </thead>
-              <tbody id = "edit_pelaksanaan_kontrak">
+              <tbody>
+                <tr id = "edit_pelaksanaan_kontrak">
+                  <td colspan = 3><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pelaksanaan_kontrak_edit()">Tambah Pelaksanaan Kontrak</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -588,22 +603,25 @@
                 <th>Mulai</th>
                 <th>Akhir</th>
               </thead>
-              <tbody id = "edit_jadwal_pemilihan">
+              <tbody>
+                <tr id = "edit_jadwal_pemilihan">
+                  <td colspan = 4><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemilihan_penyedia_edit()">Tambah Jadwal Pemilihan</button></td>
+                </tr>
               </tbody>
             </table>
           </div>
           <div class="form-group">
             <label class="form-control-label">Histori Paket</label>
-            <input type = "text" class = "form-control" id = "edit_histori_paket">
+            <input type = "text" class = "form-control" name = "histori_paket" id = "edit_histori_paket">
           </div>
           <div class="form-group">
             <label class="form-control-label">Tanggal Perbaharui Paket</label>
-            <input type = "date" class = "form-control" id = "edit_tgl_perbarui_paket">
+            <input type = "date" class = "form-control" name = "tgl_perbaharui_paket" id = "edit_tgl_perbarui_paket">
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
       </form>
     </div>
@@ -776,7 +794,24 @@
     </div>
   </div>
 </div>
-
+<div class = "modal fade" id = "konfirmasiHapusSirup">
+  <div class = "modal-dialog">
+    <div class = "modal-content">
+      <div class = "modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class = "modal-title"><h4>Konfirmasi Hapus</h4></div>
+      </div>
+      <div class = "modal-body">
+        <h5 align = "center">Apakah yakin akan menghapus data SiRUP dengan Paket <i>"<span id = "konfirmasiHapusSirupPaket"></span>"</i></h5>
+      </div>
+      <div class = "modal-footer d-flex justify-content-center">
+        <button id = "deleteButtonSirup" type = "button" class = "btn btn-danger btn-sm">Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
   function add_lokasi_pekerjaan_row(){
     var count = $(".lokasi_pekerjaan_row").length;
@@ -847,9 +882,79 @@
     `;
     $("#add_jadwal_pemilihan_button_container").before(html);
   }
+  function add_lokasi_pekerjaan_edit(){
+    var count = $(".lokasi_pekerjaan_row_edit").length;
+    var html = `
+    <tr class = "lokasi_pekerjaan_row_edit">
+      <td>
+        <input type = "checkbox" checked name = "lokasi_pekerjaan_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "provinsi${count}"></td>
+      <td><input type = "text" class = "form-control" name = "kabupaten${count}"></td>
+      <td><input type = "text" class = "form-control" name = "detail_lokasi${count}"></td>
+    </tr>
+    `;
+    $("#edit_lokasi_pekerjaan").before(html);
+  }
+  function add_sumber_dana_edit(){
+    var count = $(".sumber_dana_row_edit").length;
+    var html = `
+    <tr class = "sumber_dana_row_edit">
+      <td>
+        <input type = "checkbox" checked name = "sumber_dana_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "sumber_dana${count}"></td>
+      <td><input type = "text" class = "form-control" name = "ta${count}"></td>
+      <td><input type = "text" class = "form-control" name = "klpd${count}"></td>
+      <td><input type = "text" class = "form-control" name = "mak${count}"></td>
+      <td><input type = "text" class = "form-control" name = "pagu${count}"></td>
+    </tr>
+    `;
+    $("#edit_sumber_dana").before(html);
+  }
+  function add_pemanfaatan_barang_edit(){
+    var count = $(".pemanfaatan_barang_row_edit").length;
+    var html = `
+    <tr class = "pemanfaatan_barang_row_edit">
+      <td>
+        <input type = "checkbox" checked name = "pemanfaatan_barang_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "mulai_pemanfaatan_barang${count}"></td>
+      <td><input type = "text" class = "form-control" name = "akhir_pemanfaatan_barang${count}"></td>
+    </tr>
+    `;
+    $("#edit_pemanfaatan_barang").before(html);
+  }
+  function add_pelaksanaan_kontrak_edit(){
+    var count = $(".pelaksanaan_kontrak_row_edit").length;
+    var html = `
+    <tr class = "pelaksanaan_kontrak_row_edit">
+      <td>
+        <input type = "checkbox" checked name = "pelaksanaan_kontrak_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "mulai_pelaksanaan_kontrak${count}"></td>
+      <td><input type = "text" class = "form-control" name = "akhir_pelaksanaan_kontrak${count}"></td>
+    </tr>
+    `;
+    $("#edit_pelaksanaan_kontrak").before(html);
+  }
+  function add_pemilihan_penyedia_edit(){
+    var count = $(".pemilihan_penyedia_row_edit").length;
+    var html = `
+    <tr class = "pemilihan_penyedia_row_edit">
+      <td>
+        <input type = "checkbox" checked name = "pemilihan_penyedia_check[]" value = "${count}">
+      </td>
+      <td><input type = "text" class = "form-control" name = "mulai_pemilihan_penyedia${count}"></td>
+      <td><input type = "text" class = "form-control" name = "akhir_pemilihan_penyedia${count}"></td>
+    </tr>
+    `;
+    $("#edit_jadwal_pemilihan").before(html);
+  }
 </script>
 <script>
   var content = <?php echo json_encode($sirup);?>;
+
   function load_detail_sirup(row){
     $("#detail_kode_rup").val(content[row]["sirup_rup"]);
     $("#detail_nama_paket").val(content[row]["sirup_paket"]);
@@ -1048,24 +1153,25 @@
           var split = respond[a]["lokasi_pekerjaan"].split("|");
           if(split.length > 0){
             html += `
-            <tr>
-              <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "id_pk_lokasi_pekerjaan${a}">
+            <tr class = "lokasi_pekerjaan_row_edit">
+              <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "edit_id_pk_lokasi_pekerjaan${a}">
               <td><input checked type = "checkbox" name = "edit_lokasi_pekerjaan[]" value = "${a}"></td>
-              <td><input type = "text" class = "form-control" name = "provinsi${a}" value = "${split[0]}"></td>
-              <td><input type = "text" class = "form-control" name = "kabupaten${a}" value = "${split[1]}"></td>
-              <td><input type = "text" class = "form-control" name = "detail_lokasi${a}" value = "${split[2]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_provinsi${a}" value = "${split[0]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_kabupaten${a}" value = "${split[1]}"></td>
+              <td><input type = "text" class = "form-control" name = "edit_detail_lokasi${a}" value = "${split[2]}"></td>
             </tr>`;
           }
           else{
             html += `
-            <tr>
+            <tr class = "lokasi_pekerjaan_row_edit">
               <td>${a+1}</td>
               <td colspan = 3>${respond[a]}</td>
             </tr>
             `;
           }
         }
-        $("#edit_lokasi_pekerjaan").html(html);
+        $(".lokasi_pekerjaan_row_edit").remove();
+        $("#edit_lokasi_pekerjaan").before(html);
       }
     });
 
@@ -1079,8 +1185,8 @@
           var split = respond[a]["sumber_dana"].split("|");
           if(split.length > 0){
             html += `
-            <tr>
-              <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" name = "id_pk_sumber_dana${a}">
+            <tr class = "sumber_dana_row_edit">
+              <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" name = "edit_id_pk_sumber_dana${a}">
               <td><input checked type = "checkbox" name = "edit_sumber_dana[]" value = "${a}"></td>
               <td><input type = "text" class = "form-control" name = "edit_sumber_dana${a}" value = "${split[0]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_ta${a}" value = "${split[1]}"></td>
@@ -1092,14 +1198,15 @@
           }
           else{
             html += `
-            <tr>
+            <tr class = "sumber_dana_row_edit">
               <td>${a+1}</td>
               <td colspan = "5">${respond[a]}</td>
             </tr>
             `;
           }
         }
-        $("#edit_sumber_dana").html(html);
+        $(".sumber_dana_row_edit").remove();
+        $("#edit_sumber_dana").before(html);
       }
     });
 
@@ -1113,23 +1220,24 @@
           var split = respond[a]["pemanfaatan_barang"].split("|");
           if(split.length > 0){
             html += `
-            <tr>
-              <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" name = "id_pk_pemanfaatan_barang${a}">
+            <tr class = "pemanfaatan_barang_row_edit">
+              <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" name = "edit_id_pk_pemanfaatan_barang${a}">
               <td><input type = "checkbox" name = "edit_pemanfaatan_barang[]" value = "${a}" checked></td>
-              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "mulai_pemanfaatan_barang${a}"></td>
-              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "akhir_pemanfaatan_barang${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "edit_mulai_pemanfaatan_barang${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "edit_akhir_pemanfaatan_barang${a}"></td>
             </tr>`;
           }
           else{
             html += `
-            <tr>
+            <tr class = "pemanfaatan_barang_row_edit">
               <td>${a+1}</td>
               <td>${respond[a]}</td>
             </tr>
             `;
           }
         }
-        $("#edit_pemanfaatan_barang").html(html);
+        $(".pemanfaatan_barang_row_edit").remove();
+        $("#edit_pemanfaatan_barang").before(html);
       }
     });
 
@@ -1143,23 +1251,24 @@
           var split = respond[a]["jadwal_pelaksanaan"].split("|");
           if(split.length > 0){
             html += `
-            <tr>
-              <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" name = "id_pk_jadwal_pelaksanaan${a}">
+            <tr class = "pelaksanaan_kontrak_row_edit">
+              <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" name = "edit_id_pk_jadwal_pelaksanaan${a}">
               <td><input type = "checkbox" name = "edit_jadwal_pelaksanaan[]" value = "${a}" checked></td>
-              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "mulai_jadwal_pelaksanaan${a}"></td>
-              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "akhir_jadwal_pelaksanaan${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "edit_mulai_jadwal_pelaksanaan${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "edit_akhir_jadwal_pelaksanaan${a}"></td>
             </tr>`;
           }
           else{
             html += `
-            <tr>
+            <tr class = "pelaksanaan_kontrak_row_edit">
               <td>${a+1}</td>
               <td>${respond[a]}</td>
             </tr>
             `;
           }
         }
-        $("#edit_pelaksanaan_kontrak").html(html);
+        $(".pelaksanaan_kontrak_row_edit").remove();
+        $("#edit_pelaksanaan_kontrak").before(html);
       }
     });
 
@@ -1173,25 +1282,44 @@
           var split = respond[a]["pemilihan_penyedia"].split("|");
           if(split.length > 0){
             html += `
-            <tr>
-              <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" name = "id_pk_pemilihan_penyedia${a}">
+            <tr class = "pemilihan_penyedia_row_edit">
+              <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" name = "edit_id_pk_pemilihan_penyedia${a}">
               <td><input type = "checkbox" name = "edit_pemilihan_penyedia[]" value = "${a}" checked></td>
-              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "mulai_pemilihan_penyedia${a}"></td>
-              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "akhir_pemilihan_penyedia${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[0]}" name = "edit_mulai_pemilihan_penyedia${a}"></td>
+              <td><input type = "text" class = "form-control" value = "${split[1]}" name = "edit_akhir_pemilihan_penyedia${a}"></td>
             </tr>`;
           }
           else{
             html += `
-            <tr>
+            <tr class = "pemilihan_penyedia_row_edit">
               <td>${a+1}</td>
               <td>${respond[a]}</td>
             </tr>
             `;
           }
         }
-        $("#edit_jadwal_pemilihan").html(html);
+        $(".pemilihan_penyedia_row_edit").remove();
+        $("#edit_jadwal_pemilihan").before(html);
       }
     });
     $("#editModal").modal("show");
+  }
+  function load_delete_sirup(row){
+    $("#konfirmasiHapusSirup").modal("show");
+    $("#konfirmasiHapusSirupPaket").html(content[row]["sirup_rup"]+" - "+content[row]["sirup_paket"]);
+    $("#deleteButtonSirup").attr("onclick",`hapus_sirup(${row})`)
+  }
+  function hapus_sirup(row){
+    $.ajax({
+      url:"<?php echo base_url();?>ws/sirup/delete/"+content[row]["id_pk_sirup"],
+      type:"DELETE",
+      dataType:"JSON",
+      success:function(respond){
+        if(respond["status"] == "success"){
+          $("#sirup_row"+row).remove();
+          $("#konfirmasiHapusSirup").modal("hide");
+        }
+      }
+    })
   }
 </script>
