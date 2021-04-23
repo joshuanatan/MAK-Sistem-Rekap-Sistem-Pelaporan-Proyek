@@ -184,7 +184,7 @@
                     <option value = "Administrator">Administrator</option>
                     <option value = "Sales Engineer">Sales Engineer</option>
                     <option value = "Supervisor">Supervisor</option>
-                    <option value = "Area Sales manager">Area Sales Manager</option>
+                    <option value = "Area Sales Manager">Area Sales Manager</option>
                     <option value = "Sales Manager">Sales Manager</option>
                   </select>
                 </div>
@@ -192,7 +192,7 @@
                   <div id="drop_provinsi">
                     <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
                     <br>
-                    <select onchange = "function2()" id = "select_provinsi" name = "role">
+                    <select onchange = "function2()" id = "select_provinsi1" name = "role">
                         <option>Pilih</option>
                       <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
                         <option value = "<?php echo $data_provinsi[$a]["id_pk_provinsi"];?>"><?php echo $data_provinsi[$a]["provinsi_nama"];?></option>
@@ -217,7 +217,30 @@
                         </tr>
                       </thead>
                       <tbody id="table_rs">
-
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div id="div_supervisor_asm" style="display:none;">
+                  <div id="drop_provinsi">
+                    <label class="form-control-label" for="inputBasicFirstName">Provinsi</label>
+                    <br>
+                    <select onchange = "function4()" id = "select_provinsi2" name = "role">
+                        <option>Pilih</option>
+                      <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                        <option value = "<?php echo $data_provinsi[$a]["id_pk_provinsi"];?>"><?php echo $data_provinsi[$a]["provinsi_nama"];?></option>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <table class="table table-hover dataTable table-striped w-full">
+                      <thead>
+                        <tr>
+                          <th>ID Kabupaten</th>
+                          <th>Kabupaten</th>
+                        </tr>
+                      </thead>
+                      <tbody id="table_kabupaten">
                       </tbody>
                     </table>
                   </div>
@@ -237,18 +260,28 @@
     function function1(){
       var jabatan = $("#drop_access").val();
       if (jabatan == "Sales Engineer") {
+        $("#div_supervisor_asm").hide();
         $.ajax({
             success:function(respond){
                 $("#div_sales_engineer").removeAttr("style");
             }
         });
+      }
+      if (jabatan == "Supervisor" || jabatan == "Area Sales Manager") {
+        $("#div_sales_engineer").hide();
+        $.ajax({
+            success:function(respond){
+                $("#div_supervisor_asm").removeAttr("style");
+            }
+        });
       } else {
         $("#div_sales_engineer").hide();
+        $("#div_supervisor_asm").hide();
       }
     }
 
     function function2(){
-      var id_provinsi = $("#select_provinsi").val();
+      var id_provinsi = $("#select_provinsi1").val();
         $.ajax({
             url:"<?php echo base_url();?>ws/user/data_kabupaten/"+id_provinsi,
             type:"GET",
@@ -279,6 +312,24 @@
                              <td><input type="checkbox" value="${respond[a]['rs_nama']}"></td></tr>`;
                 }
                 $("#table_rs").html(html);
+            }
+        });
+    }
+
+    function function4(){
+      var id_provinsi = $("#select_provinsi2").val();
+        $.ajax({
+            url:"<?php echo base_url();?>ws/user/data_kabupaten/"+id_provinsi,
+            type:"GET",
+            dataType:"JSON",
+            success:function(respond){
+                var html = "";
+                for(var a = 0; a<respond.length; a++){
+                    html += `<tr><td>${respond[a]['id_pk_kabupaten']}</td>
+                             <td>${respond[a]['kabupaten_nama']}</td>
+                             <td><input type="checkbox" value="${respond[a]['kabupaten_nama']}"></td></tr>`;
+                }
+                $("#table_kabupaten").html(html);
             }
         });
     }
