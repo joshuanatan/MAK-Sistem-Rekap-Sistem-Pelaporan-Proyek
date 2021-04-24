@@ -1,13 +1,13 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 class M_produk extends CI_Model{
-    public function get_produk(){
+  public function get_produk(){
     $sql = "SELECT id_pk_produk, produk_no_katalog, produk_principal, produk_no_sap, produk_nama, produk_kategori, produk_price_list, produk_harga_ekat, produk_deskripsi,produk_foto  FROM mstr_produk WHERE produk_status = 'aktif'";
     $result = $this->db->query($sql);
     return $result;
-    }
+  }
 
-    public function insert($produk_no_katalog, $produk_principal, $produk_no_sap, $produk_nama, $produk_kategori, $produk_price_list, $produk_harga_ekat, $produk_deskripsi, $produk_foto, $produk_status) {
+  public function insert($produk_no_katalog, $produk_principal, $produk_no_sap, $produk_nama, $produk_kategori, $produk_price_list, $produk_harga_ekat, $produk_deskripsi, $produk_foto, $produk_status) {
     $data = array(
       "produk_no_katalog"=>$produk_no_katalog,
       "produk_principal"=>$produk_principal,
@@ -44,5 +44,18 @@ class M_produk extends CI_Model{
       "produk_foto"=>$produk_foto
     );
     $this->db->update("mstr_produk",$data,$where);
+  }
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (produk_no_katalog like '%".$pencarian_phrase."%' or produk_principal like '%".$pencarian_phrase."%' or produk_no_sap like '%".$pencarian_phrase."%' or produk_nama like '%".$pencarian_phrase."%' or produk_kategori like '%".$pencarian_phrase."%' or produk_price_list like '%".$pencarian_phrase."%' or produk_harga_ekat like '%".$pencarian_phrase."%' or produk_deskripsi like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "SELECT id_pk_produk, produk_no_katalog, produk_principal, produk_no_sap, produk_nama, produk_kategori, produk_price_list, produk_harga_ekat, produk_deskripsi,produk_foto  FROM mstr_produk WHERE produk_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
   }
 }

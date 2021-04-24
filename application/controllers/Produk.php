@@ -9,6 +9,37 @@ class Produk extends CI_Controller{
       $data = array (
         "datadb" => $result->result_array()
       );
+      
+      $data["field"] = array(
+        array(
+          "field_value" => "produk_no_katalog",
+          "field_text" => "No Katalog Produk"
+        ),
+        array(
+          "field_value" => "produk_principal",
+          "field_text" => "Principle"
+        ),
+        array(
+          "field_value" => "produk_no_sap",
+          "field_text" => "No SAP"
+        ),
+        array(
+          "field_value" => "produk_nama",
+          "field_text" => "Nama Produk"
+        ),
+        array(
+          "field_value" => "produk_kategori",
+          "field_text" => "Kategori"
+        ),
+        array(
+          "field_value" => "produk_price_list",
+          "field_text" => "Price List"
+        ),
+        array(
+          "field_value" => "produk_harga_ekat",
+          "field_text" => "Harga Ekatalog"
+        )
+      );
       $this->load->view("produk/index",$data);
     }
 
