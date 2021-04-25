@@ -17,6 +17,60 @@ class Rumah_sakit extends CI_Controller{
         "jenis_rs" => $jenis_rs->result_array(),
         "penyelenggara" => $penyelenggara->result_array(),
       );
+      $data["field"] = array(
+        array(
+          "field_value" => "rs_kode",
+          "field_text" => "Kode Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_nama",
+          "field_text" => "Nama Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_kelas",
+          "field_text" => "Kelas Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_direktur",
+          "field_text" => "DIrektur Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_alamat",
+          "field_text" => "Alamat Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_kategori",
+          "field_text" => "Kategori Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_kode_pos",
+          "field_text" => "Kode Pos Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_telepon",
+          "field_text" => "Telpon Rumah Sakit"
+        ),
+        array(
+          "field_value" => "rs_fax",
+          "field_text" => "Fax Rumah Sakit"
+        ),
+        array(
+          "field_value" => "nama_kabupaten",
+          "field_text" => "Kabupaten"
+        ),
+        array(
+          "field_value" => "provinsi_nama",
+          "field_text" => "Provinsi"
+        ),
+        array(
+          "field_value" => "jenis_rs",
+          "field_text" => "Jenis Rumah Sakit"
+        ),
+        array(
+          "field_value" => "penyelenggara",
+          "field_text" => "Penyelenggara"
+        ),
+      );
       $this->load->view("rumah_sakit/index",$data);
     }
 
@@ -36,7 +90,7 @@ class Rumah_sakit extends CI_Controller{
       $temp_rs_status= "aktif";
   		$this->load->model("m_rumah_sakit");
   		$this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
-      Redirect("rumah_sakit/index");
+      redirect("rumah_sakit/index");
   	}
 
     public function delete($id_pk_rs) {

@@ -31,23 +31,30 @@
               <div class = "form-group col-lg-2"></div>
               <div class = "form-group col-lg-3">
                 <h5>Kolom Pengurutan</h5>
-                <select class = "form-control"></select>
+                <select class = "form-control" onchange = "change_kolom_pengurutan()" id = "kolom_pengurutan">
+                  <?php for($a = 0; $a<count($field); $a++):?>
+                  <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                  <?php endfor;?>
+                </select>
               </div>
               <div class = "form-group col-lg-1">
                 <h5>Urutan</h5>
-                <select class = "form-control">
+                <select class = "form-control" id = "urutan_kolom" onchange = "change_arah_pengurutan()" id = "urutan_kolom">
                   <option value = "ASC">A-Z</option>
                   <option value = "DESC">Z-A</option>
                 </select>
               </div>
               <div class = "form-group col-lg-3">
                 <h5>Pencarian</h5>
-                <input type = "text" class = "form-control">
+                <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
               </div>
               <div class = "form-group col-lg-2">
                 <h5>Kolom Pencarian</h5>
-                <select class = "form-control">
-                  <option value = "ASC">Semua</option>
+                <select class = "form-control" onchange = "change_pencarian_kolom()" id = "pencarian_kolom">
+                  <option value = "all">Semua</option>
+                  <?php for($a = 0; $a<count($field); $a++):?>
+                  <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                  <?php endfor;?>
                 </select>
               </div>
             </div>
@@ -87,23 +94,6 @@
     <?php $this->load->view("includes/core-script");?>
 
   </body>
-  <script>
-  function load_kabupaten_provinsi(){
-    var id_provinsi = $("#rs_provinsi option:selected").text();
-      $.ajax({
-        url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+id_provinsi,
-        type:"GET",
-        dataType:"JSON",
-        success:function(respond){
-          var html = "";
-          for(var a = 0; a<respond.length; a++){
-              html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
-          }
-          $("#rs_kabupaten").html(html);
-        }
-      });
-  }
-  </script>
 </html>
 
 <div class="modal fade" id="deleteModal">
@@ -120,7 +110,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a href="<?php echo base_url();?>rumah_sakit/delete/<?php echo $datadb[$a]["id_pk_rs"];?>" class="btn btn-primary">Delete</a></button>
+        <button class="btn btn-primary" id = "button_delete">Delete</button>
       </div>
     </div>
   </div>
@@ -135,47 +125,51 @@
           <h4 class="modal-title">Tambah Rumah Sakit</h4>
       </div>
       <form id = "createRumahSakitForm" >
-          <div class="modal-body">
-              <div class="form-group">
-                <label class="form-control-label">Kode Rumah Sakit</label>
-                <input type="text" class="form-control" name="koderumahsakit" placeholder="Kode Rumah Sakit" autocomplete="off">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-control-label">Kode Rumah Sakit</label>
+            <input type="text" class="form-control" name="koderumahsakit" placeholder="Kode Rumah Sakit">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Nama Rumah Sakit</label>
+            <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kelas Rumah Sakit</label>
+            <br>
+            <select class="form-control" name="kelasrumahsakit">
+              <option value="none" selected disabled hidden>-- Silahkan Pilih Kelas --</option>
+              <option value="Belum Ditentukan">Belum Ditentukan</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Direktur</label>
+            <input type="text" class="form-control" name="direktur" placeholder="Direktur">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Alamat</label>
+            <textarea type="text" class="form-control" name="alamat" placeholder="Alamat"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kategori</label>
+            <br>
+            <select class="form-control" name="kategori">
+              <option value="none" selected disabled hidden>-- Silahkan Pilih Kategori --</option>
+              <option value="Pemerintah">Pemerintah</option>
+              <option value="Swasta">Swasta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Provinsi</label> <strong><a href = "<?php echo base_url();?>provinsi" target = "_blank">Buka Provinsi</a></strong>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_provinsi()"><i class = "icon md-refresh"></i></button>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Nama Rumah Sakit</label>
-                <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Kelas Rumah Sakit</label>
-                <br>
-                <select class="form-control" name="kelasrumahsakit">
-                  <option value="none" selected disabled hidden>-- Silahkan Pilih Kelas --</option>
-                  <option value="Belum Ditentukan">Belum Ditentukan</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Direktur</label>
-                <input type="text" class="form-control" name="direktur" placeholder="Direktur" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Alamat</label>
-                <textarea type="text" class="form-control" name="alamat" placeholder="Alamat" autocomplete="off"></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Kategori</label>
-                <br>
-                <select class="form-control" name="kategori">
-                  <option value="none" selected disabled hidden>-- Silahkan Pilih Kategori --</option>
-                  <option value="Pemerintah">Pemerintah</option>
-                  <option value="Swasta">Swasta</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Provinsi</label>
-                <br>
+              <div class = "col-lg-10">
                 <select class="form-control" onchange = "load_kabupaten_provinsi()" id="rs_provinsi">
                   <option value="none" selected disabled hidden>-- Silahkan Pilih Provinsi --</option>
                   <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
@@ -183,55 +177,63 @@
                     <?php endfor;?>
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Kabupaten</label>
-                <br>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kabupaten</label> <strong><a href = "<?php echo base_url();?>provinsi" target = "_blank">Buka Kabupaten</a></strong>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_kabupaten_provinsi()"><i class = "icon md-refresh"></i></button>
+              </div>
+              <div class = "col-lg-10">
                 <select class="form-control" name= "kabupaten" id = "rs_kabupaten">
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Kode Pos</label>
-                <input type="text" class="form-control" name="kodepos" placeholder="Kode Pos" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Telepon</label>
-                <input type="text" class="form-control" name="telepon" placeholder="Telepon" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Fax</label>
-                <input type="text" class="form-control" name="fax" placeholder="Fax" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Jenis Rumah Sakit</label> <strong><a href = "<?php echo base_url();?>jenis_rs" target = "_blank">Buka Jenis Rumah Sakit</a></strong>
-                <br/>
-                <div class = "row">
-                  <div class = "col-lg-2">
-                    <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_jenis_rumah_sakit()"><i class = "icon md-refresh"></i></button>
-                  </div>
-                  <div class = "col-lg-10">
-                    <select class="form-control col-lg-12" name="jenisrumahsakit" id = "dropdown_jenis">
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Penyelenggara</label> <strong><a href = "<?php echo base_url();?>penyelenggara" target = "_blank">Buka Daftar Penyelenggara</a></strong>
-                <br/>
-                <div class = "row">
-                  <div class = "col-lg-2">
-                    <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_penyelenggara()"><i class = "icon md-refresh"></i></button>
-                  </div>
-                  <div class = "col-lg-10">
-                    <select class="form-control" name="penyelenggara" id = "dropdown_penyelenggara">
-                    </select>
-                  </div>
-                </div>
-              </div>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" onclick = "create_rumah_sakit_row()" class="btn btn-primary">Save changes</button>
+          <div class="form-group">
+            <label class="form-control-label">Kode Pos</label>
+            <input type="text" class="form-control" name="kodepos" placeholder="Kode Pos">
           </div>
+          <div class="form-group">
+            <label class="form-control-label">Telepon</label>
+            <input type="text" class="form-control" name="telepon" placeholder="Telepon">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Fax</label>
+            <input type="text" class="form-control" name="fax" placeholder="Fax">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jenis Rumah Sakit</label> <strong><a href = "<?php echo base_url();?>jenis_rs" target = "_blank">Buka Jenis Rumah Sakit</a></strong>
+            <br/>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_jenis_rumah_sakit()"><i class = "icon md-refresh"></i></button>
+              </div>
+              <div class = "col-lg-10">
+                <select class="form-control dropdown_jenis" name="jenisrumahsakit" class = "">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Penyelenggara</label> <strong><a href = "<?php echo base_url();?>penyelenggara" target = "_blank">Buka Daftar Penyelenggara</a></strong>
+            <br/>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_penyelenggara()"><i class = "icon md-refresh"></i></button>
+              </div>
+              <div class = "col-lg-10">
+                <select class="form-control dropdown_penyelenggara" name="penyelenggara" class = "">
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" onclick = "create_rumah_sakit_row()" class="btn btn-primary">Save changes</button>
+        </div>
       </form>
     </div>
   </div>
@@ -243,110 +245,173 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
           </button>
-          <h4 class="modal-title">Tambah Rumah Sakit</h4>
+          <h4 class="modal-title">Update Rumah Sakit</h4>
       </div>
       <form id = "editRumahSakitForm" >
-          <div class="modal-body">
-              <div class="form-group">
-                <label class="form-control-label">Kode Rumah Sakit</label>
-                <input type="text" class="form-control" id = "edit_koderumahsakit" name="koderumahsakit" placeholder="Kode Rumah Sakit" autocomplete="off">
+        <div class="modal-body">
+          <input type = "hidden" id = "edit_idrumahsakit" name = "id_pk_rs">
+          <div class="form-group">
+            <label class="form-control-label">Kode Rumah Sakit</label>
+            <input type="text" class="form-control" id = "edit_koderumahsakit" name="koderumahsakit" placeholder="Kode Rumah Sakit">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Nama Rumah Sakit</label>
+            <input type="text" class="form-control" id = "edit_namarumahsakit" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kelas Rumah Sakit</label>
+            <br>
+            <select class="form-control" id = "edit_kelasrumahsakit" name="kelasrumahsakit">
+              <option value="none" selected disabled hidden>-- Silahkan Pilih Kelas --</option>
+              <option value="Belum Ditentukan">Belum Ditentukan</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Direktur</label>
+            <input type="text" class="form-control" id = "edit_direktur" name="direktur" placeholder="Direktur">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Alamat</label>
+            <textarea type="text" class="form-control" id = "edit_alamat" name="alamat" placeholder="Alamat"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kategori</label>
+            <br>
+            <select class="form-control" id = "edit_kategori" name="kategori">
+              <option value="none" selected disabled hidden>-- Silahkan Pilih Kategori --</option>
+              <option value="Pemerintah">Pemerintah</option>
+              <option value="Swasta">Swasta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Provinsi</label> <strong><a href = "<?php echo base_url();?>provinsi" target = "_blank">Buka Provinsi</a></strong>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_provinsi()"><i class = "icon md-refresh"></i></button>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Nama Rumah Sakit</label>
-                <input type="text" class="form-control" id = "edit_namarumahsakit" name="namarumahsakit" placeholder="Nama Rumah Sakit" autocomplete="off" required>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Kelas Rumah Sakit</label>
-                <br>
-                <select class="form-control" id = "edit_kelasrumahsakit" name="kelasrumahsakit">
-                  <option value="none" selected disabled hidden>-- Silahkan Pilih Kelas --</option>
-                  <option value="Belum Ditentukan">Belum Ditentukan</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Direktur</label>
-                <input type="text" class="form-control" id = "edit_direktur" name="direktur" placeholder="Direktur" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Alamat</label>
-                <textarea type="text" class="form-control" id = "edit_alamat" name="alamat" placeholder="Alamat" autocomplete="off"></textarea>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Kategori</label>
-                <br>
-                <select class="form-control" id = "edit_kategori" name="kategori">
-                  <option value="none" selected disabled hidden>-- Silahkan Pilih Kategori --</option>
-                  <option value="Pemerintah">Pemerintah</option>
-                  <option value="Swasta">Swasta</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Provinsi</label>
-                <br>
-                <select class="form-control" onchange = "load_kabupaten_provinsi()" id="rs_provinsi">
+              <div class = "col-lg-10">
+                <select class="form-control" onchange = "load_kabupaten_provinsi(true)" id="edit_provinsi">
                   <option value="none" selected disabled hidden>-- Silahkan Pilih Provinsi --</option>
                   <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
-                    <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
-                    <?php endfor;?>
+                  <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
+                  <?php endfor;?>
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Kabupaten</label>
-                <br>
-                <select class="form-control" id = "edit_ "kabupaten" name= "kabupaten" id = "rs_kabupaten">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kabupaten</label> <strong><a href = "<?php echo base_url();?>provinsi" target = "_blank">Buka Kabupaten</a></strong>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_kabupaten_provinsi(true)"><i class = "icon md-refresh"></i></button>
+              </div>
+              <div class = "col-lg-10">
+                <select class="form-control" id = "edit_kabupaten" name= "kabupaten">
                 </select>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Kode Pos</label>
-                <input type="text" class="form-control" id = "edit_kodepos" name="kodepos" placeholder="Kode Pos" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Telepon</label>
-                <input type="text" class="form-control" id = "edit_telepon" name="telepon" placeholder="Telepon" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Fax</label>
-                <input type="text" class="form-control" id = "edit_fax" name="fax" placeholder="Fax" autocomplete="off">
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Jenis Rumah Sakit</label> <strong><a href = "<?php echo base_url();?>jenis_rs" target = "_blank">Buka Jenis Rumah Sakit</a></strong>
-                <br/>
-                <div class = "row">
-                  <div class = "col-lg-2">
-                    <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_jenis_rumah_sakit()"><i class = "icon md-refresh"></i></button>
-                  </div>
-                  <div class = "col-lg-10">
-                    <select class="form-control col-lg-12" id = "edit_jenisrumahsakit" name="jenisrumahsakit" id = "dropdown_jenis">
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Penyelenggara</label> <strong><a href = "<?php echo base_url();?>penyelenggara" target = "_blank">Buka Daftar Penyelenggara</a></strong>
-                <br/>
-                <div class = "row">
-                  <div class = "col-lg-2">
-                    <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_penyelenggara()"><i class = "icon md-refresh"></i></button>
-                  </div>
-                  <div class = "col-lg-10">
-                    <select class="form-control" id = "edit_penyelenggara" name="penyelenggara" id = "dropdown_penyelenggara">
-                    </select>
-                  </div>
-                </div>
-              </div>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" onclick = "create_rumah_sakit_row()" class="btn btn-primary">Save changes</button>
+          <div class="form-group">
+            <label class="form-control-label">Kode Pos</label>
+            <input type="text" class="form-control" id = "edit_kodepos" name="kodepos" placeholder="Kode Pos">
           </div>
+          <div class="form-group">
+            <label class="form-control-label">Telepon</label>
+            <input type="text" class="form-control" id = "edit_telepon" name="telepon" placeholder="Telepon">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Fax</label>
+            <input type="text" class="form-control" id = "edit_fax" name="fax" placeholder="Fax">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jenis Rumah Sakit</label> <strong><a href = "<?php echo base_url();?>jenis_rs" target = "_blank">Buka Jenis Rumah Sakit</a></strong>
+            <br/>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_jenis_rumah_sakit()"><i class = "icon md-refresh"></i></button>
+              </div>
+              <div class = "col-lg-10">
+                <select class="form-control dropdown_jenis" id = "edit_jenisrumahsakit" name="jenisrumahsakit">
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Penyelenggara</label> <strong><a href = "<?php echo base_url();?>penyelenggara" target = "_blank">Buka Daftar Penyelenggara</a></strong>
+            <br/>
+            <div class = "row">
+              <div class = "col-lg-2">
+                <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "load_penyelenggara()"><i class = "icon md-refresh"></i></button>
+              </div>
+              <div class = "col-lg-10">
+                <select class="form-control dropdown_penyelenggara" id = "edit_penyelenggara" name="penyelenggara">
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" onclick = "update_rumah_sakit_row()" class="btn btn-primary">Save changes</button>
+        </div>
       </form>
     </div>
   </div>
 </div>
+<script>
+  function load_kabupaten_provinsi(edit = false){
+    var id_provinsi = "";
+    if(edit){
+      id_provinsi = $("#edit_provinsi option:selected").text();
+    }
+    else{
+      id_provinsi = $("#rs_provinsi option:selected").text();
+    }
+    $.ajax({
+      url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+id_provinsi,
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
+        }
+        if(edit){
+          $("#edit_kabupaten").html(html);
+        }
+        else{
+          $("#rs_kabupaten").html(html);
+          console.log("asdf");
+        }
+      }
+    });
+  }
+  function load_provinsi(edit = false){
+    $.ajax({
+      url:"<?php echo base_url();?>ws/provinsi/get_active_data",
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = ``;
+        for(var a = 0; a<respond["data"].length; a++){
+          html += `
+          <option value = "${respond["data"][a]["id_pk_provinsi"]}">${respond["data"][a]["provinsi_nama"]}</option>
+          `;
+        }
+        if(edit){
+          $("#edit_provinsi").html(html);
+        }
+        else{
+          $("#rs_provinsi").html(html);
+        }
+      }
+    })
+  }
+  </script>
 <script>
   var create_rumah_sakit_form = $("#createRumahSakitForm").html();
   function create_rumah_sakit_row(){
@@ -365,11 +430,40 @@
       }
     });
   }
-  function load_edit(){
+  function load_edit(row){
+    $.ajax({
+      url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+content[row]["provinsi_nama"],
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
+        }
+        $("#edit_kabupaten").html(html);
+        $("#edit_kabupaten").val(content[row]["id_fk_kabupaten"]);
+      }
+    });
 
+    $("#edit_idrumahsakit").val(content[row]["id_pk_rs"]);
+    $("#edit_koderumahsakit").val(content[row]["rs_kode"]);
+    $("#edit_namarumahsakit").val(content[row]["rs_nama"]);
+    $("#edit_kelasrumahsakit").val(content[row]["rs_kelas"]);
+    $("#edit_direktur").val(content[row]["rs_direktur"]);
+    $("#edit_alamat").val(content[row]["rs_alamat"]);
+    $("#edit_kategori").val(content[row]["rs_kategori"]);
+    $("#edit_provinsi").val(content[row]["id_fk_provinsi"]);
+    $("#edit_kodepos").val(content[row]["rs_kode_pos"]);
+    $("#edit_telepon").val(content[row]["rs_telepon"]);
+    $("#edit_fax").val(content[row]["rs_fax"]);
+    $("#edit_jenisrumahsakit").val(content[row]["id_fk_jenis_rs"]);
+    $("#edit_penyelenggara").val(content[row]["id_fk_penyelenggara"]);
+
+    $("#editModal").modal("show");
   }
   function update_rumah_sakit_row(){
-    var fd = new FormData($("#updateRumahSakitForm")[0]);
+    
+    var fd = new FormData($("#editRumahSakitForm")[0]);
     $.ajax({
       url:"<?php echo base_url();?>ws/rumah_sakit/update",
       type:"POST",
@@ -383,11 +477,12 @@
       }
     });
   }
-  function load_delete(){
-
+  function load_delete(row){
+    $("#button_delete").attr("onclick",`delete_rumah_sakit_row(${row})`);
+    $("#deleteModal").modal("show");
   }
   function delete_rumah_sakit_row(row){
-    var id_rumah_sakit = content[row]["id_pk_rumah_sakit"];
+    var id_rumah_sakit = content[row]["id_pk_rs"];
     $.ajax({
       url:`<?php echo base_url();?>ws/rumah_sakit/delete/${id_rumah_sakit}`,
       type:"DELETE",
@@ -399,7 +494,7 @@
     });
   }
 </script>
-<script>
+<script id = "script core">
   var base_url = "<?php echo base_url();?>";
   var kolom_pengurutan = "id_pk_rs";
   var arah_kolom_pengurutan = "ASC";
@@ -443,7 +538,7 @@
         content = respond["data"];
         for(var a = 0; a<respond["data"].length; a++){
           html += `
-          <tr>
+          <tr class = "rumah_sakit_row" id = "rumah_sakit_row${a}">
             <td>${respond["data"][a]["rs_kode"]}</td>
             <td>${respond["data"][a]["rs_nama"]}</td>
             <td>${respond["data"][a]["rs_kelas"]}</td>
@@ -501,7 +596,8 @@
     $(".pagination").html(html);
   }
 </script>
-<script>
+<script id = "script load jenis rs dan penyelenggara">
+  load_jenis_rumah_sakit();
   function load_jenis_rumah_sakit(){
     $.ajax({
       url:"<?php echo base_url();?>ws/rumah_sakit/get_jenis_rumah_sakit",
@@ -514,10 +610,11 @@
           <option value = ${respond["data"][a]["id_pk_jenis_rs"]}>(${respond["data"][a]["jenis_rs_kode"]}) ${respond["data"][a]["jenis_rs_nama"]}</option>
           `;
         }
-        $("#dropdown_jenis").html(html);
+        $(".dropdown_jenis").html(html);
       }
     })
   }
+  load_penyelenggara();
   function load_penyelenggara(){
     $.ajax({
       url:"<?php echo base_url();?>ws/rumah_sakit/get_penyelenggara",
@@ -530,7 +627,7 @@
           <option value = ${respond["data"][a]["id_pk_penyelenggara"]}>${respond["data"][a]["penyelenggara_nama"]}</option>
           `;
         }
-        $("#dropdown_penyelenggara").html(html);
+        $(".dropdown_penyelenggara").html(html);
       }
     })
   }
