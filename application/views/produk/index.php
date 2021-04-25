@@ -17,7 +17,7 @@
       <div class="page-header">
         <h1 class="page-title">Produk</h1>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="<?php echo base_url();?>welcome/home">Home</a></li>
           <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
           <li class="breadcrumb-item active">Produk</li>
         </ol>
@@ -108,7 +108,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title" id="exampleModalTitle">Tambah Produk</h4>
+        <h4 class="modal-title">Tambah Produk</h4>
       </div>
       <form id = "createProdukForm">
         <div class="modal-body">
