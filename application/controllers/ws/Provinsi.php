@@ -29,4 +29,10 @@ class Provinsi extends CI_Controller{
     $response["status"] = "success";
     echo json_encode($response);
   }
+  public function get_active_data(){
+    $this->load->model("m_provinsi");
+    $result = $this->m_provinsi->get_active_data();
+    $response["data"] = $result->result_array();
+    echo json_encode($response);
+  }
 }
