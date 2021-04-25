@@ -6,6 +6,11 @@ class M_provinsi extends CI_Model{
     $sql = "select id_pk_provinsi, provinsi_nama, provinsi_status, provinsi_id_create, provinsi_id_update, provinsi_id_delete, provinsi_tgl_create, provinsi_tgl_update, provinsi_tgl_delete from mstr_provinsi where provinsi_status != 'deleted' order by provinsi_nama";
     return executeQuery($sql);
   }
+  public function get_active_data(){
+    #gafilter di status gara2 ini bisa untuk menghilangkan provinsi yang gakepake aja tapi bisa diaktifin lagi kalau mau
+    $sql = "select id_pk_provinsi, provinsi_nama, provinsi_status, provinsi_id_create, provinsi_id_update, provinsi_id_delete, provinsi_tgl_create, provinsi_tgl_update, provinsi_tgl_delete from mstr_provinsi where provinsi_status = 'aktif' order by provinsi_nama";
+    return executeQuery($sql);
+  }
   public function insert($provinsi_nama, $provinsi_status, $provinsi_id_create){
     $data = array(
       "id_pk_provinsi" => $this->get_latest_id(),
