@@ -21,15 +21,26 @@ class M_Penyelenggara extends CI_Model{
     $result = $this->db->query($sql);
   }
 
-  public function edit_penyelenggara($id_pk_penyelenggara, $penyelenggara_nama, $penyelenggara_status){
+  public function edit_penyelenggara($id_pk_penyelenggara, $penyelenggara_nama){
     $where = array(
       "id_pk_penyelenggara" => $id_pk_penyelenggara
     );
     $data = array(
-      "penyelenggara_nama"=>$penyelenggara_nama,
-      "penyelenggara_status"=>$penyelenggara_status
+      "penyelenggara_nama"=>$penyelenggara_nama
     );
     $this->db->update("mstr_penyelenggara",$data,$where);
   }
-
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (penyelenggara_nama like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "SELECT id_pk_penyelenggara, penyelenggara_nama, penyelenggara_status FROM mstr_penyelenggara where penyelenggara_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
+  }
 }
