@@ -30,35 +30,35 @@
                 <h5>&nbsp;</h5>
                 <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
               </div>
+              <div class = "form-group col-lg-1">
+              </div>
               <div class = "form-group col-lg-1"></div>
               <div class = "form-group col-lg-3">
                 <h5>Kolom Pengurutan</h5>
-                <select class = "form-control"></select>
+                <select class = "form-control" onchange = "change_kolom_pengurutan()" id = "kolom_pengurutan">
+                  <?php for($a = 0; $a<count($field); $a++):?>
+                  <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                  <?php endfor;?>
+                </select>
               </div>
               <div class = "form-group col-lg-1">
                 <h5>Urutan</h5>
-                <select class = "form-control">
+                <select class = "form-control" id = "urutan_kolom" onchange = "change_arah_pengurutan()" id = "urutan_kolom">
                   <option value = "ASC">A-Z</option>
                   <option value = "DESC">Z-A</option>
                 </select>
               </div>
               <div class = "form-group col-lg-3">
                 <h5>Pencarian</h5>
-                <input type = "text" class = "form-control">
+                <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
               </div>
               <div class = "form-group col-lg-2">
                 <h5>Kolom Pencarian</h5>
-                <select class = "form-control">
-                  <option value = "ASC">Semua</option>
-                </select>
-              </div>
-              <div class = "form-group col-lg-1">
-                <h5>Jumlah Data</h5>
-                <select class = "form-control">
-                  <option value = "20">20</option>
-                  <option value = "30">30</option>
-                  <option value = "50">50</option>
-                  <option value = "100">100</option>
+                <select class = "form-control" onchange = "change_pencarian_kolom()" id = "pencarian_kolom">
+                  <option value = "all">Semua</option>
+                  <?php for($a = 0; $a<count($field); $a++):?>
+                  <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                  <?php endfor;?>
                 </select>
               </div>
             </div>
@@ -71,78 +71,11 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <?php for($a = 0; $a < count($datadb); $a++):?>
-                <tr>
-                  <td><?php echo strtoupper($datadb[$a]["jenis_rs_nama"]);?></td>
-                  <td><?php echo strtoupper($datadb[$a]["jenis_rs_kode"]);?></td>
-                  <td><?php if($datadb[$a]["jenis_rs_status"] == "aktif"):?>
-                    <button type = "button" class = "btn btn-success btn-sm">AKTIF</button>
-                    <?php else:?>
-                    <button type = "button" class = "btn btn-danger btn-sm">NONAKTIF</button>
-                    <?php endif;?>
-                  </td>
-                  <td>
-                    <button type = "button" class = "btn btn-primary btn-sm" data-target="#editJenisRS<?php echo $datadb[$a]["id_pk_jenis_rs"];?>" data-toggle="modal"><i class = "icon md-edit"></i></button>
-
-                    <div class="modal fade" id="editJenisRS<?php echo $datadb[$a]["id_pk_jenis_rs"];?>">
-                      <div class="modal-dialog modal-simple modal-center">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                            </button>
-                            <h4 class="modal-title" id="exampleModalTitle">Edit Jenis Rumah Sakit</h4>
-                          </div>
-                          <form action="<?php echo base_url();?>jenis_rs/edit" autocomplete="off" method="post" enctype="multipart/form-data">
-                            <input type="hidden" class="form-control" name="idjenisrs" value="<?php echo $datadb[$a]["id_pk_jenis_rs"];?>" autocomplete="off">
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <label class="form-control-label" for="inputBasicFirstName">Jenis Rumah Sakit</label>
-                                <input type="text" class="form-control" name="namajenisrs" value="<?php echo $datadb[$a]["jenis_rs_nama"];?>" autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-control-label" for="inputBasicFirstName">Kode Jenis Rumah Sakit</label>
-                                <input type="text" class="form-control" name="kodejenisrs" value="<?php echo $datadb[$a]["jenis_rs_kode"];?>" autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-control-label" for="inputBasicFirstName">Status</label>
-                                <br>
-                                <select class="form-control" name="statusjenisrs">
-                                  <option value="aktif"  <?php if($datadb[$a]["jenis_rs_status"]=="aktif") echo 'selected="selected"'; ?> >Aktif</option>
-                                  <option value="nonaktif" <?php if($datadb[$a]["jenis_rs_status"]=="nonaktif") echo 'selected="selected"'; ?> >Non Aktif</option>
-                                </select>
-                              </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                              <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    </td>
-                </tr>
-                <?php endfor;?>
+              <tbody id = "table_content_container">
               </tbody>
             </table>
             <nav class = "d-flex justify-content-center">
               <ul class="pagination">
-                <li class="disabled page-item">
-                  <a class="page-link" href="javascript:void(0)" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="active page-item"><a class="page-link" href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
-                <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-                <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
-                <li class="page-item"><a class="page-link" href="javascript:void(0)">5</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
               </ul>
             </nav>
           </div>
@@ -161,7 +94,7 @@
 </html>
 
 <div class="modal fade" id="modalCreate">
-  <div class="modal-dialog modal-simple modal-top">
+  <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -172,18 +105,172 @@
       <form action="<?php echo base_url();?>jenis_rs/insert" autocomplete="off" method="post" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Jenis Rumah Sakit</label>
+            <label class="form-control-label">Jenis Rumah Sakit</label>
             <input type="text" class="form-control" name="namajenisrs" placeholder="Jenis Rumah Sakit" autocomplete="off">
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="inputBasicFirstName">Kode Jenis Rumah Sakit</label>
+            <label class="form-control-label">Kode Jenis Rumah Sakit</label>
             <input type="text" class="form-control" name="kodejenisrs" placeholder="Kode Jenis Rumah Sakit" autocomplete="off">
           </div>
+        </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<div class="modal fade" id="modalUpdate">
+  <div class="modal-dialog modal-simple modal-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="exampleModalTitle">Edit Jenis Rumah Sakit</h4>
+      </div>
+      <form action="<?php echo base_url();?>jenis_rs/edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" class="form-control" name="idjenisrs" id="edit_idjenisrs">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <input type="text" class="form-control" name="namajenisrs" id="edit_namajenisrs">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Kode Jenis Rumah Sakit</label>
+            <input type="text" class="form-control" name="kodejenisrs" id="edit_kodejenisrs">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalDelete">
+  <div class="modal-dialog modal-simple modal-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Confirmation Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <a type="button" id = "delete_button" class="btn btn-primary">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var base_url = "<?php echo base_url();?>";
+  var kolom_pengurutan = "id_pk_jenis_rs";
+  var arah_kolom_pengurutan = "ASC";
+  var pencarian_phrase = "";
+  var kolom_pencarian = "all";
+  var current_page = 1;
+  var content = [];
+  reload_table();
+  function change_kolom_pengurutan(){
+    var pengurutan = $("#kolom_pengurutan").val();
+    kolom_pengurutan = pengurutan;
+    reload_table();
+  }
+  function change_arah_pengurutan(){
+    var urutan = $("#urutan_kolom").val();
+    arah_kolom_pengurutan = urutan;
+    reload_table();
+  }
+  function change_pencarian(){
+    var pencarian = $("#pencarian").val();
+    pencarian_phrase = pencarian;
+    reload_table();
+  }
+  function change_pencarian_kolom(){
+    var pencarian_kolom = $("#pencarian_kolom").val();
+    kolom_pencarian = pencarian_kolom;
+    reload_table();
+  }
+  function change_pagination(page){
+    current_page = page; 
+    reload_table();
+  }
+  function reload_table(){
+    var url = `<?php echo base_url();?>ws/jenis_rs/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
+    $.ajax({
+      url:url,
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){  
+        var html = "";
+        content = respond["data"];
+        for(var a = 0; a<respond["data"].length; a++){
+          html += `
+          <tr id = "jenis_rs_row${a}">
+            <td>${respond["data"][a]["jenis_rs_nama"]}</td>
+            <td>${respond["data"][a]["jenis_rs_kode"]}</td>
+            <td>${respond["data"][a]["jenis_rs_status"]}</td>
+            <td>
+            <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#modalUpdate"><i class = "icon md-edit"></i></button>
+            <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#modalDelete"><i class = "icon md-delete"></i></button>
+            </td>
+          </tr>
+          `;
+        }
+        $("#table_content_container").html(html);
+        pagination(respond["page"]);
+      }
+    })
+
+  }
+  function pagination(page_rules){
+    html = "";
+    if(page_rules["previous"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["before"])+')"><</a></li>';
+    }
+    else{
+        html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed"><</a></li>';
+    }
+    if(page_rules["first"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["first"])+')">'+(page_rules["first"])+'</a></li>';
+        html += '<li class="page-item"><a class="page-link">...</a></li>';
+    }
+    if(page_rules["before"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["before"])+')">'+page_rules["before"]+'</a></li>';
+    }
+    html += '<li class="page-item active"><a class="page-link" onclick = "change_pagination('+(page_rules["current"])+')">'+page_rules["current"]+'</a></li>';
+    if(page_rules["after"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["after"])+')">'+page_rules["after"]+'</a></li>';
+    }
+    if(page_rules["last"]){
+        html += '<li class="page-item"><a class="page-link">...</a></li>';
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["last"])+')">'+page_rules["last"]+'</a></li>';
+    }
+    if(page_rules["next"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["after"])+')">></a></li>';
+    }
+    else{
+        html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed">></a></li>';
+    }
+    $(".pagination").html(html);
+  }
+</script>
+<script>
+  function load_edit(row){
+    $("#edit_idjenisrs").val(content[row]["id_pk_jenis_rs"]);
+    $("#edit_namajenisrs").val(content[row]["jenis_rs_nama"]);
+    $("#edit_kodejenisrs").val(content[row]["jenis_rs_kode"]);
+    /*$("#modalUpdate").modal("show");*/
+  }
+  function load_delete(row){
+    $("#delete_button").attr("href",`${base_url}jenis_rs/delete/${content[row]["id_pk_jenis_rs"]}`);
+    /*$("#modalDelete").modal("show");*/
+  }
+</script>

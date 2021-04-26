@@ -22,16 +22,27 @@ class M_jenis_rs extends CI_Model{
     $result = $this->db->query($sql);
   }
 
-  public function edit_jenis_rs($id_pk_jenis_rs, $jenis_rs_nama, $jenis_rs_kode, $temp_jenis_rs_status){
+  public function edit_jenis_rs($id_pk_jenis_rs, $jenis_rs_nama, $jenis_rs_kode){
     $where = array(
       "id_pk_jenis_rs" => $id_pk_jenis_rs
     );
     $data = array(
       "jenis_rs_nama"=>$jenis_rs_nama,
-      "jenis_rs_kode"=>$jenis_rs_kode,
-      "jenis_rs_status"=>$jenis_rs_status
+      "jenis_rs_kode"=>$jenis_rs_kode
     );
     $this->db->update("mstr_jenis_rs",$data,$where);
   }
-
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (jenis_rs_nama like '%".$pencarian_phrase."%' or jenis_rs_kode like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "SELECT id_pk_jenis_rs, jenis_rs_nama, jenis_rs_kode, jenis_rs_status FROM mstr_jenis_rs where jenis_rs_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
+  }
 }
