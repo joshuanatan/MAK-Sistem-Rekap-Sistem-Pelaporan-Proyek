@@ -61,7 +61,6 @@
                   <?php endfor;?>
                 </select>
               </div>
-              
             </div>
             <table class="table table-hover table-striped w-full">
               <thead>
