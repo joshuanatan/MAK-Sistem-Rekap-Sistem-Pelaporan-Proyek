@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html class="no-js css-menubar" lang="en">
   <head>
@@ -30,8 +29,38 @@
           <div class="col-lg-6 col-sm-12">
             <div class="panel">
               <div class="panel-body">
+                <div class = "row">
+                  <div class = "form-group col-lg-3">
+                    <h5>Kolom Pengurutan</h5>
+                    <select class = "form-control" onchange = "change_kolom_pengurutan()" id = "kolom_pengurutan">
+                      <?php for($a = 0; $a<count($field); $a++):?>
+                      <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                      <?php endfor;?>
+                    </select>
+                  </div>
+                  <div class = "form-group col-lg-2">
+                    <h5>Urutan</h5>
+                    <select class = "form-control" id = "urutan_kolom" onchange = "change_arah_pengurutan()" id = "urutan_kolom">
+                      <option value = "ASC">A-Z</option>
+                      <option value = "DESC">Z-A</option>
+                    </select>
+                  </div>
+                  <div class = "form-group col-lg-3">
+                    <h5>Pencarian</h5>
+                    <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
+                  </div>
+                  <div class = "form-group col-lg-4">
+                    <h5>Kolom Pencarian</h5>
+                    <select class = "form-control" onchange = "change_pencarian_kolom()" id = "pencarian_kolom">
+                      <option value = "all">Semua</option>
+                      <?php for($a = 0; $a<count($field); $a++):?>
+                      <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                      <?php endfor;?>
+                    </select>
+                  </div>
+                </div>
                 <div class = "scroll-provinsi-table-wrapper">
-                  <table class="table table-hover table-striped w-full">
+                  <table class="table table-hover table-striped w-full" id = "table_content_container">
                     <thead>
                       <tr>
                         <th>Provinsi</th>
@@ -40,26 +69,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php for($a = 0; $a < count($provinsi); $a++):?>
-                      <tr class = "provinsi_row" id = "provinsi_row<?php echo $a;?>">
-                        <input type = "hidden" id = "id_provinsi<?php echo $a;?>" value = "<?php echo $provinsi[$a]["id_pk_provinsi"];?>">
-                        <input type = "hidden" id = "nama_provinsi<?php echo $a;?>" value = "<?php echo $provinsi[$a]["provinsi_nama"];?>">
-                        <input type = "hidden" id = "status_provinsi<?php echo $a;?>" value = "<?php echo $provinsi[$a]["provinsi_status"];?>">
-                        <td id = "nama_provinsi_display<?php echo $a;?>" onclick = "load_kabupaten_provinsi('<?php echo $provinsi[$a]['provinsi_nama'];?>',<?php echo $provinsi[$a]['id_pk_provinsi'];?>)"><?php echo $provinsi[$a]["provinsi_nama"];?></td>
-                        <td id = "status_provinsi_display<?php echo $a;?>" onclick = "load_kabupaten_provinsi('<?php echo $provinsi[$a]['provinsi_nama'];?>',<?php echo $provinsi[$a]['id_pk_provinsi'];?>)">
-                          <?php if($provinsi[$a]["provinsi_status"] == "aktif"):?>
-                          <button type = "button" class = "btn btn-success btn-sm">AKTIF</button>
-                          <?php else:?>
-                          <button type = "button" class = "btn btn-danger btn-sm">NONAKTIF</button>
-                          <?php endif;?>
-                        </td>
-                        <td>
-                          <button type = "button" onclick = "load_edit(<?php echo $a;?>)" class = "btn btn-primary btn-sm" data-target="#edit_provinsi" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                          <!-- Delete -->
-                          <button type = "button" onclick = "load_delete(<?php echo $a;?>)" class = "btn btn-danger btn-sm" data-target="#delete_provinsi" data-toggle="modal"><i class = "icon md-delete"></i></button>
-                        </td>
-                      </tr>
-                      <?php endfor;?>
                       <tr id = "tambah_provinsi_button_container">
                         <td colspan = 3>
                           <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambahRowProvinsi()">Tambah Provinsi</button>
@@ -67,6 +76,10 @@
                       </tr>
                     </tbody>
                   </table>
+                  <nav class = "d-flex justify-content-center">
+                    <ul class="pagination" id = "pagination">
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -75,6 +88,36 @@
           <div class="col-lg-6 col-sm-12">
             <div class="panel">
               <div class="panel-body">
+                <div class = "row">
+                  <div class = "form-group col-lg-3">
+                    <h5>Kolom Pengurutan</h5>
+                    <select class = "form-control" onchange = "change_kolom_pengurutan1()" id = "kolom_pengurutan1">
+                      <?php for($a = 0; $a<count($field1); $a++):?>
+                      <option value = "<?php echo $field1[$a]["field_value"];?>"><?php echo $field1[$a]["field_text"];?></option>
+                      <?php endfor;?>
+                    </select>
+                  </div>
+                  <div class = "form-group col-lg-2">
+                    <h5>Urutan</h5>
+                    <select class = "form-control" id = "urutan_kolom1" onchange = "change_arah_pengurutan1()">
+                      <option value = "ASC">A-Z</option>
+                      <option value = "DESC">Z-A</option>
+                    </select>
+                  </div>
+                  <div class = "form-group col-lg-3">
+                    <h5>Pencarian</h5>
+                    <input type = "text" class = "form-control" onclick = "change_pencarian1()" oninput = "change_pencarian1()" id = "pencarian1">
+                  </div>
+                  <div class = "form-group col-lg-4">
+                    <h5>Kolom Pencarian</h5>
+                    <select class = "form-control" onchange = "change_pencarian_kolom1()" id = "pencarian_kolom1">
+                      <option value = "all">Semua</option>
+                      <?php for($a = 0; $a<count($field1); $a++):?>
+                      <option value = "<?php echo $field1[$a]["field_value"];?>"><?php echo $field1[$a]["field_text"];?></option>
+                      <?php endfor;?>
+                    </select>
+                  </div>
+                </div>
                 <div class = "scroll-provinsi-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
@@ -84,12 +127,16 @@
                         <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody id = "kabupaten_container">
+                    <tbody id = "table_content_container1">
                       <tr>
                         <td colspan = 3>Silahkan Pilih Provinsi Dahulu</td>
                       </tr>
                     </tbody>
                   </table>
+                  <nav class = "d-flex justify-content-center">
+                    <ul class="pagination" id = "pagination1">
+                    </ul>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -111,53 +158,15 @@
   function load_kabupaten_provinsi(provinsi,id_provinsi){
     active_provinsi = provinsi;
     active_id_provinsi = id_provinsi;
-    $.ajax({
-      url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+provinsi,
-      data:"GET",
-      dataType:"JSON",
-      success:function(respond){
-        var html = "";
-        if(respond.length > 0){
-          for(var a = 0; a<respond.length; a++){
-            var button = "";
-            if(respond[a]["kabupaten_status"] == "aktif"){
-              button = "<button class = 'btn btn-success btn-sm'>AKTIF</button>";
-            }
-            else{
-              button = "<button class = 'btn btn-danger btn-sm'>NONAKTIF</button>";
-            }
-            html += `
-            <tr class = "kabupaten_row" id = "kabupaten_row${a}">
-              <input type = "hidden" id = "id_kabupaten${a}" value = "${respond[a]["id_pk_kabupaten"]}">
-              <input type = "hidden" id = "nama_kabupaten${a}" value = "${respond[a]["kabupaten_nama"]}">
-              <input type = "hidden" id = "status_kabupaten${a}" value = "${respond[a]["kabupaten_status"]}">
-              <td id = 'nama_kabupaten_display${a}' >${respond[a]["kabupaten_nama"]}</td>
-              <td id = 'status_kabupaten_display${a}' >${button}</td>
-              <td>
-                <button type = "button" onclick = "load_edit_kabupaten(${a})" class = "btn btn-primary btn-sm" data-target="#edit_kabupaten" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                <button type = "button" onclick = "load_delete_kabupaten(${a})" class = "btn btn-danger btn-sm" data-target="#delete_kabupaten" data-toggle="modal"><i class = "icon md-delete"></i></button>
-              </td>
-            </tr>
-            `
-          }
-        }
-        else{
-          html = "<tr><td colspan = '3'>Tidak ada kabupaten</td></tr>";
-        }
-        html += `
-          <tr id = "tambah_kabupaten_button_container">
-            <td colspan = '3'>
-              <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambahRowKabupaten()">Tambah Kabupaten</button>
-            </td>
-          </tr>
-        `;
-        $("#kabupaten_container").html(html);
-      }
-    });
+    reload_table1();
   }
 </script>
 <script>
   var row = 0;
+  var edited_row = 0;
+  var deleted_row = 0;
+</script>
+<script>
   function tambahRowProvinsi(){
     var html = `
       <tr id = "tambahRowProvinsi${row}">
@@ -189,32 +198,62 @@
       },
       success:function(respond){
         if(respond["status"] == "success"){
-          var row_official = $(".provinsi_row").length;
-          var button = "";
-          if(status_provinsi == "aktif"){
-            button = "<button class = 'btn btn-success btn-sm'>AKTIF</button>";
-          }
-          else{
-            button = "<button class = 'btn btn-danger btn-sm'>NONAKTIF</button>";
-          }
-          var html = `
-            <tr class = 'provinsi_row'>
-              <input type = "hidden" id = "nama_provinsi${row_official}" value = "${nama_provinsi}">
-              <input type = "hidden" id = "id_provinsi${row_official}" value = "${respond["last_id"]}">
-              <input type = "hidden" id = "status_provinsi${row_official}" value = "${status_provinsi}">
-              <td id = "nama_provinsi_display${row_official}">${nama_provinsi}</td>
-              <td id = "status_provinsi_display${row_official}">${button}</td>
-              <td>
-                <button type = "button" class = "btn btn-primary btn-sm" data-target="#edit_provinsi" onclick = "load_edit(${row_official})" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                <button type = "button" class = "btn btn-danger btn-sm" data-target="#delete_provinsi" onclick = "load_delete(${row_official})" data-toggle="modal"><i class = "icon md-delete"></i></button>
-              </td>
-            </tr>
-          `;
-          $("#tambahRowProvinsi"+row).before(html);
           $("#tambahRowProvinsi"+row).remove();
+          reload_table();
         }
       }
     }); 
+  }
+  function load_edit(row){
+    edited_row = row;
+    var id_provinsi = $("#id_provinsi"+row).val();
+    var nama_provinsi = $("#nama_provinsi"+row).val();
+    var status_provinsi = $("#status_provinsi"+row).val();
+    $("#id_provinsi_edit").val(id_provinsi);
+    $("#nama_provinsi_edit").val(nama_provinsi);
+    $("#status_provinsi_edit").val(status_provinsi);
+  }
+  function submit_changes(){
+    var id_provinsi_edit = $("#id_provinsi_edit").val();
+    var nama_provinsi_edit = $("#nama_provinsi_edit").val();
+    var status_provinsi_edit = $("#status_provinsi_edit").val();
+    $.ajax({
+      url:"<?php echo base_url();?>ws/provinsi/update",
+      type:"POST",
+      dataType:"JSON",
+      data:{
+        "id":id_provinsi_edit,
+        "nama":nama_provinsi_edit,
+        "status":status_provinsi_edit,
+        "id_edit":<?php echo $this->session->id_user?>
+      },
+      success:function(respond){
+        if(respond["status"] == "success"){
+          reload_table();
+        }
+        $("#edit_provinsi").modal("hide");
+      }
+    });
+  }
+  function load_delete(row){
+    deleted_row = row;
+    var id = $("#id_provinsi"+row).val();
+    $("#id_provinsi_delete").val(id);
+  }
+  function submit_delete(){
+    var id = $("#id_provinsi_delete").val();
+    $.ajax({
+      url:"<?php echo base_url();?>ws/provinsi/delete?id="+id+"&id_delete=<?php echo $this->session->id_user;?>",
+      type:"delete",
+      dataType:"JSON",
+      success:function(respond){
+        if(respond["status"] == "success"){
+          $("#provinsi_row"+deleted_row).remove();
+          reload_table();
+          $("#delete_provinsi").modal("hide");
+        }
+      }
+    });
   }
 </script>
 <script>
@@ -252,77 +291,10 @@
       },
       success:function(respond){
         if(respond["status"] == "success"){
-          var row_official = $(".kabupaten_row").length;
-          var button = "";
-          if(status_kabupaten == "aktif"){
-            button = "<button class = 'btn btn-success btn-sm'>AKTIF</button>";
-          }
-          else{
-            button = "<button class = 'btn btn-danger btn-sm'>NONAKTIF</button>";
-          }
-          var html = `
-            <tr class = 'kabupaten_row'>
-              <input type = "hidden" id = "id_kabupaten${row_official}" value = "${respond["last_id"]}">
-              <input type = "hidden" id = "nama_kabupaten${row_official}" value = "${nama_kabupaten}">
-              <input type = "hidden" id = "status_kabupaten${row_official}" value = "${status_kabupaten}">
-              <td id = "nama_kabupaten_display${row_official}">${nama_kabupaten}</td>
-              <td id = "status_kabupaten_display${row_official}">${button}</td>
-              <td>
-                <button type = "button" class = "btn btn-primary btn-sm" data-target="#edit_kabupaten" onclick = "load_edit(${row_official})" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                <button type = "button" class = "btn btn-danger btn-sm" data-target="#delete_kabupaten" onclick = "load_delete(${row_official})" data-toggle="modal"><i class = "icon md-delete"></i></button>
-              </td>
-            </tr>
-          `;
-          $("#tambahRowKabupaten"+row).before(html);
-          $("#tambahRowKabupaten"+row).remove();
+          reload_table1();
         }
       }
     }); 
-  }
-</script>
-<script>
-  var edited_row = 0;
-  function load_edit(row){
-    edited_row = row;
-    var id_provinsi = $("#id_provinsi"+row).val();
-    var nama_provinsi = $("#nama_provinsi"+row).val();
-    var status_provinsi = $("#status_provinsi"+row).val();
-    $("#id_provinsi_edit").val(id_provinsi);
-    $("#nama_provinsi_edit").val(nama_provinsi);
-    $("#status_provinsi_edit").val(status_provinsi);
-  }
-  function submit_changes(){
-    var id_provinsi_edit = $("#id_provinsi_edit").val();
-    var nama_provinsi_edit = $("#nama_provinsi_edit").val();
-    var status_provinsi_edit = $("#status_provinsi_edit").val();
-    $.ajax({
-      url:"<?php echo base_url();?>ws/provinsi/update",
-      type:"POST",
-      dataType:"JSON",
-      data:{
-        "id":id_provinsi_edit,
-        "nama":nama_provinsi_edit,
-        "status":status_provinsi_edit,
-        "id_edit":<?php echo $this->session->id_user?>
-      },
-      success:function(respond){
-        if(respond["status"] == "success"){
-          $("#id_provinsi"+edited_row).val(id_provinsi_edit);
-          $("#nama_provinsi"+edited_row).val(nama_provinsi_edit);
-          $("#status_provinsi"+edited_row).val(status_provinsi_edit);
-          $("#nama_provinsi_display"+edited_row).html(nama_provinsi_edit);
-          var button = "";
-          if(status_provinsi_edit == "aktif"){
-            button = "<button class = 'btn btn-success btn-sm'>AKTIF</button>";
-          }
-          else{
-            button = "<button class = 'btn btn-danger btn-sm'>NONAKTIF</button>";
-          }
-          $("#status_provinsi_display"+edited_row).html(button);
-        }
-        $("#edit_provinsi").modal("hide");
-      }
-    });
   }
   function load_edit_kabupaten(row){
     edited_row = row;
@@ -349,42 +321,9 @@
       },
       success:function(respond){
         if(respond["status"] == "success"){
-          $("#id_kabupaten"+edited_row).val(id_kabupaten_edit);
-          $("#nama_kabupaten"+edited_row).val(nama_kabupaten_edit);
-          $("#status_kabupaten"+edited_row).val(status_kabupaten_edit);
-          $("#nama_kabupaten_display"+edited_row).html(nama_kabupaten_edit);
-          var button = "";
-          if(status_kabupaten_edit == "aktif"){
-            button = "<button class = 'btn btn-success btn-sm'>AKTIF</button>";
-          }
-          else{
-            button = "<button class = 'btn btn-danger btn-sm'>NONAKTIF</button>";
-          }
-          $("#status_kabupaten_display"+edited_row).html(button);
+          reload_table1();
         }
         $("#edit_kabupaten").modal("hide");
-      }
-    });
-  }
-</script>
-<script>
-  var deleted_row = 0;
-  function load_delete(row){
-    deleted_row = row;
-    var id = $("#id_provinsi"+row).val();
-    $("#id_provinsi_delete").val(id);
-  }
-  function submit_delete(){
-    var id = $("#id_provinsi_delete").val();
-    $.ajax({
-      url:"<?php echo base_url();?>ws/provinsi/delete?id="+id+"&id_delete=<?php echo $this->session->id_user;?>",
-      type:"delete",
-      dataType:"JSON",
-      success:function(respond){
-        if(respond["status"] == "success"){
-          $("#provinsi_row"+deleted_row).remove();
-          $("#delete_provinsi").model("hide");
-        }
       }
     });
   }
@@ -402,7 +341,8 @@
       success:function(respond){
         if(respond["status"] == "success"){
           $("#kabupaten_row"+deleted_row).remove();
-          $("#delete_kabupaten").model("hide");
+          $("#delete_kabupaten").modal("hide");
+          reload_table1();
         }
       }
     });
@@ -508,3 +448,205 @@
     </div>
   </div>
 </div>  
+<script>
+  var base_url = "<?php echo base_url();?>";
+  var kolom_pengurutan = "id_pk_provinsi";
+  var arah_kolom_pengurutan = "ASC";
+  var pencarian_phrase = "";
+  var kolom_pencarian = "all";
+  var current_page = 1;
+  var content = [];
+  var ctrl = "provinsi";
+  reload_table();
+  function change_kolom_pengurutan(){
+    var pengurutan = $("#kolom_pengurutan").val();
+    kolom_pengurutan = pengurutan;
+    reload_table();
+  }
+  function change_arah_pengurutan(){
+    var urutan = $("#urutan_kolom").val();
+    arah_kolom_pengurutan = urutan;
+    reload_table();
+  }
+  function change_pencarian(){
+    var pencarian = $("#pencarian").val();
+    pencarian_phrase = pencarian;
+    reload_table();
+  }
+  function change_pencarian_kolom(){
+    var pencarian_kolom = $("#pencarian_kolom").val();
+    kolom_pencarian = pencarian_kolom;
+    reload_table();
+  }
+  function change_pagination(page){
+    current_page = page; 
+    reload_table();
+  }
+  function reload_table(){
+    var url = `<?php echo base_url();?>ws/${ctrl}/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
+    $.ajax({
+      url:url,
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){  
+        var html = "";
+        content = respond["data"];
+        for(var a = 0; a<respond["data"].length; a++){
+          html += `
+          <tr class = "provinsi_row" id = "provinsi_row${a}">
+            <input type = "hidden" id = "id_provinsi${a}" value = "${respond["data"][a]["id_pk_provinsi"]}">
+            <input type = "hidden" id = "nama_provinsi${a}" value = "${respond["data"][a]["provinsi_nama"]}">
+            <input type = "hidden" id = "status_provinsi${a}" value = "${respond["data"][a]["provinsi_status"]}">
+            <td id = "nama_provinsi_display${a}" onclick = "load_kabupaten_provinsi('${respond["data"][a]['provinsi_nama']}',${respond["data"][a]['id_pk_provinsi']})">${respond["data"][a]["provinsi_nama"]}</td>
+            <td id = "status_provinsi_display${a}" onclick = "load_kabupaten_provinsi('${respond["data"][a]['provinsi_nama']}',${respond["data"][a]['id_pk_provinsi']})">
+              ${respond["data"][a]["provinsi_status"]}
+            </td>
+            <td>
+              <button type = "button" onclick = "load_edit(${a})" class = "btn btn-primary btn-sm" data-target="#edit_provinsi" data-toggle="modal"><i class = "icon md-edit"></i></button>
+              <!-- Delete -->
+              <button type = "button" onclick = "load_delete(${a})" class = "btn btn-danger btn-sm" data-target="#delete_provinsi" data-toggle="modal"><i class = "icon md-delete"></i></button>
+            </td>
+          </tr>
+          `;
+        }
+        $(".provinsi_row").remove();
+        $("#tambah_provinsi_button_container").before(html);
+        pagination(respond["page"]);
+      }
+    })
+
+  }
+  function pagination(page_rules){
+    html = "";
+    if(page_rules["previous"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["before"])+')"><</a></li>';
+    }
+    else{
+        html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed"><</a></li>';
+    }
+    if(page_rules["first"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["first"])+')">'+(page_rules["first"])+'</a></li>';
+        html += '<li class="page-item"><a class="page-link">...</a></li>';
+    }
+    if(page_rules["before"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["before"])+')">'+page_rules["before"]+'</a></li>';
+    }
+    html += '<li class="page-item active"><a class="page-link" onclick = "change_pagination('+(page_rules["current"])+')">'+page_rules["current"]+'</a></li>';
+    if(page_rules["after"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["after"])+')">'+page_rules["after"]+'</a></li>';
+    }
+    if(page_rules["last"]){
+        html += '<li class="page-item"><a class="page-link">...</a></li>';
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["last"])+')">'+page_rules["last"]+'</a></li>';
+    }
+    if(page_rules["next"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination('+(page_rules["after"])+')">></a></li>';
+    }
+    else{
+        html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed">></a></li>';
+    }
+    $("#pagination").html(html);
+  }
+</script>
+<script>
+  var base_url1 = "<?php echo base_url();?>";
+  var kolom_pengurutan1 = "id_pk_kabupaten";
+  var arah_kolom_pengurutan1 = "ASC";
+  var pencarian_phrase1 = "";
+  var kolom_pencarian1 = "all";
+  var current_page1 = 1;
+  var content1 = [];
+  var ctrl1 = "kabupaten";
+  function change_kolom_pengurutan1(){
+    var pengurutan = $("#kolom_pengurutan1").val();
+    kolom_pengurutan1 = pengurutan;
+    reload_table1();
+  }
+  function change_arah_pengurutan1(){
+    var urutan = $("#urutan_kolom1").val();
+    arah_kolom_pengurutan1 = urutan;
+    reload_table1();
+  }
+  function change_pencarian1(){
+    var pencarian = $("#pencarian1").val();
+    pencarian_phrase1 = pencarian;
+    reload_table1();
+  }
+  function change_pencarian_kolom1(){
+    var pencarian_kolom = $("#pencarian_kolom1").val();
+    kolom_pencarian1 = pencarian_kolom;
+    reload_table1();
+  }
+  function change_pagination1(page){
+    current_page1 = page; 
+    reload_table1();
+  }
+  function reload_table1(){
+    var url = `<?php echo base_url();?>ws/${ctrl1}/get_data?kolom_pengurutan=${kolom_pengurutan1}&arah_kolom_pengurutan=${arah_kolom_pengurutan1}&pencarian_phrase=${pencarian_phrase1}&kolom_pencarian=${kolom_pencarian1}&current_page=${current_page1}&provinsi=${active_id_provinsi}`;
+    $.ajax({
+      url:url,
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        content1 = respond["data"];
+        for(var a = 0; a<respond["data"].length; a++){
+          html += `
+          <tr class = "kabupaten_row" id = "kabupaten_row${a}">
+            <input type = "hidden" id = "id_kabupaten${a}" value = "${respond["data"][a]["id_pk_kabupaten"]}">
+            <input type = "hidden" id = "nama_kabupaten${a}" value = "${respond["data"][a]["kabupaten_nama"]}">
+            <input type = "hidden" id = "status_kabupaten${a}" value = "${respond["data"][a]["kabupaten_status"]}">
+            <td id = 'nama_kabupaten_display${a}'>${respond["data"][a]["kabupaten_nama"]}</td>
+            <td id = 'status_kabupaten_display${a}'>${respond["data"][a]["kabupaten_status"]}</td>
+            <td>
+              <button type = "button" onclick = "load_edit_kabupaten(${a})" class = "btn btn-primary btn-sm" data-target="#edit_kabupaten" data-toggle="modal"><i class = "icon md-edit"></i></button>
+              <button type = "button" onclick = "load_delete_kabupaten(${a})" class = "btn btn-danger btn-sm" data-target="#delete_kabupaten" data-toggle="modal"><i class = "icon md-delete"></i></button>
+            </td>
+          </tr>
+          `
+        }
+        html += `
+          <tr id = "tambah_kabupaten_button_container">
+            <td colspan = '3'>
+              <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambahRowKabupaten()">Tambah Kabupaten</button>
+            </td>
+          </tr>
+        `;
+        $("#table_content_container1").html(html);
+        pagination1(respond["page"]);
+      }
+    })
+
+  }
+  function pagination1(page_rules){
+    html = "";
+    if(page_rules["previous"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination1('+(page_rules["before"])+')"><</a></li>';
+    }
+    else{
+        html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed"><</a></li>';
+    }
+    if(page_rules["first"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination1('+(page_rules["first"])+')">'+(page_rules["first"])+'</a></li>';
+        html += '<li class="page-item"><a class="page-link">...</a></li>';
+    }
+    if(page_rules["before"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination1('+(page_rules["before"])+')">'+page_rules["before"]+'</a></li>';
+    }
+    html += '<li class="page-item active"><a class="page-link" onclick = "change_pagination1('+(page_rules["current"])+')">'+page_rules["current"]+'</a></li>';
+    if(page_rules["after"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination1('+(page_rules["after"])+')">'+page_rules["after"]+'</a></li>';
+    }
+    if(page_rules["last"]){
+        html += '<li class="page-item"><a class="page-link">...</a></li>';
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination1('+(page_rules["last"])+')">'+page_rules["last"]+'</a></li>';
+    }
+    if(page_rules["next"]){
+        html += '<li class="page-item"><a class="page-link" onclick = "change_pagination1('+(page_rules["after"])+')">></a></li>';
+    }
+    else{
+        html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed">></a></li>';
+    }
+    $("#pagination1").html(html);
+  }
+</script>

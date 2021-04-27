@@ -49,4 +49,17 @@ class M_provinsi extends CI_Model{
     $result = executeQuery($sql)->result_array();
     return $result[0]["last_id"]+1;
   }
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (provinsi_nama like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "select id_pk_provinsi, provinsi_nama, provinsi_status, provinsi_id_create, provinsi_id_update, provinsi_id_delete, provinsi_tgl_create, provinsi_tgl_update, provinsi_tgl_delete from mstr_provinsi where provinsi_status != 'deleted' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
+  }
 }

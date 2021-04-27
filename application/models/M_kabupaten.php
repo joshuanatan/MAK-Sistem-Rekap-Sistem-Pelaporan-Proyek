@@ -13,7 +13,7 @@ class M_kabupaten extends CI_Model{
     return $result;
   }
   public function get_kabupaten_per_provinsi($provinsi){
-    $sql = "select id_pk_kabupaten,id_fk_provinsi,kabupaten_nama,kabupaten_status,kabupaten_id_create,kabupaten_id_update,kabupaten_id_delete,kabupaten_tgl_create,kabupaten_tgl_update,kabupaten_tgl_delete from v_detail_kabupaten where provinsi_nama = ? and kabupaten_status != 'deleted'";
+    $sql = "select id_pk_kabupaten,id_fk_provinsi,kabupaten_nama,kabupaten_status,kabupaten_id_create,kabupaten_id_update,kabupaten_id_delete,kabupaten_tgl_create,kabupaten_tgl_update,kabupaten_tgl_delete from v_detail_kabupaten where id_fk_provinsi = ? and kabupaten_status != 'deleted'";
     $args = array(
       $provinsi
     );
@@ -58,5 +58,21 @@ class M_kabupaten extends CI_Model{
     $sql = "select max(id_pk_kabupaten) as last_id from mstr_kabupaten";
     $result = executeQuery($sql)->result_array();
     return $result[0]["last_id"]+1;
+  }
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page,$provinsi){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (kabupaten_nama like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "select id_pk_kabupaten,id_fk_provinsi,kabupaten_nama,kabupaten_status,kabupaten_id_create,kabupaten_id_update,kabupaten_id_delete,kabupaten_tgl_create,kabupaten_tgl_update,kabupaten_tgl_delete from v_detail_kabupaten where id_fk_provinsi = ? and kabupaten_status != 'deleted' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    $args = array(
+      $provinsi
+    );
+    return executeQuery($sql,$provinsi);
   }
 }

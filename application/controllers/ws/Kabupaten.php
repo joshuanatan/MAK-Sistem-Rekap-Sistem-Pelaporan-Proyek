@@ -36,4 +36,21 @@ class Kabupaten extends CI_Controller{
     $response["status"] = "success";
     echo json_encode($response);
   }
+  public function get_data(){
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+    $provinsi = $this->input->get("provinsi");
+    $this->load->model("m_kabupaten");
+    $response["data"] = $this->m_kabupaten->search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page,$provinsi)->result_array();
+    #echo $this->db->last_query();
+    $total_data = $this->m_kabupaten->get_kabupaten_per_provinsi($provinsi)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page,$total_data,20);
+    
+    echo json_encode($response);
+  }
 }
