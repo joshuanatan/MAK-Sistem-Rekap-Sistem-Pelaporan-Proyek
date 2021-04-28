@@ -33,7 +33,17 @@ class User extends CI_Controller{
     $temp_user_telepon = $this->input->post('telepon');
     $temp_user_role = $this->input->post('role');
     $this->load->model("m_user");
-    $this->m_user->insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon, $temp_user_role);
+    $id_user = $this->m_user->insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon, $temp_user_role);
+
+    if($temp_user_role == "Sales Engineer"){
+
+    }
+    else if($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager"){
+
+    }
+    else{
+      
+    }
     redirect("user/index");
   }
 

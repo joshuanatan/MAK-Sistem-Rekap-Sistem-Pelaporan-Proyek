@@ -8,7 +8,6 @@ class M_user extends CI_Model{
   }
   public function insert($user_username, $user_password, $user_email, $user_telepon, $user_role){
     $data = array(
-      //"id_fk_user_level"=>$id_fk_user_level,
       "user_username" => $user_username,
       "user_password" => md5($user_password),
       "user_email" => $user_email,
@@ -16,7 +15,7 @@ class M_user extends CI_Model{
       "user_role" => $user_role,
       "user_status" => "aktif"
     );
-    $this->db->insert("mstr_user", $data);
+    return insertRow("mstr_user", $data);
   }
   public function delete($id_pk_user) {
     $data = array(
@@ -65,7 +64,7 @@ class M_user extends CI_Model{
   }
 
   public function get_rs($id_pk_kabupaten) {
-    $sql = "SELECT rs_nama, rs_kelas, rs_alamat, rs_kategori, id_fk_kabupaten FROM mstr_rs WHERE id_fk_kabupaten = $id_pk_kabupaten";
+    $sql = "SELECT id_pk_rs, rs_nama, rs_kelas, rs_alamat, rs_kategori, id_fk_kabupaten FROM mstr_rs WHERE id_fk_kabupaten = $id_pk_kabupaten and rs_status = 'aktif'";
     $result = $this->db->query($sql);
     return $result;
   }
