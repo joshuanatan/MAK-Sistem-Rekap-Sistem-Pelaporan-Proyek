@@ -366,10 +366,10 @@
   function load_kabupaten_provinsi(edit = false){
     var id_provinsi = "";
     if(edit){
-      id_provinsi = $("#edit_provinsi option:selected").text();
+      id_provinsi = $("#edit_provinsi option:selected").val();
     }
     else{
-      id_provinsi = $("#rs_provinsi option:selected").text();
+      id_provinsi = $("#rs_provinsi option:selected").val();
     }
     $.ajax({
       url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+id_provinsi,
@@ -385,7 +385,6 @@
         }
         else{
           $("#rs_kabupaten").html(html);
-          console.log("asdf");
         }
       }
     });
@@ -432,7 +431,7 @@
   }
   function load_edit(row){
     $.ajax({
-      url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+content[row]["provinsi_nama"],
+      url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+content[row]["id_fk_provinsi"],
       type:"GET",
       dataType:"JSON",
       success:function(respond){

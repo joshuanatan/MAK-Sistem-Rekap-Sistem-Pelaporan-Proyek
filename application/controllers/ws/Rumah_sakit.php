@@ -17,7 +17,7 @@ class Rumah_sakit extends CI_Controller{
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page,$total_data,20);
-    
+    #echo $this->db->last_query();
     echo json_encode($response);
   }
   public function insert() {
