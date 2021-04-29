@@ -7,18 +7,6 @@
     <title>MAK-CRM | Master User</title>
 
     <?php $this->load->view("includes/core-head") ?>
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-bs4/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-fixedheader-bs4/dataTables.fixedheader.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-fixedcolumns-bs4/dataTables.fixedcolumns.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-rowgroup-bs4/dataTables.rowgroup.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-scroller-bs4/dataTables.scroller.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-select-bs4/dataTables.select.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-responsive-bs4/dataTables.responsive.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>global/vendor/datatables.net-buttons-bs4/dataTables.buttons.bootstrap4.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/examples/css/tables/datatable.css">
-
-
-    <!-- Fonts -->
     <link rel="stylesheet" href="<?php echo base_url();?>global/fonts/font-awesome/font-awesome.css">
 
 
@@ -40,8 +28,43 @@
       <div class="page-content">
         <div class="panel">
           <div class="panel-body">
-            <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalTambahUser" data-toggle="modal">Tambah User</button>
-            <br/><br/>
+          <div class = "row">
+              <div class = "form-group col-lg-1">
+                <h5>&nbsp;</h5>
+                <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalTambahUser" data-toggle="modal">Tambah User</button>
+              </div>
+              <div class = "form-group col-lg-1">
+              </div>
+              <div class = "form-group col-lg-1"></div>
+              <div class = "form-group col-lg-3">
+                <h5>Kolom Pengurutan</h5>
+                <select class = "form-control" onchange = "change_kolom_pengurutan()" id = "kolom_pengurutan">
+                  <?php for($a = 0; $a<count($field); $a++):?>
+                  <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                  <?php endfor;?>
+                </select>
+              </div>
+              <div class = "form-group col-lg-1">
+                <h5>Urutan</h5>
+                <select class = "form-control" id = "urutan_kolom" onchange = "change_arah_pengurutan()" id = "urutan_kolom">
+                  <option value = "ASC">A-Z</option>
+                  <option value = "DESC">Z-A</option>
+                </select>
+              </div>
+              <div class = "form-group col-lg-3">
+                <h5>Pencarian</h5>
+                <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
+              </div>
+              <div class = "form-group col-lg-2">
+                <h5>Kolom Pencarian</h5>
+                <select class = "form-control" onchange = "change_pencarian_kolom()" id = "pencarian_kolom">
+                  <option value = "all">Semua</option>
+                  <?php for($a = 0; $a<count($field); $a++):?>
+                  <option value = "<?php echo $field[$a]["field_value"];?>"><?php echo $field[$a]["field_text"];?></option>
+                  <?php endfor;?>
+                </select>
+              </div>
+            </div>
             <table class="table table-hover dataTable table-striped w-full">
               <thead>
                 <tr>
@@ -53,95 +76,16 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id = "table_content_container">
                 <?php for($a = 0; $a < count($data_user); $a++):?>
-                <tr>
-                  <td><?php echo $data_user[$a]["user_role"];?></td>
-                  <td><?php echo $data_user[$a]["user_username"];?></td>
-                  <td><?php echo $data_user[$a]["user_email"];?></td>
-                  <td><?php echo $data_user[$a]["user_telepon"];?></td>
-                  <td>
-                    <?php if($data_user[$a]["user_status"] == "aktif"):?>
-                    <button type = "button" class = "btn btn-success btn-sm">AKTIF</button>
-                    <?php else:?>
-                    <button type = "button" class = "btn btn-danger btn-sm">NONAKTIF</button>
-                    <?php endif;?>
-                  </td>
-                  <td>
-                    <button type = "button" class = "btn btn-primary btn-sm" data-target="#edit_user<?php echo $data_user[$a]["id_pk_user"];?>" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                    <div class="modal fade" id="edit_user<?php echo $data_user[$a]["id_pk_user"];?>">
-                      <div class="modal-dialog modal-simple modal-center">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                            <h4 class="modal-title" id="exampleModalTitle">Edit User</h4>
-                          </div>
-                          <form action="<?php echo base_url();?>user/edit" autocomplete="off" method="post">
-                            <div class="modal-body">
-                              <div class="form-group">
-                                <input type="hidden" class="form-control" name="id_user" value="<?php echo $data_user[$a]["id_pk_user"];?>" autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-control-label">Username</label>
-                                <input type="text" class="form-control" name="username" value = "<?php echo $data_user[$a]["user_username"];?>" placeholder="Username" autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-control-label">Email</label>
-                                <input type="email" class="form-control" name="email" value = "<?php echo $data_user[$a]["user_email"];?>" placeholder="Email" autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-control-label">Telepon</label>
-                                <input type="text" class="form-control" name="telepon" value = "<?php echo $data_user[$a]["user_telepon"];?>" placeholder="Telepon" autocomplete="off">
-                              </div>
-                              <div class="form-group">
-                                <label class="form-control-label">Jabatan</label>
-                                <select onchange = "function1()" id = "select_access" class = "form-control" name = "role">
-                                  <option >Pilih</option>
-                                  <option value = "Administrator">Administrator</option>
-                                  <option <?php if($data_user[$a]["user_status"] == "Sales Engineer") echo "selected";?>value = "Sales Engineer">Sales Engineer</option>
-                                  <option <?php if($data_user[$a]["user_status"] == "Supervisor") echo "selected";?>value = "Supervisor">Supervisor</option>
-                                  <option <?php if($data_user[$a]["user_status"] == "Area Sales manager") echo "selected";?>value = "Area Sales manager">Area Sales Manager</option>
-                                  <option <?php if($data_user[$a]["user_status"] == "Sales Manager") echo "selected";?>value = "Sales Manager">Sales Manager</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                              <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Delete -->
-                    <button type = "button" class = "btn btn-danger btn-sm" data-target="#delete_user<?php echo $data_user[$a]["id_pk_user"];?>" data-toggle="modal"><i class = "icon md-delete"></i></button>
-                    <div class="modal fade" id="delete_user<?php echo $data_user[$a]["id_pk_user"];?>" aria-hidden="true">
-                      <div class="modal-dialog modal-simple modal-center">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span>
-                            </button>
-                            <h4 class="modal-title">Confirmation Delete</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Are you sure you want to delete?</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                            <a href="<?php echo base_url();?>user/delete/<?php echo $data_user[$a]["id_pk_user"];?>" class="btn btn-primary">Delete</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                
                 <?php endfor;?>
               </tbody>
             </table>
+            <nav class = "d-flex justify-content-center">
+              <ul class="pagination" id = "pagination1">
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -226,7 +170,7 @@
                 <div id="drop_provinsi">
                   <label class="form-control-label">Provinsi</label>
                   <br>
-                  <select onchange = "function4()" id = "select_provinsi2">
+                  <select onchange = "asm_change_provinsi()" id = "asm_provinsi" class = "form-control">
                       <option>Pilih</option>
                     <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
                       <option value = "<?php echo $data_provinsi[$a]["id_pk_provinsi"];?>"><?php echo $data_provinsi[$a]["provinsi_nama"];?></option>
@@ -239,13 +183,9 @@
                       <tr>
                         <th>Checklist</th>
                         <th>Provinsi</th>
-                        <th>Kabupaten</th>
                       </tr>
                     </thead>
-                    <tbody id="table_kabupaten">
-                      <tr id = "tambah_kabupaten_supervisor_row_button_container">
-                        <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambah_kabupaten_supervisor_row()">Tambah Kabupaten</button></td>
-                      </tr>
+                    <tbody id="asm_table_kabupaten">
                     </tbody>
                   </table>
                 </div>
@@ -256,6 +196,143 @@
               <button type="button" onclick = "insert_row()" class="btn btn-primary">Save changes</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modalUpdateUser">
+      <div class="modal-dialog modal-simple modal-center">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title" id="exampleModalTitle">Edit User</h4>
+          </div>
+          <form id = "update_form">
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="hidden" class="form-control" name="id_user" id = "edit_id_user">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Username</label>
+                <input type="text" class="form-control" name="username" id = "edit_username" placeholder="username">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Email</label>
+                <input type="email" class="form-control" name="email" id = "edit_email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Telepon</label>
+                <input type="text" class="form-control" name="telepon" id = "edit_telepon" placeholder="Telepon">
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Jabatan</label>
+                <select class = "form-control" name = "role" id = "edit_role" onchange = "edit_change_access()">
+                  <option >Pilih</option>
+                  <option value = "Administrator">Administrator</option>
+                  <option value = "Sales Engineer">Sales Engineer</option>
+                  <option value = "Supervisor">Supervisor</option>
+                  <option value = "Area Sales Manager">Area Sales Manager</option>
+                  <option value = "Sales Manager">Sales Manager</option>
+                </select>
+              </div>
+              <div id="edit_div_sales_engineer">
+                <div class = "form-group">
+                  <label class="form-control-label">Provinsi</label>
+                  <br>
+                  <select onchange = "edit_sales_engineer_change_provinsi()" class = "form-control" id = "edit_select_provinsi1">
+                    <option>Pilih</option>
+                    <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                    <option value = "<?php echo $data_provinsi[$a]["id_pk_provinsi"];?>"><?php echo $data_provinsi[$a]["provinsi_nama"];?></option>
+                    <?php endfor; ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Kabupaten</label>
+                  <br>
+                  <select onchange="edit_sales_engineer_change_kabupaten()" class = "form-control" name= "kabupaten" id = "edit_select_kabupaten">
+                  </select>
+                </div>
+                <div class="form-group">
+                  <h5>Daftar Rumah Sakit</h5>
+                  <table class="table table-hover dataTable table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Checklist</th>
+                        <th>Rumah Sakit</th>
+                        <th>Kelas</th>
+                        <th>Alamat</th>
+                        <th>Kategori</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_table_rs">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div id="edit_div_supervisor_asm">
+                <div id="drop_provinsi" class = "form-group">
+                  <label class="form-control-label">Provinsi</label>
+                  <br>
+                  <select onchange = "asm_change_provinsi()" id = "edit_asm_provinsi" class = "form-control">
+                    <option>Pilih</option>
+                    <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                    <option value = "<?php echo $data_provinsi[$a]["id_pk_provinsi"];?>"><?php echo $data_provinsi[$a]["provinsi_nama"];?></option>
+                    <?php endfor; ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Assigned Kabupaten</label>
+                  <table class="table table-hover dataTable table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Checklist</th>
+                        <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_asm_table_kabupaten">
+                    </tbody>
+                  </table>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Unassigned Kabupaten</label>
+                  <table class="table table-hover dataTable table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Checklist</th>
+                        <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_asm_table_kabupaten_unassigned">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modalDeleteUser">
+      <div class="modal-dialog modal-simple modal-center">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title">Confirmation Delete</h4>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <a id = "delete_button" class="btn btn-primary">Delete</a>
+          </div>
         </div>
       </div>
     </div>
@@ -331,44 +408,36 @@
       <option value = "${provinsi[a]["id_pk_provinsi"]}">${provinsi[a]["provinsi_nama"]}</option>
     `;
   }
-  function tambah_kabupaten_supervisor_row(){
-    var count = $(".kabupaten_supervisor_row").length;
-    var html = `
-      <tr class = "kabupaten_supervisor_row">
-        <td><input type = "checkbox" value = ${count} name = "kabupaten_supervisor_check[]"></td>
-        <td><select class = "form-control" name = "provinsi${count}" id = "tambah_provinsi_row${count}">${option_provinsi}</select></td>
-        <td><select class = "form-control" name = "kabupaten${count}" id = "tambah_kabupaten_row${count}"></select></td>
-      </tr>
-    `;
-    $("#tambah_kabupaten_supervisor_row_button_container").before(html);
-  }
-  function function4(){
-    var id_provinsi = $("#select_provinsi2").val();
-      $.ajax({
-          url:"<?php echo base_url();?>ws/user/data_kabupaten/"+id_provinsi,
-          type:"GET",
-          dataType:"JSON",
-          success:function(respond){
-              var html = "";
-              for(var a = 0; a<respond.length; a++){
-                  html += `<tr><td>${respond[a]['id_pk_kabupaten']}</td>
-                          <td>${respond[a]['kabupaten_nama']}</td>
-                          <td><input type="checkbox" value="${respond[a]['kabupaten_nama']}"></td></tr>`;
-              }
-              $("#table_kabupaten").html(html);
-          }
-      });
+  function asm_change_provinsi(){
+    var id_provinsi = $("#asm_provinsi").val();
+    $.ajax({
+      url:"<?php echo base_url();?>ws/user/data_kabupaten/"+id_provinsi,
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          html += `
+            <tr>
+              <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+              <td>${respond[a]['kabupaten_nama']}</td>
+            </tr>`;
+        }
+        $("#asm_table_kabupaten").html(html);
+      }
+    });
   }
 </script>
 <script>
   var base_url = "<?php echo base_url();?>";
-  var kolom_pengurutan = "id_pk_produk";
+  var kolom_pengurutan = "id_pk_user";
   var arah_kolom_pengurutan = "ASC";
   var pencarian_phrase = "";
   var kolom_pencarian = "all";
   var current_page = 1;
+  var ctrl = "user";
   var content = [];
-  /*reload_table();*/
+  reload_table();
   function change_kolom_pengurutan(){
     var pengurutan = $("#kolom_pengurutan").val();
     kolom_pengurutan = pengurutan;
@@ -394,7 +463,7 @@
     reload_table();
   }
   function reload_table(){
-    var url = `<?php echo base_url();?>ws/produk/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
+    var url = `<?php echo base_url();?>ws/${ctrl}/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
     $.ajax({
       url:url,
       type:"GET",
@@ -404,22 +473,16 @@
         content = respond["data"];
         for(var a = 0; a<respond["data"].length; a++){
           html += `
-          <tr id = "produk_row${a}">
+          <tr class = "user_row" id = "user_row${a}">
+            <td>${respond["data"][a]["user_role"]}</td>
+            <td>${respond["data"][a]["user_username"]}</td>
+            <td>${respond["data"][a]["user_email"]}</td>
+            <td>${respond["data"][a]["user_telepon"]}</td>
+            <td>${respond["data"][a]["user_status"]}</td>
             <td>
-              <a class="inline-block" href="${base_url}docs/upload/image/produk/${respond["data"][a]["produk_foto"]}" data-plugin="magnificPopup" data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom" data-zoom='{"enabled": "true","duration":"300"}'>
-              <img class="img-fluid" src="${base_url}docs/upload/image/produk/${respond["data"][a]["produk_foto"]}" alt="..." width="220"/>
-            </td>
-            <td>${respond["data"][a]["produk_no_katalog"]}</td>
-            <td>${respond["data"][a]["produk_principal"]}</td>
-            <td>${respond["data"][a]["produk_no_sap"]}</td>
-            <td>${respond["data"][a]["produk_nama"]}</td>
-            <td>${respond["data"][a]["produk_kategori"]}</td>
-            <td>${respond["data"][a]["produk_price_list"]}</td>
-            <td>${respond["data"][a]["produk_harga_ekat"]}</td>
-            <td>${respond["data"][a]["produk_deskripsi"]}</td>
-            <td>
-            <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
-            <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
+              <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle="modal" data-target = "#modalUpdateUser"><i class = "icon md-edit"></i></button>
+              <!-- Delete -->
+              <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle="modal" data-target = "#modalUpdateUser"><i class = "icon md-delete"></i></button>
             </td>
           </tr>
           `;
@@ -473,8 +536,65 @@
       processData: false,
       success:function(respond){
         $("#modalTambahUser").modal("hide");
-        /*reload_table();*/
+        reload_table();
       }
     });
+  }
+  function load_edit(row){
+    $("#edit_id_user").val(content[row]["id_pk_user"]);
+    $("#edit_username").val(content[row]["user_username"]);
+    $("#edit_email").val(content[row]["user_email"]);
+    $("#edit_telepon").val(content[row]["user_telepon"]);
+    $("#edit_role").val(content[row]["user_role"].trim());
+
+    if (content[row]["user_role"].trim() == "Sales Engineer") {
+      $("#edit_div_supervisor_asm").hide();
+      $("#edit_div_sales_engineer").show();
+    }
+    else if (content[row]["user_role"].trim() == "Supervisor" || content[row]["user_role"].trim() == "Area Sales Manager") {
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_supervisor_asm").show();
+      var id_provinsi = 0;
+      $.ajax({
+        url:`<?php echo base_url();?>ws/user/get_selected_kabupaten/${content[row]["id_pk_user"]}`,
+        type:"GET",
+        async: false,
+        dataType:"JSON",
+        success:function(respond){
+          var html = "";
+          for(var a = 0; a<respond.length; a++){
+            html += `
+              <tr>
+                <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+                <td>${respond[a]['kabupaten_nama']}</td>
+              </tr>`;
+          }
+          $("#edit_asm_table_kabupaten").html(html);
+          id_provinsi = respond[0]["id_fk_provinsi"];
+          $("#edit_asm_provinsi").val(respond[0]["id_fk_provinsi"]);
+        }
+      });
+      $.ajax({
+        url:`<?php echo base_url();?>ws/user/get_unselected_kabupaten/${content[row]["id_pk_user"]}/${id_provinsi}`,
+        type:"GET",
+        dataType:"JSON",
+        success:function(respond){
+          var html = "";
+          for(var a = 0; a<respond.length; a++){
+            html += `
+              <tr>
+                <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+                <td>${respond[a]['kabupaten_nama']}</td>
+              </tr>`;
+          }
+          $("#edit_asm_table_kabupaten_unassigned").html(html);
+        }
+      })
+    } 
+    else {
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_supervisor_asm").hide();
+    }
+    console.log(content[row]["user_role"].trim());
   }
 </script>

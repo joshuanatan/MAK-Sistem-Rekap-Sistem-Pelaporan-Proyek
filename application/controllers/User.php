@@ -21,7 +21,24 @@ class User extends CI_Controller{
       "data_provinsi" => $result_provinsi->result_array(),
       "data_rs" => $result_rs->result_array()
     );
-
+    $data["field"] = array(
+      array(
+        "field_value" => "user_role",
+        "field_text" => "User Role"
+      ),
+      array(
+        "field_value" => "user_username",
+        "field_text" => "Username"
+      ),
+      array(
+        "field_value" => "user_email",
+        "field_text" => "Email"
+      ),
+      array(
+        "field_value" => "user_telpon",
+        "field_text" => "Telpon"
+      ),
+    );
     $this->load->view("user/index", $data);
   }
 

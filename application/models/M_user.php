@@ -68,4 +68,17 @@ class M_user extends CI_Model{
     $result = $this->db->query($sql);
     return $result;
   }
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (user_role like '%".$pencarian_phrase."%' or user_username like '%".$pencarian_phrase."%' or user_email like '%".$pencarian_phrase."%' or user_telepon like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "select id_pk_user, user_role, user_username, user_email, user_telepon, user_status, user_tgl_create, user_tgl_update, user_tgl_delete, user_id_create, user_id_update, user_id_delete FROM mstr_user WHERE user_status='aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
+  }
 }

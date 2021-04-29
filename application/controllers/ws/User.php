@@ -42,11 +42,38 @@ class User extends CI_Controller{
       }
     }
     else if($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager"){
+      $this->load->model("m_user_kabupaten");
+      $asm_kabupaten = $this->input->post("asm_kabupaten");
+      foreach($asm_kabupaten as $a){
+        $this->m_user_kabupaten->insert($id_user,$a);
+      }
+    }
+  }
+  public function get_data(){
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+    $this->load->model("m_user");
+    $response["data"] = $this->m_user->search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->result_array();
+    #echo $this->db->last_query();
+    $total_data = $this->m_user->get_user()->num_rows();
 
-    }
-    else{
-      
-    }
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page,$total_data,20);
+    
+    echo json_encode($response);
+  }
+  public function get_selected_kabupaten($id_pk_user){
+    $this->load->model("m_user_kabupaten");
+    $result = $this->m_user_kabupaten->get_selected_kabupaten($id_pk_user);
+    echo json_encode($result->result_array());
+  }
+  public function get_unselected_kabupaten($id_pk_user, $id_provinsi){
+    $this->load->model("m_user_kabupaten");
+    $result = $this->m_user_kabupaten->get_unselected_kabupaten($id_pk_user,$id_provinsi);
+    echo json_encode($result->result_array());
   }
 }
 ?>
