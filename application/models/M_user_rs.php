@@ -22,16 +22,17 @@ class M_user_rs extends CI_model{
     return executeQuery($sql,$args);
   }
   public function get_unselected_rs($id_pk_user,$id_kabupaten){
+    #current justification: tampilin semua rs yang belom di assign ke siapapun. Jadi kaalau uda d assign ke org lain, itu juga gamuncul
     $sql = "
     select id_pk_rs, rs_nama, rs_kelas, rs_alamat, rs_kategori from mstr_rs 
     INNER JOIN mstr_kabupaten ON mstr_rs.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten 
     INNER JOIN mstr_jenis_rs ON mstr_rs.id_fk_jenis_rs = mstr_jenis_rs.id_pk_jenis_rs
     INNER JOIN mstr_penyelenggara ON mstr_rs.id_fk_penyelenggara = mstr_penyelenggara.id_pk_penyelenggara 
     where id_pk_rs not in
-    (select id_fk_rs from tbl_user_rs where id_fk_user = ? and user_rs_status = 'aktif')
+    (select id_fk_rs from tbl_user_rs where user_rs_status = 'aktif')
     and rs_status = 'aktif' and id_fk_kabupaten = ?";
     $args = array(
-      $id_pk_user,$id_kabupaten
+      $id_kabupaten
     );
     return executeQuery($sql, $args);
   }
