@@ -2,25 +2,42 @@
 date_default_timezone_set("Asia/Jakarta");
 class M_rumah_sakit extends CI_Model{
      public function get_provinsi() {
-       $sql = "SELECT id_pk_provinsi, provinsi_nama FROM mstr_provinsi WHERE provinsi_status = 'aktif'";
-       $result = $this->db->query($sql);
-       return $result;
+      $sql = "SELECT id_pk_provinsi, provinsi_nama FROM mstr_provinsi WHERE provinsi_status = 'aktif'";
+      $result = $this->db->query($sql);
+      return $result;
      }
      public function get_kabupaten($id_pk_provinsi) {
-       $sql = "SELECT id_pk_kabupaten, id_fk_provinsi, kabupaten_nama FROM mstr_kabupaten WHERE id_fk_provinsi = $id_pk_provinsi AND kabupaten_status = 'aktif'";
-       $result = $this->db->query($sql);
-       return $result;
+      $sql = "SELECT id_pk_kabupaten, id_fk_provinsi, kabupaten_nama FROM mstr_kabupaten WHERE id_fk_provinsi = $id_pk_provinsi AND kabupaten_status = 'aktif'";
+      $result = $this->db->query($sql);
+      return $result;
      }
      public function get_kabupaten_name($id_pk_provinsi) {
-       $sql = "SELECT kabupaten_nama FROM mstr_kabupaten WHERE id_fk_provinsi = $id_pk_provinsi AND kabupaten_status = 'aktif'";
-       $result = $this->db->query($sql);
-       return $result;
+      $sql = "SELECT kabupaten_nama FROM mstr_kabupaten WHERE id_fk_provinsi = $id_pk_provinsi AND kabupaten_status = 'aktif'";
+      $result = $this->db->query($sql);
+      return $result;
      }
      public function get_rs(){
-         $sql = "SELECT id_pk_rs, rs_kode, rs_nama, rs_kelas, rs_direktur, rs_alamat, rs_kategori, mstr_kabupaten.kabupaten_nama AS nama_kabupaten, rs_kode_pos, rs_telepon, rs_fax, mstr_jenis_rs.jenis_rs_nama AS jenis_rs, mstr_penyelenggara.penyelenggara_nama AS penyelenggara, rs_status FROM mstr_rs INNER JOIN mstr_kabupaten ON mstr_rs.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten INNER JOIN mstr_jenis_rs ON mstr_rs.id_fk_jenis_rs = mstr_jenis_rs.id_pk_jenis_rs
-         INNER JOIN mstr_penyelenggara ON mstr_rs.id_fk_penyelenggara = mstr_penyelenggara.id_pk_penyelenggara WHERE rs_status = 'aktif'";
-         $result = $this->db->query($sql);
-         return $result;
+      $sql = "
+      SELECT id_pk_rs, rs_kode, rs_nama, rs_kelas, rs_direktur, rs_alamat, rs_kategori, mstr_kabupaten.kabupaten_nama AS nama_kabupaten, rs_kode_pos, rs_telepon, rs_fax, mstr_jenis_rs.jenis_rs_nama AS jenis_rs, mstr_penyelenggara.penyelenggara_nama AS penyelenggara, rs_status FROM mstr_rs 
+      INNER JOIN mstr_kabupaten ON mstr_rs.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten 
+      INNER JOIN mstr_jenis_rs ON mstr_rs.id_fk_jenis_rs = mstr_jenis_rs.id_pk_jenis_rs
+      INNER JOIN mstr_penyelenggara ON mstr_rs.id_fk_penyelenggara = mstr_penyelenggara.id_pk_penyelenggara 
+      WHERE rs_status = 'aktif'";
+      $result = $this->db->query($sql);
+      return $result;
+     }
+     public function get_rs_kabupaten($id_fk_kabupaten){
+      $sql = "
+      SELECT id_pk_rs, rs_kode, rs_nama, rs_kelas, rs_direktur, rs_alamat, rs_kategori, mstr_kabupaten.kabupaten_nama AS nama_kabupaten, rs_kode_pos, rs_telepon, rs_fax, mstr_jenis_rs.jenis_rs_nama AS jenis_rs, mstr_penyelenggara.penyelenggara_nama AS penyelenggara, rs_status FROM mstr_rs 
+      INNER JOIN mstr_kabupaten ON mstr_rs.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten 
+      INNER JOIN mstr_jenis_rs ON mstr_rs.id_fk_jenis_rs = mstr_jenis_rs.id_pk_jenis_rs
+      INNER JOIN mstr_penyelenggara ON mstr_rs.id_fk_penyelenggara = mstr_penyelenggara.id_pk_penyelenggara 
+      WHERE rs_status = 'aktif' and id_fk_kabupaten = ?";
+      $args = array(
+        $id_fk_kabupaten
+      );
+      $result = $this->db->query($sql,$args);
+      return $result;
      }
      public function insert_rs($rs_kode, $rs_nama, $rs_kelas, $rs_direktur, $rs_alamat, $rs_kategori, $id_fk_kabupaten, $rs_kode_pos, $rs_telepon, $rs_fax, $id_fk_jenis_rs, $id_fk_penyelenggara, $rs_status) {
  			$data = array(
