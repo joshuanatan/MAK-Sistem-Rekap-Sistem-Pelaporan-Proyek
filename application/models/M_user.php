@@ -29,7 +29,6 @@ class M_user extends CI_Model{
   public function update($id_pk_user, $user_username, $user_email, $user_telepon, $user_role){
     $data = array(
       "user_username" => $user_username,
-      "user_password" => $user_password,
       "user_email" => $user_email,
       "user_telepon" => $user_telepon,
       "user_role" => $user_role
@@ -55,18 +54,6 @@ class M_user extends CI_Model{
       $response["msg"] = "Data tidak ditemukan";
     }
     return $response;
-  }
-
-  public function get_kabupaten($id_pk_provinsi) {
-    $sql = "SELECT id_pk_kabupaten, id_fk_provinsi, kabupaten_nama FROM mstr_kabupaten WHERE id_fk_provinsi = $id_pk_provinsi";
-    $result = $this->db->query($sql);
-    return $result;
-  }
-
-  public function get_rs($id_pk_kabupaten) {
-    $sql = "SELECT id_pk_rs, rs_nama, rs_kelas, rs_alamat, rs_kategori, id_fk_kabupaten FROM mstr_rs WHERE id_fk_kabupaten = $id_pk_kabupaten and rs_status = 'aktif'";
-    $result = $this->db->query($sql);
-    return $result;
   }
   public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
     $search_query = "";

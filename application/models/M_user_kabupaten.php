@@ -9,7 +9,7 @@ class M_user_kabupaten extends CI_model{
     insertRow("tbl_user_kabupaten",$data);
   }
   public function get_selected_kabupaten($id_fk_user){
-    $sql = "select id_pk_user_kabupaten, id_pk_kabupaten, kabupaten_nama, id_fk_provinsi from tbl_user_kabupaten inner join mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = tbl_user_kabupaten.id_fk_kabupaten and user_kabupaten_status = 'aktif' and id_fk_user = ?";
+    $sql = "select id_pk_user_kabupaten, id_pk_kabupaten, kabupaten_nama, id_fk_provinsi from tbl_user_kabupaten inner join mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = tbl_user_kabupaten.id_fk_kabupaten where user_kabupaten_status = 'aktif' and id_fk_user = ?";
     $args = array(
       $id_fk_user
     );
@@ -24,5 +24,14 @@ class M_user_kabupaten extends CI_model{
       $id_provinsi,$id_fk_user
     );
     return executeQuery($sql,$args);
+  }
+  public function deactive_data($id_user){
+    $where = array(
+      "id_fk_user" => $id_user
+    );
+    $data = array(
+      "user_kabupaten_status" => "nonaktif"
+    );
+    updateRow("tbl_user_kabupaten", $data, $where);
   }
 }
