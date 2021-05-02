@@ -60,31 +60,6 @@
   );
 */
 class M_sirup extends CI_Model{
-  private $id_pk_sirup;
-  private $sirup_rup;
-  private $sirup_paket;
-  private $sirup_klpd;
-  private $sirup_satuan_kerja;
-  private $sirup_tahun_anggaran;
-  private $sirup_volume_pekerjaan;
-  private $sirup_uraian_pekerjaan;
-  private $sirup_spesifikasi_pekerjaan;
-  private $sirup_produk_dalam_negri;
-  private $sirup_usaha_kecil;
-  private $sirup_pra_dipa;
-  private $sirup_jenis_pengadaan;
-  private $sirup_total;
-  private $sirup_metode_pemilihan;
-  private $sirup_histori_paket;
-  private $sirup_tgl_perbarui_paket;
-  private $sirup_status;
-  private $sirup_tgl_create;
-  private $sirup_tgl_update;
-  private $sirup_tgl_delete;
-  private $sirup_id_create;
-  private $sirup_id_update;
-  private $sirup_id_delete;
-  private $id_fk_pencarian_sirup;
   
   public function insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup, $sirup_status){
     $data = array(
@@ -271,5 +246,48 @@ class M_sirup extends CI_Model{
       "sirup_status" => "nonaktif"
     );
     updateRow("mstr_sirup",$data,$where);
+  }
+  public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
+    $search_query = "";
+    if($pencarian_phrase != ""){
+      if($kolom_pencarian == "all"){
+        $search_query = "and (sirup_rup like '%".$pencarian_phrase."%' or sirup_paket like '%".$pencarian_phrase."%' or sirup_klpd like '%".$pencarian_phrase."%' or sirup_satuan_kerja like '%".$pencarian_phrase."%' or sirup_tahun_anggaran like '%".$pencarian_phrase."%' or sirup_jenis_pengadaan like '%".$pencarian_phrase."%' or sirup_total like '%".$pencarian_phrase."%' or sirup_metode_pemilihan like '%".$pencarian_phrase."%' or sirup_histori_paket like '%".$pencarian_phrase."%' or sirup_tgl_perbarui_paket like '%".$pencarian_phrase."%')";
+      }
+      else{
+        $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
+      }
+    }
+    $sql = "select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup from mstr_sirup where sirup_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
+  }
+  public function delete_lokasi_pekerjaan($id){
+    $where = array(
+      "id_pk_lokasi_pekerjaan" => $id
+    );
+    deleteRow("tbl_sirup_lokasi_pekerjaan",$where);
+  }
+  public function delete_sumber_dana($id){
+    $where = array(
+      "id_pk_sumber_dana" => $id
+    );
+    deleteRow("tbl_sirup_sumber_dana",$where);
+  }
+  public function delete_pemanfaatan_barang($id){
+    $where = array(
+      "id_pk_pemanfaatan_barang" => $id
+    );
+    deleteRow("tbl_sirup_pemanfaatan_barang",$where);
+  }
+  public function delete_pelaksanaan_kontrak($id){
+    $where = array(
+      "id_pk_jadwal_pelaksanaan" => $id
+    );
+    deleteRow("tbl_sirup_jadwal_pelaksanaan",$where);
+  }
+  public function delete_pemilihan_penyedia($id){
+    $where = array(
+      "id_pk_pemilihan_penyedia" => $id
+    );
+    deleteRow("tbl_sirup_pemilihan_penyedia",$where);
   }
 }
