@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2021 at 07:15 PM
+-- Generation Time: May 02, 2021 at 07:17 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `dummy`
 --
 
+DROP TABLE IF EXISTS `dummy`;
 CREATE TABLE `dummy` (
   `dummy` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -59,6 +60,7 @@ INSERT INTO `dummy` (`dummy`) VALUES
 -- Table structure for table `mstr_ekatalog`
 --
 
+DROP TABLE IF EXISTS `mstr_ekatalog`;
 CREATE TABLE `mstr_ekatalog` (
   `id_pk_ekatalog` int(11) NOT NULL,
   `ekatalog_komoditas` varchar(400) DEFAULT NULL,
@@ -98,6 +100,7 @@ INSERT INTO `mstr_ekatalog` (`id_pk_ekatalog`, `ekatalog_komoditas`, `ekatalog_i
 -- Table structure for table `mstr_jenis_rs`
 --
 
+DROP TABLE IF EXISTS `mstr_jenis_rs`;
 CREATE TABLE `mstr_jenis_rs` (
   `id_pk_jenis_rs` int(11) NOT NULL,
   `jenis_rs_nama` varchar(100) NOT NULL,
@@ -127,6 +130,7 @@ INSERT INTO `mstr_jenis_rs` (`id_pk_jenis_rs`, `jenis_rs_nama`, `jenis_rs_kode`,
 -- Table structure for table `mstr_kabupaten`
 --
 
+DROP TABLE IF EXISTS `mstr_kabupaten`;
 CREATE TABLE `mstr_kabupaten` (
   `id_pk_kabupaten` int(11) NOT NULL,
   `id_fk_provinsi` int(11) NOT NULL,
@@ -691,6 +695,7 @@ INSERT INTO `mstr_kabupaten` (`id_pk_kabupaten`, `id_fk_provinsi`, `kabupaten_na
 -- Table structure for table `mstr_pencarian_sirup`
 --
 
+DROP TABLE IF EXISTS `mstr_pencarian_sirup`;
 CREATE TABLE `mstr_pencarian_sirup` (
   `id_pk_pencarian_sirup` int(11) NOT NULL,
   `pencarian_sirup_tahun` varchar(100) DEFAULT NULL,
@@ -722,6 +727,7 @@ INSERT INTO `mstr_pencarian_sirup` (`id_pk_pencarian_sirup`, `pencarian_sirup_ta
 -- Table structure for table `mstr_penyelenggara`
 --
 
+DROP TABLE IF EXISTS `mstr_penyelenggara`;
 CREATE TABLE `mstr_penyelenggara` (
   `id_pk_penyelenggara` int(11) NOT NULL,
   `penyelenggara_nama` varchar(100) NOT NULL,
@@ -753,6 +759,7 @@ INSERT INTO `mstr_penyelenggara` (`id_pk_penyelenggara`, `penyelenggara_nama`, `
 -- Table structure for table `mstr_produk`
 --
 
+DROP TABLE IF EXISTS `mstr_produk`;
 CREATE TABLE `mstr_produk` (
   `id_pk_produk` int(11) NOT NULL,
   `produk_no_katalog` varchar(100) NOT NULL,
@@ -813,6 +820,7 @@ INSERT INTO `mstr_produk` (`id_pk_produk`, `produk_no_katalog`, `produk_principa
 -- Table structure for table `mstr_provinsi`
 --
 
+DROP TABLE IF EXISTS `mstr_provinsi`;
 CREATE TABLE `mstr_provinsi` (
   `id_pk_provinsi` int(11) NOT NULL,
   `provinsi_nama` varchar(100) NOT NULL,
@@ -889,6 +897,7 @@ INSERT INTO `mstr_provinsi` (`id_pk_provinsi`, `provinsi_nama`, `provinsi_status
 -- Table structure for table `mstr_rs`
 --
 
+DROP TABLE IF EXISTS `mstr_rs`;
 CREATE TABLE `mstr_rs` (
   `id_pk_rs` int(11) NOT NULL,
   `rs_kode` varchar(100) NOT NULL,
@@ -934,6 +943,7 @@ INSERT INTO `mstr_rs` (`id_pk_rs`, `rs_kode`, `rs_nama`, `rs_kelas`, `rs_direktu
 -- Table structure for table `mstr_sirup`
 --
 
+DROP TABLE IF EXISTS `mstr_sirup`;
 CREATE TABLE `mstr_sirup` (
   `id_pk_sirup` int(11) NOT NULL,
   `sirup_rup` varchar(100) DEFAULT NULL,
@@ -981,6 +991,7 @@ INSERT INTO `mstr_sirup` (`id_pk_sirup`, `sirup_rup`, `sirup_paket`, `sirup_klpd
 -- Table structure for table `mstr_sirup_search_key`
 --
 
+DROP TABLE IF EXISTS `mstr_sirup_search_key`;
 CREATE TABLE `mstr_sirup_search_key` (
   `id_pk_sirup_search_key` int(11) NOT NULL,
   `sirup_search_key` varchar(100) DEFAULT NULL,
@@ -1010,6 +1021,7 @@ INSERT INTO `mstr_sirup_search_key` (`id_pk_sirup_search_key`, `sirup_search_key
 -- Table structure for table `mstr_user`
 --
 
+DROP TABLE IF EXISTS `mstr_user`;
 CREATE TABLE `mstr_user` (
   `id_pk_user` int(11) NOT NULL,
   `user_role` varchar(100) NOT NULL,
@@ -1044,6 +1056,7 @@ INSERT INTO `mstr_user` (`id_pk_user`, `user_role`, `user_username`, `user_passw
 -- Table structure for table `tbl_sirup_jadwal_pelaksanaan`
 --
 
+DROP TABLE IF EXISTS `tbl_sirup_jadwal_pelaksanaan`;
 CREATE TABLE `tbl_sirup_jadwal_pelaksanaan` (
   `id_pk_jadwal_pelaksanaan` int(11) NOT NULL,
   `jadwal_pelaksanaan` varchar(1000) DEFAULT NULL,
@@ -1068,6 +1081,7 @@ INSERT INTO `tbl_sirup_jadwal_pelaksanaan` (`id_pk_jadwal_pelaksanaan`, `jadwal_
 -- Table structure for table `tbl_sirup_lokasi_pekerjaan`
 --
 
+DROP TABLE IF EXISTS `tbl_sirup_lokasi_pekerjaan`;
 CREATE TABLE `tbl_sirup_lokasi_pekerjaan` (
   `id_pk_lokasi_pekerjaan` int(11) NOT NULL,
   `lokasi_pekerjaan` varchar(1000) DEFAULT NULL,
@@ -1093,6 +1107,7 @@ INSERT INTO `tbl_sirup_lokasi_pekerjaan` (`id_pk_lokasi_pekerjaan`, `lokasi_peke
 -- Table structure for table `tbl_sirup_pemanfaatan_barang`
 --
 
+DROP TABLE IF EXISTS `tbl_sirup_pemanfaatan_barang`;
 CREATE TABLE `tbl_sirup_pemanfaatan_barang` (
   `id_pk_pemanfaatan_barang` int(11) NOT NULL,
   `pemanfaatan_barang` varchar(1000) DEFAULT NULL,
@@ -1117,6 +1132,7 @@ INSERT INTO `tbl_sirup_pemanfaatan_barang` (`id_pk_pemanfaatan_barang`, `pemanfa
 -- Table structure for table `tbl_sirup_pemilihan_penyedia`
 --
 
+DROP TABLE IF EXISTS `tbl_sirup_pemilihan_penyedia`;
 CREATE TABLE `tbl_sirup_pemilihan_penyedia` (
   `id_pk_pemilihan_penyedia` int(11) NOT NULL,
   `pemilihan_penyedia` varchar(1000) DEFAULT NULL,
@@ -1141,6 +1157,7 @@ INSERT INTO `tbl_sirup_pemilihan_penyedia` (`id_pk_pemilihan_penyedia`, `pemilih
 -- Table structure for table `tbl_sirup_sumber_dana`
 --
 
+DROP TABLE IF EXISTS `tbl_sirup_sumber_dana`;
 CREATE TABLE `tbl_sirup_sumber_dana` (
   `id_pk_sumber_dana` int(11) NOT NULL,
   `sumber_dana` varchar(1000) DEFAULT NULL,
@@ -1165,6 +1182,7 @@ INSERT INTO `tbl_sirup_sumber_dana` (`id_pk_sumber_dana`, `sumber_dana`, `id_fk_
 -- Table structure for table `tbl_user_kabupaten`
 --
 
+DROP TABLE IF EXISTS `tbl_user_kabupaten`;
 CREATE TABLE `tbl_user_kabupaten` (
   `id_pk_user_kabupaten` int(11) NOT NULL,
   `id_fk_kabupaten` int(11) DEFAULT NULL,
@@ -1228,6 +1246,7 @@ INSERT INTO `tbl_user_kabupaten` (`id_pk_user_kabupaten`, `id_fk_kabupaten`, `id
 -- Table structure for table `tbl_user_rs`
 --
 
+DROP TABLE IF EXISTS `tbl_user_rs`;
 CREATE TABLE `tbl_user_rs` (
   `id_pk_user_rs` int(11) NOT NULL,
   `id_fk_rs` int(11) DEFAULT NULL,
@@ -1261,7 +1280,28 @@ INSERT INTO `tbl_user_rs` (`id_pk_user_rs`, `id_fk_rs`, `id_fk_user`, `user_rs_s
 -- Stand-in structure for view `v_detail_kabupaten`
 -- (See below for the actual view)
 --
-
+DROP VIEW IF EXISTS `v_detail_kabupaten`;
+CREATE TABLE `v_detail_kabupaten` (
+`id_pk_kabupaten` int(11)
+,`id_fk_provinsi` int(11)
+,`kabupaten_nama` varchar(100)
+,`kabupaten_status` varchar(100)
+,`kabupaten_id_create` int(11)
+,`kabupaten_id_update` int(11)
+,`kabupaten_id_delete` int(11)
+,`kabupaten_tgl_create` datetime
+,`kabupaten_tgl_update` datetime
+,`kabupaten_tgl_delete` datetime
+,`id_pk_provinsi` int(11)
+,`provinsi_nama` varchar(100)
+,`provinsi_status` varchar(40)
+,`provinsi_id_create` int(11)
+,`provinsi_id_update` int(11)
+,`provinsi_id_delete` int(11)
+,`provinsi_tgl_create` datetime
+,`provinsi_tgl_update` datetime
+,`provinsi_tgl_delete` datetime
+);
 
 -- --------------------------------------------------------
 
@@ -1270,6 +1310,7 @@ INSERT INTO `tbl_user_rs` (`id_pk_user_rs`, `id_fk_rs`, `id_fk_user`, `user_rs_s
 --
 DROP TABLE IF EXISTS `v_detail_kabupaten`;
 
+DROP VIEW IF EXISTS `v_detail_kabupaten`;
 CREATE VIEW `v_detail_kabupaten`  AS SELECT `mstr_kabupaten`.`id_pk_kabupaten` AS `id_pk_kabupaten`, `mstr_kabupaten`.`id_fk_provinsi` AS `id_fk_provinsi`, `mstr_kabupaten`.`kabupaten_nama` AS `kabupaten_nama`, `mstr_kabupaten`.`kabupaten_status` AS `kabupaten_status`, `mstr_kabupaten`.`kabupaten_id_create` AS `kabupaten_id_create`, `mstr_kabupaten`.`kabupaten_id_update` AS `kabupaten_id_update`, `mstr_kabupaten`.`kabupaten_id_delete` AS `kabupaten_id_delete`, `mstr_kabupaten`.`kabupaten_tgl_create` AS `kabupaten_tgl_create`, `mstr_kabupaten`.`kabupaten_tgl_update` AS `kabupaten_tgl_update`, `mstr_kabupaten`.`kabupaten_tgl_delete` AS `kabupaten_tgl_delete`, `mstr_provinsi`.`id_pk_provinsi` AS `id_pk_provinsi`, `mstr_provinsi`.`provinsi_nama` AS `provinsi_nama`, `mstr_provinsi`.`provinsi_status` AS `provinsi_status`, `mstr_provinsi`.`provinsi_id_create` AS `provinsi_id_create`, `mstr_provinsi`.`provinsi_id_update` AS `provinsi_id_update`, `mstr_provinsi`.`provinsi_id_delete` AS `provinsi_id_delete`, `mstr_provinsi`.`provinsi_tgl_create` AS `provinsi_tgl_create`, `mstr_provinsi`.`provinsi_tgl_update` AS `provinsi_tgl_update`, `mstr_provinsi`.`provinsi_tgl_delete` AS `provinsi_tgl_delete` FROM (`mstr_kabupaten` join `mstr_provinsi` on(`mstr_provinsi`.`id_pk_provinsi` = `mstr_kabupaten`.`id_fk_provinsi`)) ;
 
 --
