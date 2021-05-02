@@ -22,12 +22,10 @@ class M_produk extends CI_Model{
     );
     $this->db->insert("mstr_produk",$data);
   }
-
   public function delete_produk($id_pk_produk) {
     $sql = "UPDATE mstr_produk SET produk_status = 'nonaktif' WHERE id_pk_produk = $id_pk_produk";
     $result = $this->db->query($sql);
   }
-
   public function edit_produk($id_pk_produk, $produk_no_katalog, $produk_principal, $produk_no_sap, $produk_nama, $produk_kategori, $produk_price_list, $produk_harga_ekat, $produk_deskripsi, $produk_foto){
     $where = array(
       "id_pk_produk" => $id_pk_produk
