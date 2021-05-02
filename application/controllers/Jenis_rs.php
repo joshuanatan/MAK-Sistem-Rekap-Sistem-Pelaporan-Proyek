@@ -3,13 +3,6 @@
 class Jenis_rs extends CI_Controller{
 
     public function index(){
-      $this->load->model("m_jenis_rs");
-      $result = $this->m_jenis_rs->get_jenis_rs();
-
-      $data = array (
-        "datadb" => $result->result_array()
-      );
-      
       $data["field"] = array(
         array(
           "field_value" => "jenis_rs_nama",
