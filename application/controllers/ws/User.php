@@ -83,6 +83,13 @@ class User extends CI_Controller{
   public function delete($id_user){
     $this->load->model("m_user");
     $this->m_user->delete($id_user);
+    
+    $this->load->model("m_user_kabupaten");
+    $this->m_user_kabupaten->deactive_data($id_user);
+
+    $this->load->model("m_user_rs");
+    $this->m_user_rs->deactive_data($id_user);
+
     $response["status"] = true;
     echo json_encode($response);
   }
