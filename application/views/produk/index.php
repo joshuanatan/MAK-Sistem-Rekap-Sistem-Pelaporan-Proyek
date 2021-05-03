@@ -376,6 +376,7 @@
       processData: false,
       success:function(respond){
         $("#modalCreate").modal("hide");
+        alert("Data Produk Berhasil Ditambahkan");
         reload_table();
         $("#createProdukForm").html(default_insert_form);
       }
@@ -390,6 +391,7 @@
       contentType: false,
       processData: false,
       success:function(respond){
+        alert("Data Produk Berhasil Diubah");
         $("#modalEdit").modal("hide");
         reload_table();
       }
@@ -402,6 +404,7 @@
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
+        alert("Data Produk Berhasil Dihapus");
         $("#modalDelete").modal("hide");
         $(`#produk_row${row}`).remove();
       }
