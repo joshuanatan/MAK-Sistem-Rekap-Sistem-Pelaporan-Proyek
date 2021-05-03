@@ -26,14 +26,7 @@
         <div class="panel">
           <div class="panel-body">
             <div class = "row">
-              <div class = "form-group col-lg-1">
-                <h5>&nbsp;</h5>
-                <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
-              </div>
-              <div class = "form-group col-lg-1">
-              </div>
-              <div class = "form-group col-lg-1"></div>
-              <div class = "form-group col-lg-3">
+              <div class = "form-group col-lg-4">
                 <h5>Kolom Pengurutan</h5>
                 <select class = "form-control" onchange = "change_kolom_pengurutan()" id = "kolom_pengurutan">
                   <?php for($a = 0; $a<count($field); $a++):?>
@@ -48,7 +41,7 @@
                   <option value = "DESC">Z-A</option>
                 </select>
               </div>
-              <div class = "form-group col-lg-3">
+              <div class = "form-group col-lg-5">
                 <h5>Pencarian</h5>
                 <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
               </div>
@@ -62,10 +55,13 @@
                 </select>
               </div>
             </div>
-            <table class="table table-hover table-striped w-full">
+            <div class = "form-group">
+              <h5>&nbsp;</h5>
+              <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
+            </div>
+            <table class="table table-hover table-striped table-bordered w-full">
               <thead>
                 <tr>
-                  <th style = "width:20%">Image Produk</th>
                   <th>No. Katalog Produk</th>
                   <th>Principal</th>
                   <th>No. SAP</th>
@@ -101,7 +97,7 @@
 </html>
 
 <div class="modal fade" id="modalCreate">
-  <div class="modal-dialog modal-simple modal-top">
+  <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -165,7 +161,7 @@
         </button>
         <h4 class="modal-title">Edit Produk</h4>
       </div>
-      <form id = "editProdukForm" autocomplete="off" method="post" enctype="multipart/form-data">
+      <form id = "editProdukForm">
         <div class="modal-body">
           <div class="form-group">
             <input type="hidden" class="form-control" name="idproduk" id = "idproduk" autocomplete="off">
@@ -287,10 +283,6 @@
         for(var a = 0; a<respond["data"].length; a++){
           html += `
           <tr id = "produk_row${a}">
-            <td>
-              <a class="inline-block" href="${base_url}docs/upload/image/produk/${respond["data"][a]["produk_foto"]}" data-plugin="magnificPopup" data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom" data-zoom='{"enabled": "true","duration":"300"}'>
-              <img class="img-fluid" src="${base_url}docs/upload/image/produk/${respond["data"][a]["produk_foto"]}" alt="..." width="220"/>
-            </td>
             <td>${respond["data"][a]["produk_no_katalog"]}</td>
             <td>${respond["data"][a]["produk_principal"]}</td>
             <td>${respond["data"][a]["produk_no_sap"]}</td>
@@ -357,7 +349,7 @@
     $("#deskripsiproduk").val(content[row]["produk_deskripsi"]);
     $("#displayfotoproduk").attr("href",`${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
     $("#displayfoto").attr("src",`${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
-    $("#sourceimage").val(`${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
+    $("#sourceimage").val(`${content[row]["produk_foto"]}`);
     $("#edit_button").attr("onclick",`update_row(${row})`);
     $("#modalEdit").modal("show");
   }
@@ -374,11 +366,17 @@
       data: formData,
       contentType: false,
       processData: false,
+      dataType:"JSON",
       success:function(respond){
-        $("#modalCreate").modal("hide");
-        alert("Data Produk Berhasil Ditambahkan");
-        reload_table();
-        $("#createProdukForm").html(default_insert_form);
+        if(respond["status"]){
+          $("#modalCreate").modal("hide");
+          alert("Data Produk Berhasil Ditambahkan");
+          reload_table();
+          $("#createProdukForm").html(default_insert_form);
+        }
+        else{
+          alert(respond["msg"]);
+        }
       }
     }); 
   }
@@ -390,10 +388,16 @@
       data: formData,
       contentType: false,
       processData: false,
+      dataType:"JSON",
       success:function(respond){
-        alert("Data Produk Berhasil Diubah");
-        $("#modalEdit").modal("hide");
-        reload_table();
+        if(respond["status"]){
+          alert("Data Produk Berhasil Diubah");
+          $("#modalEdit").modal("hide");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
       }
     }); 
   }
