@@ -28,7 +28,7 @@
             <div class = "row">
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
-                <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
+                <button type = "button" class = "btn btn-primary btn-sm" data-target="#createModal" data-toggle="modal">Tambah Data</button>
               </div>
               <div class = "form-group col-lg-1">
               </div>
@@ -87,13 +87,10 @@
     <!-- Core  -->
     <?php $this->load->view("includes/core-script");?>
 
-    <script src="<?php echo base_url();?>global/js/Plugin/magnific-popup.js"></script>
-    <script src="<?php echo base_url();?>global/vendor/magnific-popup/jquery.magnific-popup.js"></script>
-
   </body>
 </html>
 
-<div class="modal fade" id="modalCreate">
+<div class="modal fade" id="createModal">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
@@ -102,7 +99,7 @@
         </button>
         <h4 class="modal-title" id="exampleModalTitle">Tambah Jenis Rumah Sakit</h4>
       </div>
-      <form action="<?php echo base_url();?>jenis_rs/insert" autocomplete="off" method="post" enctype="multipart/form-data">
+      <form id = "createForm">
         <div class="modal-body">
           <div class="form-group">
             <label class="form-control-label">Jenis Rumah Sakit</label>
@@ -115,13 +112,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" onclick = "create_row()">Save changes</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="modal fade" id="modalUpdate">
+<div class="modal fade" id="updateModal">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
@@ -130,7 +127,7 @@
         </button>
         <h4 class="modal-title" id="exampleModalTitle">Edit Jenis Rumah Sakit</h4>
       </div>
-      <form action="<?php echo base_url();?>jenis_rs/edit" method="post" enctype="multipart/form-data">
+      <form id = "updateForm">
         <input type="hidden" class="form-control" name="idjenisrs" id="edit_idjenisrs">
         <div class="modal-body">
           <div class="form-group">
@@ -144,13 +141,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" onclick = "update_row()">Save changes</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="modal fade" id="modalDelete">
+<div class="modal fade" id="deleteModal">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
@@ -164,7 +161,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a type="button" id = "delete_button" class="btn btn-primary">Delete</a>
+        <button type="button" id = "delete_button" class="btn btn-primary">Delete</button>
       </div>
     </div>
   </div>
@@ -218,8 +215,8 @@
             <td>${respond["data"][a]["jenis_rs_kode"]}</td>
             <td>${respond["data"][a]["jenis_rs_status"]}</td>
             <td>
-            <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#modalUpdate"><i class = "icon md-edit"></i></button>
-            <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#modalDelete"><i class = "icon md-delete"></i></button>
+            <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#updateModal"><i class = "icon md-edit"></i></button>
+            <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#deleteModal"><i class = "icon md-delete"></i></button>
             </td>
           </tr>
           `;
@@ -267,10 +264,70 @@
     $("#edit_idjenisrs").val(content[row]["id_pk_jenis_rs"]);
     $("#edit_namajenisrs").val(content[row]["jenis_rs_nama"]);
     $("#edit_kodejenisrs").val(content[row]["jenis_rs_kode"]);
-    /*$("#modalUpdate").modal("show");*/
   }
   function load_delete(row){
-    $("#delete_button").attr("href",`${base_url}jenis_rs/delete/${content[row]["id_pk_jenis_rs"]}`);
-    /*$("#modalDelete").modal("show");*/
+    $("#delete_button").attr("onclick",`delete_row(${row})`);
+  }
+  var create_jenis_rs_form = $("#createForm").html();
+  function create_row(){
+    var fd = new FormData($("#createForm")[0]);
+    $.ajax({
+      url:"<?php echo base_url();?>ws/jenis_rs/insert",
+      type:"POST",
+      dataType:"JSON",
+      data:fd,
+      contentType: false,
+      processData: false,
+      success:function(respond){
+        if(respond["status"]){
+          $("#createForm").html(create_jenis_rs_form);
+          $("#createModal").modal("hide");
+          alert("Data Jenis Rumah Sakit Berhasil Dimasukan");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
+      }
+    });
+  }
+  function update_row(){
+    var fd = new FormData($("#updateForm")[0]);
+    $.ajax({
+      url:"<?php echo base_url();?>ws/jenis_rs/update",
+      type:"POST",
+      dataType:"JSON",
+      data:fd,
+      contentType: false,
+      processData: false,
+      success:function(respond){
+        if(respond["status"]){
+          $("#updateModal").modal("hide");
+          alert("Data Jenis Rumah Sakit Berhasil Diubah");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
+      }
+    });
+  }
+  function delete_row(row){  
+    var id_jenis_rs = content[row]["id_pk_jenis_rs"];
+    $.ajax({
+      url:`<?php echo base_url();?>ws/jenis_rs/delete/${id_jenis_rs}`,
+      type:"DELETE",
+      dataType:"JSON",
+      success:function(respond){
+        if(respond["status"]){
+          $("#deleteModal").modal("hide");
+          alert("Data Jenis Rumah Sakit Berhasil Dihapus");
+          reload_table();
+        }
+        else{
+          alert("Data Jenis Rumah Sakit Gagal Dihapus");
+        }
+      }
+    });
   }
 </script>
