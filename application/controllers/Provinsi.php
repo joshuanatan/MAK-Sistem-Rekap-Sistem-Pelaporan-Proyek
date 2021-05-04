@@ -4,11 +4,6 @@ class Provinsi extends CI_Controller{
       parent::__construct();
   }
   public function index(){
-    $this->load->model("m_provinsi");
-    $result = $this->m_provinsi->get_data();
-    $data = array(
-        "provinsi" => $result->result_array()
-    );
     $data["field"] = array(
       array(
         "field_value" => "provinsi_nama",

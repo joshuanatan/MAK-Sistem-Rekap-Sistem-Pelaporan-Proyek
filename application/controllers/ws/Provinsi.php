@@ -1,32 +1,52 @@
 <?php
 class Provinsi extends CI_Controller{
   public function create(){
-    $nama_provinsi = $this->input->post("nama_provinsi");
-    $status_provinsi = $this->input->post("status_provinsi");
-    $id_create = $this->input->post("id_create");
-    $this->load->model("m_provinsi");
-    $last_id = $this->m_provinsi->insert($nama_provinsi,$status_provinsi,$id_create);
-    $response["status"] = "success";
-    $response["last_id"] = $last_id;
+    $this->form_validation->set_rules("nama_provinsi","Nama Provinsi","required");
+    $this->form_validation->set_rules("status_provinsi","Status Provinsi","required");
+    if($this->form_validation->run()){
+      $nama_provinsi = $this->input->post("nama_provinsi");
+      $status_provinsi = $this->input->post("status_provinsi");
+      $this->load->model("m_provinsi");
+      $last_id = $this->m_provinsi->insert($nama_provinsi,$status_provinsi);
+      $response["status"] = true;
+      $response["last_id"] = $last_id;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>","",str_replace("<p>","",validation_errors()));
+    }
     echo json_encode($response);
   }
   public function update(){
-    $id_provinsi = $this->input->post("id");
-    $nama_provinsi = $this->input->post("nama");
-    $status_provinsi = $this->input->post("status");
-    $id_edit = $this->input->post("id_edit");
-    
-    $this->load->model("m_provinsi");
-    $last_id = $this->m_provinsi->update($id_provinsi,$nama_provinsi,$status_provinsi,$id_edit);
-    $response["status"] = "success";
+    $this->form_validation->set_rules("id","ID Provinsi","required");
+    $this->form_validation->set_rules("nama","Nama Provinsi","required");
+    $this->form_validation->set_rules("status","Status Provinsi","required");
+    if($this->form_validation->run()){
+      $id_provinsi = $this->input->post("id");
+      $nama_provinsi = $this->input->post("nama");
+      $status_provinsi = $this->input->post("status");
+      
+      $this->load->model("m_provinsi");
+      $last_id = $this->m_provinsi->update($id_provinsi,$nama_provinsi,$status_provinsi);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>","",str_replace("<p>","",validation_errors()));
+    }
     echo json_encode($response);
   }
   public function delete(){
     $id = $this->input->get("id");
-    $id_delete = $this->input->get("id_delete");
-    $this->load->model("m_provinsi");
-    $this->m_provinsi->delete($id,$id_delete);
-    $response["status"] = "success";
+    if($id != ""){
+      $this->load->model("m_provinsi");
+      $this->m_provinsi->delete($id);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "The ID Provinsi field is required";
+    }
     echo json_encode($response);
   }
   public function get_active_data(){
@@ -43,8 +63,7 @@ class Provinsi extends CI_Controller{
     $current_page = $this->input->get("current_page");
     $this->load->model("m_provinsi");
     $response["data"] = $this->m_provinsi->search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->result_array();
-    #echo $this->db->last_query();
-    $total_data = $this->m_provinsi->get_data()->num_rows();
+    $total_data = $this->m_provinsi->get_data($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->num_rows();
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page,$total_data,20);

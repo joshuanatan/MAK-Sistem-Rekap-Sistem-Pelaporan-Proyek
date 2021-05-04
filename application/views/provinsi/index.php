@@ -177,14 +177,14 @@
             <option value = "nonaktif">NONAKTIF</option>
         </td>
         <td>
-          <button type = "button" class = "btn btn-success btn-sm" onclick = "submitProvinsiData(${row})"><i class = "icon md-check"></i></button>
+          <button type = "button" class = "btn btn-success btn-sm" onclick = "submit_data_provinsi(${row})"><i class = "icon md-check"></i></button>
         </td>
       </tr>
     `;
     $("#tambah_provinsi_button_container").before(html);
     row++;
   }
-  function submitProvinsiData(row){
+  function submit_data_provinsi(row){
     var nama_provinsi = $("#nama_provinsi_insert"+row).val();
     var status_provinsi = $("#status_provinsi_insert"+row).val();
     $.ajax({
@@ -193,13 +193,16 @@
       dataType:"JSON",
       data:{
         "nama_provinsi":nama_provinsi,
-        "status_provinsi": status_provinsi,
-        "id_create":<?php echo $this->session->id_user;?>
+        "status_provinsi": status_provinsi
       },
       success:function(respond){
-        if(respond["status"] == "success"){
+        if(respond["status"]){
           $("#tambahRowProvinsi"+row).remove();
+          alert("Provinsi Berhasil Ditambahkan");
           reload_table();
+        }
+        else{
+          alert(respond["msg"]);
         }
       }
     }); 
@@ -224,14 +227,17 @@
       data:{
         "id":id_provinsi_edit,
         "nama":nama_provinsi_edit,
-        "status":status_provinsi_edit,
-        "id_edit":<?php echo $this->session->id_user?>
+        "status":status_provinsi_edit
       },
       success:function(respond){
-        if(respond["status"] == "success"){
+        if(respond["status"]){
           reload_table();
+          alert("Provinsi Berhasil Diubah");
+          $("#edit_provinsi").modal("hide");
         }
-        $("#edit_provinsi").modal("hide");
+        else{
+          alert(respond["msg"]);
+        }
       }
     });
   }
@@ -243,14 +249,17 @@
   function submit_delete(){
     var id = $("#id_provinsi_delete").val();
     $.ajax({
-      url:"<?php echo base_url();?>ws/provinsi/delete?id="+id+"&id_delete=<?php echo $this->session->id_user;?>",
+      url:"<?php echo base_url();?>ws/provinsi/delete?id="+id,
       type:"delete",
       dataType:"JSON",
       success:function(respond){
-        if(respond["status"] == "success"){
+        if(respond["status"]){
           $("#provinsi_row"+deleted_row).remove();
           reload_table();
           $("#delete_provinsi").modal("hide");
+        }
+        else{
+          alert("Provinsi Gagal Dihapus");
         }
       }
     });
@@ -268,14 +277,14 @@
             <option value = "nonaktif">NONAKTIF</option>
         </td>
         <td>
-          <button type = "button" class = "btn btn-success btn-sm" onclick = "submitKabupatenData(${row_kabupaten})"><i class = "icon md-check"></i></button>
+          <button type = "button" class = "btn btn-success btn-sm" onclick = "submit_data_kabupaten(${row_kabupaten})"><i class = "icon md-check"></i></button>
         </td>
       </tr>
     `;
     $("#tambah_kabupaten_button_container").before(html);
     row_kabupaten++;
   }
-  function submitKabupatenData(row){
+  function submit_data_kabupaten(row){
     var nama_kabupaten = $("#nama_kabupaten_insert"+row).val();
     var status_kabupaten = $("#status_kabupaten_insert"+row).val();
     var id_provinsi = active_id_provinsi;
@@ -286,12 +295,16 @@
       data:{
         "nama_kabupaten":nama_kabupaten,
         "status_kabupaten": status_kabupaten,
-        "id_provinsi": id_provinsi,
-        "id_create":<?php echo $this->session->id_user;?>
+        "id_provinsi": id_provinsi
       },
       success:function(respond){
-        if(respond["status"] == "success"){
+        if(respond["status"]){
+          $(`tambahRowKabupaten${row}`).remove();
+          alert("Kabupaten Berhasil Ditambahkan");
           reload_table1();
+        }
+        else{
+          alert(respond["msg"]);
         }
       }
     }); 
@@ -316,14 +329,17 @@
       data:{
         "id":id_kabupaten_edit,
         "nama":nama_kabupaten_edit,
-        "status":status_kabupaten_edit,
-        "id_edit":<?php echo $this->session->id_user?>
+        "status":status_kabupaten_edit
       },
       success:function(respond){
-        if(respond["status"] == "success"){
+        if(respond["status"]){
           reload_table1();
+          alert("Kabupaten Berhasil Diubah");
+          $("#edit_kabupaten").modal("hide");
         }
-        $("#edit_kabupaten").modal("hide");
+        else{
+          alert(respond["msg"]);
+        }
       }
     });
   }
@@ -335,14 +351,17 @@
   function submit_delete_kabupaten(){
     var id = $("#id_kabupaten_delete").val();
     $.ajax({
-      url:"<?php echo base_url();?>ws/kabupaten/delete?id="+id+"&id_delete=<?php echo $this->session->id_user;?>",
+      url:"<?php echo base_url();?>ws/kabupaten/delete?id="+id,
       type:"delete",
       dataType:"JSON",
       success:function(respond){
-        if(respond["status"] == "success"){
+        if(respond["status"]){
           $("#kabupaten_row"+deleted_row).remove();
           $("#delete_kabupaten").modal("hide");
           reload_table1();
+        }
+        else{
+          alert("Kabupaten Gagal Dihapus");
         }
       }
     });
