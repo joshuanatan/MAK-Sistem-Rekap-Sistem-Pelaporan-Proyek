@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?php echo base_url();?>global/fonts/font-awesome/font-awesome.css">
 
     <style>
-      .scroll-provinsi-table-wrapper{
+      .scroll-produk-table-wrapper{
         overflow-y:scroll;
         height:400px;
       }
@@ -20,60 +20,295 @@
         <h1 class="page-title">Prospek</h1>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?php echo base_url();?>">Home</a></li>
-          <li class="breadcrumb-item active">Prospek</li>
+          <li class="breadcrumb-item"><a href="<?php echo base_url();?>Prospek">Prospek</a></li>
+          <li class="breadcrumb-item active">Tambah Prospek</li>
         </ol>
       </div>
-      <div class="page-content col-lg-6 col-sm-12 ">
-        <div class="panel">
-          <div class="panel-body">
-            <div class="modal" id="edit_kabupaten">
-              <h4 class="title">Tambah Prospek</h4>
+      <div class="page-content container-fluid">
+        <div class="row">
+          <div class="col-lg-6 col-sm-12">
+            <div class="panel">
+              <div class="panel-body">
+                <h4 class="title">Tambah Prospek</h4>
+                <input type="hidden" class="form-control" name="id_prospek">
+                <div class="form-group">
+                  <label class="form-control-label">Rumah Sakit</label>
+                  <select class = "form-control" id = "status_prospek_edit" name = "funnel">
+                    <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
+                    <?php for($a = 0; $a < count($datars); $a++):?>
+                    <option value = "<?php echo $datars[$a]["id_pk_rs"];?>"><?php echo $datars[$a]["rs_nama"];?></option>
+                    <?php endfor;?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Notes Kompetitor</label>
+                  <textarea type="text" class="form-control" name="kabupaten" placeholder="Notes Kompetitor"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Notes Prospek</label>
+                  <textarea type="text" class="form-control" name="kabupaten" placeholder="Notes Prospek"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Funnel</label>
+                  <select class = "form-control" id = "status_prospek_edit" name = "funnel">
+                    <option value="Belum Ditentukan" selected>Belum Ditentukan</option>
+                    <option value = "">Lead</option>
+                    <option value = "">Prospek</option>
+                    <option value = "">Hot Prospek</option>
+                    <option value = "aktif">Win</option>
+                    <option value = "aktif">Loss</option>
+                  </select>
+                </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" onclick = "submit_changes_produk()">Save changes</button>
+              </div>
             </div>
-            <input type="hidden" class="form-control" name="id_kabupaten" id = "id_kabupaten_edit">
-            <div class="form-group">
-              <label class="form-control-label">Produk  <strong><a href = "<?php echo base_url();?>produk" target = "_blank">Buka Produk</a></label>
-              <select class = "form-control" id = "status_kabupaten_edit" name = "status">
-                <option value = "">Kasur</option>
-                <option value = "">Rak meja</option>
-              </select>
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <div class="panel">
+              <div class="panel-body">
+                <h4 class="title">Detail Produk</h4>
+                <div class = "scroll-produk-table-wrapper">
+                  <table class="table table-hover table-striped w-full" id = "table_content_container">
+                    <thead>
+                      <tr>
+                        <th>Produk <strong><a href = "<?php echo base_url();?>produk" target = "_blank">Buka Produk</a></th>
+                        <th>Quantity</th>
+                        <th>Keterangan Produk</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr id = "tambah_produk_button_container">
+                        <td colspan = 4>
+                          <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambahRowProduk()">Tambah Produk</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <nav class = "d-flex justify-content-center">
+                    <ul class="pagination" id = "pagination">
+                    </ul>
+                  </nav>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label class="form-control-label">Quantity</label>
-              <input type="text" class="form-control" name="kabupaten" placeholder="Quantity" id = "nama_kabupaten_edit">
-            </div>
-          <div class="form-group">
-            <label class="form-control-label">Keterangan Produk</label>
-            <textarea type="text" class="form-control" name="kabupaten" placeholder="Keterangan Produk" id = "nama_kabupaten_edit"></textarea>
           </div>
-          <div class="form-group">
-            <label class="form-control-label">Notes Kompetitor</label>
-            <textarea type="text" class="form-control" name="kabupaten" placeholder="Notes Kompetitor" id = "nama_kabupaten_edit"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Notes Prospek</label>
-            <textarea type="text" class="form-control" name="kabupaten" placeholder="Notes Prospek" id = "nama_kabupaten_edit"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Funnel</label>
-            <select class = "form-control" id = "status_kabupaten_edit" name = "funnel">
-              <option value="Belum Ditentukan">Belum Ditentukan</option>
-              <option value = "">Lead</option>
-              <option value = "">Prospek</option>
-              <option value = "">Hot Prospek</option>
-              <option value = "aktif">Win</option>
-              <option value = "aktif">Loss</option>
-            </select>
-          </div>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary" onclick = "submit_changes_kabupaten()">Save changes</button>
         </div>
       </div>
-      </div>
+    </div>
 
-      <?php $this->load->view("includes/footer")?>
+    <?php $this->load->view("includes/footer")?>
     <?php $this->load->view("includes/core-script")?>
     <script src="<?php echo base_url();?>global/vendor/asrange/jquery-asRange.min.js"></script>
     <script src="<?php echo base_url();?>global/vendor/bootbox/bootbox.js"></script>
 
+    <script>
+      var active_provinsi = "";
+      var active_id_provinsi = "";
+      function load_kabupaten_provinsi(provinsi,id_provinsi){
+        active_provinsi = provinsi;
+        active_id_provinsi = id_provinsi;
+        reload_table1();
+      }
+    </script>
+    <script>
+      var row = 0;
+      var edited_row = 0;
+      var deleted_row = 0;
+    </script>
+    <script>
+      function tambahRowProduk(){
+        var html = `
+          <tr id = "tambahRowProduk${row}">
+            <td>
+            <select class = 'form-control' id = 'nama_produk_insert${row}'>
+            <?php for($a = 0; $a < count($dataproduk); $a++):?>
+              <option value = "<?php echo $dataproduk[$a]["id_pk_produk"];?>"><?php echo $dataproduk[$a]["produk_nama"];?></option>
+            <?php endfor;?>
+            </td>
+            <td><input type = 'number' class = 'form-control' id = 'qty_produk_insert${row}' min="0"></td>
+            <td>
+              <textarea class = 'form-control' id ='keterangan_produk_insert${row}'></textarea>
+            </td>
+            <td>
+              <button type = "button" class = "btn btn-danger btn-sm" onclick = "deleteProdukData(this)"><i class = "icon md-delete"></i></button>
+            </td>
+          </tr>
+        `;
+        $("#tambah_produk_button_container").before(html);
+        row++;
+      }
+
+      function deleteProdukData(r) {
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("table_content_container").deleteRow(i);
+      }
+
+      function submitProvinsiData(row){
+        var nama_provinsi = $("#nama_provinsi_insert"+row).val();
+        var status_provinsi = $("#status_provinsi_insert"+row).val();
+        $.ajax({
+          url:"<?php echo base_url();?>ws/provinsi/create",
+          type:"POST",
+          dataType:"JSON",
+          data:{
+            "nama_provinsi":nama_provinsi,
+            "status_provinsi": status_provinsi,
+            "id_create":<?php echo $this->session->id_user;?>
+          },
+          success:function(respond){
+            if(respond["status"] == "success"){
+              $("#tambahRowProduk"+row).remove();
+              reload_table();
+            }
+          }
+        });
+      }
+      function load_edit(row){
+        edited_row = row;
+        var id_provinsi = $("#id_provinsi"+row).val();
+        var nama_provinsi = $("#nama_provinsi"+row).val();
+        var status_provinsi = $("#status_provinsi"+row).val();
+        $("#id_provinsi_edit").val(id_provinsi);
+        $("#nama_provinsi_edit").val(nama_provinsi);
+        $("#status_provinsi_edit").val(status_provinsi);
+      }
+      function submit_changes(){
+        var id_provinsi_edit = $("#id_provinsi_edit").val();
+        var nama_provinsi_edit = $("#nama_provinsi_edit").val();
+        var status_provinsi_edit = $("#status_provinsi_edit").val();
+        $.ajax({
+          url:"<?php echo base_url();?>ws/provinsi/update",
+          type:"POST",
+          dataType:"JSON",
+          data:{
+            "id":id_provinsi_edit,
+            "nama":nama_provinsi_edit,
+            "status":status_provinsi_edit,
+            "id_edit":<?php echo $this->session->id_user?>
+          },
+          success:function(respond){
+            if(respond["status"] == "success"){
+              reload_table();
+            }
+            $("#edit_provinsi").modal("hide");
+          }
+        });
+      }
+      function load_delete(row){
+        deleted_row = row;
+        var id = $("#id_provinsi"+row).val();
+        $("#id_provinsi_delete").val(id);
+      }
+      function submit_delete(){
+        var id = $("#id_provinsi_delete").val();
+        $.ajax({
+          url:"<?php echo base_url();?>ws/provinsi/delete?id="+id+"&id_delete=<?php echo $this->session->id_user;?>",
+          type:"delete",
+          dataType:"JSON",
+          success:function(respond){
+            if(respond["status"] == "success"){
+              $("#provinsi_row"+deleted_row).remove();
+              reload_table();
+              $("#delete_provinsi").modal("hide");
+            }
+          }
+        });
+      }
+    </script>
+    <script>
+      var row_kabupaten = 0;
+      function tambahRowKabupaten(){
+        var html = `
+          <tr id = "tambahRowKabupaten${row_kabupaten}">
+            <td><input type = 'text' class = 'form-control' id = 'nama_kabupaten_insert${row_kabupaten}'></td>
+            <td>
+              <select class = 'form-control' id = 'status_kabupaten_insert${row_kabupaten}'>
+                <option value = "aktif">AKTIF</option>
+                <option value = "nonaktif">NONAKTIF</option>
+            </td>
+            <td>
+              <button type = "button" class = "btn btn-danger btn-sm" onclick = "submitKabupatenData(${row_kabupaten})"><i class = "icon md-delete"></i></button>
+            </td>
+          </tr>
+        `;
+        $("#tambah_kabupaten_button_container").before(html);
+        row_kabupaten++;
+      }
+      function submitKabupatenData(row){
+        var nama_kabupaten = $("#nama_kabupaten_insert"+row).val();
+        var status_kabupaten = $("#status_kabupaten_insert"+row).val();
+        var id_provinsi = active_id_provinsi;
+        $.ajax({
+          url:"<?php echo base_url();?>ws/kabupaten/create",
+          type:"POST",
+          dataType:"JSON",
+          data:{
+            "nama_kabupaten":nama_kabupaten,
+            "status_kabupaten": status_kabupaten,
+            "id_provinsi": id_provinsi,
+            "id_create":<?php echo $this->session->id_user;?>
+          },
+          success:function(respond){
+            if(respond["status"] == "success"){
+              reload_table1();
+            }
+          }
+        });
+      }
+      function load_edit_kabupaten(row){
+        edited_row = row;
+        var id_prospek = $("#id_prospek"+row).val();
+        var nama_kabupaten = $("#nama_kabupaten"+row).val();
+        var status_kabupaten = $("#status_kabupaten"+row).val();
+        $("#id_kabupaten_edit").val(id_prospek);
+        $("#nama_prospek_edit").val(nama_kabupaten);
+        $("#status_prospek_edit").val(status_kabupaten);
+      }
+      function submit_changes_kabupaten(){
+        var id_kabupaten_edit = $("#id_kabupaten_edit").val();
+        var nama_prospek_edit = $("#nama_prospek_edit").val();
+        var status_prospek_edit = $("#status_prospek_edit").val();
+        $.ajax({
+          url:"<?php echo base_url();?>ws/kabupaten/update",
+          type:"POST",
+          dataType:"JSON",
+          data:{
+            "id":id_kabupaten_edit,
+            "nama":nama_prospek_edit,
+            "status":status_prospek_edit,
+            "id_edit":<?php echo $this->session->id_user?>
+          },
+          success:function(respond){
+            if(respond["status"] == "success"){
+              reload_table1();
+            }
+            $("#edit_kabupaten").modal("hide");
+          }
+        });
+      }
+      function load_delete_kabupaten(row){
+        deleted_row = row;
+        var id = $("#id_prospek"+row).val();
+        $("#id_kabupaten_delete").val(id);
+      }
+      function submit_delete_kabupaten(){
+        var id = $("#id_kabupaten_delete").val();
+        $.ajax({
+          url:"<?php echo base_url();?>ws/kabupaten/delete?id="+id+"&id_delete=<?php echo $this->session->id_user;?>",
+          type:"delete",
+          dataType:"JSON",
+          success:function(respond){
+            if(respond["status"] == "success"){
+              $("#kabupaten_row"+deleted_row).remove();
+              $("#delete_kabupaten").modal("hide");
+              reload_table1();
+            }
+          }
+        });
+      }
+    </script>
   </body>
 </html>
