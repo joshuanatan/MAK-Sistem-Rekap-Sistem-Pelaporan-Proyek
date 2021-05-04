@@ -65,7 +65,7 @@ class Rumah_sakit extends CI_Controller{
     }
     else{
       $response["status"] = false;
-      $response["msg"] = "The ID Produk field is required";
+      $response["msg"] = "The ID Rumah Sakit field is required";
     }
     echo json_encode($response);
   }
