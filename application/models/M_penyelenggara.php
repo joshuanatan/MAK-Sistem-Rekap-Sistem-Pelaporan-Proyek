@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
-class M_Penyelenggara extends CI_Model{
+class M_penyelenggara extends CI_Model{
 
   public function get_penyelenggara(){
     $sql = "SELECT id_pk_penyelenggara, penyelenggara_nama, penyelenggara_status FROM mstr_penyelenggara where penyelenggara_status = 'aktif'";
