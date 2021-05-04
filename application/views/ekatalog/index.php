@@ -113,7 +113,7 @@
   </div>
 </div>
 <div class="modal fade" id="createModal">
-  <div class="modal-dialog modal-simple modal-center">
+  <div class="modal-dialog modal-simple modal-center modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -121,7 +121,7 @@
         </button>
         <h4 class="modal-title">Tambah E-Katalog</h4>
       </div>
-      <form id = "createEkatalogForm" >
+      <form id = "createForm" >
         <div class="modal-body">
           <div class="form-group">
             <label class="form-control-label">Komoditas</label>
@@ -183,6 +183,23 @@
             <label class="form-control-label">Posisi Paket</label>
             <input type="text" class="form-control" name="posisi_paket">
           </div>
+          <table class = "table table-bordered table-hover">
+            <thead>
+              <th>Nama Produk</th>
+              <th>Kuantitas</th>
+              <th>Mata Uang</th>
+              <th>Harga Satuan</th>
+              <th>Perkiraan Ongkos Kirim</th>
+              <th>Total Harga</th>
+              <th>Catatan</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr id = "tambah_row_produk_ekatalog_container">
+                <td colspan = "8"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambah_row_produk_ekatalog()">Tambah Produk E-Katalog</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -192,8 +209,8 @@
     </div>
   </div>
 </div>
-<div class="modal fade" id="editModal">
-  <div class="modal-dialog modal-simple modal-center">
+<div class="modal fade" id="updateModal">
+  <div class="modal-dialog modal-simple modal-center modal-lg">
     <div class="modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -201,7 +218,7 @@
           </button>
           <h4 class="modal-title">Update E-Katalog</h4>
       </div>
-      <form id = "editEkatalogForm" >
+      <form id = "updateForm">
         <div class="modal-body">
           <input type="hidden" name="id_ekatalog" id = "edit_id_katalog">
           <div class="form-group">
@@ -264,6 +281,24 @@
             <label class="form-control-label">Posisi Paket</label>
             <input type="text" class="form-control" name="posisi_paket" id = "edit_posisi_paket">
           </div>
+          <table class = "table table-bordered table-hover">
+            <thead>
+              <th>Nama Produk</th>
+              <th>Kuantitas</th>
+              <th>Mata Uang</th>
+              <th>Harga Satuan</th>
+              <th>Perkiraan Ongkos Kirim</th>
+              <th>Total Harga</th>
+              <th>Catatan</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr id = "edit_tambah_row_produk_ekatalog_container">
+                <td colspan = "8"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "edit_tambah_row_produk_ekatalog()">Tambah Produk E-Katalog</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           <button type="button" onclick = "update_ekatalog_row()" class="btn btn-primary">Save changes</button>
@@ -273,9 +308,9 @@
   </div>
 </div>
 <script>
-  var create_ekatalog_form = $("#createEkatalogForm").html();
+  var create_ekatalog_form = $("#createForm").html();
   function create_ekatalog_row(){
-    var fd = new FormData($("#createEkatalogForm")[0]);
+    var fd = new FormData($("#createForm")[0]);
     $.ajax({
       url:"<?php echo base_url();?>ws/ekatalog/insert",
       type:"POST",
@@ -284,12 +319,13 @@
       contentType: false,
       processData: false,
       success:function(respond){
-        $("#createEkatalogForm").html(create_ekatalog_form);
+        $("#createForm").html(create_ekatalog_form);
         $("#createModal").modal("hide");
         reload_table();
       }
     });
   }
+  var content_ekatalog_produk = "";
   function load_edit(row){
     $("#edit_id_katalog").val(content[row]["id_pk_ekatalog"]);
     $("#edit_komoditas").val(content[row]["ekatalog_komoditas"]);
@@ -307,12 +343,56 @@
     $("#edit_total_harga").val(content[row]["ekatalog_total_harga"]);
     $("#edit_status_paket").val(content[row]["ekatalog_status_paket"]);
     $("#edit_posisi_paket").val(content[row]["ekatalog_posisi_paket"]);
+    
+    $(".produk_ekatalog_row").remove();
+    $.ajax({
+      url:`<?php echo base_url();?>ws/ekatalog/get_ekatalog_produk/${content[row]["id_pk_ekatalog"]}`,
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        content_ekatalog_produk = respond;
+        var html = "";
+        for(var a = 0; a<respond.length; a++){
+          html += `
+          <tr class = "produk_ekatalog_row" id = "produk_ekatalog_row${a}">
+            <input type = "hidden" name = "edit_produk_ekatalog[]" value = "${a}">
+            <input type = "hidden" name = "id_ekatalog_produk${a}" value = "${respond[a]["id_pk_ekatalog_produk"]}">
+            <td>
+              <textarea class = "form-control" name = "ekatalog_produk_nama_produk${a}">${respond[a]["ekatalog_produk_nama_produk"]}</textarea>
+            </td>
+            <td>
+              <label>online: ${respond[a]["ekatalog_produk_kuantitas_online"]}</label>
+              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_kuantitas"]}" name = "ekatalog_produk_kuantitas${a}"></td>
+            <td>
+              <label>online: ${respond[a]["ekatalog_produk_mata_uang_online"]}</label>
+              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_mata_uang"]}" name = "ekatalog_produk_mata_uang${a}"></td>
+            <td>
+              <label>online: ${respond[a]["ekatalog_produk_harga_satuan_online"]}</label>
+              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_harga_satuan"]}" name = "ekatalog_produk_harga_satuan${a}"></td>
+            <td>
+              <label>online: ${respond[a]["ekatalog_produk_perkiraan_ongkos_kirim_online"]}</label>
+              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_perkiraan_ongkos_kirim"]}" name = "ekatalog_produk_perkiraan_ongkos_kirim${a}"></td>
+            <td>
+              <label>online: ${respond[a]["ekatalog_produk_total_harga_online"]}</label>
+              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_total_harga"]}" name = "ekatalog_produk_total_harga${a}"></td>
+            <td>
+              <textarea class = "form-control" name = "ekatalog_produk_catatan${a}">${respond[a]["ekatalog_produk_catatan"]}</textarea>
+            </td>
+            <td>
+              <button type = "button" class = "btn btn-danger btn-sm" onclick = "hapus_row_ekatalog_produk(${a})"><i class = "icon md-delete"></i></button>
+            </td>
+          </tr>
+          `;
+        }
+        $("#edit_tambah_row_produk_ekatalog_container").before(html);
+      }
+    })
 
-    $("#editModal").modal("show");
+    $("#updateModal").modal("show");
   }
   function update_ekatalog_row(){
     
-    var fd = new FormData($("#editEkatalogForm")[0]);
+    var fd = new FormData($("#updateForm")[0]);
     $.ajax({
       url:"<?php echo base_url();?>ws/ekatalog/update",
       type:"POST",
@@ -321,7 +401,7 @@
       contentType: false,
       processData: false,
       success:function(respond){
-        $("#editModal").modal("hide");
+        $("#updateModal").modal("hide");
         reload_table();
       }
     });
@@ -440,5 +520,70 @@
         html += '<li class="page-item"><a class="page-link" style = "cursor:not-allowed">></a></li>';
     }
     $(".pagination").html(html);
+  }
+</script>
+<script>
+  function tambah_row_produk_ekatalog(){
+    var count = $(".produk_ekatalog_row").length;
+    var html = `
+      <tr class = "produk_ekatalog_row" id = "produk_ekatalog_row${count}">
+        <input type = "hidden" name = "produk_ekatalog[]" value = "${count}">
+        <td>
+          <textarea class = "form-control" name = "ekatalog_produk_nama_produk${count}"></textarea>
+        </td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_kuantitas${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_mata_uang${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_harga_satuan${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_perkiraan_ongkos_kirim${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_total_harga${count}"></td>
+        <td>
+          <textarea class = "form-control" name = "ekatalog_produk_catatan${count}"></textarea>
+        </td>
+        <td>
+          <button type = "button" class = "btn btn-danger btn-sm" onclick = "hapus_tambah_row_produk_ekatalog(${count})"><i class = "icon md-delete"></i></button>
+        </td>
+      </tr>
+    `;
+    $("#tambah_row_produk_ekatalog_container").before(html);
+  }
+  function hapus_tambah_row_produk_ekatalog(row){
+    $("#produk_ekatalog_row"+row).remove();
+  }
+  function hapus_row_ekatalog_produk(row){
+    var id_ekatalog_produk = content_ekatalog_produk[row]["id_pk_ekatalog_produk"];
+    $.ajax({
+      url:`<?php echo base_url();?>ws/ekatalog/delete_ekatalog_produk/${id_ekatalog_produk}`,
+      type:"DELETE",
+      dataType:"JSON",
+      success:function(respond){
+        $("#produk_ekatalog_row"+row).remove();
+      }
+    })
+  }
+  function edit_tambah_row_produk_ekatalog(){
+    var count = $(".produk_ekatalog_row").length;
+    var html = `
+      <tr class = "produk_ekatalog_row" id = "produk_ekatalog_row${count}">
+        <input type = "hidden" name = "produk_ekatalog[]" value = "${count}">
+        <td>
+          <textarea class = "form-control" name = "ekatalog_produk_nama_produk${count}"></textarea>
+        </td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_kuantitas${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_mata_uang${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_harga_satuan${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_perkiraan_ongkos_kirim${count}"></td>
+        <td><input type = "text" class = "form-control" name = "ekatalog_produk_total_harga${count}"></td>
+        <td>
+          <textarea class = "form-control" name = "ekatalog_produk_catatan${count}"></textarea>
+        </td>
+        <td>
+          <button type = "button" class = "btn btn-danger btn-sm" onclick = "hapus_edit_tambah_row_produk_ekatalog(${count})"><i class = "icon md-delete"></i></button>
+        </td>
+      </tr>
+    `;
+    $("#edit_tambah_row_produk_ekatalog_container").before(html);
+  }
+  function hapus_edit_tambah_row_produk_ekatalog(row){
+    $("#produk_ekatalog_row"+row).remove();
   }
 </script>
