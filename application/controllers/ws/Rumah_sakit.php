@@ -20,50 +20,91 @@ class Rumah_sakit extends CI_Controller{
     #echo $this->db->last_query();
     echo json_encode($response);
   }
-  public function insert() {
-    $temp_rs_kode= $this->input->post('koderumahsakit');
-    $temp_rs_nama= $this->input->post('namarumahsakit');
-    $temp_rs_kelas= $this->input->post('kelasrumahsakit');
-    $temp_rs_direktur= $this->input->post('direktur');
-    $temp_rs_alamat= $this->input->post('alamat');
-    $temp_rs_kategori= $this->input->post('kategori');
-    $temp_id_fk_kabupaten= $this->input->post('kabupaten');
-    $temp_rs_kode_pos= $this->input->post('kodepos');
-    $temp_rs_telepon= $this->input->post('telepon');
-    $temp_rs_fax= $this->input->post('fax');
-    $temp_id_fk_jenis_rs= $this->input->post('jenisrumahsakit');
-    $temp_id_fk_penyelenggara= $this->input->post('penyelenggara');
-    $temp_rs_status= "aktif";
-    $this->load->model("m_rumah_sakit");
-    $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
-    $response["status"] = true;
+  public function insert(){
+    $this->form_validation->set_rules("koderumahsakit","Kode Rumah Sakit","required");
+    $this->form_validation->set_rules("namarumahsakit","Nama Rumah Sakit","required");
+    $this->form_validation->set_rules("kelasrumahsakit","Kelas Rumah Sakit","required");
+    $this->form_validation->set_rules("direktur","Nama Direktur","required");
+    $this->form_validation->set_rules("alamat","Alamat Rumah Sakit","required");
+    $this->form_validation->set_rules("kategori","Kategori Rumah Sakit","required");
+    $this->form_validation->set_rules("kabupaten","Kabupaten","required");
+    $this->form_validation->set_rules("kodepos","Kodepos","required");
+    $this->form_validation->set_rules("telepon","Telepon","required");
+    $this->form_validation->set_rules("fax","Fax","required");
+    $this->form_validation->set_rules("jenisrumahsakit","Jenis Rumah Sakit","required");
+    $this->form_validation->set_rules("penyelenggara","Penyelenggara Rumah Sakit","required");
+    if($this->form_validation->run()){
+      $temp_rs_kode= $this->input->post('koderumahsakit');
+      $temp_rs_nama= $this->input->post('namarumahsakit');
+      $temp_rs_kelas= $this->input->post('kelasrumahsakit');
+      $temp_rs_direktur= $this->input->post('direktur');
+      $temp_rs_alamat= $this->input->post('alamat');
+      $temp_rs_kategori= $this->input->post('kategori');
+      $temp_id_fk_kabupaten= $this->input->post('kabupaten');
+      $temp_rs_kode_pos= $this->input->post('kodepos');
+      $temp_rs_telepon= $this->input->post('telepon');
+      $temp_rs_fax= $this->input->post('fax');
+      $temp_id_fk_jenis_rs= $this->input->post('jenisrumahsakit');
+      $temp_id_fk_penyelenggara= $this->input->post('penyelenggara');
+      $temp_rs_status= "aktif";
+      $this->load->model("m_rumah_sakit");
+      $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>","",str_replace("<p>","",validation_errors()));
+    }
     echo json_encode($response);
   }
-
-  public function delete($id_pk_rs) {
-    $this->load->model("m_rumah_sakit");
-    $this->m_rumah_sakit->delete_rs($id_pk_rs);
-    $response["status"] = true;
+  public function delete($id_pk_rs){
+    if($id_pk_rs != ""){
+      $this->load->model("m_rumah_sakit");
+      $this->m_rumah_sakit->delete_rs($id_pk_rs);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "The ID Produk field is required";
+    }
     echo json_encode($response);
   }
-
-  public function update() {
-    $id_pk_rs= $this->input->post('id_pk_rs');
-    $temp_rs_kode= $this->input->post('koderumahsakit');
-    $temp_rs_nama= $this->input->post('namarumahsakit');
-    $temp_rs_kelas= $this->input->post('kelasrumahsakit');
-    $temp_rs_direktur= $this->input->post('direktur');
-    $temp_rs_alamat= $this->input->post('alamat');
-    $temp_rs_kategori= $this->input->post('kategori');
-    $temp_id_fk_kabupaten= $this->input->post('kabupaten');
-    $temp_rs_kode_pos= $this->input->post('kodepos');
-    $temp_rs_telepon= $this->input->post('telepon');
-    $temp_rs_fax= $this->input->post('fax');
-    $temp_id_fk_jenis_rs= $this->input->post('jenisrumahsakit');
-    $temp_id_fk_penyelenggara= $this->input->post('penyelenggara');
-    $this->load->model("m_rumah_sakit");
-    $this->m_rumah_sakit->edit_rs($id_pk_rs,$temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara);
-    $response["status"] = true;
+  public function update(){
+    $this->form_validation->set_rules("id_pk_rs","ID Rumah Sakit","required");
+    $this->form_validation->set_rules("koderumahsakit","Kode Rumah Sakit","required");
+    $this->form_validation->set_rules("namarumahsakit","Nama Rumah Sakit","required");
+    $this->form_validation->set_rules("kelasrumahsakit","Kelas Rumah Sakit","required");
+    $this->form_validation->set_rules("direktur","Nama Direktur","required");
+    $this->form_validation->set_rules("alamat","Alamat Rumah Sakit","required");
+    $this->form_validation->set_rules("kategori","Kategori Rumah Sakit","required");
+    $this->form_validation->set_rules("kabupaten","Kabupaten","required");
+    $this->form_validation->set_rules("kodepos","Kodepos","required");
+    $this->form_validation->set_rules("telepon","Telepon","required");
+    $this->form_validation->set_rules("fax","Fax","required");
+    $this->form_validation->set_rules("jenisrumahsakit","Jenis Rumah Sakit","required");
+    $this->form_validation->set_rules("penyelenggara","Penyelenggara Rumah Sakit","required");
+    if($this->form_validation->run()){
+      $id_pk_rs= $this->input->post('id_pk_rs');
+      $temp_rs_kode= $this->input->post('koderumahsakit');
+      $temp_rs_nama= $this->input->post('namarumahsakit');
+      $temp_rs_kelas= $this->input->post('kelasrumahsakit');
+      $temp_rs_direktur= $this->input->post('direktur');
+      $temp_rs_alamat= $this->input->post('alamat');
+      $temp_rs_kategori= $this->input->post('kategori');
+      $temp_id_fk_kabupaten= $this->input->post('kabupaten');
+      $temp_rs_kode_pos= $this->input->post('kodepos');
+      $temp_rs_telepon= $this->input->post('telepon');
+      $temp_rs_fax= $this->input->post('fax');
+      $temp_id_fk_jenis_rs= $this->input->post('jenisrumahsakit');
+      $temp_id_fk_penyelenggara= $this->input->post('penyelenggara');
+      $this->load->model("m_rumah_sakit");
+      $this->m_rumah_sakit->edit_rs($id_pk_rs,$temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>","",str_replace("<p>","",validation_errors()));
+    }
     echo json_encode($response);
   }
   public function get_jenis_rumah_sakit(){

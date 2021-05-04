@@ -124,7 +124,7 @@
           </button>
           <h4 class="modal-title">Tambah Rumah Sakit</h4>
       </div>
-      <form id = "createRumahSakitForm" >
+      <form id = "createForm" >
         <div class="modal-body">
           <div class="form-group">
             <label class="form-control-label">Kode Rumah Sakit</label>
@@ -232,7 +232,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" onclick = "create_rumah_sakit_row()" class="btn btn-primary">Save changes</button>
+          <button type="button" onclick = "create_row()" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
@@ -247,7 +247,7 @@
           </button>
           <h4 class="modal-title">Update Rumah Sakit</h4>
       </div>
-      <form id = "editRumahSakitForm" >
+      <form id = "updateForm" >
         <div class="modal-body">
           <input type = "hidden" id = "edit_idrumahsakit" name = "id_pk_rs">
           <div class="form-group">
@@ -356,7 +356,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" onclick = "update_rumah_sakit_row()" class="btn btn-primary">Save changes</button>
+          <button type="button" onclick = "update_row()" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
@@ -412,23 +412,6 @@
   }
   </script>
 <script>
-  var create_rumah_sakit_form = $("#createRumahSakitForm").html();
-  function create_rumah_sakit_row(){
-    var fd = new FormData($("#createRumahSakitForm")[0]);
-    $.ajax({
-      url:"<?php echo base_url();?>ws/rumah_sakit/insert",
-      type:"POST",
-      dataType:"JSON",
-      data:fd,
-      contentType: false,
-      processData: false,
-      success:function(respond){
-        $("#createRumahSakitForm").html(create_rumah_sakit_form);
-        $("#createModal").modal("hide");
-        reload_table();
-      }
-    });
-  }
   function load_edit(row){
     $.ajax({
       url:"<?php echo base_url();?>ws/kabupaten/kabupaten_provinsi/"+content[row]["id_fk_provinsi"],
@@ -460,9 +443,35 @@
 
     $("#editModal").modal("show");
   }
-  function update_rumah_sakit_row(){
-    
-    var fd = new FormData($("#editRumahSakitForm")[0]);
+  function load_delete(row){
+    $("#button_delete").attr("onclick",`delete_row(${row})`);
+    $("#deleteModal").modal("show");
+  }
+  var create_rumah_sakit_form = $("#createForm").html();
+  function create_row(){
+    var fd = new FormData($("#createForm")[0]);
+    $.ajax({
+      url:"<?php echo base_url();?>ws/rumah_sakit/insert",
+      type:"POST",
+      dataType:"JSON",
+      data:fd,
+      contentType: false,
+      processData: false,
+      success:function(respond){
+        if(respond["status"]){
+          $("#createForm").html(create_rumah_sakit_form);
+          alert("Data Rumah Sakit Berhasil Ditambahkan");
+          $("#createModal").modal("hide");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
+      }
+    });
+  }
+  function update_row(){
+    var fd = new FormData($("#updateForm")[0]);
     $.ajax({
       url:"<?php echo base_url();?>ws/rumah_sakit/update",
       type:"POST",
@@ -471,24 +480,32 @@
       contentType: false,
       processData: false,
       success:function(respond){
-        $("#updateModal").modal("hide");
-        reload_table();
+        if(respond["status"]){
+          $("#editModal").modal("hide");
+          alert("Data Rumah Sakit Berhasil Diubah");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
       }
     });
   }
-  function load_delete(row){
-    $("#button_delete").attr("onclick",`delete_rumah_sakit_row(${row})`);
-    $("#deleteModal").modal("show");
-  }
-  function delete_rumah_sakit_row(row){
+  function delete_row(row){
     var id_rumah_sakit = content[row]["id_pk_rs"];
     $.ajax({
       url:`<?php echo base_url();?>ws/rumah_sakit/delete/${id_rumah_sakit}`,
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
-        $("#deleteModal").modal("hide");
-        $(`#rumah_sakit_row${row}`).remove();
+        if(respond["status"]){
+          $("#deleteModal").modal("hide");
+          alert("Data Rumah Sakit Berhasil Dihapus");
+          $(`#rumah_sakit_row${row}`).remove();
+        }
+        else{
+          alert("Data Rumah Sakit Gagal Dihapus");
+        }
       }
     });
   }
