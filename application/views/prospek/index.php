@@ -26,6 +26,8 @@
       <div class="page-content">
         <div class="panel">
           <div class="panel-body">
+            <h3>Daftar Prospek</h3>
+            <br>
             <div class = "row">
               <div class = "form-group col-lg-3">
                 <h5>Kolom Pengurutan</h5>
@@ -51,7 +53,7 @@
                 </select>
               </div>
             </div>
-            <button type = "button" class = "btn btn-primary btn-sm" onclick = "tambahRowProvinsi()">Tambah Prospek</button>
+            <a href="<?php echo base_url();?>prospek/tambah_prospek" type = "button" class = "btn btn-primary btn-sm">Tambah Prospek</a>
             <br>
             <br>
             <div class = "scroll-provinsi-table-wrapper">
@@ -59,10 +61,12 @@
                 <thead>
                   <tr>
                     <th>ID Prospek</th>
+                    <th>Rumah Sakit</th>
                     <th>Notes Kompetitor</th>
                     <th>Notes Prospek</th>
                     <th>Funnel</th>
                     <th>Total Price</th>
+                    <th>Estimasi Pembelian</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -70,12 +74,14 @@
                   <?php for ($i=0; $i < 50; $i++):?>
                     <tr>
                       <td>10</td>
+                      <td>Bethsaida</td>
                       <td>Informa: harga lebih murah</td>
                       <td>Hampir deal, untuk harga bisa di nego lagi</td>
                       <td>Prospek</td>
                       <td><?php echo number_format(8600000)?></td>
-                      <td><button type = "button" class = "btn btn-primary btn-sm">Show</button> <button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
-                      <button type = "button"class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button></td>
+                      <td>18/10/2022</td>
+                      <td> <button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
+                      <button type = "button"class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button> <button type = "button" class = "btn btn-primary btn-sm">Details</button></td>
                     </tr>
                   <?php endfor; ?>
                 </tbody>
@@ -87,7 +93,33 @@
       <div class="page-content">
         <div class="panel">
           <div class="panel-body">
-            <h3>Detail Barang</h3>
+            <h3>Detail Prospek</h3>
+            <br>
+            <div class = "row">
+              <div class = "form-group col-lg-3">
+                <h5>Kolom Pengurutan</h5>
+                <select class="form-control" name="">
+                  <option value="">Nama</option>
+                </select>
+              </div>
+              <div class = "form-group col-lg-2">
+                <h5>Urutan</h5>
+                <select class = "form-control" id = "urutan_kolom" onchange = "change_arah_pengurutan()" id = "urutan_kolom">
+                  <option value = "ASC">A-Z</option>
+                  <option value = "DESC">Z-A</option>
+                </select>
+              </div>
+              <div class = "form-group col-lg-3">
+                <h5>Pencarian</h5>
+                <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
+              </div>
+              <div class = "form-group col-lg-4">
+                <h5>Kolom Pencarian</h5>
+                <select class = "form-control" onchange = "change_pencarian_kolom()" id = "pencarian_kolom">
+                  <option value = "all">Semua</option>
+                </select>
+              </div>
+            </div>
               <table class="table table-hover table-striped w-full">
                 <thead>
                   <tr>
