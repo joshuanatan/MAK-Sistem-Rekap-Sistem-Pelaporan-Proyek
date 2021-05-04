@@ -16,4 +16,50 @@ class Penyelenggara extends CI_Controller{
     
     echo json_encode($response);
   }
+  
+  public function insert(){
+    $this->form_validation->set_rules("namapenyelenggara","Nama Penyelenggara","required");
+    if($this->form_validation->run()){
+      $temp_penyelenggara_nama = $this->input->post('namapenyelenggara');
+      $temp_penyelenggara_status = "aktif";
+      $this->load->model("m_penyelenggara");
+      $this->m_penyelenggara->insert($temp_penyelenggara_nama, $temp_penyelenggara_status);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>","",str_replace("<p>","",validation_errors()));
+    }
+    echo json_encode($response);
+  }
+
+  public function delete($id_pk_penyelenggara){
+    if($id_pk_penyelenggara != ""){
+      $this->load->model("m_penyelenggara");
+      $this->m_penyelenggara->delete_penyelenggara($id_pk_penyelenggara);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "The ID Penyelenggara Rumah Sakit field is required";
+    }
+    echo json_encode($response);
+  }
+
+  public function update(){
+    $this->form_validation->set_rules("idpenyelenggara","ID Penyelenggara","required");
+    $this->form_validation->set_rules("namapenyelenggara","Nama Penyelenggara","required");
+    if($this->form_validation->run()){
+      $temp_id_pk_penyelenggara = $this->input->post('idpenyelenggara');
+      $temp_penyelenggara_nama = $this->input->post('namapenyelenggara');
+      $this->load->model("m_penyelenggara");
+      $this->m_penyelenggara->edit_penyelenggara($temp_id_pk_penyelenggara, $temp_penyelenggara_nama);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>","",str_replace("<p>","",validation_errors()));
+    }
+    echo json_encode($response);
+  }
 }

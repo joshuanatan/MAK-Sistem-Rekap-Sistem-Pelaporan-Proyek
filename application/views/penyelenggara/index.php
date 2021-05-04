@@ -28,7 +28,7 @@
             <div class = "row">
               <div class = "form-group col-lg-1">
                 <h5>&nbsp;</h5>
-                <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
+                <button type = "button" class = "btn btn-primary btn-sm" data-target="#createModal" data-toggle="modal">Tambah Data</button>
               </div>
               <div class = "form-group col-lg-1">
               </div>
@@ -62,7 +62,7 @@
                 </select>
               </div>
             </div>
-            <table class="table table-hover dataTable table-striped w-full" id = "table_content_container">
+            <table class="table table-hover table-striped w-full">
               <thead>
                 <tr>
                   <th>Nama Penyelenggara</th>
@@ -70,21 +70,7 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <?php for($a = 0; $a < count($datadb); $a++):?>
-                <tr>
-                  <td><?php echo strtoupper($datadb[$a]["penyelenggara_nama"]);?></td>
-                  <td><?php if($datadb[$a]["penyelenggara_status"] == "aktif"):?>
-                    <button type = "button" class = "btn btn-success btn-sm">AKTIF</button>
-                    <?php else:?>
-                    <button type = "button" class = "btn btn-danger btn-sm">NONAKTIF</button>
-                    <?php endif;?>
-                  </td>
-                  <td>
-                    <button type = "button" class = "btn btn-primary btn-sm" data-target="#editPenyelenggara<?php echo $datadb[$a]["id_pk_penyelenggara"];?>" data-toggle="modal"><i class = "icon md-edit"></i></button>
-                  </td>
-                </tr>
-                <?php endfor;?>
+              <tbody id = "table_content_container">
               </tbody>
             </table>
             <nav class = "d-flex justify-content-center">
@@ -106,8 +92,8 @@
   </body>
 </html>
 
-<div class="modal fade" id="modalCreate">
-  <div class="modal-dialog modal-simple modal-top">
+<div class="modal fade" id="createModal">
+  <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -115,7 +101,7 @@
         </button>
         <h4 class="modal-title" id="exampleModalTitle">Tambah Penyelenggara</h4>
       </div>
-      <form action="<?php echo base_url();?>penyelenggara/insert" autocomplete="off" method="post" enctype="multipart/form-data">
+      <form id = "createForm">
         <div class="modal-body">
           <div class="form-group">
             <label class="form-control-label">Nama Penyelenggara</label>
@@ -124,13 +110,13 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" onclick = "create_row()">Save changes</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="modal fade" id="modalUpdate">
+<div class="modal fade" id="updateModal">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
@@ -139,7 +125,7 @@
         </button>
         <h4 class="modal-title" id="exampleModalTitle">Edit Penyelenggara</h4>
       </div>
-      <form action="<?php echo base_url();?>penyelenggara/edit" autocomplete="off" method="post" enctype="multipart/form-data">
+      <form id = "updateForm">
         <input type="hidden" class="form-control" name="idpenyelenggara" id = "edit_idpenyelenggara">
         <div class="modal-body">
           <div class="form-group">
@@ -149,13 +135,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" onclick = "update_row()">Save changes</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="modal fade" id="modalDelete">
+<div class="modal fade" id="deleteModal">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
@@ -169,7 +155,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <a type="button" id = "delete_button" class="btn btn-primary">Delete</a>
+        <button type="button" id = "delete_button" class="btn btn-primary">Delete</button>
       </div>
     </div>
   </div>
@@ -222,8 +208,8 @@
             <td>${respond["data"][a]["penyelenggara_nama"]}</td>
             <td>${respond["data"][a]["penyelenggara_status"]}</td>
             <td>
-            <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#modalUpdate"><i class = "icon md-edit"></i></button>
-            <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#modalDelete"><i class = "icon md-delete"></i></button>
+            <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#updateModal"><i class = "icon md-edit"></i></button>
+            <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#deleteModal"><i class = "icon md-delete"></i></button>
             </td>
           </tr>
           `;
@@ -270,10 +256,71 @@
   function load_edit(row){
     $("#edit_idpenyelenggara").val(content[row]["id_pk_penyelenggara"]);
     $("#edit_namapenyelenggara").val(content[row]["penyelenggara_nama"]);
-    /*$("#modalUpdate").modal("show");*/
   }
   function load_delete(row){
-    $("#delete_button").attr("href",`${base_url}penyelenggara/delete/${content[row]["id_pk_penyelenggara"]}`);
-    /*$("#modalDelete").modal("show");*/
+    $("#delete_button").attr("onclick",`delete_row(${row})`);
+  }
+  
+  var create_penyelenggara_form = $("#createForm").html();
+  function create_row(){
+    var fd = new FormData($("#createForm")[0]);
+    $.ajax({
+      url:"<?php echo base_url();?>ws/penyelenggara/insert",
+      type:"POST",
+      dataType:"JSON",
+      data:fd,
+      contentType: false,
+      processData: false,
+      success:function(respond){
+        if(respond["status"]){
+          $("#createForm").html(create_penyelenggara_form);
+          $("#createModal").modal("hide");
+          alert("Data Penyelenggara Rumah Sakit Berhasil Dimasukan");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
+      }
+    });
+  }
+  function update_row(){
+    var fd = new FormData($("#updateForm")[0]);
+    $.ajax({
+      url:"<?php echo base_url();?>ws/penyelenggara/update",
+      type:"POST",
+      dataType:"JSON",
+      data:fd,
+      contentType: false,
+      processData: false,
+      success:function(respond){
+        if(respond["status"]){
+          $("#updateModal").modal("hide");
+          alert("Data Penyelenggara Rumah Sakit Berhasil Diubah");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
+      }
+    });
+  }
+  function delete_row(row){  
+    var id_penyelenggara = content[row]["id_pk_penyelenggara"];
+    $.ajax({
+      url:`<?php echo base_url();?>ws/penyelenggara/delete/${id_penyelenggara}`,
+      type:"DELETE",
+      dataType:"JSON",
+      success:function(respond){
+        if(respond["status"]){
+          $("#deleteModal").modal("hide");
+          alert("Data Penyelenggara Rumah Sakit Berhasil Dihapus");
+          reload_table();
+        }
+        else{
+          alert("Data Penyelenggara Rumah Sakit Gagal Dihapus");
+        }
+      }
+    });
   }
 </script>
