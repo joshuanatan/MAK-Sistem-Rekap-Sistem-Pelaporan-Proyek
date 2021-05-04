@@ -7,12 +7,10 @@ class Rumah_sakit extends CI_Controller{
       $this->load->model("m_jenis_rs");
       $this->load->model("m_penyelenggara");
 
-      $result1 = $this->m_rumah_sakit->get_rs();
       $result2 = $this->m_rumah_sakit->get_provinsi();
       $jenis_rs = $this->m_jenis_rs->get_jenis_rs();
       $penyelenggara = $this->m_penyelenggara->get_penyelenggara();
       $data = array (
-        "datadb" => $result1->result_array(),
         "dataprovinsi" => $result2->result_array(),
         "jenis_rs" => $jenis_rs->result_array(),
         "penyelenggara" => $penyelenggara->result_array(),

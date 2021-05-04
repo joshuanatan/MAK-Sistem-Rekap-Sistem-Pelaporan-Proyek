@@ -13,7 +13,7 @@ class Rumah_sakit extends CI_Controller{
     $current_page = $this->input->get("current_page");
     $this->load->model("m_rumah_sakit");
     $response["data"] = $this->m_rumah_sakit->search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->result_array();
-    $total_data = $this->m_rumah_sakit->get_rs()->num_rows();
+    $total_data = $this->m_rumah_sakit->get_rs($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->num_rows();
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page,$total_data,20);
