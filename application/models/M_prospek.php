@@ -10,8 +10,33 @@ class M_prospek extends CI_Model{
       return $result;
      }
      public function get_produk(){
-       $sql = "SELECT id_pk_produk, produk_nama FROM mstr_produk WHERE produk_status = 'aktif'";
+       $sql = "SELECT id_pk_produk, produk_nama,produk_price_list FROM mstr_produk WHERE produk_status = 'aktif'";
        return executeQuery($sql);
+     }
+
+     public function insert_prospek($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $funnel, $estimasi_pembelian) {
+       $data = array(
+         "id_fk_rs"=>$id_fk_rs,
+         "prospek_principle"=>$prospek_principle,
+         "total_price_prospek"=>$total_price_prospek,
+         "notes_kompetitor"=>$notes_kompetitor,
+         "notes_prospek"=>$notes_prospek,
+         "funnel"=>$funnel,
+         "estimasi_pembelian"=>$estimasi_pembelian,
+         "prospek_status"=>"aktif"
+       );
+       $this->db->insert("mstr_prospek",$data);
+     }
+
+     public function insert_detail_prospek($id_fk_prospek, $id_fk_produk, $detail_prospek_quantity, $detail_prospek_keterangan){
+       $data = array(
+         "id_fk_prospek"=>$id_fk_prospek,
+         "id_fk_produk"=>$id_fk_produk,
+         "detail_prospek_quantity"=>$detail_prospek_quantity,
+         "detail_prospek_keterangan"=>$detail_prospek_keterangan,
+         "detail_prospek_status"=>"aktif"
+       );
+       $this->db->insert("mstr_prospek",$data);
      }
 
     public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){

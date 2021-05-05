@@ -33,7 +33,7 @@
                 <input type="hidden" class="form-control" name="id_prospek">
                 <div class="form-group">
                   <label class="form-control-label">Rumah Sakit</label>
-                  <select class = "form-control" id = "status_prospek_edit" name = "funnel">
+                  <select class = "form-control" id = "status_prospek_edit" name = "id_fk_rs">
                     <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                     <?php for($a = 0; $a < count($datars); $a++):?>
                     <option value = "<?php echo $datars[$a]["id_pk_rs"];?>"><?php echo $datars[$a]["rs_nama"];?></option>
@@ -41,12 +41,27 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label class="form-control-label">Prospek Principle</label>
+                  <input type="text" class="form-control" name="prospek_principle" placeholder="Prospek Principle">
+                </div>
+                <div class="form-group">
                   <label class="form-control-label">Notes Kompetitor</label>
-                  <textarea type="text" class="form-control" name="kabupaten" placeholder="Notes Kompetitor"></textarea>
+                  <textarea type="text" class="form-control" name="notes_kompetitor" placeholder="Notes Kompetitor"></textarea>
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Notes Prospek</label>
-                  <textarea type="text" class="form-control" name="kabupaten" placeholder="Notes Prospek"></textarea>
+                  <textarea type="text" class="form-control" name="notes_prospek" placeholder="Notes Prospek"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label">Estimasi Pembelian</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="icon wb-calendar" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" data-plugin="datepicker" data-multidate="true">
+                    </div>
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Funnel</label>
@@ -123,14 +138,14 @@
         var html = `
           <tr id = "tambahRowProduk${row}">
             <td>
-            <select class = 'form-control' id = 'nama_produk_insert${row}'>
+            <select class = 'form-control' name = id_fk_produk id = 'nama_produk_insert${row}'>
             <?php for($a = 0; $a < count($dataproduk); $a++):?>
               <option value = "<?php echo $dataproduk[$a]["id_pk_produk"];?>"><?php echo $dataproduk[$a]["produk_nama"];?></option>
             <?php endfor;?>
             </td>
-            <td><input type = 'number' class = 'form-control' id = 'qty_produk_insert${row}' min="0"></td>
+            <td><input type = 'number' class = 'form-control' name = detail_quantity id = 'qty_produk_insert${row}' min="0"></td>
             <td>
-              <textarea class = 'form-control' id ='keterangan_produk_insert${row}'></textarea>
+              <textarea class = 'form-control' name = detail_keterangan id ='keterangan_produk_insert${row}'></textarea>
             </td>
             <td>
               <button type = "button" class = "btn btn-danger btn-sm" onclick = "deleteProdukData(this)"><i class = "icon md-delete"></i></button>
