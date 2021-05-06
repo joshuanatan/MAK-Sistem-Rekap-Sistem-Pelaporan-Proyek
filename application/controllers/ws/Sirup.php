@@ -68,7 +68,7 @@ class Sirup extends CI_Controller{
     $this->load->model("m_sirup");
     $response["data"] = $this->m_sirup->search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->result_array();
     #echo $this->db->last_query();
-    $total_data = $this->m_sirup->get_data()->num_rows();
+    $total_data = $this->m_sirup->get_data($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page)->num_rows();
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page,$total_data,20);
