@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 05, 2021 at 03:10 PM
+-- Generation Time: May 08, 2021 at 06:28 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -40,6 +40,14 @@ CREATE TABLE `mstr_prospek` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `mstr_prospek`
+--
+
+INSERT INTO `mstr_prospek` (`id_pk_prospek`, `id_fk_rs`, `prospek_principle`, `total_price_prospek`, `notes_kompetitor`, `notes_prospek`, `funnel`, `estimasi_pembelian`, `prospek_status`) VALUES
+(1, 6, 'MAK', '0', 'test', 'test', 'Prospek', '0001-11-11', 'aktif'),
+(2, 5, 'TEST', '0', 'TEST', 'TEST', 'Prospek', '0111-11-11', 'deleted');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -57,7 +65,7 @@ ALTER TABLE `mstr_prospek`
 -- AUTO_INCREMENT for table `mstr_prospek`
 --
 ALTER TABLE `mstr_prospek`
-  MODIFY `id_pk_prospek` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pk_prospek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
