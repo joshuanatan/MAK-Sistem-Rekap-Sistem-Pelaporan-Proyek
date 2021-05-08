@@ -21,7 +21,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="<?php echo base_url();?>">Home</a></li>
           <li class="breadcrumb-item"><a href="<?php echo base_url();?>Prospek">Prospek</a></li>
-          <li class="breadcrumb-item active">Tambah Prospek</li>
+          <li class="breadcrumb-item active">Edit Prospek</li>
         </ol>
       </div>
       <div class="page-content container-fluid">
@@ -30,7 +30,7 @@
             <div class="">
               <div class="panel">
                 <div class="panel-body">
-                  <h4 class="title">Tambah Prospek</h4>
+                  <h4 class="title">Edit Prospek</h4>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
                     <select class = "form-control"  name = "id_fk_rs">
