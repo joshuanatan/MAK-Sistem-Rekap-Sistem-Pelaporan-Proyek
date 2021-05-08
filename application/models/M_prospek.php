@@ -28,9 +28,13 @@ class M_prospek extends CI_Model{
        $this->db->insert("mstr_prospek",$data);
      }
 
-     public function insert_detail_prospek($id_fk_prospek, $id_fk_produk, $detail_prospek_quantity, $detail_prospek_keterangan){
+     public function insert_detail_prospek($id_fk_produk, $detail_prospek_quantity, $detail_prospek_keterangan){
+       $sql1 = "SELECT id_pk_prospek FROM mstr_prospek";
+       $query1 = mysqli_query($con, $sql1);
+       $rows = mysqli_num_rows($query1);
+
        $data = array(
-         "id_fk_prospek"=>$id_fk_prospek,
+         "id_fk_prospek"=>$rows,
          "id_fk_produk"=>$id_fk_produk,
          "detail_prospek_quantity"=>$detail_prospek_quantity,
          "detail_prospek_keterangan"=>$detail_prospek_keterangan,

@@ -32,8 +32,9 @@
                 <h4 class="title">Tambah Prospek</h4>
                 <input type="hidden" class="form-control" name="id_prospek">
                 <div class="form-group">
+                  <form method="post">
                   <label class="form-control-label">Rumah Sakit</label>
-                  <select class = "form-control" id = "status_prospek_edit" name = "id_fk_rs">
+                  <select class = "form-control"  name = "id_fk_rs">
                     <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                     <?php for($a = 0; $a < count($datars); $a++):?>
                     <option value = "<?php echo $datars[$a]["id_pk_rs"];?>"><?php echo $datars[$a]["rs_nama"];?></option>
@@ -65,7 +66,7 @@
                 </div>
                 <div class="form-group">
                   <label class="form-control-label">Funnel</label>
-                  <select class = "form-control" id = "status_prospek_edit" name = "funnel">
+                  <select class = "form-control" name = "funnel">
                     <option value="Belum Ditentukan" selected>Belum Ditentukan</option>
                     <option value = "">Lead</option>
                     <option value = "">Prospek</option>
@@ -75,7 +76,7 @@
                   </select>
                 </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary" onclick = "submit_changes_produk()">Save changes</button>
+                <button type="submit" class="btn btn-primary" onclick = "submitProspekData()">Save changes</button>
               </div>
             </div>
           </div>
@@ -102,6 +103,7 @@
                       </tr>
                     </tbody>
                   </table>
+                  </form>
                   <nav class = "d-flex justify-content-center">
                     <ul class="pagination" id = "pagination">
                     </ul>
@@ -161,17 +163,18 @@
         document.getElementById("table_content_container").deleteRow(i);
       }
 
-      function submitProvinsiData(row){
-        var nama_provinsi = $("#nama_provinsi_insert"+row).val();
-        var status_provinsi = $("#status_provinsi_insert"+row).val();
+      function submitProspekData(row){
+        var nama_produk = $("#qty_produk_insert"+row).val();
+        var qty_produk = $("#qty_produk_insert"+row).val();
+        var keterangan_produk = $("#keterangan_produk_insert"+row).val();
         $.ajax({
-          url:"<?php echo base_url();?>ws/provinsi/create",
+          url:"<?php echo base_url();?>ws/prospek/create",
           type:"POST",
           dataType:"JSON",
           data:{
-            "nama_provinsi":nama_provinsi,
-            "status_provinsi": status_provinsi,
-            "id_create":<?php echo $this->session->id_user;?>
+            "nama_produk":nama_produk,
+            "qty_produk": qty_produk,
+            "keterangan_produk": keterangan_produk
           },
           success:function(respond){
             if(respond["status"] == "success"){
