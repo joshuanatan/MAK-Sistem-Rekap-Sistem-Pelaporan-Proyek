@@ -62,22 +62,24 @@
                 </select>
               </div>
             </div>
-            <table class="table table-hover table-striped w-full">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Paket</th>
-                  <th>Pagu</th>
-                  <th>Jenis Pengadaan</th>
-                  <th>Metode Pemilihan</th>
-                  <th>K/L/PD</th>
-                  <th>Satuan Kerja</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id = "table_content_container">
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class="table table-hover table-striped w-full">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Paket</th>
+                    <th>Pagu</th>
+                    <th>Jenis Pengadaan</th>
+                    <th>Metode Pemilihan</th>
+                    <th>K/L/PD</th>
+                    <th>Satuan Kerja</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id = "table_content_container">
+                </tbody>
+              </table>
+            </div>
             <nav class = "d-flex justify-content-center">
               <ul class="pagination">
                 <li class="disabled page-item">
@@ -142,19 +144,21 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Lokasi Pekerjaan</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>No.</th>
-                <th>Provinsi</th>
-                <th>Kabupaten/Kota</th>
-                <th>Detail Lokasi</th>
-              </thead>
-              <tbody>
-                <tr id = "add_lokasi_pekerjaan_button_container">
-                  <td colspan = "4"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_lokasi_pekerjaan_row()">Tambah Lokasi Pekerjaan</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Provinsi</th>
+                  <th>Kabupaten/Kota</th>
+                  <th>Detail Lokasi</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "add_lokasi_pekerjaan_button_container">
+                    <td colspan = "4"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_lokasi_pekerjaan_row()">Tambah Lokasi Pekerjaan</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Volume Pekerjaan</label>
@@ -191,21 +195,23 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Sumber Dana</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>No.</th>
-                <th>Sumber Dana</th>
-                <th>T.A</th>
-                <th>KLPD</th>
-                <th>MAK</th>
-                <th>Pagu</th>
-              </thead>
-              <tbody>
-                <tr id = "add_sumber_dana_button_container">
-                  <td colspan = "6"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_sumber_dana_row()">Tambah Sumber Dana</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Sumber Dana</th>
+                  <th>T.A</th>
+                  <th>KLPD</th>
+                  <th>MAK</th>
+                  <th>Pagu</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "add_sumber_dana_button_container">
+                    <td colspan = "6"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_sumber_dana_row()">Tambah Sumber Dana</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Jenis Pengadaan</label>
@@ -221,48 +227,54 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>#</th>
-                <th>Mulai</th>
-                <th>Akhir</th>
-              </thead>
-              <tbody>
-                <tr id = "add_pemanfaatan_barang_button_container">
-                  <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemanfaatan_barang_row()">Tambah Pemanfaatan Barang/Jasa</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Mulai</th>
+                  <th>Akhir</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "add_pemanfaatan_barang_button_container">
+                    <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemanfaatan_barang_row()">Tambah Pemanfaatan Barang/Jasa</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>#</th>
-                <th>Mulai</th>
-                <th>Akhir</th>
-              </thead>
-              <tbody>
-                <tr id = "add_pelaksanaan_kontrak_button_container">
-                  <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pelaksanaan_kontrak_row()">Tambah Pelaksanaan Kontrak</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Mulai</th>
+                  <th>Akhir</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "add_pelaksanaan_kontrak_button_container">
+                    <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pelaksanaan_kontrak_row()">Tambah Pelaksanaan Kontrak</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>#</th>
-                <th>Mulai</th>
-                <th>Akhir</th>
-              </thead>
-              <tbody>
-                <tr id = "add_jadwal_pemilihan_button_container">
-                  <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemilihan_penyedia_row()">Tambah Jadwal Pemilihan Penyedia</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Mulai</th>
+                  <th>Akhir</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "add_jadwal_pemilihan_button_container">
+                    <td colspan = "3"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemilihan_penyedia_row()">Tambah Jadwal Pemilihan Penyedia</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Histori Paket</label>
@@ -315,20 +327,21 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Lokasi Pekerjaan</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>No.</th>
-                <th>Provinsi</th>
-                <th>Kabupaten/Kota</th>
-                <th>Detail Lokasi</th>
-                <th></th>
-              </thead>
-              <tbody>
-                <tr id = "edit_lokasi_pekerjaan">
-                  <td colspan = 5><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_lokasi_pekerjaan_edit()">Tambah Lokasi Pekerjaan</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Provinsi</th>
+                  <th>Kabupaten/Kota</th>
+                  <th>Detail Lokasi</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "edit_lokasi_pekerjaan">
+                    <td colspan = 4><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_lokasi_pekerjaan_edit()">Tambah Lokasi Pekerjaan</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Volume Pekerjaan</label>
@@ -365,22 +378,23 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Sumber Dana</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>No.</th>
-                <th>Sumber Dana</th>
-                <th>T.A</th>
-                <th>KLPD</th>
-                <th>MAK</th>
-                <th>Pagu</th>
-                <th></th>
-              </thead>
-              <tbody>
-                <tr id = "edit_sumber_dana">
-                  <td colspan = 7><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_sumber_dana_edit()">Tambah Sumber Dana</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Sumber Dana</th>
+                  <th>T.A</th>
+                  <th>KLPD</th>
+                  <th>MAK</th>
+                  <th>Pagu</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "edit_sumber_dana">
+                    <td colspan = 6><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_sumber_dana_edit()">Tambah Sumber Dana</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Jenis Pengadaan</label>
@@ -396,51 +410,54 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>#</th>
-                <th>Mulai</th>
-                <th>Akhir</th>
-                <th></th>
-              </thead>
-              <tbody>
-                <tr id = "edit_pemanfaatan_barang">
-                  <td colspan = 4><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemanfaatan_barang_edit()">Tambah Pemanfaatan Barang</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Mulai</th>
+                  <th>Akhir</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "edit_pemanfaatan_barang">
+                    <td colspan = 3><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemanfaatan_barang_edit()">Tambah Pemanfaatan Barang</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>#</th>
-                <th>Mulai</th>
-                <th>Akhir</th>
-                <th></th>
-              </thead>
-              <tbody>
-                <tr id = "edit_pelaksanaan_kontrak">
-                  <td colspan = 4><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pelaksanaan_kontrak_edit()">Tambah Pelaksanaan Kontrak</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Mulai</th>
+                  <th>Akhir</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "edit_pelaksanaan_kontrak">
+                    <td colspan = 3><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pelaksanaan_kontrak_edit()">Tambah Pelaksanaan Kontrak</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
-            <table class = "table table-bordered table-stripped">
-              <thead>
-                <th>#</th>
-                <th>Mulai</th>
-                <th>Akhir</th>
-                <th></th>
-              </thead>
-              <tbody>
-                <tr id = "edit_jadwal_pemilihan">
-                  <td colspan = 4><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemilihan_penyedia_edit()">Tambah Jadwal Pemilihan</button></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class = "table-responsive">
+              <table class = "table table-bordered table-stripped">
+                <thead>
+                  <th>Mulai</th>
+                  <th>Akhir</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr id = "edit_jadwal_pemilihan">
+                    <td colspan = 3><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_pemilihan_penyedia_edit()">Tambah Jadwal Pemilihan</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label">Histori Paket</label>
@@ -456,160 +473,6 @@
           <button type="button" class="btn btn-primary" onclick = "update_row()">Save Changes</button>
         </div>
       </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="detailSirupModal">
-  <div class="modal-dialog modal-center modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-          </button>
-          <h4 class="modal-title" id="exampleModalTitle">Detail Data SiRUP</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-control-label">Kode RUP</label>
-          <input type = "text" class = "form-control" disabled id = "detail_kode_rup">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Nama Paket</label>
-          <input type = "text" class = "form-control" disabled id = "detail_nama_paket">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Nama KLPD</label>
-          <input type = "text" class = "form-control" disabled id = "detail_nama_klpd">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Satuan Kerja</label>
-          <input type = "text" class = "form-control" disabled id = "detail_satuan_kerja">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Tahun Anggaran</label>
-          <input type = "number" class = "form-control" disabled id = "detail_tahun_anggaran">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Lokasi Pekerjaan</label>
-          <table class = "table table-bordered table-stripped">
-            <thead>
-              <th>No.</th>
-              <th>Provinsi</th>
-              <th>Kabupaten/Kota</th>
-              <th>Detail Lokasi</th>
-            </thead>
-            <tbody id = "detail_lokasi_pekerjaan">
-            </tbody>
-          </table>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Volume Pekerjaan</label>
-          <input type = "text" class = "form-control" disabled id = "detail_volume_pekerjaan">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Uraian Pekerjaan</label>
-          <textarea class="form-control" disabled id = "detail_uraian_pekerjaan"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Spesifikasi Pekerjaan</label>
-          <textarea class="form-control" disabled id = "detail_spesifikasi_pekerjaan"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Produk Dalam Negeri</label>
-          <select class = "form-control" disabled id = "detail_produk_dalam_negeri">
-            <option value = "ya">YA</option>
-            <option value = "tidak">Tidak</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Usaha Kecil</label>
-          <select class = "form-control" disabled id = "detail_usaha_kecil">
-            <option value = "ya">YA</option>
-            <option value = "tidak">Tidak</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Pra DIPA/DPA</label>
-          <select class = "form-control" disabled id = "detail_pra_dipa_dpa">
-            <option value = "ya">YA</option>
-            <option value = "tidak">Tidak</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Sumber Dana</label>
-          <table class = "table table-bordered table-stripped">
-            <thead>
-              <th>No.</th>
-              <th>Sumber Dana</th>
-              <th>T.A</th>
-              <th>KLPD</th>
-              <th>MAK</th>
-              <th>Pagu</th>
-            </thead>
-            <tbody id = "detail_sumber_dana">
-            </tbody>
-          </table>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Jenis Pengadaan</label>
-          <input type = "text" class = "form-control" disabled id = "detail_jenis_pengadaan">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Total Pagu</label>
-          <input type = "text" class = "form-control" disabled id = "detail_total_pagu">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Metode Pemilihan</label>
-          <input type = "text" class = "form-control" disabled id = "detail_metode_pemilihan">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
-          <table class = "table table-bordered table-stripped">
-            <thead>
-              <th>#</th>
-              <th>Mulai</th>
-              <th>Akhir</th>
-            </thead>
-            <tbody id = "detail_pemanfaatan_barang">
-            </tbody>
-          </table>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
-          <table class = "table table-bordered table-stripped">
-            <thead>
-              <th>#</th>
-              <th>Mulai</th>
-              <th>Akhir</th>
-            </thead>
-            <tbody id = "detail_pelaksanaan_kontrak">
-            </tbody>
-          </table>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
-          <table class = "table table-bordered table-stripped">
-            <thead>
-              <th>#</th>
-              <th>Mulai</th>
-              <th>Akhir</th>
-            </thead>
-            <tbody id = "detail_jadwal_pemilihan">
-            </tbody>
-          </table>
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Histori Paket</label>
-          <input type = "text" class = "form-control" disabled id = "detail_histori_paket">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Tanggal Perbaharui Paket</label>
-          <input type = "date" class = "form-control" disabled id = "detail_tgl_perbarui_paket">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
 </div>
@@ -643,69 +506,71 @@
       </div>
       <form action = "<?php echo base_url();?>sirup/insert_pencarian" method = "POST">
         <div class="modal-body">
-          <table class = "table table-bordered table-stripped table-hover">
-            <thead>
-              <th>#</th>
-              <th>Tahun Pencarian</th>
-              <th>Frase Pencarian</th>
-              <th>Jenis Pengadaan</th>
-              <th>Action</th>
-            </thead>
-            <tbody id = "daftar_pencarian_container">
-              <?php for($a = 0; $a<count($pencarian_sirup); $a++):?>
-                <tr class = "pencarian_row" id = "pencarian_row<?php echo $a;?>">
-                  <td>
-                    <input 
-                      type = "checkbox" 
-                      name = "edit[]" 
-                      id = "edit_checkbox<?php echo $a;?>" 
-                      value = "<?php echo $a;?>"
-                    >
-                    <input 
-                      type = "hidden" 
-                      value = "<?php echo $pencarian_sirup[$a]["id_pk_pencarian_sirup"];?>"
-                      name = "id_pencarian<?php echo $a;?>"
-                      id = "id_pencarian<?php echo $a;?>"
-                    >
-                  </td>
-                  <td>
-                    <input 
-                      oninput = "activate_edit_check(<?php echo $a;?>)" 
-                      type = "number" 
-                      value = "<?php echo $pencarian_sirup[$a]["pencarian_sirup_tahun"];?>" 
-                      name = "tahun_pencarian<?php echo $a;?>" 
-                      class = "form-control"
-                      id = "tahun_pencarian<?php echo $a;?>"
-                    ></td>
-                  <td>
-                    <input 
-                      oninput = "activate_edit_check(<?php echo $a;?>)" 
-                      type = "text" 
-                      value = "<?php echo $pencarian_sirup[$a]["pencarian_sirup_frase"];?>" 
-                      name = "frase_pencarian<?php echo $a;?>" 
-                      class = "form-control"
-                      id = "frase_pencarian<?php echo $a;?>"
-                    >
-                  </td>
-                  <td>
-                    <select id = "jenis_pencarian<?php echo $a;?>" oninput = "activate_edit_check(<?php echo $a;?>)" name = "jenis_pencarian<?php echo $a;?>" class="form-control">
-                      <option value="0">Semua Jenis Pengadaan</option>
-                      <option value="1" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 1) echo "selected";?>>Barang</option>
-                      <option value="3" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 3) echo "selected";?>>Jasa Konsultansi</option>
-                      <option value="4" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 4) echo "selected";?>>Jasa Lainnya</option>
-                      <option value="2" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 2) echo "selected";?>>Pekerjaan Konstruksi</option>
-                    </select>
-                  </td>
-                  <td>
-                    <button type = "button" class = "btn btn-danger btn-sm" onclick = "konfirmasi_delete_pencarian(<?php echo $a;?>)"><i class = "icon md-delete"></i></button>
-                  </td>
+          <div class = "table-responsive">
+            <table class = "table table-bordered table-stripped table-hover">
+              <thead>
+                <th>#</th>
+                <th>Tahun Pencarian</th>
+                <th>Frase Pencarian</th>
+                <th>Jenis Pengadaan</th>
+                <th>Action</th>
+              </thead>
+              <tbody id = "daftar_pencarian_container">
+                <?php for($a = 0; $a<count($pencarian_sirup); $a++):?>
+                  <tr class = "pencarian_row" id = "pencarian_row<?php echo $a;?>">
+                    <td>
+                      <input 
+                        type = "checkbox" 
+                        name = "edit[]" 
+                        id = "edit_checkbox<?php echo $a;?>" 
+                        value = "<?php echo $a;?>"
+                      >
+                      <input 
+                        type = "hidden" 
+                        value = "<?php echo $pencarian_sirup[$a]["id_pk_pencarian_sirup"];?>"
+                        name = "id_pencarian<?php echo $a;?>"
+                        id = "id_pencarian<?php echo $a;?>"
+                      >
+                    </td>
+                    <td>
+                      <input 
+                        oninput = "activate_edit_check(<?php echo $a;?>)" 
+                        type = "number" 
+                        value = "<?php echo $pencarian_sirup[$a]["pencarian_sirup_tahun"];?>" 
+                        name = "tahun_pencarian<?php echo $a;?>" 
+                        class = "form-control"
+                        id = "tahun_pencarian<?php echo $a;?>"
+                      ></td>
+                    <td>
+                      <input 
+                        oninput = "activate_edit_check(<?php echo $a;?>)" 
+                        type = "text" 
+                        value = "<?php echo $pencarian_sirup[$a]["pencarian_sirup_frase"];?>" 
+                        name = "frase_pencarian<?php echo $a;?>" 
+                        class = "form-control"
+                        id = "frase_pencarian<?php echo $a;?>"
+                      >
+                    </td>
+                    <td>
+                      <select id = "jenis_pencarian<?php echo $a;?>" oninput = "activate_edit_check(<?php echo $a;?>)" name = "jenis_pencarian<?php echo $a;?>" class="form-control">
+                        <option value="0">Semua Jenis Pengadaan</option>
+                        <option value="1" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 1) echo "selected";?>>Barang</option>
+                        <option value="3" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 3) echo "selected";?>>Jasa Konsultansi</option>
+                        <option value="4" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 4) echo "selected";?>>Jasa Lainnya</option>
+                        <option value="2" <?php if($pencarian_sirup[$a]["pencarian_sirup_jenis"] == 2) echo "selected";?>>Pekerjaan Konstruksi</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button type = "button" class = "btn btn-danger btn-sm" onclick = "konfirmasi_delete_pencarian(<?php echo $a;?>)"><i class = "icon md-delete"></i></button>
+                    </td>
+                  </tr>
+                <?php endfor;?>
+                <tr id = "daftar_pencarian_tambah_button">
+                  <td colspan = 5><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_row_daftar_pencarian()">Tambah Pencarian</button></td>
                 </tr>
-              <?php endfor;?>
-              <tr id = "daftar_pencarian_tambah_button">
-                <td colspan = "5"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "add_row_daftar_pencarian()">Tambah Pencarian</button></td>
-              </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -803,13 +668,12 @@
   function add_lokasi_pekerjaan_row(){
     var count = $(".lokasi_pekerjaan_row").length;
     var html = `
-    <tr class = "lokasi_pekerjaan_row">
-      <td>
-        <input type = "checkbox" checked name = "lokasi_pekerjaan_check[]" value = "${count}">
-      </td>
+    <tr class = "lokasi_pekerjaan_row" id = "lokasi_pekerjaan_row${count}">
+      <input type = "hidden" name = "lokasi_pekerjaan_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "provinsi${count}"></td>
       <td><input type = "text" class = "form-control" name = "kabupaten${count}"></td>
       <td><input type = "text" class = "form-control" name = "detail_lokasi${count}"></td>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_lokasi_pekerjaan_new_row(${count})"><i class = "icon md-delete"></i></button></td>
     </tr>
     `;
     $("#add_lokasi_pekerjaan_button_container").before(html);
@@ -817,15 +681,14 @@
   function add_sumber_dana_row(){
     var count = $(".sumber_dana_row").length;
     var html = `
-    <tr class = "sumber_dana_row">
-      <td>
-        <input type = "checkbox" checked name = "sumber_dana_check[]" value = "${count}">
-      </td>
+    <tr class = "sumber_dana_row" id = "sumber_dana_row${count}">
+      <input type = "hidden" name = "sumber_dana_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "sumber_dana${count}"></td>
       <td><input type = "text" class = "form-control" name = "ta${count}"></td>
       <td><input type = "text" class = "form-control" name = "klpd${count}"></td>
       <td><input type = "text" class = "form-control" name = "mak${count}"></td>
       <td><input type = "text" class = "form-control" name = "pagu${count}"></td>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_sumber_dana_new_row(${count})"><i class = "icon md-delete"></i></button></td>
     </tr>
     `;
     $("#add_sumber_dana_button_container").before(html);
@@ -833,12 +696,11 @@
   function add_pemanfaatan_barang_row(){
     var count = $(".pemanfaatan_barang_row").length;
     var html = `
-    <tr class = "pemanfaatan_barang_row">
-      <td>
-        <input type = "checkbox" checked name = "pemanfaatan_barang_check[]" value = "${count}">
-      </td>
+    <tr class = "pemanfaatan_barang_row" id = "pemanfaatan_barang_row${count}">
+      <input type = "hidden" name = "pemanfaatan_barang_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "mulai_pemanfaatan_barang${count}"></td>
       <td><input type = "text" class = "form-control" name = "akhir_pemanfaatan_barang${count}"></td>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemanfaatan_barang_new_row(${count})"><i class = "icon md-delete"></i></button></td>
     </tr>
     `;
     $("#add_pemanfaatan_barang_button_container").before(html);
@@ -846,12 +708,11 @@
   function add_pelaksanaan_kontrak_row(){
     var count = $(".pelaksanaan_kontrak_row").length;
     var html = `
-    <tr class = "pelaksanaan_kontrak_row">
-      <td>
-        <input type = "checkbox" checked name = "pelaksanaan_kontrak_check[]" value = "${count}">
-      </td>
+    <tr class = "pelaksanaan_kontrak_row" id = "pelaksanaan_kontrak_row${count}">
+      <input type = "hidden" name = "pelaksanaan_kontrak_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "mulai_pelaksanaan_kontrak${count}"></td>
       <td><input type = "text" class = "form-control" name = "akhir_pelaksanaan_kontrak${count}"></td>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pelaksanaan_kontrak_new_row(${count})"><i class = "icon md-delete"></i></button></td>
     </tr>
     `;
     $("#add_pelaksanaan_kontrak_button_container").before(html);
@@ -859,12 +720,11 @@
   function add_pemilihan_penyedia_row(){
     var count = $(".pemilihan_penyedia_row").length;
     var html = `
-    <tr class = "pemilihan_penyedia_row">
-      <td>
-        <input type = "checkbox" checked name = "pemilihan_penyedia_check[]" value = "${count}">
-      </td>
+    <tr class = "pemilihan_penyedia_row" id = "pemilihan_penyedia_row${count}">
+      <input type = "hidden" name = "pemilihan_penyedia_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "mulai_pemilihan_penyedia${count}"></td>
       <td><input type = "text" class = "form-control" name = "akhir_pemilihan_penyedia${count}"></td>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemilihan_penyedia_new_row(${count})"><i class = "icon md-delete"></i></button></td>
     </tr>
     `;
     $("#add_jadwal_pemilihan_button_container").before(html);
@@ -872,69 +732,64 @@
   function add_lokasi_pekerjaan_edit(){
     var count = $(".lokasi_pekerjaan_row_edit").length;
     var html = `
-    <tr class = "lokasi_pekerjaan_row_edit">
-      <td>
-        <input type = "checkbox" checked name = "lokasi_pekerjaan_check[]" value = "${count}">
-      </td>
+    <tr id = "lokasi_pekerjaan_row_edit${count}" class = "lokasi_pekerjaan_row_edit">
+      <input type = "hidden" name = "lokasi_pekerjaan_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "provinsi${count}"></td>
       <td><input type = "text" class = "form-control" name = "kabupaten${count}"></td>
       <td><input type = "text" class = "form-control" name = "detail_lokasi${count}"></td>
-    </tr>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_lokasi_pekerjaan_new_row_edit(${count})"><i class = "icon md-delete"></i></button>
+      </tr>
     `;
     $("#edit_lokasi_pekerjaan").before(html);
   }
   function add_sumber_dana_edit(){
     var count = $(".sumber_dana_row_edit").length;
     var html = `
-    <tr class = "sumber_dana_row_edit">
-      <td>
-        <input type = "checkbox" checked name = "sumber_dana_check[]" value = "${count}">
-      </td>
+    <tr id = "sumber_dana_row_edit${count}" class = "sumber_dana_row_edit">
+      <input type = "hidden" name = "sumber_dana_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "sumber_dana${count}"></td>
       <td><input type = "text" class = "form-control" name = "ta${count}"></td>
       <td><input type = "text" class = "form-control" name = "klpd${count}"></td>
       <td><input type = "text" class = "form-control" name = "mak${count}"></td>
       <td><input type = "text" class = "form-control" name = "pagu${count}"></td>
-    </tr>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_sumber_dana_new_row_edit(${count})"><i class = "icon md-delete"></i></button>
+      </tr>
     `;
     $("#edit_sumber_dana").before(html);
   }
   function add_pemanfaatan_barang_edit(){
     var count = $(".pemanfaatan_barang_row_edit").length;
     var html = `
-    <tr class = "pemanfaatan_barang_row_edit">
-      <td>
-        <input type = "checkbox" checked name = "pemanfaatan_barang_check[]" value = "${count}">
-      </td>
+    <tr id = "pemanfaatan_barang_row_edit${count}" class = "pemanfaatan_barang_row_edit">
+      <input type = "hidden" name = "pemanfaatan_barang_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "mulai_pemanfaatan_barang${count}"></td>
       <td><input type = "text" class = "form-control" name = "akhir_pemanfaatan_barang${count}"></td>
-    </tr>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemanfaatan_barang_new_row_edit(${count})"><i class = "icon md-delete"></i></button>
+      </tr>
     `;
     $("#edit_pemanfaatan_barang").before(html);
   }
   function add_pelaksanaan_kontrak_edit(){
     var count = $(".pelaksanaan_kontrak_row_edit").length;
     var html = `
-    <tr class = "pelaksanaan_kontrak_row_edit">
-      <td>
-        <input type = "checkbox" checked name = "pelaksanaan_kontrak_check[]" value = "${count}">
-      </td>
+    <tr id = "pelaksanaan_kontrak_row_edit${count}" class = "pelaksanaan_kontrak_row_edit">
+      <input type = "hidden" name = "pelaksanaan_kontrak_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "mulai_pelaksanaan_kontrak${count}"></td>
       <td><input type = "text" class = "form-control" name = "akhir_pelaksanaan_kontrak${count}"></td>
-    </tr>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pelaksanaan_kontrak_new_row_edit(${count})"><i class = "icon md-delete"></i></button>
+      </tr>
     `;
     $("#edit_pelaksanaan_kontrak").before(html);
   }
   function add_pemilihan_penyedia_edit(){
     var count = $(".pemilihan_penyedia_row_edit").length;
     var html = `
-    <tr class = "pemilihan_penyedia_row_edit">
-      <td>
-        <input type = "checkbox" checked name = "pemilihan_penyedia_check[]" value = "${count}">
-      </td>
+    <tr id = "pemilihan_penyedia_row_edit${count}" class = "pemilihan_penyedia_row_edit">
+      <input type = "hidden" name = "pemilihan_penyedia_check[]" value = "${count}">
       <td><input type = "text" class = "form-control" name = "mulai_pemilihan_penyedia${count}"></td>
       <td><input type = "text" class = "form-control" name = "akhir_pemilihan_penyedia${count}"></td>
-    </tr>
+      <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemilihan_penyedia_new_row_edit(${count})"><i class = "icon md-delete"></i></button>
+      </tr>
     `;
     $("#edit_jadwal_pemilihan").before(html);
   }
@@ -968,7 +823,7 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["lokasi_pekerjaan"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr>
               <td>${a+1}</td>
@@ -981,7 +836,7 @@
             html += `
             <tr>
               <td>${a+1}</td>
-              <td colspan = 3>${respond[a]}</td>
+              <td colspan = 3>${respond[a]["lokasi_pekerjaan"]}</td>
             </tr>
             `;
           }
@@ -998,7 +853,7 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["sumber_dana"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr>
               <td>${a+1}</td>
@@ -1014,7 +869,7 @@
             html += `
             <tr>
               <td>${a+1}</td>
-              <td colspan = "5">${respond[a]}</td>
+              <td colspan = 5>${respond[a]["sumber_dana"]}</td>
             </tr>
             `;
           }
@@ -1031,7 +886,7 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["pemanfaatan_barang"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr>
               <td>${a+1}</td>
@@ -1043,7 +898,7 @@
             html += `
             <tr>
               <td>${a+1}</td>
-              <td>${respond[a]}</td>
+              <td colspan = 2 >${respond[a]["pemanfaatan_barang"]}</td>
             </tr>
             `;
           }
@@ -1060,7 +915,7 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["jadwal_pelaksanaan"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr>
               <td>${a+1}</td>
@@ -1072,7 +927,7 @@
             html += `
             <tr>
               <td>${a+1}</td>
-              <td>${respond[a]}</td>
+              <td colspan = 2>${respond[a]["jadwal_pelaksanaan"]}</td>
             </tr>
             `;
           }
@@ -1089,7 +944,7 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["pemilihan_penyedia"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr>
               <td>${a+1}</td>
@@ -1101,7 +956,7 @@
             html += `
             <tr>
               <td>${a+1}</td>
-              <td>${respond[a]}</td>
+              <td colspan = 2>${respond[a]["pemilihan_penyedia"]}</td>
             </tr>
             `;
           }
@@ -1138,11 +993,11 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["lokasi_pekerjaan"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr class = "lokasi_pekerjaan_row_edit" id = "lokasi_pekerjaan_row_edit${a}">
               <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "edit_id_pk_lokasi_pekerjaan${a}" id = "id_lokasi_pekerjaan${a}">
-              <td><input checked type = "checkbox" name = "edit_lokasi_pekerjaan[]" value = "${a}"></td>
+              <input type = "hidden" name = "edit_lokasi_pekerjaan[]" value = "${a}">
               <td><input type = "text" class = "form-control" name = "edit_provinsi${a}" value = "${split[0]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_kabupaten${a}" value = "${split[1]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_detail_lokasi${a}" value = "${split[2]}"></td>
@@ -1152,8 +1007,9 @@
           else{
             html += `
             <tr class = "lokasi_pekerjaan_row_edit" id = "lokasi_pekerjaan_row_edit${a}">
+              <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "edit_id_pk_lokasi_pekerjaan${a}" id = "id_lokasi_pekerjaan${a}">
               <td>${a+1}</td>
-              <td colspan = 3>${respond[a]}</td>
+              <td colspan = 3>${respond[a]["lokasi_pekerjaan"]}</td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_lokasi_pekerjaan_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
             </tr>
             `;
@@ -1172,11 +1028,11 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["sumber_dana"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr class = "sumber_dana_row_edit" id = "sumber_dana_row_edit${a}">
               <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" name = "edit_id_pk_sumber_dana${a}" id = "id_sumber_dana${a}">
-              <td><input checked type = "checkbox" name = "edit_sumber_dana[]" value = "${a}"></td>
+              <input type = "hidden" name = "edit_sumber_dana[]" value = "${a}">
               <td><input type = "text" class = "form-control" name = "edit_sumber_dana${a}" value = "${split[0]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_ta${a}" value = "${split[1]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_klpd${a}" value = "${split[2]}"></td>
@@ -1188,9 +1044,10 @@
           }
           else{
             html += `
-            <tr class = "sumber_dana_row_edit" id = "sumber_dana_row_edit${a}>
+            <tr class = "sumber_dana_row_edit" id = "sumber_dana_row_edit${a}">
+              <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" name = "edit_id_pk_sumber_dana${a}" id = "id_sumber_dana${a}">
               <td>${a+1}</td>
-              <td colspan = "5">${respond[a]}</td>
+              <td colspan = 5>${respond[a]["sumber_dana"]}</td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_sumber_dana_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
             </tr>
             `;
@@ -1209,11 +1066,11 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["pemanfaatan_barang"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr class = "pemanfaatan_barang_row_edit" id = "pemanfaatan_barang_row_edit${a}">
               <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" name = "edit_id_pk_pemanfaatan_barang${a}" id = "id_pemanfaatan_barang${a}">
-              <td><input type = "checkbox" name = "edit_pemanfaatan_barang[]" value = "${a}" checked></td>
+              <input type = "hidden" name = "edit_pemanfaatan_barang[]" value = "${a}">
               <td><input type = "text" class = "form-control" value = "${split[0]}" name = "edit_mulai_pemanfaatan_barang${a}"></td>
               <td><input type = "text" class = "form-control" value = "${split[1]}" name = "edit_akhir_pemanfaatan_barang${a}"></td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemanfaatan_barang_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
@@ -1222,8 +1079,9 @@
           else{
             html += `
             <tr class = "pemanfaatan_barang_row_edit" id = "pemanfaatan_barang_row_edit${a}">
+              <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" name = "edit_id_pk_pemanfaatan_barang${a}" id = "id_pemanfaatan_barang${a}">
               <td>${a+1}</td>
-              <td>${respond[a]}</td>
+              <td colspan = 2 >${respond[a]["pemanfaatan_barang"]}</td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemanfaatan_barang_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
             </tr>
             `;
@@ -1242,11 +1100,11 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["jadwal_pelaksanaan"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr class = "pelaksanaan_kontrak_row_edit" id = "pelaksanaan_kontrak_row_edit${a}">
               <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" name = "edit_id_pk_jadwal_pelaksanaan${a}" id = "id_pelaksanaan_kontrak${a}">
-              <td><input type = "checkbox" name = "edit_jadwal_pelaksanaan[]" value = "${a}" checked></td>
+              <input type = "hidden" name = "edit_jadwal_pelaksanaan[]" value = "${a}">
               <td><input type = "text" class = "form-control" value = "${split[0]}" name = "edit_mulai_jadwal_pelaksanaan${a}"></td>
               <td><input type = "text" class = "form-control" value = "${split[1]}" name = "edit_akhir_jadwal_pelaksanaan${a}"></td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pelaksanaan_kontrak_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
@@ -1255,8 +1113,9 @@
           else{
             html += `
             <tr class = "pelaksanaan_kontrak_row_edit" id = "pelaksanaan_kontrak_row_edit${a}">
+              <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" name = "edit_id_pk_jadwal_pelaksanaan${a}" id = "id_pelaksanaan_kontrak${a}">
               <td>${a+1}</td>
-              <td>${respond[a]}</td>
+              <td colspan = 2>${respond[a]["jadwal_pelaksanaan"]}</td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pelaksanaan_kontrak_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
             </tr>
             `;
@@ -1275,11 +1134,11 @@
         var html = "";
         for(var a = 0; a<respond.length; a++){
           var split = respond[a]["pemilihan_penyedia"].split("|");
-          if(split.length > 0){
+          if(split.length > 1){
             html += `
             <tr class = "pemilihan_penyedia_row_edit" id = "pemilihan_penyedia_row_edit${a}">
               <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" name = "edit_id_pk_pemilihan_penyedia${a}" id = "id_pemilihan_penyedia${a}">
-              <td><input type = "checkbox" name = "edit_pemilihan_penyedia[]" value = "${a}" checked></td>
+              <input type = "hidden" name = "edit_pemilihan_penyedia[]" value = "${a}">
               <td><input type = "text" class = "form-control" value = "${split[0]}" name = "edit_mulai_pemilihan_penyedia${a}"></td>
               <td><input type = "text" class = "form-control" value = "${split[1]}" name = "edit_akhir_pemilihan_penyedia${a}"></td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemilihan_penyedia_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
@@ -1288,8 +1147,9 @@
           else{
             html += `
             <tr class = "pemilihan_penyedia_row_edit" id = "pemilihan_penyedia_row_edit${a}">
+              <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" name = "edit_id_pk_pemilihan_penyedia${a}" id = "id_pemilihan_penyedia${a}">
               <td>${a+1}</td>
-              <td>${respond[a]}</td>
+              <td colspan = 2>${respond[a]["pemilihan_penyedia"]}</td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_pemilihan_penyedia_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
             </tr>
             `;
@@ -1427,9 +1287,15 @@
       data:fd,
       contentType:false,
       processData:false,
+      dataType:"JSON",
       success:function(respond){
-        $("#insertSirupModal").modal("hide");
-        reload_table();
+        if(respond["status"]){
+          $("#insertSirupModal").modal("hide");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
       }
     })
   }
@@ -1440,10 +1306,17 @@
       type:"POST",
       data:fd,
       contentType:false,
-      processData:false,
+      processData:false,   
+      dataType:"JSON",   
       success:function(respond){
-        $("#updateSirupModal").modal("hide");
-        reload_table();
+        if(respond["status"]){
+          alert("Data SiRUP Berhasil Diubah");
+          $("#updateSirupModal").modal("hide");
+          reload_table();
+        }
+        else{
+          alert(respond["msg"]);
+        }
       }
     })
   }
@@ -1454,7 +1327,13 @@
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
-        $("#lokasi_pekerjaan_row_edit"+row).remove();
+        if(respond["status"]){
+          alert("Data Lokasi Pekerjaan Berhasil Dihapus");
+          $("#lokasi_pekerjaan_row_edit"+row).remove();
+        }
+        else{
+          alert("Data Lokasi Pekerjaan Gagal Dihapus");
+        }
       }
     })
   }
@@ -1465,7 +1344,13 @@
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
-        $("#sumber_dana_row_edit"+row).remove();
+        if(respond["status"]){
+          alert("Data Sumber Dana Berhasil Dihapus");
+          $("#sumber_dana_row_edit"+row).remove();
+        }
+        else{
+          alert("Data Sumber Dana Gagal Dihapus");
+        }
       }
     })
   }
@@ -1476,7 +1361,13 @@
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
-        $("#pemanfaatan_barang_row_edit"+row).remove();
+        if(respond["status"]){
+          alert("Data Pemanfaatan Barang Berhasil Dihapus");
+          $("#pemanfaatan_barang_row_edit"+row).remove();
+        }
+        else{
+          alert("Data Pemanfaatan Barang Gagal Dihapus");
+        }
       }
     })
   }
@@ -1487,7 +1378,13 @@
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
-        $("#pelaksanaan_kontrak_row_edit"+row).remove();
+        if(respond["status"]){
+          alert("Data Pelaksanaan Kontrak Berhasil Dihapus");
+          $("#pelaksanaan_kontrak_row_edit"+row).remove();
+        }
+        else{
+          alert("Data Pelaksanaan Kontrak Gagal Dihapus");
+        }
       }
     })
   }
@@ -1498,17 +1395,60 @@
       type:"DELETE",
       dataType:"JSON",
       success:function(respond){
-        $("#pemilihan_penyedia_row_edit"+row).remove();
+        if(respond["status"]){
+          alert("Data Pemilihan Penyedia Berhasil Dihapus");
+          $("#pemilihan_penyedia_row_edit"+row).remove();
+        }
+        else{
+          alert("Data Pemilihan Penyedia Gagal Dihapus");
+        }
       }
     })
+  }
+  function delete_lokasi_pekerjaan_new_row_edit(row){
+    $("#lokasi_pekerjaan_row_edit"+row).remove();
+  }
+  function delete_sumber_dana_new_row_edit(row){
+    $("#sumber_dana_row_edit"+row).remove();
+  }
+  function delete_pemanfaatan_barang_new_row_edit(row){
+    $("#pemanfaatan_barang_row_edit"+row).remove();
+  }
+  function delete_pelaksanaan_kontrak_new_row_edit(row){
+    $("#pelaksanaan_kontrak_row_edit"+row).remove();
+  }
+  function delete_pemilihan_penyedia_new_row_edit(row){
+    $("#pemilihan_penyedia_row_edit"+row).remove();
+  }
+  function delete_lokasi_pekerjaan_new_row(row){
+    $("#lokasi_pekerjaan_row"+row).remove();
+  }
+  function delete_sumber_dana_new_row(row){
+    $("#sumber_dana_row"+row).remove();
+  }
+  function delete_pemanfaatan_barang_new_row(row){
+    $("#pemanfaatan_barang_row"+row).remove();
+  }
+  function delete_pelaksanaan_kontrak_new_row(row){
+    $("#pelaksanaan_kontrak_row"+row).remove();
+  }
+  function delete_pemilihan_penyedia_new_row(row){
+    $("#pemilihan_penyedia_row"+row).remove();
   }
   function delete_row(id_pk_sirup){
     $.ajax({
       url:`<?php echo base_url();?>ws/sirup/delete/${id_pk_sirup}`,
       type:"DELETE",
+      dataType:"JSON",
       success:function(respond){
-        $("#deleteSirupModal").modal("hide");
-        reload_table();
+        if(respond["status"]){
+          alert("Data SiRUP Berhasil Dihapus");
+          $("#deleteSirupModal").modal("hide");
+          reload_table();
+        }
+        else{
+          alert("Data SiRUP Gagal Dihapus");
+        }
       }
     })
   }
