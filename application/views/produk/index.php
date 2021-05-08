@@ -59,24 +59,25 @@
               <h5>&nbsp;</h5>
               <button type = "button" class = "btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
             </div>
-            <table class="table table-hover table-striped table-bordered w-full">
-              <thead>
-                <tr>
-                  <th>No. Katalog Produk</th>
-                  <th>Principal</th>
-                  <th>No. SAP</th>
-                  <th>Nama Produk</th>
-                  <th>Kategori</th>
-                  <th>Price List</th>
-                  <th>Harga Ekat</th>
-                  <th>Deskripsi</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id = "table_content_container">
-              </tbody>
-            </table>
-            
+            <div class = "table-responsive">
+              <table class="table table-hover table-striped table-bordered w-full">
+                <thead>
+                  <tr>
+                    <th>No. Katalog Produk</th>
+                    <th>Principal</th>
+                    <th>No. SAP</th>
+                    <th>Nama Produk</th>
+                    <th>Kategori</th>
+                    <th>Price List</th>
+                    <th>Harga Ekat</th>
+                    <th>Deskripsi</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id = "table_content_container">
+                </tbody>
+              </table>
+            </div>
             <nav class = "d-flex justify-content-center">
               <ul class="pagination">
               </ul>
