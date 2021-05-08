@@ -53,7 +53,7 @@
                 </select>
               </div>
             </div>
-            <a href="<?php echo base_url();?>prospek/tambah_prospek" type = "button" class = "btn btn-primary btn-sm">Tambah Prospek</a>
+            <a href="<?php echo base_url();?>prospek/add_prospek" type = "button" class = "btn btn-primary btn-sm">Tambah Prospek</a>
             <br>
             <br>
             <div class = "scroll-provinsi-table-wrapper">
@@ -62,6 +62,7 @@
                   <tr>
                     <th>ID Prospek</th>
                     <th>Rumah Sakit</th>
+                    <th>Prospek Principle</th>
                     <th>Notes Kompetitor</th>
                     <th>Notes Prospek</th>
                     <th>Funnel</th>
@@ -71,19 +72,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php for ($i=0; $i < 50; $i++):?>
-                    <tr>
-                      <td>10</td>
-                      <td>Bethsaida</td>
-                      <td>Informa: harga lebih murah</td>
-                      <td>Hampir deal, untuk harga bisa di nego lagi</td>
-                      <td>Prospek</td>
-                      <td><?php echo number_format(8600000)?></td>
-                      <td>18/10/2022</td>
-                      <td> <button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
-                      <button type = "button"class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button> <button type = "button" class = "btn btn-primary btn-sm">Details</button></td>
-                    </tr>
-                  <?php endfor; ?>
+                  <tbody id = "table_content_container">
                 </tbody>
               </table>
             </div>
@@ -173,40 +162,63 @@
     <?php $this->load->view("includes/core-script")?>
     <script src="<?php echo base_url();?>global/vendor/asrange/jquery-asRange.min.js"></script>
     <script src="<?php echo base_url();?>global/vendor/bootbox/bootbox.js"></script>
+    <script>
+    var base_url = "<?php echo base_url();?>";
+    reload_table();
+    function reload_table(){
+      var url = `<?php echo base_url();?>ws/prospek/get_data`;
+      $.ajax({
+        url:url,
+        type:"GET",
+        dataType:"JSON",
+        success:function(respond){
+          var html = "";
+          content = respond["data"];
+          for(var a = 0; a<respond["data"].length; a++){
+            html += `
+            <tr id = "prospek_row${a}">
+              <td>${respond["data"][a]["id_pk_prospek"]}</td>
+              <td>${respond["data"][a]["nama_rs"]}</td>
+              <td>${respond["data"][a]["prospek_principle"]}</td>
+              <td>${respond["data"][a]["notes_kompetitor"]}</td>
+              <td>${respond["data"][a]["notes_prospek"]}</td>
+              <td>${respond["data"][a]["funnel"]}</td>
+              <td>${respond["data"][a]["total_price_prospek"]}</td>
+              <td>${respond["data"][a]["estimasi_pembelian"]}</td>
+              <td>
+              <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
+              <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
+              </td>
+            </tr>
+            `;
+          }
+          $("#table_content_container").html(html);
+          /*pagination(respond["page"]);*/
+        }
+      })
 
+    }
+      function load_delete(row){
+        $("#delete_button").attr("onclick",`delete_row(${row})`);
+        $("#modalDelete").modal("show");
+      }
+      function delete_row(row){
+        var id_prospek = content[row]["id_pk_prospek"];
+        $.ajax({
+          url:`${base_url}ws/prospek/delete/${id_prospek}`,
+          type:"DELETE",
+          dataType:"JSON",
+          success:function(respond){
+            alert("Data Produk Berhasil Dihapus");
+            $("#modalDelete").modal("hide");
+            $(`#prospek_row${row}`).remove();
+          }
+        });
+      }
+    </script>
   </body>
 </html>
-<div class="modal fade" id="edit_provinsi">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Edit provinsi</h4>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" class="form-control" name="id_provinsi" id = "id_provinsi_edit">
-        <div class="form-group">
-          <label class="form-control-label">Nama Provinsi</label>
-          <input type="text" class="form-control" name="provinsi" placeholder="Nama Provinsi" id = "nama_provinsi_edit">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Status Provinsi</label>
-          <select class = "form-control" id = "status_provinsi_edit" name = "status">
-            <option value = "aktif">AKTIF</option>
-            <option value = "nonaktif">NONAKTIF</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary" onclick = "submit_changes()">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="delete_provinsi">
+<div class="modal fade" id="modalDelete">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
       <div class="modal-header">
@@ -216,62 +228,11 @@
         <h4 class="modal-title">Confirmation Delete</h4>
       </div>
       <div class="modal-body">
-        <input type = "hidden" id = "id_provinsi_delete">
         <p>Are you sure you want to delete?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger" data-dismiss="modal" onclick = "submit_delete()">Hapus</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="edit_kabupaten">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Edit Kabupaten</h4>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" class="form-control" name="id_kabupaten" id = "id_kabupaten_edit">
-        <div class="form-group">
-          <label class="form-control-label">Nama Kabupaten</label>
-          <input type="text" class="form-control" name="kabupaten" placeholder="Nama kabupaten" id = "nama_kabupaten_edit">
-        </div>
-        <div class="form-group">
-          <label class="form-control-label">Status Kabupaten</label>
-          <select class = "form-control" id = "status_kabupaten_edit" name = "status">
-            <option value = "aktif">AKTIF</option>
-            <option value = "nonaktif">NONAKTIF</option>
-          </select>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary" onclick = "submit_changes_kabupaten()">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="delete_kabupaten">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Confirmation Delete</h4>
-      </div>
-      <div class="modal-body">
-        <input type = "hidden" id = "id_kabupaten_delete">
-        <p>Are you sure you want to delete?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger" data-dismiss="modal" onclick = "submit_delete_kabupaten()">Hapus</button>
+        <button type="submit" class="btn btn-danger" data-dismiss="modal" id = "delete_button">Delete</button>
       </div>
     </div>
   </div>

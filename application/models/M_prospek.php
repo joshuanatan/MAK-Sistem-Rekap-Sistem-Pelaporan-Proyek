@@ -1,6 +1,14 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 class M_prospek extends CI_Model{
+
+     public function get_prospek(){
+       $sql = "SELECT id_pk_prospek, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, funnel, estimasi_pembelian, prospek_status
+       FROM mstr_prospek INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs WHERE prospek_status='aktif'";
+       $result = $this->db->query($sql);
+       return $result;
+     }
+
      public function get_rs(){
       $sql = "
       SELECT id_pk_rs, rs_nama, rs_status
@@ -9,9 +17,20 @@ class M_prospek extends CI_Model{
       $result = $this->db->query($sql);
       return $result;
      }
+
      public function get_produk(){
        $sql = "SELECT id_pk_produk, produk_nama,produk_price_list FROM mstr_produk WHERE produk_status = 'aktif'";
        return executeQuery($sql);
+     }
+
+     public function delete($id_pk_prospek){
+       $where = array(
+         "id_pk_prospek" => $id_pk_prospek
+       );
+       $data = array(
+         "prospek_status" => "deleted"
+       );
+       updateRow("mstr_prospek",$data,$where);
      }
 
      public function insert_prospek($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $funnel, $estimasi_pembelian) {
@@ -25,22 +44,19 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "prospek_status"=>"aktif"
        );
-       $this->db->insert("mstr_prospek",$data);
+       return insertRow("mstr_prospek",$data);
      }
 
-     public function insert_detail_prospek($id_fk_produk, $detail_prospek_quantity, $detail_prospek_keterangan){
-       $sql1 = "SELECT id_pk_prospek FROM mstr_prospek";
-       $query1 = mysqli_query($con, $sql1);
-       $rows = mysqli_num_rows($query1);
+     public function insert_produk_prospek($id_fk_prospek, $id_fk_produk, $detail_prospek_quantity, $detail_prospek_keterangan){
 
        $data = array(
-         "id_fk_prospek"=>$rows,
+         "id_fk_prospek"=>$id_fk_prospek,
          "id_fk_produk"=>$id_fk_produk,
          "detail_prospek_quantity"=>$detail_prospek_quantity,
          "detail_prospek_keterangan"=>$detail_prospek_keterangan,
          "detail_prospek_status"=>"aktif"
        );
-       $this->db->insert("mstr_prospek",$data);
+       $this->db->insert("tbl_prospek_produk",$data);
      }
 
     public function search($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
