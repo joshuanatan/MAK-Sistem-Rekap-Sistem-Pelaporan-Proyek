@@ -73,20 +73,42 @@
         </a>
         <div class="dropdown-menu">
           <div class="site-menu-scroll-wrap is-list">
-            <ul class="site-menu-sub site-menu-normal-list">  
+            <ul class="site-menu-sub site-menu-normal-list"> 
               <li class="site-menu-item">
                 <a class="animsition-link" href="<?php echo base_url();?>produk">
                   <span class="site-menu-title">Produk</span>
                 </a>
               </li>
               <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>provinsi">
+                  <span class="site-menu-title">Provinsi & Kabupaten</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown site-menu-item has-sub">
+        <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">Rumah Sakit</span>
+        </a>
+        <div class="dropdown-menu">
+          <div class="site-menu-scroll-wrap is-list">
+            <ul class="site-menu-sub site-menu-normal-list">  
+              <li class="site-menu-item">
                 <a class="animsition-link" href="<?php echo base_url();?>rumah_sakit">
-                  <span class="site-menu-title">Rumah Sakit</span>
+                  <span class="site-menu-title">Daftar Rumah Sakit</span>
                 </a>
               </li>
               <li class="site-menu-item">
-                <a class="animsition-link" href="<?php echo base_url();?>provinsi">
-                  <span class="site-menu-title">Provinsi & Kabupaten</span>
+                <a class="animsition-link" href="<?php echo base_url();?>penyelenggara">
+                  <span class="site-menu-title">Penyelenggara Rumah Sakit</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>jenis_rs">
+                  <span class="site-menu-title">Jenis Rumah Sakit</span>
                 </a>
               </li>
             </ul>
