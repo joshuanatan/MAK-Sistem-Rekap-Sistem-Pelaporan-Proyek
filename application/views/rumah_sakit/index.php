@@ -58,28 +58,29 @@
                 </select>
               </div>
             </div>
-            <table class="table table-hover dataTable table-striped w-full">
-              <thead>
-                <tr>
-                  <th>Kode RS</th>
-                  <th>Nama RS</th>
-                  <th>Kelas</th>
-                  <th>Direktur</th>
-                  <th>Alamat</th>
-                  <th>Kategori</th>
-                  <th>Kabupaten</th>
-                  <th>Kode Pos</th>
-                  <th>Telepon</th>
-                  <th>Fax</th>
-                  <th>Jenis RS</th>
-                  <th>Penyelenggara</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id = "table_content_container">
-              </tbody>
-            </table>
-
+            <div class = "table-responsive">
+              <table class="table table-hover dataTable table-striped w-full">
+                <thead>
+                  <tr>
+                    <th>Kode RS</th>
+                    <th>Nama RS</th>
+                    <th>Kelas</th>
+                    <th>Direktur</th>
+                    <th>Alamat</th>
+                    <th>Kategori</th>
+                    <th>Kabupaten</th>
+                    <th>Kode Pos</th>
+                    <th>Telepon</th>
+                    <th>Fax</th>
+                    <th>Jenis RS</th>
+                    <th>Penyelenggara</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id = "table_content_container">
+                </tbody>
+              </table>
+            </div>
             <nav class = "d-flex justify-content-center">
               <ul class="pagination">
               </ul>
