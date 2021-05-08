@@ -1,0 +1,1632 @@
+
+<!DOCTYPE html>
+
+<html lang="id">
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>E-Katalog 5.0</title>
+        <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
+        <link rel="stylesheet" media="screen" href="/public/stylesheets/app.min.css">
+		<link rel="stylesheet" media="screen" href="/public/fa/css/font-awesome.min.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/bootstrap-datatables.min.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/landing.css">
+        <link rel="stylesheet" media="screen" href="/public/stylesheets/bootstrap-social.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/input-icon.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/datepicker/css/bootstrap-datepicker.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/select2/css/select2.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/sweetalert2/dist/sweetalert2.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/fileuploader-2.2/dist/font/font-fileuploader.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/lightgallery.js-1.1.3/dist/css/lightgallery.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/fileuploader-2.2/dist/jquery.fileuploader.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/jQuery-Tags-Input-master/src/jquery.tagsinput.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/ekko-lightbox.min.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/jquery-ui.min.css">
+		<link rel="stylesheet" media="screen" href="/public/plugins/spinner/dist/loading.min.css">
+		<link rel="stylesheet" href="/public/bpmn-js/dist/assets/diagram-js.css"/>
+		<link rel="stylesheet" href="/public/bpmn-js/dist/assets/bpmn-font/css/bpmn.css"/>
+
+
+
+
+	
+        <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.png">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+	
+		<script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-58838321-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+	
+    </head>
+    <body>
+    	
+    	<div id="mobile-menu" class="menu-wrapper">
+   			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="fa fa-close"></span></a>
+    		<ul><li><a href="/home">Beranda</a></li><li><a href="#komoditasMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="komoditasMenu">Komoditas</a><ul class="collapse" id="komoditasMenu"><li><a class="" data-toggle="collapse" aria-expanded="true" aria-controls="MASTER_KOMODITAS_NASIONAL" href="#MASTER_KOMODITAS_NASIONAL"><i class="fa fa-angle-double-right"></i> Komoditas Nasional</a><ul class="collapse" id="MASTER_KOMODITAS_NASIONAL" aria-expanded="true" style=""><li>            <a href="/katalog/komoditas-kldi/278?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Alat Penerangan Jalan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/329?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Fasilitas Kesehatan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/75?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Internet Service Provider            </a>          </li><li>            <a href="/katalog/komoditas-kldi/11?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kendaraan Bermotor            </a>          </li><li>            <a href="/katalog/komoditas-kldi/160?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Obat Tahun 2020            </a>          </li><li>            <a href="/katalog/komoditas-kldi/70?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Peralatan Pendidikan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/86?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Peralatan Perkantoran            </a>          </li><li>            <a href="/katalog/komoditas-kldi/84?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Sewa Kendaraan            </a>          </li></ul></li><li><a class="" data-toggle="collapse" aria-expanded="true" aria-controls="MASTER_KOMODITAS_LOKAL" href="#MASTER_KOMODITAS_LOKAL"><i class="fa fa-angle-double-right"></i> Komoditas Lokal</a><ul class="collapse" id="MASTER_KOMODITAS_LOKAL" aria-expanded="true" style=""><li>            <a href="/katalog/komoditas-kldi/D69?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi DKI Jakarta            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D502?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kota Medan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D99?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kota Bandung            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D158?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Jawa Timur            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D35?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Kepulauan Bangka Belitung            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D122?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Jawa Tengah            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D95?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Jawa Barat            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D63?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi D. I. Yogyakarta            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D129?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kota Semarang            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D241?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Kalimantan Timur            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D25?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Bali            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D160?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kabupaten Sidoarjo            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D115?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kabupaten Bekasi            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D1?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Aceh            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D76?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Gorontalo            </a>          </li></ul></li><li><a class="" data-toggle="collapse" aria-expanded="true" aria-controls="MASTER_KOMODITAS_SEKTORAL" href="#MASTER_KOMODITAS_SEKTORAL"><i class="fa fa-angle-double-right"></i> Komoditas Sektoral</a><ul class="collapse" id="MASTER_KOMODITAS_SEKTORAL" aria-expanded="true" style=""><li>            <a href="/katalog/komoditas-kldi/K18?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Pekerjaan Umum dan Perumahan Rakyat            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K29?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Pertanian            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K47?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Riset dan Teknologi/Badan Riset dan Inovasi Nasional            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K26?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Perhubungan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K3?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Dalam Negeri            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K23?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Pendidikan dan Kebudayaan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K8?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Kelautan Dan Perikanan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L9?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Badan Nasional Penanggulangan Bencana            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L31?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Komisi Pemilihan Umum            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L4?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Badan Kependudukan Dan Keluarga Berencana Nasional            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K9?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Kesehatan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L7?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Badan Meteorologi, Klimatologi Dan Geofisika            </a>          </li></ul></li></ul></li><li><a href="/pengumuman">Pengumuman</a></li><li><a href="#prakatalogMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="prakatalogMenu">Pra Katalog</a><ul class="collapse" id="prakatalogMenu"><li><a href="/prakatalog/penawaran"><i class="fa fa-angle-double-right"></i> Penawaran</a></ul></li><li><a href="#katalogMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="katalogMenu">Produk</a><ul class="collapse" id="katalogMenu"><li><a href="/katalog/produk"><i class="fa fa-angle-double-right"></i> Daftar Produk</a><li><a href="/katalog/produk/report"><i class="fa fa-angle-double-right"></i> Kelola Laporan</a></ul></li><li><a href="/katalog/produk/permohonan-pembaruan">Permohonan Pembaruan</a></li><li><a href="/purchasing/paket">Paket</a></li><li><a href="#profilMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="profilMenu">Profil</a><ul class="collapse" id="profilMenu"><li><a href="/masterdata/profil-penyedia"><i class="fa fa-angle-double-right"></i> Pengaturan</a><li><a href="/penyedia/distributor"><i class="fa fa-angle-double-right"></i> Daftar Distributor/Pelaksana Pekerjaan/Pengirim Barang</a></ul></li><li><a href="/berita">Berita</a></li><li><a href="/unduh">Unduh</a></li><li><a href="/faq">Tanya Jawab</a></li><li><a href="/syarat-ketentuan">Syarat dan Ketentuan</a></li><li><a href="/hub-kami">Hubungi Kami</a></li><li><a href="/admin.userctr/logout">Logout</a></li></ul>
+    	</div>
+    	
+    	<div id="main" class="main-wrapper">
+   			<!-- Header -->
+   			<div class="main-header-wrapper">
+   				<div class="helper-menu">
+   					<div class="container-fluid">
+   						<ul>
+	   						
+	   						
+	   						
+	   						
+	   						
+							
+								
+								<li>
+									<a href="/all-message" style="text-decoration: none">
+										
+									</a>
+								</li>
+							
+							<li><a href="/language/change?lang=id"><img alt="E-Katalog LKPP" src="/public/images/id.png" style="width: 15px; height: 15px"></a> | <a href="/language/change?lang=en"><img alt="E-Katalog LKPP" src="/public/images/en.png" style="width: 15px; height: 15px"></a></li>
+	   					</ul>
+   					</div>
+   				</div>
+   				<nav class="navbar navbar-default sticked-navbar">
+					<div class="container-fluid">
+						<div class="row">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" onclick="openNav()">
+								<span class="fa fa-bars"></span>
+							</button>
+							
+							<a class="navbar-brand" href="/home">
+								<img alt="E-Katalog LKPP" src="/public/images/nav_logo.png" class="img img-responsive"/>
+							</a>
+							
+							
+						</div>
+
+						<div class="collapse navbar-collapse" id="catalog-main-menu">
+							<!-- Komoditas -->
+							<div class="col-md-1 btn-komoditas">
+								<div class="komoditas-menu">
+									<a href="#">Komoditas</a>
+								</div>
+							</div>
+							<!-- End Komoditas -->
+							<!-- Search -->
+							<div class="col-md-5">
+								
+<div id="searchbar-container">
+	<form method="GET" action="/id/search-produk?commodity=0&amp;per_page=20&amp;offset=6&amp;year=2021&amp;negotiation=&amp;sortby=&amp;position=&amp;keyword=&amp;status=" class="navbar-form">
+	<input type="hidden" name="authenticityToken" value="76733e6466ca0875815f3f093f880b45fa81faba"/>
+
+		<div class="input-group searchbar-form">
+	        <input type="text" id="search-bar" name="q" value="" data-url="/api/product/suggestion" class="form-control" placeholder="Cari"/>
+	        <input type="hidden" name="prid" value=""/>
+	        <input type="hidden" name="pid" value=""/>
+	        <input type="hidden" name="gt" value=""/>
+	        <input type="hidden" name="lt" value=""/>
+	        <input type="hidden" name="mid" value=""/>
+	        <input type="hidden" name="kbid" value=""/>
+	        <input type="hidden" name="order" value=""/>
+            <input type="hidden" name="cat" class="hidden-cat" value=""/>
+			<input type="hidden" value="/id/search-produk?commodity=0&amp;per_page=20&amp;offset=6&amp;year=2021&amp;negotiation=&amp;sortby=&amp;position=&amp;keyword=&amp;status="/>
+	        <span class="input-group-addon">
+	        	<button type="submit"><i aria-hidden="true" class="fa fa-search"></i></button>
+	        </span>
+	    </div>
+	</form>
+</div>
+<div id="linkcari" hidden>Result: </div>
+<div hidden><input id="baseurl" value="http://e-katalog.lkpp.go.id"/><input id="elink" type="text"/><input id="elinkselect" type="text"/></div>
+							</div>
+							<!-- End Search -->
+							<!-- Login -->
+							<ul class="nav navbar-nav navbar-right">
+								
+									
+										
+									
+									
+									
+									
+									
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 120px;"><i aria-hidden="true" class="fa fa-user"></i> PT. MEGA ANDALAN KALASAN <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="/admin.userctr/logout">Logout</a></li>
+										</ul>
+									</li>
+								
+								
+							</ul>
+							<!-- END Login -->
+						</div>
+						</div>
+					</div>
+				</nav>
+				<!-- List Komoditas -->
+					<div class="komoditas-menu-wrapper">
+	<div class="overlay" style="display: none;"></div>
+	<div class="komoditas-menu-list" style="display: none;">
+		<div class="komoditas-list">
+			<div class="komoditas-list-item"><a class="komoditas-item-link" id="nasional-list" href="#">Komoditas Nasional <i aria-hidden="true" class="fa fa-angle-right pull-right"></i></a></div>
+			<div class="komoditas-list-item"><a class="komoditas-item-link" id="lokal-list" href="#">Komoditas Lokal <i aria-hidden="true" class="fa fa-angle-right pull-right"></i></a></div>
+			<div class="komoditas-list-item"><a class="komoditas-item-link" id="sektoral-list" href="#">Komoditas Sektoral <i aria-hidden="true" class="fa fa-angle-right pull-right"></i></a></div>
+
+			<div class="sub-komoditas-list-item"></div><div class="subkomoditas-list-item" id="nasional-item"><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=alat-penerangan-jalan&language=id&commodityId=278">Alat Penerangan Jalan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=fasilitas-kesehatan&language=id&commodityId=329">Fasilitas Kesehatan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=internet-service-provider&language=id&commodityId=75">Internet Service Provider</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=kendaraan-bermotor&language=id&commodityId=11">Kendaraan Bermotor</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=obat-tahun-2020&language=id&commodityId=160">Obat Tahun 2020</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=peralatan-pendidikan&language=id&commodityId=70">Peralatan Pendidikan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=peralatan-perkantoran&language=id&commodityId=86">Peralatan Perkantoran</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=sewa-kendaraan&language=id&commodityId=84">Sewa Kendaraan</a></div></div><div class="subkomoditas-list-item" id="lokal-item"><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D69?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi DKI Jakarta</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D502?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kota Medan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D99?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kota Bandung</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D158?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Jawa Timur</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D35?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Kepulauan Bangka Belitung</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D122?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Jawa Tengah</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D95?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Jawa Barat</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D63?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi D. I. Yogyakarta</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D129?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kota Semarang</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D241?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Kalimantan Timur</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D25?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Bali</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D160?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kabupaten Sidoarjo</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D115?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kabupaten Bekasi</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D1?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Aceh</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D76?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Gorontalo</a></div></div><div class="subkomoditas-list-item" id="sektoral-item"><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K18?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Pekerjaan Umum dan Perumahan Rakyat</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K29?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Pertanian</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K47?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Riset dan Teknologi/Badan Riset dan Inovasi Nasional</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K26?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Perhubungan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K3?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Dalam Negeri</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K23?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Pendidikan dan Kebudayaan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K8?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Kelautan Dan Perikanan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L9?tkdn_produk=1&jenis_produk=lokal&language=id">Badan Nasional Penanggulangan Bencana</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L31?tkdn_produk=1&jenis_produk=lokal&language=id">Komisi Pemilihan Umum</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L4?tkdn_produk=1&jenis_produk=lokal&language=id">Badan Kependudukan Dan Keluarga Berencana Nasional</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K9?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Kesehatan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L7?tkdn_produk=1&jenis_produk=lokal&language=id">Badan Meteorologi, Klimatologi Dan Geofisika</a></div></div>
+
+		</div>
+	</div>
+</div>
+				<!-- End List Komoditas -->
+
+				<div class="navbar-menu">
+					<div class="container-fluid">
+						<div class="collapse navbar-collapse">
+							<ul class="nav navbar-nav"><li><a href="/home">Beranda</a></li><li><a href="/pengumuman">Pengumuman</a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Pra Katalog <span class="caret"></span></a><ul class="dropdown-menu"><li><div class="container-fluid"><div class="row"><a href="/prakatalog/penawaran">Penawaran</a></div></div></li></ul></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Produk <span class="caret"></span></a><ul class="dropdown-menu"><li><div class="container-fluid"><div class="row"><a href="/katalog/produk">Daftar Produk</a><a href="/katalog/produk/report">Kelola Laporan</a></div></div></li></ul></li><li><a href="/katalog/produk/permohonan-pembaruan">Permohonan Pembaruan</a></li><li><a href="/purchasing/paket">Paket</a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <span class="caret"></span></a><ul class="dropdown-menu"><li><div class="container-fluid"><div class="row"><a href="/masterdata/profil-penyedia">Pengaturan</a><a href="/penyedia/distributor">Daftar Distributor/Pelaksana Pekerjaan/Pengirim Barang</a></div></div></li></ul></li><li><a href="/berita">Berita</a></li><li><a href="/unduh">Unduh</a></li><li><a href="/faq">Tanya Jawab</a></li><li><a href="/syarat-ketentuan">Syarat dan Ketentuan</a></li><li><a href="/hub-kami">Hubungi Kami</a></li></ul>
+						</div>
+					</div>
+				</div>
+   			</div>
+            <div>
+                <p style="margin-bottom: 4%"></p>
+            </div>
+            <!-- End Header -->
+   			
+   			<!-- Content -->
+   			<div class="main-content-wrapper">
+   				
+<style type="text/css">
+    .no-padding {
+        padding: 0px;
+    }
+
+	.card-image i {
+        font-size: 65px;
+        line-height: 65px;
+        padding-bottom: 10px;
+        float: left;
+    }
+
+	.item-description {
+	    font-size: 20px;
+	}
+
+	.item-title {
+	    font-size: 18px;
+	}
+
+	.card-cursor {
+	    cursor: pointer;
+	}
+
+	.form-inline .select2-container {
+	    margin-left: 10px;
+	}
+</style>
+
+<div class="container-fluid">
+
+    <div class="col-md-2 hidden-mobile">
+        <div class="row">
+	<form action="/purchasing/paket" class="wrapper-filter" method="GET">
+		<div class="form-group">
+			<label class="control-label">Cari</label>
+			<input class="form-control" id="keyword" name="keyword" value="" />
+		</div>
+		<div class="form-group">
+			<label class="control-label">Komoditas</label>
+			<select id="commodity" class="form-control select2" name="commodity">
+				<option value="0">Pilih Semua</option>
+				
+                    <option value="310" >Accu Kendaraan Dinas Operasional Provinsi DKI Jakarta</option>
+				
+                    <option value="437" >Air Tanah dan Air Baku</option>
+				
+                    <option value="41" >Alat Berat</option>
+				
+                    <option value="159" >Alat Berat Pekerjaan Operasi dan Pemeliharaan Bidang Sumber Daya Air</option>
+				
+                    <option value="25" >Alat dan Mesin Perikanan</option>
+				
+                    <option value="14" >Alat dan Mesin Pertanian</option>
+				
+                    <option value="137" >Alat dan Mesin Pertanian Sektoral</option>
+				
+                    <option value="24" >Alat Kesehatan 2015</option>
+				
+                    <option value="87" >Alat Kesehatan 2019</option>
+				
+                    <option value="315" >Alat Kesehatan Inovasi</option>
+				
+                    <option value="290" >Alat Komunikasi</option>
+				
+                    <option value="64" >Alat Laboratorium</option>
+				
+                    <option value="475" >Alat Mekanis Multiguna Pedesaan (AMMDes)</option>
+				
+                    <option value="278" >Alat Penerangan Jalan</option>
+				
+                    <option value="216" >Alat Peraga Edukatif</option>
+				
+                    <option value="424" >Alat Uji Berkala Kendaraan Bermotor</option>
+				
+                    <option value="119" >Aspal HRS-WC Terkirim Sidoarjo</option>
+				
+                    <option value="480" >Aspal Kemasan &amp; Beton Ready Mix Kota Medan</option>
+				
+                    <option value="295" >Aspal Kota Bandung</option>
+				
+                    <option value="409" >Aspalth Concrete Levelling (AC-L) di Provinsi Jawa Timur</option>
+				
+                    <option value="98" >Asphalt</option>
+				
+                    <option value="282" >Bahan Banjiran Pekerjaan Operasi dan Pemeliharaan Bidang Sumber Daya Air</option>
+				
+                    <option value="195" >Ban Kendaraan Dinas Operasional</option>
+				
+                    <option value="252" >Bantalan Beton</option>
+				
+                    <option value="200" >Belanja Media</option>
+				
+                    <option value="73" >Benih</option>
+				
+                    <option value="271" >Benih Hortikultura</option>
+				
+                    <option value="361" >Benih Kedelai, Benih Kacang Tanah dan Benih Kacang Hijau</option>
+				
+                    <option value="144" >Benih Padi dan Jagung</option>
+				
+                    <option value="268" >Benih Tanaman Perkebunan</option>
+				
+                    <option value="246" >BETON</option>
+				
+                    <option value="102" >Beton Cor</option>
+				
+                    <option value="350" >Bibit Lada</option>
+				
+                    <option value="81" >Bilik Suara</option>
+				
+                    <option value="261" >BLANGKO KTP ELEKTRONIK</option>
+				
+                    <option value="190" >Buku Nonteks</option>
+				
+                    <option value="35" >Buku Pelajaran Sekolah</option>
+				
+                    <option value="334" >Bus Sedang dan Bus Besar</option>
+				
+                    <option value="89" >Bus Sekolah Off The Road</option>
+				
+                    <option value="88" >Bus Ukuran Sedang BRT Off The Road</option>
+				
+                    <option value="133" >Campuran Aspal Panas - Hotmix</option>
+				
+                    <option value="76" >e-Ticketing</option>
+				
+                    <option value="417" >Energi Inovasi</option>
+				
+                    <option value="329" >Fasilitas Kesehatan</option>
+				
+                    <option value="231" >Geomembran (Geoisolator)</option>
+				
+                    <option value="15" >Hot-Mix</option>
+				
+                    <option value="221" >HOTMIX</option>
+				
+                    <option value="183" >Hotmix Provinsi Jawa Barat</option>
+				
+                    <option value="330" >Ice Flake Machine (IFM)</option>
+				
+                    <option value="326" >Instalasi Pengolahan Air Limbah atau Air Kotor (IPAL atau IPAK)</option>
+				
+                    <option value="75" >Internet Service Provider</option>
+				
+                    <option value="397" >IPA Mobil</option>
+				
+                    <option value="32" >Irigasi tetes</option>
+				
+                    <option value="164" >Jasa Cleaning Service</option>
+				
+                    <option value="462" >Jasa Cleaning Service Nusa Tenggara Timur</option>
+				
+                    <option value="174" >JASA KALIBRASI ALAT KESEHATAN</option>
+				
+                    <option value="157" >Jasa Keamanan</option>
+				
+                    <option value="440" >Jasa Keamanan Pemerintah Provinsi Riau</option>
+				
+                    <option value="258" >Jasa Keamanan Pemkot Semarang</option>
+				
+                    <option value="391" >Jasa Keamanan Pemprov DIY</option>
+				
+                    <option value="429" >Jasa Keamanan Provinsi Gorontalo</option>
+				
+                    <option value="447" >Jasa Keamanan Provinsi Jawa Tengah</option>
+				
+                    <option value="500" >Jasa Keamanan Provinsi Sumatera Utara</option>
+				
+                    <option value="158" >Jasa Kebersihan</option>
+				
+                    <option value="253" >Jasa Kebersihan Pemkot Semarang</option>
+				
+                    <option value="386" >Jasa Kebersihan Pemprov DIY</option>
+				
+                    <option value="491" >Jasa Kebersihan Provinsi Aceh</option>
+				
+                    <option value="432" >Jasa Kebersihan Provinsi Gorontalo</option>
+				
+                    <option value="445" >Jasa Kebersihan Provinsi Jawa Tengah</option>
+				
+                    <option value="495" >Jasa Kebersihan Provinsi Jawa Timur</option>
+				
+                    <option value="497" >Jasa Kebersihan Provinsi Sumatera Utara</option>
+				
+                    <option value="140" >Jasa Operasional Bus BRT</option>
+				
+                    <option value="36" >Jasa Operator Bus</option>
+				
+                    <option value="181" >Jasa Operator Bus DKI Jakarta</option>
+				
+                    <option value="122" >Jasa Pelayanan Kebersihan Sidoarjo</option>
+				
+                    <option value="288" >Jasa Pengangkutan Sampah Pasar Kota Semarang</option>
+				
+                    <option value="284" >Jasa Penyapuan dan Pengangkutan Sampah Jalan Protokol Kota Semarang</option>
+				
+                    <option value="467" >Jasa Penyediaan atau Pelayanan Makanan Provinsi Kalimantan Timur</option>
+				
+                    <option value="148" >Jasa Sewa Mesin Foto Copy</option>
+				
+                    <option value="367" >Jasa Tenaga Keamanan Provinsi Bali</option>
+				
+                    <option value="399" >Jasa Tenaga Kebersihan Provinsi Sumatera Selatan</option>
+				
+                    <option value="154" >Jasa Tenaga Pengamanan</option>
+				
+                    <option value="167" >Jasa Tenaga Pengamanan (Satpam)</option>
+				
+                    <option value="459" >Jasa Tenaga Pramusaji Kota Bandung</option>
+				
+                    <option value="169" >Jasa Tenaga Sopir atau Pengemudi</option>
+				
+                    <option value="377" >Jembatan Rangka Baja</option>
+				
+                    <option value="127" >Kain Batik Sidoarjo</option>
+				
+                    <option value="479" >Kain Sasirangan Provinsi Kalimantan Selatan</option>
+				
+                    <option value="8" >Kartu</option>
+				
+                    <option value="11" >Kendaraan Bermotor</option>
+				
+                    <option value="23" >Kendaraan Bermotor Off The Road</option>
+				
+                    <option value="277" >Kendaraan Dinas Operasional DKI Jakarta</option>
+				
+                    <option value="42" >Keramba Jaring Apung</option>
+				
+                    <option value="320" >Keramba Jaring Apung Sektoral</option>
+				
+                    <option value="339" >Kertas HVS Provinsi Jawa Timur</option>
+				
+                    <option value="410" >Kesehatan dan Obat Inovasi</option>
+				
+                    <option value="322" >Kincir Air Sektoral</option>
+				
+                    <option value="50" >Komunikasi &amp; Informatika</option>
+				
+                    <option value="394" >Layanan Angkutan Massal Berbasis Jalan di Kawasan Perkotaan (Buy The Service)</option>
+				
+                    <option value="297" >Logistik Kebencanaan</option>
+				
+                    <option value="363" >Logistik Pemilihan Tahun 2020</option>
+				
+                    <option value="82" >Logistik Pemilu</option>
+				
+                    <option value="97" >Makanan dan Minuman</option>
+				
+                    <option value="372" >Makanan dan Minuman Provinsi Bali</option>
+				
+                    <option value="187" >Makanan dan Minuman Provinsi Jawa Barat</option>
+				
+                    <option value="273" >Makanan dan Minuman Provinsi Sulawesi Selatan</option>
+				
+                    <option value="400" >Makanan dan Minuman Provinsi Sumatera Selatan</option>
+				
+                    <option value="226" >Marka Jalan</option>
+				
+                    <option value="392" >Marka Jalan  Kementerian Perhubungan</option>
+				
+                    <option value="333" >Material Konstruksi Aspal Kota Semarang</option>
+				
+                    <option value="415" >Material Maju Inovasi</option>
+				
+                    <option value="232" >Mesin Kapal Perikanan</option>
+				
+                    <option value="488" >Mesin Pakan Ikan</option>
+				
+                    <option value="112" >Meubelair Sekolah Sidoarjo</option>
+				
+                    <option value="237" >Mobil Berpendingin</option>
+				
+                    <option value="74" >Obat 2018</option>
+				
+                    <option value="302" >OBAT KONTRASEPSI</option>
+				
+                    <option value="63" >Obat Kontrasepsi BKKBN 2016</option>
+				
+                    <option value="92" >Obat Sektoral</option>
+				
+                    <option value="160" >Obat Tahun 2020</option>
+				
+                    <option value="77" >Online Shop - Perangkat Komputer</option>
+				
+                    <option value="78" >Online Shop - Perkakas</option>
+				
+                    <option value="355" >Pakaian Batik Khas Daerah</option>
+				
+                    <option value="451" >Pakaian Dinas Harian Kota Bandung</option>
+				
+                    <option value="472" >Pakaian Dinas Harian Sulawesi Utara</option>
+				
+                    <option value="365" >Pakaian Kerja dan Kelengkapannya</option>
+				
+                    <option value="129" >Paving Block Terkirim Sidoarjo</option>
+				
+                    <option value="27" >PE Sheet</option>
+				
+                    <option value="51" >Pekerjaan Jalan</option>
+				
+                    <option value="357" >Pekerjaan Konstruksi Pemeliharaan Jalan</option>
+				
+                    <option value="324" >Pembangunan Infrastruktur Kabupaten Bekasi</option>
+				
+                    <option value="406" >Pemeliharaan Rutin Jalan Provinsi Jawa Timur</option>
+				
+                    <option value="484" >Pemeliharaan Rutin Jalan Provinsi Nusa Tenggara Timur</option>
+				
+                    <option value="143" >Penakar Hujan</option>
+				
+                    <option value="10" >Penerangan Jalan Umum</option>
+				
+                    <option value="345" >Penerangan Jalan Umum Provinsi DKI Jakarta</option>
+				
+                    <option value="43" >Peralatan dan Bahan Pemadam Kebakaran</option>
+				
+                    <option value="340" >Peralatan Elektronik Perkantoran dan Peralatan Pendukungnya</option>
+				
+                    <option value="384" >Peralatan Elektronik Perkantoran dan Peralatan Pendukungnya - Reseller</option>
+				
+                    <option value="393" >Peralatan Keamanan Penerbangan</option>
+				
+                    <option value="307" >Peralatan Kebencanaan</option>
+				
+                    <option value="72" >Peralatan Olahraga</option>
+				
+                    <option value="70" >Peralatan Pendidikan</option>
+				
+                    <option value="103" >Peralatan Pendidikan Sektoral</option>
+				
+                    <option value="86" >Peralatan Perkantoran</option>
+				
+                    <option value="204" >Peralatan Permainan</option>
+				
+                    <option value="61" >Perkakas Kerja dan Alat Kebersihan</option>
+				
+                    <option value="305" >Perkakas Kerja DKI Jakarta</option>
+				
+                    <option value="470" >Perlengkapan Jalan Provinsi DKI Jakarta</option>
+				
+                    <option value="448" >Perlengkapan Sekolah Kota Bandung</option>
+				
+                    <option value="136" >Pestisida dan Pupuk</option>
+				
+                    <option value="408" >Pompa Pengendali Banjir Provinsi DKI Jakarta</option>
+				
+                    <option value="444" >Pupuk dan Pestisida Provinsi Jawa Tengah</option>
+				
+                    <option value="28" >Pupuk, Obat atau Hormon Tanaman dan Hewan</option>
+				
+                    <option value="244" >Recycling Road DKI Jakarta</option>
+				
+                    <option value="91" >Rumah Layak Huni</option>
+				
+                    <option value="314" >Sarana Budi Daya Peternakan dan Kesehatan Hewan</option>
+				
+                    <option value="69" >Segel dan atau Hologram Dengan Security Printing</option>
+				
+                    <option value="460" >Sepeda Listrik Provinsi Nusa Tenggara Barat</option>
+				
+                    <option value="60" >Seragam Kerja dan Perlengkapannya</option>
+				
+                    <option value="455" >Seragam Sekolah Kota Bandung</option>
+				
+                    <option value="21" >Sewa</option>
+				
+                    <option value="84" >Sewa Kendaraan</option>
+				
+                    <option value="379" >Sewa Kendaraan Bermotor Listrik Berbasis Baterai</option>
+				
+                    <option value="403" >Sewa Kendaran Provinsi Gorontalo</option>
+				
+                    <option value="420" >Sumur Resapan </option>
+				
+                    <option value="209" >Sumur Resapan Dangkal</option>
+				
+                    <option value="67" >Surat Suara Pemilihan Gubernur-Bupati-Walikota</option>
+				
+                    <option value="107" >Susuk KB II Plus Inserter</option>
+				
+                    <option value="212" >Tanaman Hias Dan Tanaman Pelindung</option>
+				
+                    <option value="412" >Teknologi Informasi dan Komunikasi Inovasi</option>
+				
+                    <option value="300" >Tenda Kebencanaan</option>
+				
+                    <option value="309" >Tenda Provinsi DKI Jakarta</option>
+				
+                    <option value="68" >Tinta Sidik Jari</option>
+				
+                    <option value="39" >Tool Kit Uji Cepat Pangan&nbsp;</option>
+				
+                    <option value="319" >Transportasi Inovasi</option>
+				
+                    <option value="247" >TROTOAR</option>
+				
+                    <option value="117" >U-Ditch Terkirim Sidoarjo</option>
+				
+                    <option value="239" >Utilitas Jalan</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Status Paket</label>
+			<select id="status" class="form-control select2" name="status">
+				<option value="">Pilih Semua</option>
+				
+					<option value="persiapan" >PERSIAPAN</option>
+				
+					<option value="proses_kirim" >PROSES KIRIM</option>
+				
+					<option value="paket_selesai" >PAKET SELESAI</option>
+				
+					<option value="ppk_setuju" >PPK SETUJU</option>
+				
+					<option value="ppk_tolak" >PPK TOLAK</option>
+				
+					<option value="penyedia_setuju" >PENYEDIA SETUJU</option>
+				
+					<option value="penyedia_tolak" >PENYEDIA TOLAK</option>
+				
+					<option value="panitia_setuju" >PANITIA SETUJU</option>
+				
+					<option value="panitia_tolak" >PANITIA TOLAK</option>
+				
+					<option value="batal" >BATAL</option>
+				
+					<option value="draft" >DRAFT</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Posisi Paket</label>
+			<select id="position" class="form-control select2" name="position">
+				<option value="">Pilih Semua</option>
+				
+                    <option value="distributor" >DISTRIBUTOR</option>
+				
+                    <option value="pejabat pengadaan" >PEJABAT PENGADAAN</option>
+				
+                    <option value="penyedia" >PENYEDIA</option>
+				
+                    <option value="ppk" >PPK</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Status Negosiasi</label>
+			<select id="status-negotiation" class="form-control select2" name="negotiation">
+				<option value="">Pilih Semua</option>
+				
+					<option value="negosiasi" >NEGOSIASI</option>
+				
+					<option value="sepakat" >SEPAKAT</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Urutkan Berdasarkan</label>
+			<select id="urutkan" class="form-control select2" name="sortby">
+				
+					<option value="desc" >TERBARU</option>
+				
+					<option value="asc" >TERLAMA</option>
+				
+			</select>
+		</div>
+        <div class="form-group" hidden>
+            <label class="control-label">Menampilkan Data</label>
+            <select id="per_page" class="form-control select2" name="per_page">
+                <option value="20" selected>20</option>
+                <option value="50" >50</option>
+                <option value="100" >100</option>
+            </select>
+        </div>
+		<input class="btn btn-block btn-red btn-primary" id="submitBtn" type="submit" value="Cari Data" />
+	</form>
+</div>
+    </div>
+
+    <div class="col-md-10">
+        
+            <h4>Daftar Paket</h4>
+            <div class="panel panel-default">
+                <div class="panel-body" style="overflow-x:auto;">
+                    <table aria-describedby="mydesc" class="table table-striped" id="tblListPaket">
+                        <thead>
+                        <tr>
+                            <th scope='col' class="header-center">No.</th>
+                            <th scope='col' class="header-center">Paket</th>
+                            <th scope='col' class="header-center">Satuan Kerja</th>
+                            <th scope='col' class="header-center">Nama Penyedia</th>
+                            <th scope='col' class="header-center">Total Produk</th>
+                            <th scope='col' class="header-center">Instansi</th>
+                            <th scope='col' class="header-center">Posisi</th>
+                            <th scope='col' class="header-center">Status</th>
+                            <th scope='col' class="header-center">Negosiasi</th>
+                            <th scope='col' class="header-center">Total Harga (IDR)</th>
+                            <th scope='col' class="header-center">Tanggal Buat</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        
+                        <tr>
+                            <td class="column-center">101.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3809446"><del><strong>AK1-P2105-3809446</strong><br>Belanja Alat Kesehatan Ruang Bersalin (DAK)</del></a></td>
+                            <td class="column-left"><del>RUMAH SAKIT UMUM DAERAH MASSENREMPULU</del></td>
+                            <td class="column-left"><del>PT. MEGA ANDALAN KALASAN</del></td>
+                            <td class="column-center"><del>2</del></td>
+                            <td class="column-left"><del>Pemerintah Daerah Kabupaten Enrekang</del></td>
+                            <td class="column-left"><del>Pejabat pengadaan</del></td>
+                            <td class="column-left"><del>BATAL</del></td>
+                            <td class="column-left"><del>NEGOSIASI</del></td>
+                            <td class="column-left" width="15%"><del>Rp 98.998.300,00</del></td>
+                            <td class="column-center"><del>5 Mei 2021</del></td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">102.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3809900"><strong>AK1-P2105-3809900</strong><br>Pengadaan Alat Kedokteran Rawat Inap</a></td>
+                            <td class="column-left">RSUD I LAGALIGO</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">1</td>
+                            <td class="column-left">Pemerintah Daerah Kabupaten Luwu Timur</td>
+                            <td class="column-left">Distributor</td>
+                            <td class="column-left">PENYEDIA SETUJU</td>
+                            <td class="column-left">SEPAKAT</td>
+                            <td class="column-left" width="15%">Rp 877.064.100,00</td>
+                            <td class="column-center">5 Mei 2021</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">103.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3810575"><strong>AK1-P2105-3810575</strong><br>Pengadaan Alat Kedokteran ICU/HCU</a></td>
+                            <td class="column-left">RSUD I LAGALIGO</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">1</td>
+                            <td class="column-left">Pemerintah Daerah Kabupaten Luwu Timur</td>
+                            <td class="column-left">Distributor</td>
+                            <td class="column-left">PENYEDIA SETUJU</td>
+                            <td class="column-left">SEPAKAT</td>
+                            <td class="column-left" width="15%">Rp 697.500.000,00</td>
+                            <td class="column-center">5 Mei 2021</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">104.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3811453"><strong>AK1-P2105-3811453</strong><br>Pengadaan Tempat Tidur</a></td>
+                            <td class="column-left">RSUD DR AGOESDJAM</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">1</td>
+                            <td class="column-left">Pemerintah Daerah Kabupaten Ketapang</td>
+                            <td class="column-left">Penyedia</td>
+                            <td class="column-left">PANITIA SETUJU</td>
+                            <td class="column-left">SEPAKAT</td>
+                            <td class="column-left" width="15%">Rp 1.838.697.400,00</td>
+                            <td class="column-center">5 Mei 2021</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">105.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3815635"><strong>AK1-P2105-3815635</strong><br>Belanja Alat Kesehatan Ruang Bersalin (DAK)</a></td>
+                            <td class="column-left">RUMAH SAKIT UMUM DAERAH MASSENREMPULU</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">3</td>
+                            <td class="column-left">Pemerintah Daerah Kabupaten Enrekang</td>
+                            <td class="column-left">Penyedia</td>
+                            <td class="column-left">PERSIAPAN</td>
+                            <td class="column-left">NEGOSIASI</td>
+                            <td class="column-left" width="15%">Rp 121.200.000,00</td>
+                            <td class="column-center">6 Mei 2021</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">106.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3817150"><strong>AK1-P2105-3817150</strong><br>Belanja Modal Peralatan dan Mesin BLUD</a></td>
+                            <td class="column-left">DINAS KESEHATAN KABUPATEN JEMBRANA</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">1</td>
+                            <td class="column-left">Pemerintah Daerah Kabupaten Jembrana</td>
+                            <td class="column-left">Pejabat pengadaan</td>
+                            <td class="column-left">PERSIAPAN</td>
+                            <td class="column-left">NEGOSIASI</td>
+                            <td class="column-left" width="15%">Rp 6.370.800,00</td>
+                            <td class="column-center">7 Mei 2021</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">107.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3817610"><strong>AK1-P2105-3817610</strong><br>Belanja Modal Peralatan dan Mesin BLUD (Modal Alat Kesehatan) E Katalog</a></td>
+                            <td class="column-left">RUMAH SAKIT UMUM DAERAH KALIDERES</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">1</td>
+                            <td class="column-left">Pemerintah Daerah Provinsi DKI Jakarta</td>
+                            <td class="column-left">Distributor</td>
+                            <td class="column-left">PPK SETUJU</td>
+                            <td class="column-left">SEPAKAT</td>
+                            <td class="column-left" width="15%">Rp 14.100.000,00</td>
+                            <td class="column-center">7 Mei 2021</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="column-center">108.</td>
+                            <td class="column-left"><a target="_blank" href="/id/purchasing/paket/detail/3817880"><strong>AK1-P2105-3817880</strong><br>Belanja Modal Alat Kesehatan Umum Lainnya (Keperawatan)</a></td>
+                            <td class="column-left">RSUD SOREANG</td>
+                            <td class="column-left">PT. MEGA ANDALAN KALASAN</td>
+                            <td class="column-center">1</td>
+                            <td class="column-left">Pemerintah Daerah Kabupaten Bandung</td>
+                            <td class="column-left">Distributor</td>
+                            <td class="column-left">PENYEDIA SETUJU</td>
+                            <td class="column-left">SEPAKAT</td>
+                            <td class="column-left" width="15%">Rp 3.766.400.000,00</td>
+                            <td class="column-center">7 Mei 2021</td>
+                        </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row"><div class="col-sm-9 col-xs-12 col-md-8"><ul class="pagination pagination-sm"><li ><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=5">Sebelumnya</a></li><li ><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=1">1</a></li><li ><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=2">2</a></li><li ><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=3">3</a></li><li ><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=4">4</a></li><li ><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=5">5</a></li><li class="active"><a href="?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=&per_page=20&offset=6">6</a></li><li class="disabled"><a href="javascript:void(0)">Berikutnya</a></li></ul></div><div class="col-sm-3 col-xs-12 col-md-4"><div class="pagination">Menampilkan 101 sampai 108 dari 108 data</div></div></div>
+        
+        
+    </div>
+
+    <div class="btn-footer">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="#" onclick="showSidebar()"><span class="span-hide">Hide </span>Filter</a>
+            </div>
+        </div>
+    </div>
+    <div class="faq" id="mobile-sidebar">
+        <div class="mobile-navigation-bar">
+            <a href="#" onclick="closeSidebar()">
+                <i aria-hidden="true" class="fa fa-arrow-circle-left"></i> Daftar Paket
+            </a>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="row">
+	<form action="/purchasing/paket" class="wrapper-filter" method="GET">
+		<div class="form-group">
+			<label class="control-label">Cari</label>
+			<input class="form-control" id="keyword" name="keyword" value="" />
+		</div>
+		<div class="form-group">
+			<label class="control-label">Komoditas</label>
+			<select id="commodity" class="form-control select2" name="commodity">
+				<option value="0">Pilih Semua</option>
+				
+                    <option value="310" >Accu Kendaraan Dinas Operasional Provinsi DKI Jakarta</option>
+				
+                    <option value="437" >Air Tanah dan Air Baku</option>
+				
+                    <option value="41" >Alat Berat</option>
+				
+                    <option value="159" >Alat Berat Pekerjaan Operasi dan Pemeliharaan Bidang Sumber Daya Air</option>
+				
+                    <option value="25" >Alat dan Mesin Perikanan</option>
+				
+                    <option value="14" >Alat dan Mesin Pertanian</option>
+				
+                    <option value="137" >Alat dan Mesin Pertanian Sektoral</option>
+				
+                    <option value="24" >Alat Kesehatan 2015</option>
+				
+                    <option value="87" >Alat Kesehatan 2019</option>
+				
+                    <option value="315" >Alat Kesehatan Inovasi</option>
+				
+                    <option value="290" >Alat Komunikasi</option>
+				
+                    <option value="64" >Alat Laboratorium</option>
+				
+                    <option value="475" >Alat Mekanis Multiguna Pedesaan (AMMDes)</option>
+				
+                    <option value="278" >Alat Penerangan Jalan</option>
+				
+                    <option value="216" >Alat Peraga Edukatif</option>
+				
+                    <option value="424" >Alat Uji Berkala Kendaraan Bermotor</option>
+				
+                    <option value="119" >Aspal HRS-WC Terkirim Sidoarjo</option>
+				
+                    <option value="480" >Aspal Kemasan &amp; Beton Ready Mix Kota Medan</option>
+				
+                    <option value="295" >Aspal Kota Bandung</option>
+				
+                    <option value="409" >Aspalth Concrete Levelling (AC-L) di Provinsi Jawa Timur</option>
+				
+                    <option value="98" >Asphalt</option>
+				
+                    <option value="282" >Bahan Banjiran Pekerjaan Operasi dan Pemeliharaan Bidang Sumber Daya Air</option>
+				
+                    <option value="195" >Ban Kendaraan Dinas Operasional</option>
+				
+                    <option value="252" >Bantalan Beton</option>
+				
+                    <option value="200" >Belanja Media</option>
+				
+                    <option value="73" >Benih</option>
+				
+                    <option value="271" >Benih Hortikultura</option>
+				
+                    <option value="361" >Benih Kedelai, Benih Kacang Tanah dan Benih Kacang Hijau</option>
+				
+                    <option value="144" >Benih Padi dan Jagung</option>
+				
+                    <option value="268" >Benih Tanaman Perkebunan</option>
+				
+                    <option value="246" >BETON</option>
+				
+                    <option value="102" >Beton Cor</option>
+				
+                    <option value="350" >Bibit Lada</option>
+				
+                    <option value="81" >Bilik Suara</option>
+				
+                    <option value="261" >BLANGKO KTP ELEKTRONIK</option>
+				
+                    <option value="190" >Buku Nonteks</option>
+				
+                    <option value="35" >Buku Pelajaran Sekolah</option>
+				
+                    <option value="334" >Bus Sedang dan Bus Besar</option>
+				
+                    <option value="89" >Bus Sekolah Off The Road</option>
+				
+                    <option value="88" >Bus Ukuran Sedang BRT Off The Road</option>
+				
+                    <option value="133" >Campuran Aspal Panas - Hotmix</option>
+				
+                    <option value="76" >e-Ticketing</option>
+				
+                    <option value="417" >Energi Inovasi</option>
+				
+                    <option value="329" >Fasilitas Kesehatan</option>
+				
+                    <option value="231" >Geomembran (Geoisolator)</option>
+				
+                    <option value="15" >Hot-Mix</option>
+				
+                    <option value="221" >HOTMIX</option>
+				
+                    <option value="183" >Hotmix Provinsi Jawa Barat</option>
+				
+                    <option value="330" >Ice Flake Machine (IFM)</option>
+				
+                    <option value="326" >Instalasi Pengolahan Air Limbah atau Air Kotor (IPAL atau IPAK)</option>
+				
+                    <option value="75" >Internet Service Provider</option>
+				
+                    <option value="397" >IPA Mobil</option>
+				
+                    <option value="32" >Irigasi tetes</option>
+				
+                    <option value="164" >Jasa Cleaning Service</option>
+				
+                    <option value="462" >Jasa Cleaning Service Nusa Tenggara Timur</option>
+				
+                    <option value="174" >JASA KALIBRASI ALAT KESEHATAN</option>
+				
+                    <option value="157" >Jasa Keamanan</option>
+				
+                    <option value="440" >Jasa Keamanan Pemerintah Provinsi Riau</option>
+				
+                    <option value="258" >Jasa Keamanan Pemkot Semarang</option>
+				
+                    <option value="391" >Jasa Keamanan Pemprov DIY</option>
+				
+                    <option value="429" >Jasa Keamanan Provinsi Gorontalo</option>
+				
+                    <option value="447" >Jasa Keamanan Provinsi Jawa Tengah</option>
+				
+                    <option value="500" >Jasa Keamanan Provinsi Sumatera Utara</option>
+				
+                    <option value="158" >Jasa Kebersihan</option>
+				
+                    <option value="253" >Jasa Kebersihan Pemkot Semarang</option>
+				
+                    <option value="386" >Jasa Kebersihan Pemprov DIY</option>
+				
+                    <option value="491" >Jasa Kebersihan Provinsi Aceh</option>
+				
+                    <option value="432" >Jasa Kebersihan Provinsi Gorontalo</option>
+				
+                    <option value="445" >Jasa Kebersihan Provinsi Jawa Tengah</option>
+				
+                    <option value="495" >Jasa Kebersihan Provinsi Jawa Timur</option>
+				
+                    <option value="497" >Jasa Kebersihan Provinsi Sumatera Utara</option>
+				
+                    <option value="140" >Jasa Operasional Bus BRT</option>
+				
+                    <option value="36" >Jasa Operator Bus</option>
+				
+                    <option value="181" >Jasa Operator Bus DKI Jakarta</option>
+				
+                    <option value="122" >Jasa Pelayanan Kebersihan Sidoarjo</option>
+				
+                    <option value="288" >Jasa Pengangkutan Sampah Pasar Kota Semarang</option>
+				
+                    <option value="284" >Jasa Penyapuan dan Pengangkutan Sampah Jalan Protokol Kota Semarang</option>
+				
+                    <option value="467" >Jasa Penyediaan atau Pelayanan Makanan Provinsi Kalimantan Timur</option>
+				
+                    <option value="148" >Jasa Sewa Mesin Foto Copy</option>
+				
+                    <option value="367" >Jasa Tenaga Keamanan Provinsi Bali</option>
+				
+                    <option value="399" >Jasa Tenaga Kebersihan Provinsi Sumatera Selatan</option>
+				
+                    <option value="154" >Jasa Tenaga Pengamanan</option>
+				
+                    <option value="167" >Jasa Tenaga Pengamanan (Satpam)</option>
+				
+                    <option value="459" >Jasa Tenaga Pramusaji Kota Bandung</option>
+				
+                    <option value="169" >Jasa Tenaga Sopir atau Pengemudi</option>
+				
+                    <option value="377" >Jembatan Rangka Baja</option>
+				
+                    <option value="127" >Kain Batik Sidoarjo</option>
+				
+                    <option value="479" >Kain Sasirangan Provinsi Kalimantan Selatan</option>
+				
+                    <option value="8" >Kartu</option>
+				
+                    <option value="11" >Kendaraan Bermotor</option>
+				
+                    <option value="23" >Kendaraan Bermotor Off The Road</option>
+				
+                    <option value="277" >Kendaraan Dinas Operasional DKI Jakarta</option>
+				
+                    <option value="42" >Keramba Jaring Apung</option>
+				
+                    <option value="320" >Keramba Jaring Apung Sektoral</option>
+				
+                    <option value="339" >Kertas HVS Provinsi Jawa Timur</option>
+				
+                    <option value="410" >Kesehatan dan Obat Inovasi</option>
+				
+                    <option value="322" >Kincir Air Sektoral</option>
+				
+                    <option value="50" >Komunikasi &amp; Informatika</option>
+				
+                    <option value="394" >Layanan Angkutan Massal Berbasis Jalan di Kawasan Perkotaan (Buy The Service)</option>
+				
+                    <option value="297" >Logistik Kebencanaan</option>
+				
+                    <option value="363" >Logistik Pemilihan Tahun 2020</option>
+				
+                    <option value="82" >Logistik Pemilu</option>
+				
+                    <option value="97" >Makanan dan Minuman</option>
+				
+                    <option value="372" >Makanan dan Minuman Provinsi Bali</option>
+				
+                    <option value="187" >Makanan dan Minuman Provinsi Jawa Barat</option>
+				
+                    <option value="273" >Makanan dan Minuman Provinsi Sulawesi Selatan</option>
+				
+                    <option value="400" >Makanan dan Minuman Provinsi Sumatera Selatan</option>
+				
+                    <option value="226" >Marka Jalan</option>
+				
+                    <option value="392" >Marka Jalan  Kementerian Perhubungan</option>
+				
+                    <option value="333" >Material Konstruksi Aspal Kota Semarang</option>
+				
+                    <option value="415" >Material Maju Inovasi</option>
+				
+                    <option value="232" >Mesin Kapal Perikanan</option>
+				
+                    <option value="488" >Mesin Pakan Ikan</option>
+				
+                    <option value="112" >Meubelair Sekolah Sidoarjo</option>
+				
+                    <option value="237" >Mobil Berpendingin</option>
+				
+                    <option value="74" >Obat 2018</option>
+				
+                    <option value="302" >OBAT KONTRASEPSI</option>
+				
+                    <option value="63" >Obat Kontrasepsi BKKBN 2016</option>
+				
+                    <option value="92" >Obat Sektoral</option>
+				
+                    <option value="160" >Obat Tahun 2020</option>
+				
+                    <option value="77" >Online Shop - Perangkat Komputer</option>
+				
+                    <option value="78" >Online Shop - Perkakas</option>
+				
+                    <option value="355" >Pakaian Batik Khas Daerah</option>
+				
+                    <option value="451" >Pakaian Dinas Harian Kota Bandung</option>
+				
+                    <option value="472" >Pakaian Dinas Harian Sulawesi Utara</option>
+				
+                    <option value="365" >Pakaian Kerja dan Kelengkapannya</option>
+				
+                    <option value="129" >Paving Block Terkirim Sidoarjo</option>
+				
+                    <option value="27" >PE Sheet</option>
+				
+                    <option value="51" >Pekerjaan Jalan</option>
+				
+                    <option value="357" >Pekerjaan Konstruksi Pemeliharaan Jalan</option>
+				
+                    <option value="324" >Pembangunan Infrastruktur Kabupaten Bekasi</option>
+				
+                    <option value="406" >Pemeliharaan Rutin Jalan Provinsi Jawa Timur</option>
+				
+                    <option value="484" >Pemeliharaan Rutin Jalan Provinsi Nusa Tenggara Timur</option>
+				
+                    <option value="143" >Penakar Hujan</option>
+				
+                    <option value="10" >Penerangan Jalan Umum</option>
+				
+                    <option value="345" >Penerangan Jalan Umum Provinsi DKI Jakarta</option>
+				
+                    <option value="43" >Peralatan dan Bahan Pemadam Kebakaran</option>
+				
+                    <option value="340" >Peralatan Elektronik Perkantoran dan Peralatan Pendukungnya</option>
+				
+                    <option value="384" >Peralatan Elektronik Perkantoran dan Peralatan Pendukungnya - Reseller</option>
+				
+                    <option value="393" >Peralatan Keamanan Penerbangan</option>
+				
+                    <option value="307" >Peralatan Kebencanaan</option>
+				
+                    <option value="72" >Peralatan Olahraga</option>
+				
+                    <option value="70" >Peralatan Pendidikan</option>
+				
+                    <option value="103" >Peralatan Pendidikan Sektoral</option>
+				
+                    <option value="86" >Peralatan Perkantoran</option>
+				
+                    <option value="204" >Peralatan Permainan</option>
+				
+                    <option value="61" >Perkakas Kerja dan Alat Kebersihan</option>
+				
+                    <option value="305" >Perkakas Kerja DKI Jakarta</option>
+				
+                    <option value="470" >Perlengkapan Jalan Provinsi DKI Jakarta</option>
+				
+                    <option value="448" >Perlengkapan Sekolah Kota Bandung</option>
+				
+                    <option value="136" >Pestisida dan Pupuk</option>
+				
+                    <option value="408" >Pompa Pengendali Banjir Provinsi DKI Jakarta</option>
+				
+                    <option value="444" >Pupuk dan Pestisida Provinsi Jawa Tengah</option>
+				
+                    <option value="28" >Pupuk, Obat atau Hormon Tanaman dan Hewan</option>
+				
+                    <option value="244" >Recycling Road DKI Jakarta</option>
+				
+                    <option value="91" >Rumah Layak Huni</option>
+				
+                    <option value="314" >Sarana Budi Daya Peternakan dan Kesehatan Hewan</option>
+				
+                    <option value="69" >Segel dan atau Hologram Dengan Security Printing</option>
+				
+                    <option value="460" >Sepeda Listrik Provinsi Nusa Tenggara Barat</option>
+				
+                    <option value="60" >Seragam Kerja dan Perlengkapannya</option>
+				
+                    <option value="455" >Seragam Sekolah Kota Bandung</option>
+				
+                    <option value="21" >Sewa</option>
+				
+                    <option value="84" >Sewa Kendaraan</option>
+				
+                    <option value="379" >Sewa Kendaraan Bermotor Listrik Berbasis Baterai</option>
+				
+                    <option value="403" >Sewa Kendaran Provinsi Gorontalo</option>
+				
+                    <option value="420" >Sumur Resapan </option>
+				
+                    <option value="209" >Sumur Resapan Dangkal</option>
+				
+                    <option value="67" >Surat Suara Pemilihan Gubernur-Bupati-Walikota</option>
+				
+                    <option value="107" >Susuk KB II Plus Inserter</option>
+				
+                    <option value="212" >Tanaman Hias Dan Tanaman Pelindung</option>
+				
+                    <option value="412" >Teknologi Informasi dan Komunikasi Inovasi</option>
+				
+                    <option value="300" >Tenda Kebencanaan</option>
+				
+                    <option value="309" >Tenda Provinsi DKI Jakarta</option>
+				
+                    <option value="68" >Tinta Sidik Jari</option>
+				
+                    <option value="39" >Tool Kit Uji Cepat Pangan&nbsp;</option>
+				
+                    <option value="319" >Transportasi Inovasi</option>
+				
+                    <option value="247" >TROTOAR</option>
+				
+                    <option value="117" >U-Ditch Terkirim Sidoarjo</option>
+				
+                    <option value="239" >Utilitas Jalan</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Status Paket</label>
+			<select id="status" class="form-control select2" name="status">
+				<option value="">Pilih Semua</option>
+				
+					<option value="persiapan" >PERSIAPAN</option>
+				
+					<option value="proses_kirim" >PROSES KIRIM</option>
+				
+					<option value="paket_selesai" >PAKET SELESAI</option>
+				
+					<option value="ppk_setuju" >PPK SETUJU</option>
+				
+					<option value="ppk_tolak" >PPK TOLAK</option>
+				
+					<option value="penyedia_setuju" >PENYEDIA SETUJU</option>
+				
+					<option value="penyedia_tolak" >PENYEDIA TOLAK</option>
+				
+					<option value="panitia_setuju" >PANITIA SETUJU</option>
+				
+					<option value="panitia_tolak" >PANITIA TOLAK</option>
+				
+					<option value="batal" >BATAL</option>
+				
+					<option value="draft" >DRAFT</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Posisi Paket</label>
+			<select id="position" class="form-control select2" name="position">
+				<option value="">Pilih Semua</option>
+				
+                    <option value="distributor" >DISTRIBUTOR</option>
+				
+                    <option value="pejabat pengadaan" >PEJABAT PENGADAAN</option>
+				
+                    <option value="penyedia" >PENYEDIA</option>
+				
+                    <option value="ppk" >PPK</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Status Negosiasi</label>
+			<select id="status-negotiation" class="form-control select2" name="negotiation">
+				<option value="">Pilih Semua</option>
+				
+					<option value="negosiasi" >NEGOSIASI</option>
+				
+					<option value="sepakat" >SEPAKAT</option>
+				
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Urutkan Berdasarkan</label>
+			<select id="urutkan" class="form-control select2" name="sortby">
+				
+					<option value="desc" >TERBARU</option>
+				
+					<option value="asc" >TERLAMA</option>
+				
+			</select>
+		</div>
+        <div class="form-group" hidden>
+            <label class="control-label">Menampilkan Data</label>
+            <select id="per_page" class="form-control select2" name="per_page">
+                <option value="20" selected>20</option>
+                <option value="50" >50</option>
+                <option value="100" >100</option>
+            </select>
+        </div>
+		<input class="btn btn-block btn-red btn-primary" id="submitBtn" type="submit" value="Cari Data" />
+	</form>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/public/javascripts/jquery-1.12.1.min.js" type="text/javascript"> </script>
+
+   			</div>
+   			<!-- End Content -->
+   			
+   			<!-- Footer -->
+   			<div class="main-footer-wrapper">
+   				<div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="https://www.facebook.com/eprocurement.lkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social-icon btn-facebook">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                            <a href="https://twitter.com/eproc_lkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social-icon btn-twitter">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                            <a href="https://www.instagram.com/eproc.lkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social-icon btn-instagram">
+                                <span class="fa fa-instagram"></span>
+                            </a>
+                            
+                                
+                            
+                        </div>
+                    </div>
+					<br>
+	        		<div class="row">
+	        			<div class="col-md-12">
+		        			&copy; 2020 Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah (LKPP)
+		        		</div>
+	        		</div>
+	        	</div>
+				<div style="display: none">VERSION: V5.0:202105061254</div>
+   			</div>
+   			<!-- End Footer -->
+    	</div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="listBasketModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Keranjang Belanja</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/public/javascripts/jquery-1.12.1.min.js" type="text/javascript"> </script>
+<!--		<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>-->
+        <script src="/public/javascripts/jquery-ui.min.js"></script>
+        <script src="/public/javascripts/bootstrap.min.js" type="text/javascript"> </script>
+        <script src="/public/javascripts/jquery.bootstrap.wizard.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/bootstrap-datatables.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/datepicker/locales/bootstrap-datepicker.id.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/select2/js/select2.full.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/select2/js/i18n/id.js" type="text/javascript"> </script>
+        <script src="/public/javascripts/js-xlsx/jszip.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/js-xlsx/xlsx.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/filesaver/FileSaver.min.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/blob/Blob.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/utility.js" type="text/javascript"> </script>
+        <script src="/public/javascripts/sikap-utility.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/ckeditor/ckeditor.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/moment/min/moment.min.js" type="text/javascript"> </script>
+	  	<script src="/public/javascripts/Chart.min.js" type="text/javascript"> </script>
+	  	<script src="/public/javascripts/dashboard-data.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/moment/locale/id.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/ekko-lightbox.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/sweetalert2/dist/sweetalert2.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/fileuploader-2.2/dist/jquery.fileuploader.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/lightgallery.js-1.1.3/dist/js/lightgallery.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" type="text/javascript"> </script>
+        <script type="text/javascript" src="/public/javascripts/jquery.ui.widget.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.iframe-transport.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.fileupload.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.fileupload-process.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.fileupload-validate.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jQuery-Tags-Input-master/src/jquery.tagsinput.js"></script>
+		<script type="text/javascript" src="/public/javascripts/formatcurrency/jquery.formatCurrency-1.4.0.min.js"></script>
+		<script type="text/javascript" src="/public/plugins/spinner/dist/jquery.loading.min.js"></script>
+		<script type="text/javascript" src="/public/javascripts/lazy-master/jquery.lazy.min.js"></script>
+		<script type="text/javascript" src="/public/javascripts/lazy-master/jquery.lazy.plugins.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+		
+
+		
+        
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#submitBtn").on("click", function () {
+            $.showLoading();
+            $("#centerTableEmpty").html("Silahkan tunggu . . . .")
+        });
+        $("#draft-card").on("click", function () {
+            redirectList("/purchasing/paket/detail/DRAFT");
+        });
+        $("#processing-card").on("click", function () {
+            redirectList("/purchasing/paket/detail/PROCESS");
+        });
+        $("#finished-card").on("click", function () {
+            redirectList("/purchasing/paket/detail/FINISH");
+        });
+        $("#cancelled-card").on("click", function () {
+            redirectList("/purchasing/paket/detail/CANCEL");
+        });
+        $("#comparison-card").on("click", function () {
+            redirectList("/purchasing/paket/detail/COMPARISON");
+        });
+        $("#total-card").on("click", function () {
+            redirectList("/purchasing/paket/detail/TOTAL");
+        });
+
+        function redirectList(url){
+            window.location.href = url + "?year=" + $("#year").val() + "&sortby=asc";
+        }
+
+        $("#year").on("change", function (e) {
+            window.location.href = "/purchasing/paket?year=" + this.value;
+        });
+    });
+</script>
+
+
+
+        <script type="text/javascript">
+
+//            $( "#basketBtn").click(function(e) {
+//                e.preventDefault();
+//                $('#listBasketModal').modal('show').find('.modal-body').load($(this).attr('href'));
+//            });
+			$(document).ajaxStart(function(){$.showLoading();});
+			$(document).ajaxComplete(function(){$.hideLoading();});
+			$(document).ajaxSuccess(function(){$.hideLoading();});
+			$(document).ajaxError(function(){$.hideLoading();});
+
+			function submitPolling(polId){
+				var polPilih = $("input[name=vote]:checked").val();
+				$.ajax({
+					url: '/publikctr/submitpolling',
+					data: {"polId": polId,"vote": polPilih},
+					type: 'POST',
+					success: function(res){
+						if(res.result == 'ok')
+							$('#alert').html('<div class="alert alert-success"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Berhasil melakukan polling</div>').show().fadeOut(3000);
+						else if(res.result == 'login')
+							$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Anda harus Login terlebih dahulu</div>').show().fadeOut(3000);
+						else if(res.result == 'exist')
+							$('#alert').html('<div class="alert alert-danger alert-dismissible"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Anda sudah melakukan polling</div>').show().fadeOut(3000);
+						else if(res.result == 'empty')
+							$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Anda belum memilih</div>').show().fadeOut(3000);
+						else
+							$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Terjadi Kesalahan, Gagal melakukan polling</div>').show().fadeOut(3000);
+					},
+					error: function(){
+						$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Terjadi Kesalahan, Gagal melakukan polling</div>').show().fadeOut(3000);
+					}
+				});
+			}
+		//bgs-ecatalogue 2018-start
+        </script>
+
+
+		<script type="text/javascript">
+        $(document).ready(function(){
+            function getEventTarget(e) {
+                e = e || window.event;
+                return e.target || e.srcElement;
+            }
+
+            //ketika diklik
+            var ul = document.getElementById('ui-id-1');
+            var liclik = document.getElementById('linkcari');
+            ul.onclick = function(event) {
+                var target = getEventTarget(event);
+                var htmlx = ''+target.innerHTML;
+                $('#linkcari').append('<div id="linkprod">'+htmlx+'</div>');
+                $('#linkcari').trigger('click');
+            };
+
+            $('#linkcari').on('click',function (e) {
+                var uri = $('#baseurl').val();
+                //alert($('#linkprod a').attr('href'));
+                window.location.href = uri+$('#linkprod a').attr('href');
+            });
+
+            //ketika dienter
+            // var li = $('li .ui-menu-item');
+            var elink = $('#elink');
+            var elinkselect = $('#elinkselect');
+		
+		
+		
+            $(window).keydown(function(e){
+                var uri = $('#baseurl').val();
+                var linkx = null;
+
+                if (e.keyCode == 13 && elink.val()!= '' && elinkselect.val()=="ready") { // enter
+                    // console.log("pencet ini "+uri+linkx);
+                    window.location.href = uri+elink.val();
+                }
+                if (e.keyCode == 27 && elink.val()!='') { //esc
+                    elink.val('');
+                    elinkselect.val('');
+                }
+                if (e.keyCode == 38) { // up
+                    var selected = $(".ui-state-active");
+                    linkx = $('#ui-id-1 li.ui-menu-item a.ui-state-active').attr('href');
+                    if (!!linkx){
+                        elink.val(linkx);
+                        elinkselect.val("ready");
+                    }else{
+                        elinkselect.val("not");
+                    }
+                    // console.log(linkx+" --- up "+elink.val());
+                }
+                if (e.keyCode == 40) { // down
+                    var selected = $(".ui-state-active");
+                    linkx = $('#ui-id-1 li.ui-menu-item a.ui-state-active').attr('href');
+                    if (!!linkx){
+                        elink.val(linkx);
+                        elinkselect.val("ready");
+                    }else{
+                        elinkselect.val("not");
+                    }
+                    // console.log(linkx + " --- down "+elink.val());
+                }
+            });
+
+			// backdate kalender pengiriman paket
+            var hari = new Date('');
+            var bulan = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
+            var datePengiriman = hari.getFullYear() + ", " + bulan[hari.getMonth()] + ", " + hari.getDate();
+
+
+            $('#testdatecreate').datepicker({
+                startDate: new Date(datePengiriman),
+                format: 'dd-mm-yyyy',
+                language: 'id'
+            })
+
+            // backdate tanggal pengiriman (negosiasi)
+            var hari = new Date('');
+            var bulan = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
+            var datePengirimanNego = hari.getFullYear() + ", " + bulan[hari.getMonth()] + ", " + hari.getDate();
+
+
+            $('.batasPengiriman').datepicker({
+                startDate: new Date(datePengirimanNego),
+                format: 'dd-mm-yyyy',
+                language: 'id'
+            })
+
+			// comment chat
+            // function load_unseen_notification_navbar()
+            
+                
+                
+                
+                
+                    
+                        
+                        
+                    //};
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                        //}
+                    //});
+				//}catch (e) {
+					
+				//}
+            //}
+
+            
+				// console.log("chat is on");
+
+				// load_unseen_notification_navbar();
+
+				// setInterval(function(){
+				// 	load_unseen_notification_navbar();
+				// }, 5000);
+
+			
+			
+                // console.log("chat is off");
+			
+
+        });
+    </script>
+    </body>
+</html>
