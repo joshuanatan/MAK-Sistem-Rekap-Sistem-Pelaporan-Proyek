@@ -57,7 +57,7 @@
             <br>
             <br>
             <div class = "scroll-provinsi-table-wrapper">
-              <table class="table table-hover table-striped w-full" id = "table_content_container">
+              <table class="table table-hover table-striped w-full">
                 <thead>
                   <tr>
                     <th>ID Prospek</th>
@@ -71,8 +71,7 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tbody id = "table_content_container">
+                <tbody id = "table_content_container">
                 </tbody>
               </table>
             </div>
@@ -82,7 +81,7 @@
       <div class="page-content">
         <div class="panel">
           <div class="panel-body">
-            <h3>Detail Prospek</h3>
+            <h3>Detail Prospek Produk</h3>
             <br>
             <div class = "row">
               <div class = "form-group col-lg-3">
@@ -119,31 +118,7 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Kasur Rumah Sakit Flawless</td>
-                    <td>8</td>
-                    <td>1000000</td>
-                    <td>Kasur untuk rumah sakit militer di Jawa Barat</td>
-                    <td><button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
-                    <button type = "button"class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button></td></td>
-                  </tr>
-                  <tr>
-                    <td>Lampu Tidur Rumah Sakit</td>
-                    <td>2</td>
-                    <td>100000</td>
-                    <td>Lampu Tidur untuk rumah sakit militer di Jawa Barat</td>
-                    <td><button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
-                    <button type = "button"class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button></td></td>
-                  </tr>
-                  <tr>
-                    <td>Rak Meja</td>
-                    <td>4</td>
-                    <td>120000</td>
-                    <td>Rak Meja untuk rumah sakit militer di Jawa Barat</td>
-                    <td><button type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
-                    <button type = "button"class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button></td></td>
-                  </tr>
+                <tbody id = "detail_content_container">
                 </tbody>
               </table>
             </div>
@@ -188,6 +163,7 @@
               <td>
               <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
               <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
+              <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
               </td>
             </tr>
             `;
@@ -214,6 +190,32 @@
             $(`#prospek_row${row}`).remove();
           }
         });
+      }
+      function detail_row(row){
+        var id_prospek_produk = content[row]["id_pk_prospek"];
+        $.ajax({
+          url:`${base_url}ws/prospek/get_detail/${id_prospek_produk}`,
+          type:"GET",
+          dataType:"JSON",
+          success:function(respond){
+            var html = "";
+            for(var a = 0; a<respond["data_prospek_produk"].length; a++){
+              html += `
+              <tr id = "prospek_row${a}">
+                <td>${respond["data_prospek_produk"][a]["nama_produk"]}</td>
+                <td>${respond["data_prospek_produk"][a]["detail_prospek_quantity"]}</td>
+                <td>${respond["data_prospek_produk"][a]["harga_produk"]}</td>
+                <td>${respond["data_prospek_produk"][a]["detail_prospek_keterangan"]}</td>
+                <td>
+                <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
+                <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
+                </td>
+              </tr>
+              `;
+            }
+            $("#detail_content_container").html(html);
+          }
+        })
       }
     </script>
   </body>
