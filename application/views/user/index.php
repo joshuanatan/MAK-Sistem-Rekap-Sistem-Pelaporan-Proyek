@@ -381,6 +381,21 @@
       $("#div_supervisor_asm").hide();
     }
   }
+  function edit_change_access(){
+    var jabatan = $("#edit_role").val();
+    if (jabatan == "Sales Engineer") {
+      $("#edit_div_supervisor_asm").hide();
+      $("#edit_div_sales_engineer").show();
+    }
+    else if (jabatan == "Supervisor" || jabatan == "Area Sales Manager") {
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_supervisor_asm").show();
+    } 
+    else {
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_supervisor_asm").hide();
+    }
+  }
   function sales_engineer_change_provinsi(){
     var id_provinsi = $("#select_provinsi1").val();
     $.ajax({
@@ -399,25 +414,19 @@
   function sales_engineer_change_kabupaten(){
     var id_kabupaten = $("#select_kabupaten").val();
     if(id_kabupaten != "none"){
-      $.ajax({
-        url:"<?php echo base_url();?>ws/user/data_rs/"+id_kabupaten,
-        type:"GET",
-        dataType:"JSON",
-        success:function(respond){
-          var html = "";
-          for(var a = 0; a<respond.length; a++){
-            html += `
-              <tr>
-                <td><input type="checkbox" value="${respond[a]['id_pk_rs']}" name = "se_rs[]"></td>
-                <td>${respond[a]['rs_nama']}</td>
-                <td>${respond[a]['rs_kelas']}</td>
-                <td>${respond[a]['rs_alamat']}</td>
-                <td>${respond[a]['rs_kategori']}</td>
-              </tr>`;
-          }
-          $("#table_rs").html(html);
-        }
-      });
+      respond = load_unselected_rs(content[active_row]["id_pk_user"], id_kabupaten);
+      html = "";
+      for(var a = 0; a<respond.length; a++){
+        html +=  `
+          <tr>
+            <td><input type="checkbox" value="${respond[a]['id_pk_rs']}" name = "se_rs[]"></td>
+            <td>${respond[a]['rs_nama']}</td>
+            <td>${respond[a]['rs_kelas']}</td>
+            <td>${respond[a]['rs_alamat']}</td>
+            <td>${respond[a]['rs_kategori']}</td>
+          </tr>`;
+      }
+      $("#table_rs").html(html);
     }
   }
   function asm_change_provinsi(){

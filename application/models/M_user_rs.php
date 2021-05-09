@@ -22,6 +22,7 @@ class M_user_rs extends CI_model{
     return executeQuery($sql,$args);
   }
   public function get_unselected_rs($id_pk_user,$id_kabupaten){
+    #per terkahir, id pk user ini memang gakepake karena mau tampilin rs yang belom di assign ke siapapun regardless dr orangnya.
     #current justification: tampilin semua rs yang belom di assign ke siapapun. Jadi kaalau uda d assign ke org lain, itu juga gamuncul
     $sql = "
     select id_pk_rs, rs_nama, rs_kelas, rs_alamat, rs_kategori from mstr_rs 
