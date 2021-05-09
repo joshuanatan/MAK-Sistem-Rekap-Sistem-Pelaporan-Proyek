@@ -77,9 +77,6 @@
                 </tr>
               </thead>
               <tbody id = "table_content_container">
-                <?php for($a = 0; $a < count($data_user); $a++):?>
-                
-                <?php endfor;?>
               </tbody>
             </table>
             <nav class = "d-flex justify-content-center">
