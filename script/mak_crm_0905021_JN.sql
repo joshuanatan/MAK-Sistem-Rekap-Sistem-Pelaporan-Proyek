@@ -1654,31 +1654,6 @@ INSERT INTO `temp_sirup_general` (`id_pk_sirup_general`, `sirup_general`, `id_fk
 
 -- --------------------------------------------------------
 
---
--- Stand-in structure for view `v_detail_kabupaten`
--- (See below for the actual view)
---
-CREATE TABLE `v_detail_kabupaten` (
-`id_pk_kabupaten` int(11)
-,`id_fk_provinsi` int(11)
-,`kabupaten_nama` varchar(100)
-,`kabupaten_status` varchar(100)
-,`kabupaten_id_create` int(11)
-,`kabupaten_id_update` int(11)
-,`kabupaten_id_delete` int(11)
-,`kabupaten_tgl_create` datetime
-,`kabupaten_tgl_update` datetime
-,`kabupaten_tgl_delete` datetime
-,`id_pk_provinsi` int(11)
-,`provinsi_nama` varchar(100)
-,`provinsi_status` varchar(40)
-,`provinsi_id_create` int(11)
-,`provinsi_id_update` int(11)
-,`provinsi_id_delete` int(11)
-,`provinsi_tgl_create` datetime
-,`provinsi_tgl_update` datetime
-,`provinsi_tgl_delete` datetime
-);
 
 -- --------------------------------------------------------
 
@@ -1687,7 +1662,7 @@ CREATE TABLE `v_detail_kabupaten` (
 --
 DROP TABLE IF EXISTS `v_detail_kabupaten`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_detail_kabupaten`  AS SELECT `mstr_kabupaten`.`id_pk_kabupaten` AS `id_pk_kabupaten`, `mstr_kabupaten`.`id_fk_provinsi` AS `id_fk_provinsi`, `mstr_kabupaten`.`kabupaten_nama` AS `kabupaten_nama`, `mstr_kabupaten`.`kabupaten_status` AS `kabupaten_status`, `mstr_kabupaten`.`kabupaten_id_create` AS `kabupaten_id_create`, `mstr_kabupaten`.`kabupaten_id_update` AS `kabupaten_id_update`, `mstr_kabupaten`.`kabupaten_id_delete` AS `kabupaten_id_delete`, `mstr_kabupaten`.`kabupaten_tgl_create` AS `kabupaten_tgl_create`, `mstr_kabupaten`.`kabupaten_tgl_update` AS `kabupaten_tgl_update`, `mstr_kabupaten`.`kabupaten_tgl_delete` AS `kabupaten_tgl_delete`, `mstr_provinsi`.`id_pk_provinsi` AS `id_pk_provinsi`, `mstr_provinsi`.`provinsi_nama` AS `provinsi_nama`, `mstr_provinsi`.`provinsi_status` AS `provinsi_status`, `mstr_provinsi`.`provinsi_id_create` AS `provinsi_id_create`, `mstr_provinsi`.`provinsi_id_update` AS `provinsi_id_update`, `mstr_provinsi`.`provinsi_id_delete` AS `provinsi_id_delete`, `mstr_provinsi`.`provinsi_tgl_create` AS `provinsi_tgl_create`, `mstr_provinsi`.`provinsi_tgl_update` AS `provinsi_tgl_update`, `mstr_provinsi`.`provinsi_tgl_delete` AS `provinsi_tgl_delete` FROM (`mstr_kabupaten` join `mstr_provinsi` on(`mstr_provinsi`.`id_pk_provinsi` = `mstr_kabupaten`.`id_fk_provinsi`)) ;
+CREATE VIEW `v_detail_kabupaten`  AS SELECT `mstr_kabupaten`.`id_pk_kabupaten` AS `id_pk_kabupaten`, `mstr_kabupaten`.`id_fk_provinsi` AS `id_fk_provinsi`, `mstr_kabupaten`.`kabupaten_nama` AS `kabupaten_nama`, `mstr_kabupaten`.`kabupaten_status` AS `kabupaten_status`, `mstr_kabupaten`.`kabupaten_id_create` AS `kabupaten_id_create`, `mstr_kabupaten`.`kabupaten_id_update` AS `kabupaten_id_update`, `mstr_kabupaten`.`kabupaten_id_delete` AS `kabupaten_id_delete`, `mstr_kabupaten`.`kabupaten_tgl_create` AS `kabupaten_tgl_create`, `mstr_kabupaten`.`kabupaten_tgl_update` AS `kabupaten_tgl_update`, `mstr_kabupaten`.`kabupaten_tgl_delete` AS `kabupaten_tgl_delete`, `mstr_provinsi`.`id_pk_provinsi` AS `id_pk_provinsi`, `mstr_provinsi`.`provinsi_nama` AS `provinsi_nama`, `mstr_provinsi`.`provinsi_status` AS `provinsi_status`, `mstr_provinsi`.`provinsi_id_create` AS `provinsi_id_create`, `mstr_provinsi`.`provinsi_id_update` AS `provinsi_id_update`, `mstr_provinsi`.`provinsi_id_delete` AS `provinsi_id_delete`, `mstr_provinsi`.`provinsi_tgl_create` AS `provinsi_tgl_create`, `mstr_provinsi`.`provinsi_tgl_update` AS `provinsi_tgl_update`, `mstr_provinsi`.`provinsi_tgl_delete` AS `provinsi_tgl_delete` FROM (`mstr_kabupaten` join `mstr_provinsi` on(`mstr_provinsi`.`id_pk_provinsi` = `mstr_kabupaten`.`id_fk_provinsi`)) ;
 
 --
 -- Indexes for dumped tables
