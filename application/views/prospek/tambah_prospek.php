@@ -31,6 +31,7 @@
               <div class="panel">
                 <div class="panel-body">
                   <h4 class="title">Tambah Prospek</h4>
+                  <?php if ($this->session->user_role == "Sales Engineer"):?>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
                     <select class = "form-control"  name = "id_fk_rs">
@@ -40,6 +41,47 @@
                       <?php endfor;?>
                     </select>
                   </div>
+                  <?php endif;?>
+                  <?php if ($this->session->user_role == "Supervisor" || $this->session->user_role == "Area Sales Manager"):?>
+                  <div class="form-group">
+                    <label class="form-control-label">Kabupaten</label>
+                    <select class = "form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
+                      <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Kabupaten --</option>
+                      <?php for($a = 0; $a < count($datakabupaten); $a++):?>
+                      <option value = "<?php echo $datakabupaten[$a]["id_pk_kabupaten"];?>"><?php echo $datakabupaten[$a]["kabupaten_nama"];?></option>
+                      <?php endfor;?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Rumah Sakit</label>
+                    <select class = "form-control" name = "id_fk_rs" id="dataRumahSakit">
+
+                    </select>
+                  </div>
+                  <?php endif;?>
+                  <?php if ($this->session->user_role == "Sales Manager"):?>
+                  <div class="form-group">
+                    <label class="form-control-label">Provinsi</label>
+                    <select class = "form-control"  name = "provinsi" onchange="showKabupaten()" id="provinsi">
+                      <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Provinsi --</option>
+                      <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
+                      <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
+                      <?php endfor;?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Kabupaten</label>
+                    <select class = "form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
+
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Rumah Sakit</label>
+                    <select class = "form-control" name = "id_fk_rs" id="dataRumahSakit">
+
+                    </select>
+                  </div>
+                  <?php endif;?>
                   <div class="form-group">
                     <label class="form-control-label">Prospek Principle</label>
                     <input type="text" class="form-control" name="prospek_principle" placeholder="Prospek Principle">
@@ -58,7 +100,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Funnel</label>
-                    <select class = "form-control" name = "funnel">
+                    <select class = "form-control" name = "funnel" onchange="funnelProspek()" id="prospek">
                       <option value="Belum Ditentukan" selected>Belum Ditentukan</option>
                       <option value = "Lead">Lead</option>
                       <option value = "Prospek">Prospek</option>
@@ -66,6 +108,18 @@
                       <option value = "Win">Win</option>
                       <option value = "Loss">Loss</option>
                     </select>
+                  </div>
+                  <div class="form-group" id="funnelPercentage">
+
+                  </div>
+                  <div class="form-group" id="noEkatalog">
+
+                  </div>
+                  <div class="form-group" id="noteLoss">
+
+                  </div>
+                  <div class="form-group" id="noteSirup">
+
                   </div>
                   <label class="form-control-label">Detail Produk</label>
                   <div class = "table-responsive">
@@ -119,6 +173,111 @@
       var deleted_row = 0;
     </script>
     <script>
+      var base_url = "<?php echo base_url();?>";
+      function showRumahSakit() {
+        var base_url = "<?php echo base_url();?>";
+        var id_kabupaten = $("#kabupaten").val();
+        $.ajax({
+          url:`${base_url}ws/prospek/get_rs/${id_kabupaten}`,
+          type:"GET",
+          dataType:"JSON",
+          success:function(respond){
+
+            var html = "";
+            for(var a = 0; a<respond["data_rs"].length; a++){
+              html += `
+                <option value = '${respond["data_rs"][a]["id_pk_rs"]}'>${respond["data_rs"][a]["rs_nama"]}</option>
+              `;
+            }
+            $("#dataRumahSakit").html(html);
+          }
+        });
+      }
+
+      function showKabupaten() {
+        var id_provinsi = $("#provinsi").val();
+        $.ajax({
+          url:`${base_url}ws/prospek/get_kabupaten/${id_provinsi}`,
+          type:"GET",
+          dataType:"JSON",
+          success:function(respond){
+            var html = "";
+            for(var a = 0; a<respond["data_kabupaten"].length; a++){
+              html += `
+                <option value = '${respond["data_kabupaten"][a]["id_pk_kabupaten"]}'>${respond["data_kabupaten"][a]["kabupaten_nama"]}</option>
+              `;
+            }
+            $("#kabupaten").html(html);
+          }
+        });
+      }
+
+      function funnelProspek() {
+        var prospek = $("#prospek").val();
+        var id_rs = $("#dataRumahSakit").val();
+        $.ajax({
+          url:`${base_url}ws/prospek/get_rs_kategori/${id_rs}`,
+          type:"GET",
+          dataType:"JSON",
+          success:function(respond){
+            if (prospek == "Prospek" && "<?php echo $this->session->user_role;?>" == "Supervisor" && respond["data_rs_kategori"][0]["rs_kategori"] == "Pemerintah"){
+              var html4 = "";
+              $("#noteSirup").show();
+              html4 += `
+                <label class="form-control-label">No SiRUP</label>
+                <input type="text" class="form-control" name="nosirup">
+              `;
+                $("#funnelPercentage").html("");
+                $("#noEkatalog").html("");
+                $("#noteLoss").html("");
+            } else if (prospek == "Win" && "<?php echo $this->session->user_role;?>" == "Sales Manager" && respond["data_rs_kategori"][0]["rs_kategori"] == "Pemerintah"){
+              var html2 = "";
+              $("#noEkatalog").show();
+              html2 += `
+                <label class="form-control-label">No E Katalog</label>
+                <input type="text" class="form-control" name="nomorekatalog">
+              `;
+                $("#funnelPercentage").html("");
+                $("#noteLoss").html("");
+                $("#noteSirup").html("");
+            } else if (prospek == "Loss"){
+              var html3 = "";
+              $("#noteLoss").show();
+              html3 += `
+                <label class="form-control-label">Note</label>
+                <textarea type="text" class="form-control" name="notesloss"></textarea>
+              `;
+                $("#funnelPercentage").html("");
+                $("#noEkatalog").html("");
+                $("#noteSirup").html("");
+            } else if (prospek == "Prospek") {
+               var html1 = "";
+               $("#funnelPercentage").show();
+               html1 += `
+                 <label class="form-control-label">Funnel</label>
+                 <select class="form-control" id="">
+                   <option value = "25%">25%</option>
+                   <option value = "50%">50%</option>
+                   <option value = "75%">75%</option>
+                 </select>
+               `;
+               $("#noEkatalog").html("");
+               $("#noteLoss").html("");
+               $("#noteSirup").html("");
+            } else {
+              $("#funnelPercentage").html("");
+              $("#noEkatalog").html("");
+              $("#noteLoss").html("");
+              $("#noteSirup").html("");
+            }
+            $("#funnelPercentage").html(html1);
+            $("#noEkatalog").html(html2);
+            $("#noteLoss").html(html3);
+            $("#noteSirup").html(html4);
+          }
+        });
+      }
+
       function tambahRowProduk(){
         var html = `
           <tr id = "tambahRowProduk${row}">

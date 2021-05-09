@@ -11,12 +11,16 @@ class Prospek extends CI_Controller{
 
     public function add_prospek(){
       $this->load->model("m_prospek");
-
-      $result1 = $this->m_prospek->get_rs();
+      $id = $this->session->id_user;
+      $result1 = $this->m_prospek->get_rs_sales_engineer($id);
       $result2 = $this->m_prospek->get_produk();
+      $result3 = $this->m_prospek->get_kabupaten($id);
+      $result4 = $this->m_prospek->get_provinsi();
       $data = array(
         'datars' => $result1->result_array(),
         'dataproduk' => $result2->result_array(),
+        'datakabupaten' => $result3->result_array(),
+        'dataprovinsi' => $result4->result_array(),
       );
       $this->load->view("prospek/tambah_prospek", $data);
     }

@@ -17,17 +17,57 @@ class M_prospek extends CI_Model{
        return executeQuery($sql);
      }
 
-     public function get_rs(){
-      $sql = "
-      SELECT id_pk_rs, rs_nama, rs_status
+     public function get_kabupaten($id_fk_user){
+      $sql = "SELECT *
+      FROM mstr_kabupaten
+      INNER JOIN tbl_user_kabupaten on mstr_kabupaten.id_pk_kabupaten = tbl_user_kabupaten.id_fk_kabupaten
+      WHERE tbl_user_kabupaten.id_fk_user = $id_fk_user AND kabupaten_status = 'aktif'";
+      return executeQuery($sql);
+     }
+
+     public function get_provinsi(){
+      $sql = "SELECT *
+      FROM mstr_provinsi
+      WHERE provinsi_status = 'aktif'";
+      return executeQuery($sql);
+     }
+
+     public function get_kabupaten_adv($id_pk_provinsi){
+      $sql = "SELECT *
+      FROM mstr_kabupaten
+      WHERE id_fk_provinsi = $id_pk_provinsi AND kabupaten_status = 'aktif'";
+      return executeQuery($sql);
+     }
+
+     public function get_rs_sales_engineer($id){
+      $sql = "SELECT id_pk_rs, rs_nama, rs_status
       FROM mstr_rs
-      WHERE rs_status = 'aktif'";
-      $result = $this->db->query($sql);
+      INNER JOIN tbl_user_rs on mstr_rs.id_pk_rs = tbl_user_rs.id_fk_rs
+      WHERE tbl_user_rs.id_fk_user = ? AND rs_status = 'aktif' AND tbl_user_rs.user_rs_status = 'aktif'";
+      $args = array(
+        $id
+      );
+      $result = executeQuery($sql, $args);
       return $result;
      }
 
      public function get_produk(){
        $sql = "SELECT id_pk_produk, produk_nama,produk_price_list FROM mstr_produk WHERE produk_status = 'aktif'";
+       return executeQuery($sql);
+     }
+
+     public function get_rs($id_kabupaten){
+       $sql = "SELECT *
+       FROM mstr_rs
+       WHERE id_fk_kabupaten = ? AND rs_status = 'aktif'";
+       $args = array(
+         $id_kabupaten
+       );
+       return executeQuery($sql, $args);
+     }
+
+     public function get_data_rs_kategori($id_pk_rs){
+       $sql = "SELECT rs_kategori FROM mstr_rs WHERE id_pk_rs = $id_pk_rs AND rs_status = 'aktif'";
        return executeQuery($sql);
      }
 
