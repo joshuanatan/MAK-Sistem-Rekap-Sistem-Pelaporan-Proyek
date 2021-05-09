@@ -55,13 +55,13 @@ class Sch_ekatalog extends CI_Controller{
     // echo "<br/><br/>";  
     $this->login_cookies = explode(";",$response[2])[0];
   }
-  public function get_data($login_cookies){
+  public function get_data(){
     if($this->login_cookies == ""){
       $this->login();
     }
     $page = 100;
-    #$url = "https://e-katalog.lkpp.go.id/purchasing/paket?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=desc&per_page=$page&offset=1";
-    $url = "http://localhost/mak/data/test_ekatalog.html";
+    $url = "https://e-katalog.lkpp.go.id/purchasing/paket?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=desc&per_page=$page&offset=1";
+    #$url = "http://localhost/mak/data/test_ekatalog.html";
 
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -106,6 +106,12 @@ class Sch_ekatalog extends CI_Controller{
         insertRow("temp_ekatalog_id",$data);
       }
     }
+    $data = array(
+      "log_auto_ekatalog" => "Mengambil daftar E-Katalog",
+      "log_auto_ekatalog_desc" => "Mengambil $page data terakhir dari e-katalog",
+      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+    );
+    insertRow("log_auto_ekatalog",$data);
   }
   public function get_ekatalog_detail(){
     if($this->login_cookies == ""){
@@ -130,6 +136,12 @@ class Sch_ekatalog extends CI_Controller{
       )
     ));
     $response = (curl_exec($curl)); #string
+    $data = array(
+      "log_auto_ekatalog" => "Mengambil detail E-Katalog",
+      "log_auto_ekatalog_desc" => "Mengambil data detail dari e-katalog dengan id paket = ".$result[0]["ekatalog_id"],
+      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+    );
+    insertRow("log_auto_ekatalog",$data);
     
     $url = "https://e-katalog.lkpp.go.id/id/purchasing/paket/".$result[0]["ekatalog_id"]."/daftar-produk";
     $curl = curl_init();
@@ -146,6 +158,12 @@ class Sch_ekatalog extends CI_Controller{
       )
     ));
     $response_produk = (curl_exec($curl)); #string
+    $data = array(
+      "log_auto_ekatalog" => "Mengambil detail E-Katalog",
+      "log_auto_ekatalog_desc" => "Mengambil data daftar produk dari e-katalog dengan id paket = ".$result[0]["ekatalog_id"],
+      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+    );
+    insertRow("log_auto_ekatalog",$data);
 
     $data = array(
       "id_fk_ekatalog_id" => $result[0]["id_pk_ekatalog_id"],
@@ -221,6 +239,12 @@ class Sch_ekatalog extends CI_Controller{
         "ekatalog_id_create" => 0,
       );
       $id_ekatalog = insertRow("mstr_ekatalog",$data);
+      $data = array(
+        "log_auto_ekatalog" => "Mengekstrak dan memasukan detail E-Katalog ke database MAK-CRM",
+        "log_auto_ekatalog_desc" => "Mengekstrak dan memasukan detail dari e-katalog dengan id paket = ".$matches[1]." dan nama paket: ".$matches[2],
+        "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+      );
+      insertRow("log_auto_ekatalog",$data);
 
       $ekatalog_item = trim($result[0]["ekatalog_detail_item"]);
       $ekatalog_item = explode('<table aria-describedby="mydesc" class="table table-bordered">',$ekatalog_item);
@@ -257,6 +281,12 @@ class Sch_ekatalog extends CI_Controller{
         insertRow("tbl_ekatalog_produk",$data);
       }
     }
+    $data = array(
+      "log_auto_ekatalog" => "Mengekstrak dan memasukan data produk E-Katalog ke database MAK-CRM",
+      "log_auto_ekatalog_desc" => "Mengekstrak dan memasukan data produk dari e-katalog dengan id paket = ".$matches[1]." dan nama paket: ".$matches[2],
+      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+    );
+    insertRow("log_auto_ekatalog",$data);
     $where = array(
       "id_pk_ekatalog_detail" => $result[0]["id_pk_ekatalog_detail"]
     );
