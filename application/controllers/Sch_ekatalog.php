@@ -162,6 +162,7 @@ class Sch_ekatalog extends CI_Controller{
       "ekatalog_id_query_date" => date("Y-m-d H:i:s")
     );
     updateRow("temp_ekatalog_id",$data,$where);
+    echo $this->db->last_query();
   }
   public function extract_ekatalog_detail(){
     $sql = "select id_pk_ekatalog_detail, id_fk_ekatalog_id, ekatalog_detail, ekatalog_detail_item, ekatalog_detail_status_extract, ekatalog_detail_extract_date from temp_ekatalog_detail where ekatalog_detail_status_extract = 0 limit 1";
@@ -171,18 +172,100 @@ class Sch_ekatalog extends CI_Controller{
     $ekatalog_detail = $result[0]["ekatalog_detail"];
     $ekatalog_detail = explode('<div role="tabpanel" class="tab-pane active" id="informasi-utama">', $ekatalog_detail)[1];
     $ekatalog_detail = explode('<div role="tabpanel" class="tab-pane" id="pp-ppk">', $ekatalog_detail)[0];
+    
+    $ekatalog_status = $result[0]["ekatalog_detail"];
+    $ekatalog_status = explode('<div class="detail-heading col-md-4">Status</div>',$ekatalog_status)[1];
+    $ekatalog_status = explode('<div class="detail-heading col-md-4">Posisi Paket</div>',$ekatalog_status);
+    $ekatalog_status_main = trim(strip_tags($ekatalog_status[0]));
+    $ekatalog_status_posisi = trim(strip_tags(explode("Riwayat Paket",$ekatalog_status[1])[0]));
+
 
     #echo $ekatalog_detail;
     $regex = "/(\<div class\=\"detail\-description col\-md\-9\"\>).*/";
     preg_match_all($regex, $ekatalog_detail, $matches);
     $matches = $matches[0];
-    print_r($matches);
+    #print_r($matches);
     
 
     for($a = 0; $a<count($matches); $a++){
       $split = explode('<div class="detail-description col-md-9">',$matches[$a])[1];
-      $split = str_replace("</div>","",$split);
-      echo $split."<br/>";
+      $matches[$a] = str_replace("</div>","",$split);
+      #echo $a." - ".$matches[$a]."<br/>";
     }
+    #refrensi urutan liat dari https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/3631844
+    $where = array(
+      "ekatalog_id_paket" => $matches[1],
+    );
+    if(!isExistsInTable("mstr_ekatalog",$where)){
+      
+      $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
+      $data = array(
+        "ekatalog_komoditas" => $matches[0],
+        "ekatalog_id_paket" => $matches[1],
+        "ekatalog_nama_paket" => $matches[2],
+        "ekatalog_instansi" => $matches[3],
+        "ekatalog_satuan_kerja" => $matches[4],
+        "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
+        "ekatalog_alamat_satuan_kerja" => $matches[6],
+        "ekatalog_alamat_pengiriman" => $matches[7],
+        "ekatalog_tgl_buat_online" => $matches[8],
+        "ekatalog_tgl_ubah_online" => $matches[9],
+        "ekatalog_tahun_anggaran" => $matches[10],
+        "ekatalog_total_produk" => $matches[11],
+        "ekatalog_total_harga" => $total_harga,
+        "ekatalog_total_harga_online" => $matches[12],
+        "ekatalog_status_paket" => $ekatalog_status_main,
+        "ekatalog_posisi_paket" => $ekatalog_status_posisi,
+        "ekatalog_status" => "aktif",
+        "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
+        "ekatalog_id_create" => 0,
+      );
+      $id_ekatalog = insertRow("mstr_ekatalog",$data);
+
+      $ekatalog_item = trim($result[0]["ekatalog_detail_item"]);
+      $ekatalog_item = explode('<table aria-describedby="mydesc" class="table table-bordered">',$ekatalog_item);
+      $ekatalog_item = $ekatalog_item[1];
+      $ekatalog_item = explode("<tr>",$ekatalog_item);
+      for($a = 2; $a<count($ekatalog_item); $a++){
+        $regex = "/((\<td\>|\<td class\=\"column-right\"\>|<td width=\"200\">|<h6>).*(\<\/td\>))|(<h6>).*(<\/h6>)/";
+        preg_match_all($regex,$ekatalog_item[$a],$matches);
+        $matches = $matches[0];
+
+        $kuantitas = trim(str_replace(",",".",strip_tags($matches[1])));
+        $harga_satuan = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[3])))));
+        $perkiraan_ongkos_kirim = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[4])))));
+        $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[5])))));
+
+        $data = array(
+          "ekatalog_produk_nama_produk" => trim(strip_tags($matches[0])),
+          "ekatalog_produk_kuantitas_online" => trim(strip_tags($matches[1])),
+          "ekatalog_produk_kuantitas" => floatval($kuantitas),
+          "ekatalog_produk_mata_uang_online" => trim(strip_tags($matches[2])),
+          "ekatalog_produk_mata_uang" => trim(strip_tags($matches[2])),
+          "ekatalog_produk_harga_satuan_online" => trim(strip_tags($matches[3])),
+          "ekatalog_produk_harga_satuan" => intval($harga_satuan),
+          "ekatalog_produk_perkiraan_ongkos_kirim_online" => trim(strip_tags($matches[4])),
+          "ekatalog_produk_perkiraan_ongkos_kirim" => intval($perkiraan_ongkos_kirim),
+          "ekatalog_produk_total_harga_online" => trim(strip_tags($matches[5])),
+          "ekatalog_produk_total_harga" => intval($total_harga),
+          "ekatalog_produk_catatan" => trim(strip_tags($matches[6])),
+          "ekatalog_produk_status" => "aktif",
+          "ekatalog_produk_tgl_create" => date("Y-m-d H:i:s"),
+          "ekatalog_produk_id_create" => 0,
+          "id_fk_ekatalog" => $id_ekatalog
+        );
+        insertRow("tbl_ekatalog_produk",$data);
+      }
+    }
+    $where = array(
+      "id_pk_ekatalog_detail" => $result[0]["id_pk_ekatalog_detail"]
+    );
+    $data = array(
+      "ekatalog_detail_status_extract" => 1,
+      "ekatalog_detail_extract_date" => date("Y-m-d H:i:s"),
+    );
+    updateRow("temp_ekatalog_detail",$data,$where);
+    #print_r($ekatalog_item);
+    #echo $ekatalog_item;
   }
 }

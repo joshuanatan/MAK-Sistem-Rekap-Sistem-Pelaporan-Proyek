@@ -58,25 +58,26 @@
                 </select>
               </div>
             </div>
-            <table class="table table-hover dataTable table-striped w-full">
-              <thead>
-                <tr>
-                  <th>ID Paket</th>
-                  <th>Paket</th>
-                  <th>Satuan Kerja</th>
-                  <th>Total Produk</th>
-                  <th>Instansi</th>
-                  <th>Status Paket</th>
-                  <th>Posisi Paket</th>
-                  <th>Total Harga</th>
-                  <th>Tanggal Buat</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id = "table_content_container">
-              </tbody>
-            </table>
-
+            <div class = "table-responsive">
+              <table class="table table-hover dataTable table-striped w-full">
+                <thead>
+                  <tr>
+                    <th>ID Paket</th>
+                    <th>Paket</th>
+                    <th>Satuan Kerja</th>
+                    <th>Total Produk</th>
+                    <th>Instansi</th>
+                    <th>Status Paket</th>
+                    <th>Posisi Paket</th>
+                    <th>Total Harga</th>
+                    <th>Tanggal Buat</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id = "table_content_container">
+                </tbody>
+              </table>
+            </div>
             <nav class = "d-flex justify-content-center">
               <ul class="pagination">
               </ul>
@@ -254,11 +255,11 @@
             <textarea class="form-control" name="alamat_pengiriman" id = "edit_alamat_pengiriman"></textarea>
           </div>
           <div class="form-group">
-            <label class="form-control-label">Tanggal Dibuat</label>
+            <label class="form-control-label">Tanggal Dibuat</label> <strong><span id = "edit_tgl_buat_online_info"></span></strong>
             <input type="date" class="form-control" name="tgl_buat_online" id = "edit_tgl_buat_online">
           </div>
           <div class="form-group">
-            <label class="form-control-label">Tanggal Diubah</label>
+            <label class="form-control-label">Tanggal Diubah</label> <strong><span id = "edit_tgl_ubah_online_info"></span></strong>
             <input type="date" class="form-control" name="tgl_ubah_online" id = "edit_tgl_ubah_online">
           </div>
           <div class="form-group">
@@ -270,7 +271,7 @@
             <input type="int" class="form-control" name="total_produk" id = "edit_total_produk">
           </div>
           <div class="form-group">
-            <label class="form-control-label">Total Harga</label>
+            <label class="form-control-label">Total Harga</label> <strong><span id = "edit_total_harga_info"></span></strong>
             <input type="int" class="form-control" name="total_harga" id = "edit_total_harga">
           </div>
           <div class="form-group">
@@ -281,23 +282,25 @@
             <label class="form-control-label">Posisi Paket</label>
             <input type="text" class="form-control" name="posisi_paket" id = "edit_posisi_paket">
           </div>
-          <table class = "table table-bordered table-hover">
-            <thead>
-              <th>Nama Produk</th>
-              <th>Kuantitas</th>
-              <th>Mata Uang</th>
-              <th>Harga Satuan</th>
-              <th>Perkiraan Ongkos Kirim</th>
-              <th>Total Harga</th>
-              <th>Catatan</th>
-              <th>Action</th>
-            </thead>
-            <tbody>
-              <tr id = "edit_tambah_row_produk_ekatalog_container">
-                <td colspan = "8"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "edit_tambah_row_produk_ekatalog()">Tambah Produk E-Katalog</button></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class = "table-responsive">
+            <table class = "table table-bordered table-hover">
+              <thead>
+                <th>Nama Produk</th>
+                <th>Kuantitas</th>
+                <th>Mata Uang</th>
+                <th>Harga Satuan</th>
+                <th>Perkiraan Ongkos Kirim</th>
+                <th>Total Harga</th>
+                <th>Catatan</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                <tr id = "edit_tambah_row_produk_ekatalog_container">
+                  <td colspan = "8"><button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "edit_tambah_row_produk_ekatalog()">Tambah Produk E-Katalog</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -338,9 +341,12 @@
     $("#edit_alamat_pengiriman").val(content[row]["ekatalog_alamat_pengiriman"]);
     $("#edit_tgl_buat_online").val(content[row]["ekatalog_tgl_buat_online"]);
     $("#edit_tgl_ubah_online").val(content[row]["ekatalog_tgl_ubah_online"]);
+    $("#edit_tgl_buat_online_info").text(content[row]["ekatalog_tgl_buat_online"]);
+    $("#edit_tgl_ubah_online_info").text(content[row]["ekatalog_tgl_ubah_online"]);
     $("#edit_tahun_anggaran").val(content[row]["ekatalog_tahun_anggaran"]);
     $("#edit_total_produk").val(content[row]["ekatalog_total_produk"]);
     $("#edit_total_harga").val(content[row]["ekatalog_total_harga"]);
+    $("#edit_total_harga_info").text(content[row]["ekatalog_total_harga_online"]);
     $("#edit_status_paket").val(content[row]["ekatalog_status_paket"]);
     $("#edit_posisi_paket").val(content[row]["ekatalog_posisi_paket"]);
     

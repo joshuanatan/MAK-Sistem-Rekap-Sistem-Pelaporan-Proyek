@@ -1,0 +1,720 @@
+<html lang="id">
+    <head>
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>E-Katalog 5.0</title>
+        <link rel="icon" type="image/x-icon" href="/public/images/favicon.png">
+        <link rel="stylesheet" media="screen" href="/public/stylesheets/app.min.css">
+		<link rel="stylesheet" media="screen" href="/public/fa/css/font-awesome.min.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/bootstrap-datatables.min.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/landing.css">
+        <link rel="stylesheet" media="screen" href="/public/stylesheets/bootstrap-social.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/input-icon.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/datepicker/css/bootstrap-datepicker.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/select2/css/select2.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/sweetalert2/dist/sweetalert2.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/fileuploader-2.2/dist/font/font-fileuploader.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/lightgallery.js-1.1.3/dist/css/lightgallery.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/fileuploader-2.2/dist/jquery.fileuploader.min.css">
+		<link rel="stylesheet" media="screen" href="/public/javascripts/jQuery-Tags-Input-master/src/jquery.tagsinput.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/ekko-lightbox.min.css">
+		<link rel="stylesheet" media="screen" href="/public/stylesheets/jquery-ui.min.css">
+		<link rel="stylesheet" media="screen" href="/public/plugins/spinner/dist/loading.min.css">
+		<link rel="stylesheet" href="/public/bpmn-js/dist/assets/diagram-js.css"/>
+		<link rel="stylesheet" href="/public/bpmn-js/dist/assets/bpmn-font/css/bpmn.css"/>
+
+
+
+
+	
+        <link rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.png">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+	
+		<script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-58838321-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+	
+    </head>
+    <body>
+    	
+    	<div id="mobile-menu" class="menu-wrapper">
+   			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><span class="fa fa-close"></span></a>
+    		<ul><li><a href="/home">Beranda</a></li><li><a href="#komoditasMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="komoditasMenu">Komoditas</a><ul class="collapse" id="komoditasMenu"><li><a class="" data-toggle="collapse" aria-expanded="true" aria-controls="MASTER_KOMODITAS_NASIONAL" href="#MASTER_KOMODITAS_NASIONAL"><i class="fa fa-angle-double-right"></i> Komoditas Nasional</a><ul class="collapse" id="MASTER_KOMODITAS_NASIONAL" aria-expanded="true" style=""><li>            <a href="/katalog/komoditas-kldi/278?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Alat Penerangan Jalan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/329?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Fasilitas Kesehatan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/75?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Internet Service Provider            </a>          </li><li>            <a href="/katalog/komoditas-kldi/11?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kendaraan Bermotor            </a>          </li><li>            <a href="/katalog/komoditas-kldi/160?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Obat Tahun 2020            </a>          </li><li>            <a href="/katalog/komoditas-kldi/70?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Peralatan Pendidikan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/86?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Peralatan Perkantoran            </a>          </li><li>            <a href="/katalog/komoditas-kldi/84?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Sewa Kendaraan            </a>          </li></ul></li><li><a class="" data-toggle="collapse" aria-expanded="true" aria-controls="MASTER_KOMODITAS_LOKAL" href="#MASTER_KOMODITAS_LOKAL"><i class="fa fa-angle-double-right"></i> Komoditas Lokal</a><ul class="collapse" id="MASTER_KOMODITAS_LOKAL" aria-expanded="true" style=""><li>            <a href="/katalog/komoditas-kldi/D69?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi DKI Jakarta            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D502?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kota Medan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D99?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kota Bandung            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D158?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Jawa Timur            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D35?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Kepulauan Bangka Belitung            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D122?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Jawa Tengah            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D95?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Jawa Barat            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D63?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi D. I. Yogyakarta            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D129?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kota Semarang            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D241?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Kalimantan Timur            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D25?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Bali            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D160?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kabupaten Sidoarjo            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D115?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Kabupaten Bekasi            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D1?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Aceh            </a>          </li><li>            <a href="/katalog/komoditas-kldi/D76?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Pemerintah Daerah Provinsi Gorontalo            </a>          </li></ul></li><li><a class="" data-toggle="collapse" aria-expanded="true" aria-controls="MASTER_KOMODITAS_SEKTORAL" href="#MASTER_KOMODITAS_SEKTORAL"><i class="fa fa-angle-double-right"></i> Komoditas Sektoral</a><ul class="collapse" id="MASTER_KOMODITAS_SEKTORAL" aria-expanded="true" style=""><li>            <a href="/katalog/komoditas-kldi/K18?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Pekerjaan Umum dan Perumahan Rakyat            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K29?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Pertanian            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K47?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Riset dan Teknologi/Badan Riset dan Inovasi Nasional            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K26?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Perhubungan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K3?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Dalam Negeri            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K23?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Pendidikan dan Kebudayaan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K8?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Kelautan Dan Perikanan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L9?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Badan Nasional Penanggulangan Bencana            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L31?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Komisi Pemilihan Umum            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L4?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Badan Kependudukan Dan Keluarga Berencana Nasional            </a>          </li><li>            <a href="/katalog/komoditas-kldi/K9?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Kementerian Kesehatan            </a>          </li><li>            <a href="/katalog/komoditas-kldi/L7?tkdn_produk=1&jenis_produk=lokal&language=id">
+              <i class="fa fa-circle-o"></i> Badan Meteorologi, Klimatologi Dan Geofisika            </a>          </li></ul></li></ul></li><li><a href="/pengumuman">Pengumuman</a></li><li><a href="#prakatalogMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="prakatalogMenu">Pra Katalog</a><ul class="collapse" id="prakatalogMenu"><li><a href="/prakatalog/penawaran"><i class="fa fa-angle-double-right"></i> Penawaran</a></ul></li><li><a href="#katalogMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="katalogMenu">Produk</a><ul class="collapse" id="katalogMenu"><li><a href="/katalog/produk"><i class="fa fa-angle-double-right"></i> Daftar Produk</a><li><a href="/katalog/produk/report"><i class="fa fa-angle-double-right"></i> Kelola Laporan</a></ul></li><li><a href="/katalog/produk/permohonan-pembaruan">Permohonan Pembaruan</a></li><li><a href="/purchasing/paket">Paket</a></li><li><a href="#profilMenu" class="collapsed" data-toggle="collapse" aria-expanded="false" aria-controls="profilMenu">Profil</a><ul class="collapse" id="profilMenu"><li><a href="/masterdata/profil-penyedia"><i class="fa fa-angle-double-right"></i> Pengaturan</a><li><a href="/penyedia/distributor"><i class="fa fa-angle-double-right"></i> Daftar Distributor/Pelaksana Pekerjaan/Pengirim Barang</a></ul></li><li><a href="/berita">Berita</a></li><li><a href="/unduh">Unduh</a></li><li><a href="/faq">Tanya Jawab</a></li><li><a href="/syarat-ketentuan">Syarat dan Ketentuan</a></li><li><a href="/hub-kami">Hubungi Kami</a></li><li><a href="/admin.userctr/logout">Logout</a></li></ul>
+    	</div>
+    	
+    	<div id="main" class="main-wrapper">
+   			<!-- Header -->
+   			<div class="main-header-wrapper">
+   				<div class="helper-menu">
+   					<div class="container-fluid">
+   						<ul>
+	   						
+	   						
+	   						
+	   						
+	   						
+							
+								
+								<li>
+									<a href="/all-message" style="text-decoration: none">
+										
+									</a>
+								</li>
+							
+							<li><a href="/language/change?lang=id"><img alt="E-Katalog LKPP" src="/public/images/id.png" style="width: 15px; height: 15px"></a> | <a href="/language/change?lang=en"><img alt="E-Katalog LKPP" src="/public/images/en.png" style="width: 15px; height: 15px"></a></li>
+	   					</ul>
+   					</div>
+   				</div>
+   				<nav class="navbar navbar-default sticked-navbar">
+					<div class="container-fluid">
+						<div class="row">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" onclick="openNav()">
+								<span class="fa fa-bars"></span>
+							</button>
+							
+							<a class="navbar-brand" href="/home">
+								<img alt="E-Katalog LKPP" src="/public/images/nav_logo.png" class="img img-responsive"/>
+							</a>
+							
+							
+						</div>
+
+						<div class="collapse navbar-collapse" id="catalog-main-menu">
+							<!-- Komoditas -->
+							<div class="col-md-1 btn-komoditas">
+								<div class="komoditas-menu">
+									<a href="#">Komoditas</a>
+								</div>
+							</div>
+							<!-- End Komoditas -->
+							<!-- Search -->
+							<div class="col-md-5">
+								
+<div id="searchbar-container">
+	<form method="GET" action="/id/search-produk" class="navbar-form">
+	<input type="hidden" name="authenticityToken" value="12647f420657a1049b433b209a573a42c26e6cd4"/>
+
+		<div class="input-group searchbar-form">
+	        <input type="text" id="search-bar" name="q" value="" data-url="/api/product/suggestion" class="form-control" placeholder="Cari"/>
+	        <input type="hidden" name="prid" value=""/>
+	        <input type="hidden" name="pid" value=""/>
+	        <input type="hidden" name="gt" value=""/>
+	        <input type="hidden" name="lt" value=""/>
+	        <input type="hidden" name="mid" value=""/>
+	        <input type="hidden" name="kbid" value=""/>
+	        <input type="hidden" name="order" value=""/>
+            <input type="hidden" name="cat" class="hidden-cat" value=""/>
+			<input type="hidden" value="/id/search-produk"/>
+	        <span class="input-group-addon">
+	        	<button type="submit"><i aria-hidden="true" class="fa fa-search"></i></button>
+	        </span>
+	    </div>
+	</form>
+</div>
+<div id="linkcari" hidden>Result: </div>
+<div hidden><input id="baseurl" value="http://e-katalog.lkpp.go.id"/><input id="elink" type="text"/><input id="elinkselect" type="text"/></div>
+							</div>
+							<!-- End Search -->
+							<!-- Login -->
+							<ul class="nav navbar-nav navbar-right">
+								
+									
+										
+									
+									
+									
+									
+									
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;max-width: 120px;"><i aria-hidden="true" class="fa fa-user"></i> PT. MEGA ANDALAN KALASAN <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="/admin.userctr/logout">Logout</a></li>
+										</ul>
+									</li>
+								
+								
+							</ul>
+							<!-- END Login -->
+						</div>
+						</div>
+					</div>
+				</nav>
+				<!-- List Komoditas -->
+					<div class="komoditas-menu-wrapper">
+	<div class="overlay" style="display: none;"></div>
+	<div class="komoditas-menu-list" style="display: none;">
+		<div class="komoditas-list">
+			<div class="komoditas-list-item"><a class="komoditas-item-link" id="nasional-list" href="#">Komoditas Nasional <i aria-hidden="true" class="fa fa-angle-right pull-right"></i></a></div>
+			<div class="komoditas-list-item"><a class="komoditas-item-link" id="lokal-list" href="#">Komoditas Lokal <i aria-hidden="true" class="fa fa-angle-right pull-right"></i></a></div>
+			<div class="komoditas-list-item"><a class="komoditas-item-link" id="sektoral-list" href="#">Komoditas Sektoral <i aria-hidden="true" class="fa fa-angle-right pull-right"></i></a></div>
+
+			<div class="sub-komoditas-list-item"></div><div class="subkomoditas-list-item" id="nasional-item"><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=alat-penerangan-jalan&language=id&commodityId=278">Alat Penerangan Jalan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=fasilitas-kesehatan&language=id&commodityId=329">Fasilitas Kesehatan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=internet-service-provider&language=id&commodityId=75">Internet Service Provider</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=kendaraan-bermotor&language=id&commodityId=11">Kendaraan Bermotor</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=obat-tahun-2020&language=id&commodityId=160">Obat Tahun 2020</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=peralatan-pendidikan&language=id&commodityId=70">Peralatan Pendidikan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=peralatan-perkantoran&language=id&commodityId=86">Peralatan Perkantoran</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/productsearchcontroller/listproduk?tkdn_produk=1&jenis_produk=lokal&komoditasSlug=sewa-kendaraan&language=id&commodityId=84">Sewa Kendaraan</a></div></div><div class="subkomoditas-list-item" id="lokal-item"><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D69?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi DKI Jakarta</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D502?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kota Medan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D99?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kota Bandung</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D158?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Jawa Timur</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D35?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Kepulauan Bangka Belitung</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D122?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Jawa Tengah</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D95?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Jawa Barat</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D63?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi D. I. Yogyakarta</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D129?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kota Semarang</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D241?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Kalimantan Timur</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D25?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Bali</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D160?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kabupaten Sidoarjo</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D115?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Kabupaten Bekasi</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D1?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Aceh</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/D76?tkdn_produk=1&jenis_produk=lokal&language=id">Pemerintah Daerah Provinsi Gorontalo</a></div></div><div class="subkomoditas-list-item" id="sektoral-item"><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K18?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Pekerjaan Umum dan Perumahan Rakyat</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K29?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Pertanian</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K47?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Riset dan Teknologi/Badan Riset dan Inovasi Nasional</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K26?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Perhubungan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K3?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Dalam Negeri</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K23?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Pendidikan dan Kebudayaan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K8?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Kelautan Dan Perikanan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L9?tkdn_produk=1&jenis_produk=lokal&language=id">Badan Nasional Penanggulangan Bencana</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L31?tkdn_produk=1&jenis_produk=lokal&language=id">Komisi Pemilihan Umum</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L4?tkdn_produk=1&jenis_produk=lokal&language=id">Badan Kependudukan Dan Keluarga Berencana Nasional</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/K9?tkdn_produk=1&jenis_produk=lokal&language=id">Kementerian Kesehatan</a></div><div class="komoditas-list-item"><a class="komoditas-item-link" href="/katalog/komoditas-kldi/L7?tkdn_produk=1&jenis_produk=lokal&language=id">Badan Meteorologi, Klimatologi Dan Geofisika</a></div></div>
+
+		</div>
+	</div>
+</div>
+				<!-- End List Komoditas -->
+
+				<div class="navbar-menu">
+					<div class="container-fluid">
+						<div class="collapse navbar-collapse">
+							<ul class="nav navbar-nav"><li><a href="/home">Beranda</a></li><li><a href="/pengumuman">Pengumuman</a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Pra Katalog <span class="caret"></span></a><ul class="dropdown-menu"><li><div class="container-fluid"><div class="row"><a href="/prakatalog/penawaran">Penawaran</a></div></div></li></ul></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Produk <span class="caret"></span></a><ul class="dropdown-menu"><li><div class="container-fluid"><div class="row"><a href="/katalog/produk">Daftar Produk</a><a href="/katalog/produk/report">Kelola Laporan</a></div></div></li></ul></li><li><a href="/katalog/produk/permohonan-pembaruan">Permohonan Pembaruan</a></li><li><a href="/purchasing/paket">Paket</a></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <span class="caret"></span></a><ul class="dropdown-menu"><li><div class="container-fluid"><div class="row"><a href="/masterdata/profil-penyedia">Pengaturan</a><a href="/penyedia/distributor">Daftar Distributor/Pelaksana Pekerjaan/Pengirim Barang</a></div></div></li></ul></li><li><a href="/berita">Berita</a></li><li><a href="/unduh">Unduh</a></li><li><a href="/faq">Tanya Jawab</a></li><li><a href="/syarat-ketentuan">Syarat dan Ketentuan</a></li><li><a href="/hub-kami">Hubungi Kami</a></li></ul>
+						</div>
+					</div>
+				</div>
+   			</div>
+            <div>
+                <p style="margin-bottom: 4%"></p>
+            </div>
+            <!-- End Header -->
+   			
+   			<!-- Content -->
+   			<div class="main-content-wrapper">
+   				
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li><a href="/home">Beranda</a></li>
+                <li><a href="/purchasing/paket">Daftar Paket</a></li>
+                <li><a href="/id/purchasing/paket/detail/3809446">Detail Paket</a></li>
+                <li class="active">Daftar Produk</li>
+            </ol>
+            <!-- End Breadcrumb -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <a href="/id/purchasing/paket/detail/3809446" class="btn btn-sm btn-default"><i aria-hidden="true" class="fa fa-arrow-circle-left"></i> Kembali</a>
+            </div>
+            <!-- End Toolbar -->
+        </div>
+    </div>
+    <div class="alert alert-danger alert-dismissible" id="alert-gagal-proses" role="alert" style="display: none;">
+    Produk Tidak Boleh Kosong Didalam Paket.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="row">
+        <div class="detail-wrapper">
+            <div class="row">
+                <div class="detail-header">
+                    <div class="col-md-12">
+                        <h5>Daftar Produk Paket AK1-P2105-3809446</h5> (checkpoint 1)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="detail-footer">
+                    <div class="col-md-12">
+                        <div class="panel panel-default" style="overflow-x: auto">
+                            <table aria-describedby="mydesc" class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope='col'>Nama Produk</th>
+                                    <th scope='col'>Kuantitas</th>
+                                    <th scope='col'>Mata Uang</th>
+                                    <th scope='col'>Harga Satuan</th>
+                                    <th scope='col'>Perkiraan Ongkos Kirim</th>
+                                    <th scope='col'>Total Harga</th>
+                                    <th scope='col'>Catatan</th>
+                                    <th scope='col'>Aksi</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="/katalog/produk/detail/1247554">
+                                                <p>4815000035-AK1-000863119</p>
+                                                <h6>MAK MAK Electric Celebes Bed 3 Motors 74005</h6>
+                                            </a>
+                                        </td>
+                                        <td class="column-right">2,00</td>
+                                        <td>IDR</td>
+                                        <td class="column-right">Rp 37.500.000,00</td>
+                                        <td class="column-right">Rp 4.730.000,00</td>
+                                        <td class="column-right">Rp 79.730.000,00</td>
+                                        <td width="200"></td>
+                                        <td class="column-center">
+                                            <a href="/purchasing.paketctr/detailriwayatnegosiasi?paketId=3809446&amp;id=31705849"
+                                                class="btn btn-sm btn-xs btn-primary">Riwayat Negosiasi
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="/katalog/produk/detail/1247239">
+                                                <p>4818001002-AK1-000861364</p>
+                                                <h6>MAK MAK Baby Basket 33619</h6>
+                                            </a>
+                                        </td>
+                                        <td class="column-right">3,00</td>
+                                        <td>IDR</td>
+                                        <td class="column-right">Rp 6.000.000,00</td>
+                                        <td class="column-right">Rp 1.268.300,00</td>
+                                        <td class="column-right">Rp 19.268.300,00</td>
+                                        <td width="200"></td>
+                                        <td class="column-center">
+                                            <a href="/purchasing.paketctr/detailriwayatnegosiasi?paketId=3809446&amp;id=31705852"
+                                                class="btn btn-sm btn-xs btn-primary">Riwayat Negosiasi
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table aria-describedby="mydesc" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope='col'>Nama Paket</th>
+                            <th scope='col'>No. Paket</th>
+                            <th scope='col'>Instansi</th>
+                            <th scope='col'>Satuan Kerja</th>
+                            <th scope='col'>Lokasi</th>
+                            <th scope='col'>Harga Satuan</th>
+                            <th scope='col'>Kuantitas</th>
+                            <th scope='col'>Total Harga</th>
+                            <th scope='col'>Tahun</th>
+                        </tr>
+                        </thead>
+                        <tbody id="riwayat_harga">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-md" data-dismiss="modal"><i aria-hidden="true" class="fa fa-close"></i> Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Delete-->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                Konfirmasi
+                </div>
+                <div class="modal-body">
+                Apakah anda yakin akan menghapus produk ini dari paket?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger btn-ok">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+   			</div>
+   			<!-- End Content -->
+   			
+   			<!-- Footer -->
+   			<div class="main-footer-wrapper">
+   				<div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="https://www.facebook.com/eprocurement.lkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social-icon btn-facebook">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                            <a href="https://twitter.com/eproc_lkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social-icon btn-twitter">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                            <a href="https://www.instagram.com/eproc.lkpp/" target="_blank" rel="noopener noreferrer" class="btn btn-social-icon btn-instagram">
+                                <span class="fa fa-instagram"></span>
+                            </a>
+                            
+                                
+                            
+                        </div>
+                    </div>
+					<br>
+	        		<div class="row">
+	        			<div class="col-md-12">
+		        			&copy; 2020 Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah (LKPP)
+		        		</div>
+	        		</div>
+	        	</div>
+				<div style="display: none">VERSION: V5.0:202105081708</div>
+   			</div>
+   			<!-- End Footer -->
+    	</div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="listBasketModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Keranjang Belanja</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/public/javascripts/jquery-1.12.1.min.js" type="text/javascript"> </script>
+<!--		<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>-->
+        <script src="/public/javascripts/jquery-ui.min.js"></script>
+        <script src="/public/javascripts/bootstrap.min.js" type="text/javascript"> </script>
+        <script src="/public/javascripts/jquery.bootstrap.wizard.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/bootstrap-datatables.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/datepicker/locales/bootstrap-datepicker.id.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/select2/js/select2.full.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/select2/js/i18n/id.js" type="text/javascript"> </script>
+        <script src="/public/javascripts/js-xlsx/jszip.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/js-xlsx/xlsx.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/filesaver/FileSaver.min.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/blob/Blob.js" type="text/javascript" ></script>
+        <script src="/public/javascripts/utility.js" type="text/javascript"> </script>
+        <script src="/public/javascripts/sikap-utility.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/ckeditor/ckeditor.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/moment/min/moment.min.js" type="text/javascript"> </script>
+	  	<script src="/public/javascripts/Chart.min.js" type="text/javascript"> </script>
+	  	<script src="/public/javascripts/dashboard-data.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/moment/locale/id.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/ekko-lightbox.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/sweetalert2/dist/sweetalert2.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/fileuploader-2.2/dist/jquery.fileuploader.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/lightgallery.js-1.1.3/dist/js/lightgallery.min.js" type="text/javascript"> </script>
+	    <script src="/public/javascripts/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js" type="text/javascript"> </script>
+        <script type="text/javascript" src="/public/javascripts/jquery.ui.widget.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.iframe-transport.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.fileupload.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.fileupload-process.min.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jquery.fileupload-validate.js"></script>
+        <script type="text/javascript" src="/public/javascripts/jQuery-Tags-Input-master/src/jquery.tagsinput.js"></script>
+		<script type="text/javascript" src="/public/javascripts/formatcurrency/jquery.formatCurrency-1.4.0.min.js"></script>
+		<script type="text/javascript" src="/public/plugins/spinner/dist/jquery.loading.min.js"></script>
+		<script type="text/javascript" src="/public/javascripts/lazy-master/jquery.lazy.min.js"></script>
+		<script type="text/javascript" src="/public/javascripts/lazy-master/jquery.lazy.plugins.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+		
+
+		
+        
+<script type="text/javascript">
+    function formatNumber(num) {
+        return 'Rp.' + num.toString().replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+    }
+
+    function getHistory(idp) {
+        $.ajax({
+            type: 'post',
+            url: '/purchasing.paketctr/gethistoryprice',
+            dataType: 'json',
+            data: {produkId: idp},
+            success: function (data) {
+                $('#riwayat_harga').empty();
+                $("#viewModal").modal();
+                for (var i = 0; i < data.length; i++) {
+                    $('#riwayat_harga').append('<tr><td>' +
+                            data[i].nama_paket + '</td><td>' +
+                            data[i].no_paket + '</td><td>' +
+                            data[i].instansi + '</td><td>' +
+                            data[i].satuan_kerja_nama + '</td><td>' +
+                            data[i].nama_provinsi + '</td><td class="column-right">' +
+                            formatNumber(data[i].harga_satuan) + '</td><td class="column-right">' +
+                            data[i].kuantitas + '</td><td class="column-right">' +
+                            formatNumber(data[i].harga_total) + '</td><td class="column-center">' +
+                            data[i].tahun + '</td></tr>');
+                }
+            }
+        });
+    };
+
+    $("body").on('show.bs.modal', '#confirm-delete', function (e) {
+        $(this).find('.btn-ok').attr('data-paketprodukid', $(e.relatedTarget).data('paketprodukid'));
+    });
+
+    $("body").on('click', '.btn-ok', function () {
+        var totalProduk = $('[name=button-delete]').length;
+        var paketProdukId = $(this).data("paketprodukid");
+        var paketId = "3809446";
+
+        if (totalProduk <= 1) {
+            $('#alert-gagal-proses').show();
+            $('#confirm-delete').modal('hide');
+            $('html, body').animate({scrollTop: '0px'}, 'slow');
+        } else {
+            $.ajax({
+                url: '/purchasing.paketctr/removefrompackage',
+                data: {"paketProdukId": paketProdukId, "paketId": paketId},
+                type: 'POST',
+                success: function (res) {
+                    $('#confirm-delete').modal('toggle');
+                    location.reload();
+                },
+                error: function () {
+                    $('#confirm-delete').modal('toggle');
+                    location.reload();
+                }
+            });
+        }
+    })
+
+</script>
+
+
+
+        <script type="text/javascript">
+
+//            $( "#basketBtn").click(function(e) {
+//                e.preventDefault();
+//                $('#listBasketModal').modal('show').find('.modal-body').load($(this).attr('href'));
+//            });
+			$(document).ajaxStart(function(){$.showLoading();});
+			$(document).ajaxComplete(function(){$.hideLoading();});
+			$(document).ajaxSuccess(function(){$.hideLoading();});
+			$(document).ajaxError(function(){$.hideLoading();});
+
+			function submitPolling(polId){
+				var polPilih = $("input[name=vote]:checked").val();
+				$.ajax({
+					url: '/publikctr/submitpolling',
+					data: {"polId": polId,"vote": polPilih},
+					type: 'POST',
+					success: function(res){
+						if(res.result == 'ok')
+							$('#alert').html('<div class="alert alert-success"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Berhasil melakukan polling</div>').show().fadeOut(3000);
+						else if(res.result == 'login')
+							$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Anda harus Login terlebih dahulu</div>').show().fadeOut(3000);
+						else if(res.result == 'exist')
+							$('#alert').html('<div class="alert alert-danger alert-dismissible"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Anda sudah melakukan polling</div>').show().fadeOut(3000);
+						else if(res.result == 'empty')
+							$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Anda belum memilih</div>').show().fadeOut(3000);
+						else
+							$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Terjadi Kesalahan, Gagal melakukan polling</div>').show().fadeOut(3000);
+					},
+					error: function(){
+						$('#alert').html('<div class="alert alert-danger"><button class="close" data-dismiss="alert" aria-label="Close"><i aria-hidden="true" class="fa fa-close" aria-hidden="true"></i></button>Terjadi Kesalahan, Gagal melakukan polling</div>').show().fadeOut(3000);
+					}
+				});
+			}
+		//bgs-ecatalogue 2018-start
+        </script>
+
+
+		<script type="text/javascript">
+        $(document).ready(function(){
+            function getEventTarget(e) {
+                e = e || window.event;
+                return e.target || e.srcElement;
+            }
+
+            //ketika diklik
+            var ul = document.getElementById('ui-id-1');
+            var liclik = document.getElementById('linkcari');
+            ul.onclick = function(event) {
+                var target = getEventTarget(event);
+                var htmlx = ''+target.innerHTML;
+                $('#linkcari').append('<div id="linkprod">'+htmlx+'</div>');
+                $('#linkcari').trigger('click');
+            };
+
+            $('#linkcari').on('click',function (e) {
+                var uri = $('#baseurl').val();
+                //alert($('#linkprod a').attr('href'));
+                window.location.href = uri+$('#linkprod a').attr('href');
+            });
+
+            //ketika dienter
+            // var li = $('li .ui-menu-item');
+            var elink = $('#elink');
+            var elinkselect = $('#elinkselect');
+		
+		
+		
+            $(window).keydown(function(e){
+                var uri = $('#baseurl').val();
+                var linkx = null;
+
+                if (e.keyCode == 13 && elink.val()!= '' && elinkselect.val()=="ready") { // enter
+                    // console.log("pencet ini "+uri+linkx);
+                    window.location.href = uri+elink.val();
+                }
+                if (e.keyCode == 27 && elink.val()!='') { //esc
+                    elink.val('');
+                    elinkselect.val('');
+                }
+                if (e.keyCode == 38) { // up
+                    var selected = $(".ui-state-active");
+                    linkx = $('#ui-id-1 li.ui-menu-item a.ui-state-active').attr('href');
+                    if (!!linkx){
+                        elink.val(linkx);
+                        elinkselect.val("ready");
+                    }else{
+                        elinkselect.val("not");
+                    }
+                    // console.log(linkx+" --- up "+elink.val());
+                }
+                if (e.keyCode == 40) { // down
+                    var selected = $(".ui-state-active");
+                    linkx = $('#ui-id-1 li.ui-menu-item a.ui-state-active').attr('href');
+                    if (!!linkx){
+                        elink.val(linkx);
+                        elinkselect.val("ready");
+                    }else{
+                        elinkselect.val("not");
+                    }
+                    // console.log(linkx + " --- down "+elink.val());
+                }
+            });
+
+			// backdate kalender pengiriman paket
+            var hari = new Date('2021-05-05 08:44:35.0');
+            var bulan = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
+            var datePengiriman = hari.getFullYear() + ", " + bulan[hari.getMonth()] + ", " + hari.getDate();
+
+
+            $('#testdatecreate').datepicker({
+                startDate: new Date(datePengiriman),
+                format: 'dd-mm-yyyy',
+                language: 'id'
+            })
+
+            // backdate tanggal pengiriman (negosiasi)
+            var hari = new Date('2021-05-05 08:44:35.0');
+            var bulan = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
+            var datePengirimanNego = hari.getFullYear() + ", " + bulan[hari.getMonth()] + ", " + hari.getDate();
+
+
+            $('.batasPengiriman').datepicker({
+                startDate: new Date(datePengirimanNego),
+                format: 'dd-mm-yyyy',
+                language: 'id'
+            })
+
+			// comment chat
+            // function load_unseen_notification_navbar()
+            
+                
+                
+                
+                
+                    
+                        
+                        
+                    //};
+                    
+                        
+                        
+                        
+                        
+                        
+                        
+                            
+                            
+                            
+                            
+                        //}
+                    //});
+				//}catch (e) {
+					
+				//}
+            //}
+
+            
+				// console.log("chat is on");
+
+				// load_unseen_notification_navbar();
+
+				// setInterval(function(){
+				// 	load_unseen_notification_navbar();
+				// }, 5000);
+
+			
+			
+                // console.log("chat is off");
+			
+
+        });
+    </script>
+    </body>
+</html>

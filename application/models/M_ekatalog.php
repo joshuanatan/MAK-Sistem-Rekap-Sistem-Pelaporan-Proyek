@@ -95,7 +95,7 @@ class M_ekatalog extends CI_Model{
         $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
       }
     }
-    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status FROM mstr_ekatalog WHERE ekatalog_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status FROM mstr_ekatalog WHERE ekatalog_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
     return executeQuery($sql);
   }
   public function get($kolom_pengurutan,$arah_kolom_pengurutan,$pencarian_phrase,$kolom_pencarian,$current_page){
@@ -108,7 +108,7 @@ class M_ekatalog extends CI_Model{
         $search_query = "and (".$kolom_pencarian." like '%".$pencarian_phrase."%')";
       }
     }
-    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status FROM mstr_ekatalog WHERE ekatalog_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan;
+    $sql = "SELECT id_pk_ekatalog FROM mstr_ekatalog WHERE ekatalog_status = 'aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan;
     return executeQuery($sql);
   }
 }
