@@ -9,6 +9,14 @@ class M_prospek extends CI_Model{
        return $result;
      }
 
+     public function get_prospek_produk($id_fk_prospek){
+       $sql = "SELECT mstr_produk.produk_nama as nama_produk, detail_prospek_quantity, mstr_produk.produk_price_list as harga_produk, detail_prospek_keterangan, detail_prospek_status
+       FROM tbl_prospek_produk
+       INNER JOIN mstr_produk on tbl_prospek_produk.id_pk_prospek_produk = mstr_produk.id_pk_produk
+       WHERE id_fk_prospek = $id_fk_prospek AND detail_prospek_status='aktif'";
+       return executeQuery($sql);
+     }
+
      public function get_rs(){
       $sql = "
       SELECT id_pk_rs, rs_nama, rs_status

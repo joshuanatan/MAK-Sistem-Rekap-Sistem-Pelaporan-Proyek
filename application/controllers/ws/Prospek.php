@@ -20,4 +20,11 @@ class Prospek extends CI_Controller{
     }
     echo json_encode($response);
   }
+
+  public function get_detail($id){
+    $this->load->model("m_prospek");
+    $response["data_prospek_produk"] = $this->m_prospek->get_prospek_produk($id)->result_array();
+
+    echo json_encode($response);
+  }
 }
