@@ -1,9 +1,16 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 class Sch_sirup extends CI_Controller{
+  private $list_rup = "";
   public function reset_status_query(){
     $sql = "update mstr_pencarian_sirup set pencarian_sirup_status_query_today = 0";
     executeQuery($sql);
+    $data = array(
+      "log_auto_sirup" => "Reset status query",
+      "log_auto_sirup_desc" => "Mengembalikan status jadi 0 agar bisa diquery",
+      "log_auto_sirup_date" => date("Y-m-d H:i:s")
+    );
+    insertRow("log_auto_sirup",$data);
   }
   public function query_sirup(){
     $sql = "select * from mstr_pencarian_sirup where pencarian_sirup_status_query_today = 0 limit 1";
@@ -15,7 +22,7 @@ class Sch_sirup extends CI_Controller{
       $pencarian_sirup_frase = urlencode($result[0]["pencarian_sirup_frase"]);
       $pencarian_sirup_jenis = $result[0]["pencarian_sirup_jenis"];
       $search_phrase = $result[0]["pencarian_sirup_frase"]." ".$pencarian_sirup_tahun." ".$pencarian_sirup_jenis;
-      $amount = 5000;
+      $amount = 2500;
 
       $url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=".$pencarian_sirup_tahun."&keyword=".$pencarian_sirup_frase."&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=5&order%5B0%5D%5Bdir%5D=DESC&start=0&length=".$amount."&search%5Bvalue%5D=&search%5Bregex%5D=false";
 
@@ -40,6 +47,13 @@ class Sch_sirup extends CI_Controller{
       );
       insertRow("temp_sirup_general",$data);
 
+      $data = array(
+        "log_auto_sirup" => "Get daftar SiRUP",
+        "log_auto_sirup_desc" => "Mendapatkan daftar SiRUP dengan query ".$pencarian_sirup_frase." - ".$pencarian_sirup_frase,
+        "log_auto_sirup_date" => date("Y-m-d H:i:s")
+      );
+      insertRow("log_auto_sirup",$data);
+
       $where = array(
         "id_pk_pencarian_sirup" => $id_pk_pencarian_sirup
       );
@@ -57,7 +71,6 @@ class Sch_sirup extends CI_Controller{
     where sirup_general_status_query_today	= 0 and sirup_general is not null limit 1";
     $result = executeQuery($sql);
     $result = $result->result_array();
-    print_r($result);
     if(count($result) != 0){
       $this->load->model("m_sirup");
       $id_pk_sirup_general = $result[0]["id_pk_sirup_general"];
@@ -73,7 +86,6 @@ class Sch_sirup extends CI_Controller{
         $id = str_replace(" ","",$response_data_var[$b]["id"]);
         $pagu = $response_data_var[$b]["pagu"];
         if($this->m_sirup->is_id_exists($id)){
-          echo $id;
           continue;
         }
         $url = "https://sirup.lkpp.go.id/sirup/home/detailPaketPenyediaPublic2017/".$id;
@@ -98,7 +110,7 @@ class Sch_sirup extends CI_Controller{
         $response = preg_replace('/\t+/', ' ', $response);
         $response = preg_replace('/\n\r+/', '', $response);
         $this->extract_data($response,$pagu,$id_pk_pencarian_sirup, $search_phrase);
-        sleep(3);
+        
       }
       $where = array(
         "id_pk_sirup_general" => $id_pk_sirup_general
@@ -109,10 +121,17 @@ class Sch_sirup extends CI_Controller{
       );
       updateRow("temp_sirup_general",$data,$where);
     }
+    $data = array(
+      "log_auto_sirup" => "Ekstrak Data SiRUP",
+      "log_auto_sirup_desc" => "Mendapatkan, mengekstrak, dan memasukan ada SiRUP ke database MAK-CRM dengan kode RUP ".$this->list_rup,
+      "log_auto_sirup_date" => date("Y-m-d H:i:s")
+    );
+    insertRow("log_auto_sirup",$data);
   }  
   private function extract_data($response, $sirup_total, $id_fk_pencarian_sirup, $search_phrase){
     #asumsi history paket aja yang beda
     $sirup_rup = str_replace(" ","",explode("Nama Paket",explode("Kode RUP",$response)[1])[0]);
+    $this->list_rup .= $sirup_rup." ";
     $sirup_paket = explode("Nama KLPD",explode("Nama Paket",$response)[1])[0];
     $sirup_klpd = explode("Satuan Kerja",explode("Nama KLPD",$response)[1])[0];
     $sirup_satuan_kerja = explode("Tahun Anggaran",explode("Satuan Kerja",$response)[1])[0];
@@ -199,5 +218,6 @@ class Sch_sirup extends CI_Controller{
       #print_r($pemilihan_penyedia);
       $this->m_sirup->insert_pemilihan_penyedia($pemilihan_penyedia[$a],$id_pk_sirup);
     }
+          
   }
 }
