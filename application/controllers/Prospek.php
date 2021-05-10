@@ -38,32 +38,119 @@ class Prospek extends CI_Controller{
     }
 
     public function insert() {
-      $temp_id_fk_rs = $this->input->post('id_fk_rs');
-      $temp_prospek_principle = $this->input->post('prospek_principle');
-      $temp_total_price_prospek = 0;
-      $temp_notes_kompetitor = $this->input->post('notes_kompetitor');
-      $temp_notes_prospek = $this->input->post('notes_prospek');
-      $temp_funnel = $this->input->post('funnel');
-      $temp_estimasi_pembelian = $this->input->post('estimasi_pembelian');
-      $this->load->model("m_prospek");
-      $id_fk_prospek = $this->m_prospek->insert_prospek($temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_funnel, $temp_estimasi_pembelian);
+      if ($this->session->user_role == "Sales Engineer") {
+        $temp_id_fk_rs = $this->input->post('id_fk_rs');
+        $temp_prospek_principle = $this->input->post('prospek_principle');
+        $temp_total_price_prospek = 0;
+        $temp_notes_kompetitor = $this->input->post('notes_kompetitor');
+        $temp_notes_prospek = $this->input->post('notes_prospek');
+        $temp_estimasi_pembelian = $this->input->post('estimasi_pembelian');
+        $temp_funnel = $this->input->post('funnel');
 
+        $this->load->model("m_prospek");
 
-      $temp_data_produk = $this->input->post('data_produk');
-      if ($temp_data_produk != '') {
-        foreach ($temp_data_produk as $a) {
-          $temp_id_fk_produk = $this->input->post('id_fk_produk'.$a);
-          $temp_detail_prospek_quantity = $this->input->post('detail_quantity'.$a);
-          $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan'.$a);
-          $this->load->model("m_prospek");
-          $this->m_prospek->insert_produk_prospek($id_fk_prospek,$temp_id_fk_produk,$temp_detail_prospek_quantity,$temp_detail_prospek_keterangan);
+        if ($this->input->post('funnel') == "Prospek") {
+          $temp_funnel_percentage = $this->input->post('funnel_percentage');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_se_prospek($temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_funnel_percentage);
+        } else if ($this->input->post('funnel') == "Loss") {
+          $temp_note_loss = $this->input->post('note_loss');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_se_loss($temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_note_loss);
+        } else {
+          $id_fk_prospek = $this->m_prospek->insert_prospek_se($temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel);
+        }
+
+        $temp_data_produk = $this->input->post('data_produk');
+
+        if ($temp_data_produk != '') {
+          foreach ($temp_data_produk as $a) {
+            $temp_id_fk_produk = $this->input->post('id_fk_produk'.$a);
+            $temp_detail_prospek_quantity = $this->input->post('detail_quantity'.$a);
+            $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan'.$a);
+            $this->load->model("m_prospek");
+            $this->m_prospek->insert_produk_prospek($id_fk_prospek,$temp_id_fk_produk,$temp_detail_prospek_quantity,$temp_detail_prospek_keterangan);
+          }
         }
       }
 
-    }
+      if ($this->session->user_role == "Supervisor" || $this->session->user_role == "Area Sales Manager") {
+        $temp_id_fk_kabupaten = $this->input->post('kabupaten');
+        $temp_id_fk_rs = $this->input->post('id_fk_rs');
+        $temp_prospek_principle = $this->input->post('prospek_principle');
+        $temp_total_price_prospek = 0;
+        $temp_notes_kompetitor = $this->input->post('notes_kompetitor');
+        $temp_notes_prospek = $this->input->post('notes_prospek');
+        $temp_estimasi_pembelian = $this->input->post('estimasi_pembelian');
+        $temp_funnel = $this->input->post('funnel');
 
-    public function add_detail_prospek(){
+        $this->load->model("m_prospek");
 
+        $kategori = $this->m_prospek->get_data_rs_kategori($temp_id_fk_rs)->result_array();
+
+        if ($temp_funnel == "Prospek" && $this->session->user_role == "Supervisor" && $kategori[0]["rs_kategori"] == "Pemerintah") {
+          $temp_no_sirup = $this->input->post('no_sirup');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_asm_sirup($temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_no_sirup);
+        } else if ($this->input->post('funnel') == "Loss") {
+          $temp_note_loss = $this->input->post('note_loss');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_asm_loss($temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_note_loss);
+        } else if ($this->input->post('funnel') == "Prospek") {
+          $temp_funnel_percentage = $this->input->post('funnel_percentage');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_asm_prospek($temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_funnel_percentage);
+        } else {
+          $id_fk_prospek = $this->m_prospek->insert_prospek_asm($temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel);
+        }
+
+        $temp_data_produk = $this->input->post('data_produk');
+
+        if ($temp_data_produk != '') {
+          foreach ($temp_data_produk as $a) {
+            $temp_id_fk_produk = $this->input->post('id_fk_produk'.$a);
+            $temp_detail_prospek_quantity = $this->input->post('detail_quantity'.$a);
+            $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan'.$a);
+            $this->load->model("m_prospek");
+            $this->m_prospek->insert_produk_prospek($id_fk_prospek,$temp_id_fk_produk,$temp_detail_prospek_quantity,$temp_detail_prospek_keterangan);
+          }
+        }
+      }
+
+      if ($this->session->user_role == "Sales Manager") {
+        $temp_id_fk_provinsi = $this->input->post('provinsi');
+        $temp_id_fk_kabupaten = $this->input->post('kabupaten');
+        $temp_id_fk_rs = $this->input->post('id_fk_rs');
+        $temp_prospek_principle = $this->input->post('prospek_principle');
+        $temp_total_price_prospek = 0;
+        $temp_notes_kompetitor = $this->input->post('notes_kompetitor');
+        $temp_notes_prospek = $this->input->post('notes_prospek');
+        $temp_estimasi_pembelian = $this->input->post('estimasi_pembelian');
+        $temp_funnel = $this->input->post('funnel');
+        $this->load->model("m_prospek");
+
+        $kategori = $this->m_prospek->get_data_rs_kategori($temp_id_fk_rs)->result_array();
+
+        if ($temp_funnel == "Win" && $this->session->user_role == "Sales Manager" && $kategori[0]["rs_kategori"] == "Pemerintah") {
+          $temp_no_ekatalog = $this->input->post('nomorekatalog');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_sm_ekatalog($temp_id_fk_provinsi, $temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_no_ekatalog);
+        } else if ($this->input->post('funnel') == "Loss") {
+          $temp_note_loss = $this->input->post('note_loss');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_sm_loss($temp_id_fk_provinsi, $temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_note_loss);
+        } else if ($this->input->post('funnel') == "Prospek") {
+          $temp_funnel_percentage = $this->input->post('funnel_percentage');
+          $id_fk_prospek = $this->m_prospek->insert_prospek_sm_prospek($temp_id_fk_provinsi, $temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_funnel_percentage);
+        } else {
+          $id_fk_prospek = $this->m_prospek->insert_prospek_sm($temp_id_fk_provinsi, $temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel);
+        }
+
+        $temp_data_produk = $this->input->post('data_produk');
+
+        if ($temp_data_produk != '') {
+          foreach ($temp_data_produk as $a) {
+            $temp_id_fk_produk = $this->input->post('id_fk_produk'.$a);
+            $temp_detail_prospek_quantity = $this->input->post('detail_quantity'.$a);
+            $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan'.$a);
+            $this->load->model("m_prospek");
+            $this->m_prospek->insert_produk_prospek($id_fk_prospek,$temp_id_fk_produk,$temp_detail_prospek_quantity,$temp_detail_prospek_keterangan);
+          }
+        }
+      }
       redirect("prospek/index");
     }
 }

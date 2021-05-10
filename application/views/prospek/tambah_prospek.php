@@ -34,7 +34,7 @@
                   <?php if ($this->session->user_role == "Sales Engineer"):?>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control"  name = "id_fk_rs">
+                    <select class = "form-control"  name = "id_fk_rs" id="dataRumahSakit">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                       <?php for($a = 0; $a < count($datars); $a++):?>
                       <option value = "<?php echo $datars[$a]["id_pk_rs"];?>"><?php echo $datars[$a]["rs_nama"];?></option>
@@ -225,7 +225,7 @@
               $("#noteSirup").show();
               html4 += `
                 <label class="form-control-label">No SiRUP</label>
-                <input type="text" class="form-control" name="nosirup">
+                <input type="text" class="form-control" name="no_sirup">
               `;
                 $("#funnelPercentage").html("");
                 $("#noEkatalog").html("");
@@ -245,7 +245,7 @@
               $("#noteLoss").show();
               html3 += `
                 <label class="form-control-label">Note</label>
-                <textarea type="text" class="form-control" name="notesloss"></textarea>
+                <textarea type="text" class="form-control" name="note_loss"></textarea>
               `;
                 $("#funnelPercentage").html("");
                 $("#noEkatalog").html("");
@@ -255,7 +255,7 @@
                $("#funnelPercentage").show();
                html1 += `
                  <label class="form-control-label">Funnel</label>
-                 <select class="form-control" id="">
+                 <select class="form-control" name="funnel_percentage">
                    <option value = "25%">25%</option>
                    <option value = "50%">50%</option>
                    <option value = "75%">75%</option>

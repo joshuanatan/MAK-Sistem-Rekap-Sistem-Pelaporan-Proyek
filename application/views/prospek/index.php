@@ -61,6 +61,8 @@
                 <thead>
                   <tr>
                     <th>ID Prospek</th>
+                    <th>Provinsi</th>
+                    <th>Kabupaten</th>
                     <th>Rumah Sakit</th>
                     <th>Prospek Principle</th>
                     <th>Notes Kompetitor</th>
@@ -115,7 +117,6 @@
                     <th>Quantity</th>
                     <th>Harga Produk</th>
                     <th>Keterangan Produk</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody id = "detail_content_container">
@@ -153,6 +154,8 @@
             html += `
             <tr id = "prospek_row${a}">
               <td>${respond["data"][a]["id_pk_prospek"]}</td>
+              <td>${respond["data"][a]["nama_provinsi"]}</td>
+              <td>${respond["data"][a]["nama_kabupaten"]}</td>
               <td>${respond["data"][a]["nama_rs"]}</td>
               <td>${respond["data"][a]["prospek_principle"]}</td>
               <td>${respond["data"][a]["notes_kompetitor"]}</td>
@@ -206,10 +209,6 @@
                 <td>${respond["data_prospek_produk"][a]["detail_prospek_quantity"]}</td>
                 <td>${respond["data_prospek_produk"][a]["harga_produk"]}</td>
                 <td>${respond["data_prospek_produk"][a]["detail_prospek_keterangan"]}</td>
-                <td>
-                <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
-                <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
-                </td>
               </tr>
               `;
             }
