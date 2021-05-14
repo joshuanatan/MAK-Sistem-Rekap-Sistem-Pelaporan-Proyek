@@ -21,6 +21,19 @@ class Prospek extends CI_Controller{
     echo json_encode($response);
   }
 
+  public function delete_detail($id){
+    if($id != ""){
+      $this->load->model("m_prospek");
+      $this->m_prospek->delete_prospek_produk($id);
+      $response["status"] = true;
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "The ID Prospek field is required";
+    }
+    echo json_encode($response);
+  }
+
   public function get_detail($id){
     $this->load->model("m_prospek");
     $response["data_prospek_produk"] = $this->m_prospek->get_prospek_produk($id)->result_array();
@@ -45,6 +58,13 @@ class Prospek extends CI_Controller{
   public function get_rs_kategori($id_pk_rs){
     $this->load->model("m_prospek");
     $response["data_rs_kategori"] = $this->m_prospek->get_data_rs_kategori($id_pk_rs)->result_array();
+
+    echo json_encode($response);
+  }
+
+  public function get_price($id_pk_produk){
+    $this->load->model("m_prospek");
+    $response["data_price"] = $this->m_prospek->get_data_price($id_pk_produk)->result_array();
 
     echo json_encode($response);
   }
