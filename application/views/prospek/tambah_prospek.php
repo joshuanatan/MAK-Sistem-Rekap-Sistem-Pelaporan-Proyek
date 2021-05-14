@@ -127,6 +127,8 @@
                       <thead>
                         <tr>
                           <th>Produk <strong><a href = "<?php echo base_url();?>produk" target = "_blank">Buka Produk</a></th>
+                          <th>Harga</th>
+                          <th>Harga Diinginkan</th>
                           <th>Quantity</th>
                           <th>Keterangan Produk</th>
                           <th>Action</th>
@@ -134,7 +136,7 @@
                       </thead>
                       <tbody>
                         <tr id = "tambah_produk_button_container">
-                          <td colspan = 4>
+                          <td colspan = 6>
                             <button type = "button" class = "btn btn-primary btn-sm col-lg-12" onclick = "tambahRowProduk()">Tambah Produk</button>
                           </td>
                         </tr>
@@ -279,25 +281,38 @@
       }
 
       function tambahRowProduk(){
-        var html = `
-          <tr id = "tambahRowProduk${row}">
-            <td>
-              <input type ='hidden' name='data_produk[]' value='${row}'>
-              <select class = 'form-control' name = 'id_fk_produk${row}' id = 'nama_produk_insert${row}'>
-              <?php for($a = 0; $a < count($dataproduk); $a++):?>
-                <option value = "<?php echo $dataproduk[$a]["id_pk_produk"];?>"><?php echo $dataproduk[$a]["produk_nama"];?></option>
-              <?php endfor;?>
-              </select>
-            </td>
-            <td><input type = 'number' class = 'form-control' name = 'detail_quantity${row}' id = 'qty_produk_insert${row}' min="0"></td>
-            <td>
-              <textarea class = 'form-control' name = 'detail_keterangan${row}' id ='keterangan_produk_insert${row}'></textarea>
-            </td>
-            <td>
-              <button type = 'button' class = 'btn btn-danger btn-sm' onclick = 'deleteProdukData(this)'><i class = 'icon md-delete'></i></button>
-            </td>
-          </tr>
-        `;
+            var html = `
+              <tr id = "tambahRowProduk${row}">
+                <td>
+                  <input type ='hidden' name='data_produk[]' value='${row}'>
+                  <select class = 'form-control' name = 'id_fk_produk${row}' id = 'nama_produk_insert${row}' onchange="showHarga(${row})">
+                    <option selected disabled>------ Pilih Produk ------</option>
+                  <?php for($i = 0; $i < count($dataproduk); $i++):?>
+                    <option value = "<?php echo $dataproduk[$i]["id_pk_produk"];?>"><?php echo $dataproduk[$i]["produk_nama"];?></option>
+                  <?php endfor;?>
+                  </select>
+                </td>
+                <td>
+                  <table>
+                    <tr>
+                      <td>Price List</td>
+                      <td id="harga_produk_insert${row}"></td>
+                    </tr>
+                    <tr>
+                      <td>Harga Ekatalog</td>
+                      <td id = "harga_produk_ekat${row}"></td>
+                    </tr>
+                  </table>
+                <td><input type = 'text' class = 'form-control' name = 'detail_wanted_price${row}' id = 'wanted_price${row}'></td>
+                <td><input type = 'number' class = 'form-control' name = 'detail_quantity${row}' id = 'qty_produk_insert${row}' min="0" ></td>
+                <td>
+                  <textarea class = 'form-control' name = 'detail_keterangan${row}' id ='keterangan_produk_insert${row}'></textarea>
+                </td>
+                <td>
+                  <button type = 'button' class = 'btn btn-danger btn-sm' onclick = 'deleteProdukData(this)'><i class = 'icon md-delete'></i></button>
+                </td>
+              </tr>
+            `;
         $("#tambah_produk_button_container").before(html);
         row++;
       }
@@ -305,6 +320,20 @@
       function deleteProdukData(r) {
         var i = r.parentNode.parentNode.rowIndex;
         document.getElementById("table_content_container").deleteRow(i);
+      }
+
+
+      function showHarga(row){
+        var id_produk = $(`#nama_produk_insert${row}`).val();
+        $.ajax({
+          url:`${base_url}ws/prospek/get_price/${id_produk}`,
+          type:"GET",
+          dataType:"JSON",
+          success:function(respond){
+            $(`#harga_produk_insert${row}`).text(respond['data_price'][0]['produk_price_list']);
+            $(`#harga_produk_ekat${row}`).text(respond['data_price'][0]['produk_harga_ekat']);
+          }
+        });
       }
     </script>
   </body>
