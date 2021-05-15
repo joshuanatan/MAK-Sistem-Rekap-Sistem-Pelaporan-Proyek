@@ -65,7 +65,7 @@
                     <select class = "form-control"  name = "provinsi" onchange="showKabupaten()" id="provinsi">
                       <option value="<?php echo $dataprospek[0]["id_fk_provinsi"];?>" selected hidden><?php echo $dataprospek[0]["nama_provinsi"];?></option>
                       <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
-                      <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
+                        <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
                       <?php endfor;?>
                     </select>
                   </div>
@@ -140,12 +140,24 @@
                             <td>
                               <input type ='hidden' name='data_produk[]' value='<?php echo $a; ?>'>
                               <input type ='hidden' name='id_pk_produk' value='<?php echo $dataprospekproduk[$a]["id_pk_prospek_produk"];?>' id ='id_pk_prospek_produk<?php echo $a; ?>'>
-                              <select class = 'form-control' name = 'id_fk_produk<?php echo $a; ?>' id = 'nama_produk_insert<?php echo $a;?>'>
+                              <select class = 'form-control' name = 'id_fk_produk<?php echo $a; ?>' id = 'nama_row_insert<?php echo $a;?>' onchange="showHargaProduk(<?php echo $a;?>)">
                                 <option value = "<?php echo $dataprospekproduk[$a]["id_fk_produk"];?>" selected hidden><?php echo $dataprospekproduk[$a]["nama_produk"];?></option>
                               <?php for($i = 0; $i < count($dataproduk); $i++):?>
                                 <option value = "<?php echo $dataproduk[$i]["id_pk_produk"];?>"><?php echo $dataproduk[$i]["produk_nama"];?></option>
                               <?php endfor;?>
                               </select>
+                            </td>
+                            <td>
+                              <table style="width:100%; border:none;">
+                                <tr>
+                                  <td style="border:none;">Price List</td>
+                                  <td style="border:none; text-align:right;" id="harga_produk_price_list<?php echo $a;?>">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_price_list"]);?></td>
+                                </tr>
+                                <tr>
+                                  <td style="border:none;">Harga Ekatalog</td>
+                                  <td style="border:none; text-align:right;" id="harga_produk_ekatalog<?php echo $a;?>">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_harga_ekat"]);?></td>
+                                </tr>
+                              </table>
                             </td>
                             <td><input type="text" class = 'form-control' name="detail_price<?php echo $a;?>" value = '<?php echo $dataprospekproduk[$a]["prospek_produk_price"];?>'></td>
                             <td><input type = 'number' class = 'form-control' name = 'detail_quantity<?php echo $a;?>' id = 'qty_produk_insert<?php echo $a; ?>' min="0" value = '<?php echo $dataprospekproduk[$a]["detail_prospek_quantity"];?>'></td>
@@ -376,6 +388,21 @@
           }
         });
       }
+
+
+      function showHargaProduk(counter){
+        var id_produk = $(`#nama_row_insert${counter}`).val();
+        $.ajax({
+          url:`${base_url}ws/prospek/get_price/${id_produk}`,
+          type:"GET",
+          dataType:"JSON",
+          success:function(respond){
+            $(`#harga_produk_price_list${counter}`).text(respond['data_price'][0]['produk_price_list']);
+            $(`#harga_produk_ekatalog${counter}`).text(respond['data_price'][0]['produk_harga_ekat']);
+          }
+        });
+      }
+
     </script>
   </body>
 </html>

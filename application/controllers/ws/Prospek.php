@@ -3,7 +3,12 @@ class Prospek extends CI_Controller{
 
   public function get_data(){
     $this->load->model("m_prospek");
-    $response["data"] = $this->m_prospek->get_prospek()->result_array();
+    $id_user = $this->session->id_user;
+    if ($this->session->user_role == "Sales Manager") {
+      $response["data"] = $this->m_prospek->get_prospek_all()->result_array();
+    }else {
+      $response["data"] = $this->m_prospek->get_prospek($id_user)->result_array();
+    }
 
     echo json_encode($response);
   }
