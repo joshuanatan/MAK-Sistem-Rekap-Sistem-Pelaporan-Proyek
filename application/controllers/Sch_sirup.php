@@ -13,7 +13,7 @@ class Sch_sirup extends CI_Controller{
     insertRow("log_auto_sirup",$data);
   }
   public function query_sirup(){
-    $sql = "select * from mstr_pencarian_sirup where pencarian_sirup_status_query_today = 0 limit 1";
+    $sql = "select * from mstr_pencarian_sirup where pencarian_sirup_status_query_today = 0 and pencarian_sirup_status = 'aktif' limit 1";
     $result = executeQuery($sql);
     $result = $result->result_array();
     if(count($result) != 0){
@@ -22,9 +22,10 @@ class Sch_sirup extends CI_Controller{
       $pencarian_sirup_frase = urlencode($result[0]["pencarian_sirup_frase"]);
       $pencarian_sirup_jenis = $result[0]["pencarian_sirup_jenis"];
       $search_phrase = $result[0]["pencarian_sirup_frase"]." ".$pencarian_sirup_tahun." ".$pencarian_sirup_jenis;
-      $amount = 2500;
+      $amount = 150; #ini paling ideal untuk masuk ke text type, karena gamuat juga anyway.
 
       $url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=".$pencarian_sirup_tahun."&keyword=".$pencarian_sirup_frase."&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=5&order%5B0%5D%5Bdir%5D=DESC&start=0&length=".$amount."&search%5Bvalue%5D=&search%5Bregex%5D=false";
+      echo $url;
 
       $curl = curl_init();
       curl_setopt_array($curl, array(
@@ -32,7 +33,6 @@ class Sch_sirup extends CI_Controller{
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",
         CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
       ));
@@ -64,62 +64,85 @@ class Sch_sirup extends CI_Controller{
       updateRow("mstr_pencarian_sirup",$data,$where);
     }
   }
-  public function query_sirup_detail(){
+  public function extract_sirup_item(){
     $sql = "
     select * from temp_sirup_general 
     inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
     where sirup_general_status_query_today	= 0 and sirup_general is not null limit 1";
     $result = executeQuery($sql);
-    $result = $result->result_array();
-    if(count($result) != 0){
-      $this->load->model("m_sirup");
-      $id_pk_sirup_general = $result[0]["id_pk_sirup_general"];
-      $sirup_general = $result[0]["sirup_general"];
-      $id_pk_pencarian_sirup = $result[0]["id_fk_pencarian_sirup"];
-      $search_phrase = $result[0]["pencarian_sirup_frase"];
-
-      $sirup_general = json_decode($sirup_general,true);
-      
-      $response_data_count = count($sirup_general["data"]);
-      $response_data_var = $sirup_general["data"];
-      for($b = 0; $b<$response_data_count; $b++){
-        $id = str_replace(" ","",$response_data_var[$b]["id"]);
-        $pagu = $response_data_var[$b]["pagu"];
-        if($this->m_sirup->is_id_exists($id)){
-          continue;
-        }
-        $url = "https://sirup.lkpp.go.id/sirup/home/detailPaketPenyediaPublic2017/".$id;
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => $url,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "GET",
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
-        
-        $dom = new domDocument;
-        $dom->loadHTML($response);
-        $content = $dom->getElementById("detil");
-        $response = strval($content->nodeValue);
-        $response = preg_replace('/\s+/', ' ', $response);
-        $response = preg_replace('/\t+/', ' ', $response);
-        $response = preg_replace('/\n\r+/', '', $response);
-        $this->extract_data($response,$pagu,$id_pk_pencarian_sirup, $search_phrase);
-        
+    if($result->num_rows() > 0){
+      $result = $result->result_array();
+      $result_temp = $result[0]["sirup_general"];
+      $data = json_decode($result_temp,true);
+      $list = $data["data"];
+      for($a = 0; $a<count($list); $a++){
+        $data = array(
+          "no_sirup" => $list[$a]["id"],
+          "pagu" => $list[$a]["pagu"],
+          "id_fk_sirup_general" => $result[0]["id_pk_sirup_general"]
+        );
+        insertRow("temp_sirup_detil",$data);
       }
       $where = array(
-        "id_pk_sirup_general" => $id_pk_sirup_general
+        "id_pk_sirup_general" => $result[0]["id_pk_sirup_general"]
       );
       $data = array(
         "sirup_general_last_checkpoint" => date("Y-m-d H:i:s"),
         "sirup_general_status_query_today" => 1
       );
       updateRow("temp_sirup_general",$data,$where);
+    }
+  }
+  public function query_sirup_detail(){
+    #oke ini yang sangat lama disini, karena kita kurang 1 step untuk pecahin jadi satuan row baru natni di query masing=masing.
+    $sql = "
+    select * from temp_sirup_detil
+    inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general 
+    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
+    where sirup_detil_status_query_today	= 0 and sirup_general is not null limit 1";
+    $result = executeQuery($sql);
+    $result = $result->result_array();
+    if(count($result) != 0){
+      $this->load->model("m_sirup");
+      $id_pk_sirup_detil = $result[0]["id_pk_sirup_detil"];
+      $id_pk_pencarian_sirup = $result[0]["id_fk_pencarian_sirup"];
+      $search_phrase = $result[0]["pencarian_sirup_frase"];
+      $sirup_no = $result[0]["no_sirup"];
+      $pagu = $result[0]["pagu"];
+
+      $id = str_replace(" ","",$sirup_no);
+
+      $url = "https://sirup.lkpp.go.id/sirup/home/detailPaketPenyediaPublic2017/".$id;
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+      ));
+      $response = curl_exec($curl);
+      curl_close($curl);
+      
+      $dom = new domDocument;
+      $dom->loadHTML($response);
+      $content = $dom->getElementById("detil");
+      $response = strval($content->nodeValue);
+      $response = preg_replace('/\s+/', ' ', $response);
+      $response = preg_replace('/\t+/', ' ', $response);
+      $response = preg_replace('/\n\r+/', '', $response);
+      $this->extract_data($response,$pagu,$id_pk_pencarian_sirup, $search_phrase);
+
+      $where = array(
+        "id_pk_sirup_detil" => $id_pk_sirup_detil
+      );
+      $data = array(
+        "sirup_detil_last_checkpoint" => date("Y-m-d H:i:s"),
+        "sirup_detil_status_query_today" => 1
+      );
+      updateRow("temp_sirup_detil",$data,$where);
     }
     $data = array(
       "log_auto_sirup" => "Ekstrak Data SiRUP",
@@ -172,6 +195,10 @@ class Sch_sirup extends CI_Controller{
       $id_pk_sirup = $this->m_sirup->insert($sirup_rup,$sirup_paket,$sirup_klpd,$sirup_satuan_kerja,$sirup_tahun_anggaran,$sirup_volume_pekerjaan,$sirup_uraian_pekerjaan,$sirup_spesifikasi_pekerjaan,$sirup_produk_dalam_negri,$sirup_usaha_kecil,$sirup_pra_dipa,$sirup_jenis_pengadaan,$sirup_total,$sirup_metode_pemilihan,$sirup_histori_paket,$sirup_tgl_perbarui_paket,$sirup_id_create,$id_fk_pencarian_sirup,"aktif",0);
     }
 
+    if(!$id_pk_sirup){
+      #data udah pernah diinsert dan tidak ada perubahan.
+      return false;
+    }
     $preg = '/[0-9]\.\ /';
     $lokasi_pekerjaan = preg_split($preg,$lokasi_pekerjaan);
     for($a = 0; $a<count($lokasi_pekerjaan); $a++){
@@ -219,5 +246,12 @@ class Sch_sirup extends CI_Controller{
       $this->m_sirup->insert_pemilihan_penyedia($pemilihan_penyedia[$a],$id_pk_sirup);
     }
           
+  }
+  public function check_sirup_content(){
+    $sql = "select * from temp_sirup_general order by id_pk_sirup_general DESC LIMIT 1";
+    $result = executeQuery($sql);
+    $result = $result->result_array();
+    $result = json_decode($result[0]["sirup_general"],true);
+    print_r($result["data"]);
   }
 }

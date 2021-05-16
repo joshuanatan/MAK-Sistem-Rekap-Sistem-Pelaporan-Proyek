@@ -32,6 +32,7 @@
 
 <!-- Page -->
 <script src="<?php echo base_url();?>assets/js/Site.js"></script>
+<script src="<?php echo base_url();?>assets/js/number_format.js"></script>
 <script src="<?php echo base_url();?>global/js/Plugin/asscrollable.js"></script>
 <script src="<?php echo base_url();?>global/js/Plugin/slidepanel.js"></script>
 <script src="<?php echo base_url();?>global/js/Plugin/switchery.js"></script>
