@@ -46,7 +46,7 @@
                   <div class="form-group">
                     <label class="form-control-label">Kabupaten</label>
                     <select class = "form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
-                      <option value="<?php echo $dataprospek[0]["id_fk_rs"];?>" selected><?php echo $dataprospek[0]["nama_rs"];?></option>
+                      <option value="<?php echo $dataprospek[0]["id_fk_kabupaten"];?>" selected hidden><?php echo $dataprospek[0]["nama_kabupaten"];?></option>
                       <?php for($a = 0; $a < count($datakabupaten); $a++):?>
                       <option value = "<?php echo $datakabupaten[$a]["id_pk_kabupaten"];?>"><?php echo $datakabupaten[$a]["kabupaten_nama"];?></option>
                       <?php endfor;?>

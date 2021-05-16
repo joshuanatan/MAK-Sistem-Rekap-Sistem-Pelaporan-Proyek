@@ -166,8 +166,14 @@
               <td>${respond["data"][a]["total_price_prospek"]}</td>
               <td>${respond["data"][a]["estimasi_pembelian"]}</td>
               <td>
-              <?php if($this->session->user_role == "Sales Manager"): ?>
-                <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
+              <?php if($this->session->user_role == "Sales Manager" || $this->session->user_role == "Supervisor"): ?>
+                <?php if($this->session->id_user == 8/* ini belum tau caranya menyocokkan dengan prospek_id_create*/):?>
+                  <a href="<?php echo base_url();?>prospek/edit_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></a>
+                  <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
+                  <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
+                <?php else:?>
+                  <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
+                <?php endif;?>
               <?php else: ?>
                 <a href="<?php echo base_url();?>prospek/edit_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></a>
                 <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>

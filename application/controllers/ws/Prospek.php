@@ -4,7 +4,7 @@ class Prospek extends CI_Controller{
   public function get_data(){
     $this->load->model("m_prospek");
     $id_user = $this->session->id_user;
-    if ($this->session->user_role == "Sales Manager") {
+    if ($this->session->user_role == "Sales Manager" || $this->session->user_role == "Supervisor") {
       $response["data"] = $this->m_prospek->get_prospek_all()->result_array();
     }else {
       $response["data"] = $this->m_prospek->get_prospek($id_user)->result_array();
