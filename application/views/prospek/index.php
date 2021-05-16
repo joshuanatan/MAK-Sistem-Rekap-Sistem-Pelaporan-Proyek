@@ -61,6 +61,8 @@
                 <thead>
                   <tr>
                     <th>ID Prospek</th>
+                    <th>Provinsi</th>
+                    <th>Kabupaten</th>
                     <th>Rumah Sakit</th>
                     <th>Prospek Principle</th>
                     <th>Notes Kompetitor</th>
@@ -99,7 +101,7 @@
               </div>
               <div class = "form-group col-lg-3">
                 <h5>Pencarian</h5>
-                <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian">
+                <input type = "text" class = "form-control" onclick = "change_pencarian()" oninput = "change_pencarian()" id = "pencarian2">
               </div>
               <div class = "form-group col-lg-4">
                 <h5>Kolom Pencarian</h5>
@@ -113,9 +115,8 @@
                   <tr>
                     <th>Nama Produk</th>
                     <th>Quantity</th>
-                    <th>Harga Produk</th>
+                    <th>Harga yang Diinginkan</th>
                     <th>Keterangan Produk</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody id = "detail_content_container">
@@ -137,14 +138,16 @@
     <?php $this->load->view("includes/core-script")?>
     <script src="<?php echo base_url();?>global/vendor/asrange/jquery-asRange.min.js"></script>
     <script src="<?php echo base_url();?>global/vendor/bootbox/bootbox.js"></script>
+
     <script>
     var base_url = "<?php echo base_url();?>";
     reload_table();
+
     function reload_table(){
       var url = `<?php echo base_url();?>ws/prospek/get_data`;
       $.ajax({
         url:url,
-        type:"GET",
+        type:"POST",
         dataType:"JSON",
         success:function(respond){
           var html = "";
@@ -153,6 +156,8 @@
             html += `
             <tr id = "prospek_row${a}">
               <td>${respond["data"][a]["id_pk_prospek"]}</td>
+              <td>${respond["data"][a]["nama_provinsi"]}</td>
+              <td>${respond["data"][a]["nama_kabupaten"]}</td>
               <td>${respond["data"][a]["nama_rs"]}</td>
               <td>${respond["data"][a]["prospek_principle"]}</td>
               <td>${respond["data"][a]["notes_kompetitor"]}</td>
@@ -161,9 +166,13 @@
               <td>${respond["data"][a]["total_price_prospek"]}</td>
               <td>${respond["data"][a]["estimasi_pembelian"]}</td>
               <td>
-              <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
-              <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
-              <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
+              <?php if($this->session->user_role == "Sales Manager"): ?>
+                <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
+              <?php else: ?>
+                <a href="<?php echo base_url();?>prospek/edit_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></a>
+                <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
+                <button type = "button" class = "btn btn-primary btn-sm" id="load_button" onclick = "detail_row(${a})">Details</button>
+              <?php endif; ?>
               </td>
             </tr>
             `;
@@ -171,13 +180,14 @@
           $("#table_content_container").html(html);
           /*pagination(respond["page"]);*/
         }
-      })
-
+      });
     }
+
       function load_delete(row){
         $("#delete_button").attr("onclick",`delete_row(${row})`);
         $("#modalDelete").modal("show");
       }
+
       function delete_row(row){
         var id_prospek = content[row]["id_pk_prospek"];
         $.ajax({
@@ -204,12 +214,8 @@
               <tr id = "prospek_row${a}">
                 <td>${respond["data_prospek_produk"][a]["nama_produk"]}</td>
                 <td>${respond["data_prospek_produk"][a]["detail_prospek_quantity"]}</td>
-                <td>${respond["data_prospek_produk"][a]["harga_produk"]}</td>
+                <td>${respond["data_prospek_produk"][a]["prospek_produk_price"]}</td>
                 <td>${respond["data_prospek_produk"][a]["detail_prospek_keterangan"]}</td>
-                <td>
-                <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
-                <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
-                </td>
               </tr>
               `;
             }
