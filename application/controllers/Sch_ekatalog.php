@@ -5,7 +5,7 @@ class Sch_ekatalog extends CI_Controller{
   public function __construct(){
     parent::__construct();
   }
-  private function login(){
+  public function login(){
     $url = "https://e-katalog.lkpp.go.id/user/login";
 
     $curl = curl_init();
@@ -213,9 +213,59 @@ class Sch_ekatalog extends CI_Controller{
     #refrensi urutan liat dari https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/3631844
     $where = array(
       "ekatalog_id_paket" => $matches[1],
+      "sirup_status" => "aktif"
     );
-    if(!isExistsInTable("mstr_ekatalog",$where)){
-      
+    $result = selectRow("mstr_ekatalog",$where);
+    if($result->num_rows() > 0){
+      $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
+      $where = array(
+        "ekatalog_komoditas" => $matches[0],
+        "ekatalog_id_paket" => $matches[1],
+        "ekatalog_nama_paket" => $matches[2],
+        "ekatalog_instansi" => $matches[3],
+        "ekatalog_satuan_kerja" => $matches[4],
+        "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
+        "ekatalog_alamat_satuan_kerja" => $matches[6],
+        "ekatalog_alamat_pengiriman" => $matches[7],
+        "ekatalog_tgl_buat_online" => $matches[8],
+        "ekatalog_tgl_ubah_online" => $matches[9],
+        "ekatalog_tahun_anggaran" => $matches[10],
+        "ekatalog_total_produk" => $matches[11],
+        "ekatalog_total_harga" => $total_harga,
+        "ekatalog_total_harga_online" => $matches[12],
+        "ekatalog_status_paket" => $ekatalog_status_main,
+        "ekatalog_posisi_paket" => $ekatalog_status_posisi,
+        "ekatalog_status" => "aktif"
+      );
+      if(!isExistsInTable("mstr_ekatalog", $where)){
+        $data = array(
+          "ekatalog_komoditas" => $matches[0],
+          "ekatalog_id_paket" => $matches[1]." Revision ".$result->num_rows(),
+          "ekatalog_nama_paket" => $matches[2],
+          "ekatalog_instansi" => $matches[3],
+          "ekatalog_satuan_kerja" => $matches[4],
+          "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
+          "ekatalog_alamat_satuan_kerja" => $matches[6],
+          "ekatalog_alamat_pengiriman" => $matches[7],
+          "ekatalog_tgl_buat_online" => $matches[8],
+          "ekatalog_tgl_ubah_online" => $matches[9],
+          "ekatalog_tahun_anggaran" => $matches[10],
+          "ekatalog_total_produk" => $matches[11],
+          "ekatalog_total_harga" => $total_harga,
+          "ekatalog_total_harga_online" => $matches[12],
+          "ekatalog_status_paket" => $ekatalog_status_main,
+          "ekatalog_posisi_paket" => $ekatalog_status_posisi,
+          "ekatalog_status" => "aktif",
+          "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
+          "ekatalog_id_create" => 0,
+        );
+        $id_ekatalog = insertRow("mstr_ekatalog",$data);
+      }
+      else{
+        return false;
+      }
+    }
+    else{
       $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
       $data = array(
         "ekatalog_komoditas" => $matches[0],
@@ -239,47 +289,47 @@ class Sch_ekatalog extends CI_Controller{
         "ekatalog_id_create" => 0,
       );
       $id_ekatalog = insertRow("mstr_ekatalog",$data);
+    }
+    $data = array(
+      "log_auto_ekatalog" => "Mengekstrak dan memasukan detail E-Katalog ke database MAK-CRM",
+      "log_auto_ekatalog_desc" => "Mengekstrak dan memasukan detail dari e-katalog dengan id paket = ".$matches[1]." dan nama paket: ".$matches[2],
+      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+    );
+    insertRow("log_auto_ekatalog",$data);
+
+    $ekatalog_item = trim($result[0]["ekatalog_detail_item"]);
+    $ekatalog_item = explode('<table aria-describedby="mydesc" class="table table-bordered">',$ekatalog_item);
+    $ekatalog_item = $ekatalog_item[1];
+    $ekatalog_item = explode("<tr>",$ekatalog_item);
+    for($a = 2; $a<count($ekatalog_item); $a++){
+      $regex = "/((\<td\>|\<td class\=\"column-right\"\>|<td width=\"200\">|<h6>).*(\<\/td\>))|(<h6>).*(<\/h6>)/";
+      preg_match_all($regex,$ekatalog_item[$a],$matches);
+      $matches = $matches[0];
+
+      $kuantitas = trim(str_replace(",",".",strip_tags($matches[1])));
+      $harga_satuan = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[3])))));
+      $perkiraan_ongkos_kirim = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[4])))));
+      $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[5])))));
+
       $data = array(
-        "log_auto_ekatalog" => "Mengekstrak dan memasukan detail E-Katalog ke database MAK-CRM",
-        "log_auto_ekatalog_desc" => "Mengekstrak dan memasukan detail dari e-katalog dengan id paket = ".$matches[1]." dan nama paket: ".$matches[2],
-        "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+        "ekatalog_produk_nama_produk" => trim(strip_tags($matches[0])),
+        "ekatalog_produk_kuantitas_online" => trim(strip_tags($matches[1])),
+        "ekatalog_produk_kuantitas" => floatval($kuantitas),
+        "ekatalog_produk_mata_uang_online" => trim(strip_tags($matches[2])),
+        "ekatalog_produk_mata_uang" => trim(strip_tags($matches[2])),
+        "ekatalog_produk_harga_satuan_online" => trim(strip_tags($matches[3])),
+        "ekatalog_produk_harga_satuan" => intval($harga_satuan),
+        "ekatalog_produk_perkiraan_ongkos_kirim_online" => trim(strip_tags($matches[4])),
+        "ekatalog_produk_perkiraan_ongkos_kirim" => intval($perkiraan_ongkos_kirim),
+        "ekatalog_produk_total_harga_online" => trim(strip_tags($matches[5])),
+        "ekatalog_produk_total_harga" => intval($total_harga),
+        "ekatalog_produk_catatan" => trim(strip_tags($matches[6])),
+        "ekatalog_produk_status" => "aktif",
+        "ekatalog_produk_tgl_create" => date("Y-m-d H:i:s"),
+        "ekatalog_produk_id_create" => 0,
+        "id_fk_ekatalog" => $id_ekatalog
       );
-      insertRow("log_auto_ekatalog",$data);
-
-      $ekatalog_item = trim($result[0]["ekatalog_detail_item"]);
-      $ekatalog_item = explode('<table aria-describedby="mydesc" class="table table-bordered">',$ekatalog_item);
-      $ekatalog_item = $ekatalog_item[1];
-      $ekatalog_item = explode("<tr>",$ekatalog_item);
-      for($a = 2; $a<count($ekatalog_item); $a++){
-        $regex = "/((\<td\>|\<td class\=\"column-right\"\>|<td width=\"200\">|<h6>).*(\<\/td\>))|(<h6>).*(<\/h6>)/";
-        preg_match_all($regex,$ekatalog_item[$a],$matches);
-        $matches = $matches[0];
-
-        $kuantitas = trim(str_replace(",",".",strip_tags($matches[1])));
-        $harga_satuan = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[3])))));
-        $perkiraan_ongkos_kirim = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[4])))));
-        $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[5])))));
-
-        $data = array(
-          "ekatalog_produk_nama_produk" => trim(strip_tags($matches[0])),
-          "ekatalog_produk_kuantitas_online" => trim(strip_tags($matches[1])),
-          "ekatalog_produk_kuantitas" => floatval($kuantitas),
-          "ekatalog_produk_mata_uang_online" => trim(strip_tags($matches[2])),
-          "ekatalog_produk_mata_uang" => trim(strip_tags($matches[2])),
-          "ekatalog_produk_harga_satuan_online" => trim(strip_tags($matches[3])),
-          "ekatalog_produk_harga_satuan" => intval($harga_satuan),
-          "ekatalog_produk_perkiraan_ongkos_kirim_online" => trim(strip_tags($matches[4])),
-          "ekatalog_produk_perkiraan_ongkos_kirim" => intval($perkiraan_ongkos_kirim),
-          "ekatalog_produk_total_harga_online" => trim(strip_tags($matches[5])),
-          "ekatalog_produk_total_harga" => intval($total_harga),
-          "ekatalog_produk_catatan" => trim(strip_tags($matches[6])),
-          "ekatalog_produk_status" => "aktif",
-          "ekatalog_produk_tgl_create" => date("Y-m-d H:i:s"),
-          "ekatalog_produk_id_create" => 0,
-          "id_fk_ekatalog" => $id_ekatalog
-        );
-        insertRow("tbl_ekatalog_produk",$data);
-      }
+      insertRow("tbl_ekatalog_produk",$data);
     }
     $data = array(
       "log_auto_ekatalog" => "Mengekstrak dan memasukan data produk E-Katalog ke database MAK-CRM",
