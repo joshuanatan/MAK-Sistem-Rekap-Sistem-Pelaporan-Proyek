@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2021 at 07:09 AM
+-- Generation Time: May 17, 2021 at 07:42 AM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- PHP Version: 8.0.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,32 +42,38 @@ CREATE TABLE `mstr_prospek` (
   `no_sirup` varchar(100) NOT NULL,
   `no_ekatalog` varchar(100) NOT NULL,
   `note_loss` text NOT NULL,
-  `prospek_status` varchar(100) NOT NULL
+  `prospek_status` varchar(100) NOT NULL,
+  `prospek_tgl_create` date NOT NULL,
+  `prospek_tgl_update` date NOT NULL,
+  `prospek_tgl_delete` date NOT NULL,
+  `prospek_id_create` int(11) NOT NULL,
+  `prospek_id_update` int(11) NOT NULL,
+  `prospek_id_delete` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mstr_prospek`
 --
 
-INSERT INTO `mstr_prospek` (`id_pk_prospek`, `id_fk_provinsi`, `id_fk_kabupaten`, `id_fk_rs`, `prospek_principle`, `total_price_prospek`, `notes_kompetitor`, `notes_prospek`, `estimasi_pembelian`, `funnel`, `funnel_percentage`, `no_sirup`, `no_ekatalog`, `note_loss`, `prospek_status`) VALUES
-(1, 0, 0, 6, 'MAK', '0', 'test', 'test', '0001-11-11', '', '', '', '', '', 'deleted'),
-(2, 0, 0, 5, 'TEST', '0', 'TEST', 'TEST', '0111-11-11', '', '', '', '', '', 'deleted'),
-(3, 0, 0, 10, 'bisa', '0', 'bisa', 'bisa', '2991-02-01', 'Lead', '', '', '', '', 'aktif'),
-(4, 0, 0, 10, 'bisa2', '0', 'bisa2', 'bisa2', '3004-03-02', 'Prospek', '50%', '', '', '', 'aktif'),
-(5, 0, 0, 10, 'bisa3', '0', 'bisa3', 'bisa3', '5530-04-03', 'Loss', '', '', '', 'note loss bisa', 'aktif'),
-(6, 0, 3174, 16, 'testasm', '0', 'testasm', 'testasm', '0111-11-11', 'Lead', '', '', '', '', 'aktif'),
-(7, 0, 3174, 16, 'testasm1', '0', 'testasm1', 'testasm1', '2222-02-22', 'Prospek', '75%', '', '', '', 'aktif'),
-(8, 0, 3174, 16, 'testasm2', '0', 'testasm2', 'testasm2', '0011-11-11', 'Loss', '', '', '', 'test', 'aktif'),
-(9, 0, 3174, 16, 'testasm3', '0', 'testasm3', 'testasm3', '0022-02-22', 'Prospek', '', '090909', '', '', 'aktif'),
-(11, 31, 3174, 16, 'testsm', '0', 'testsm', 'testsm', '0023-02-04', 'Prospek', '75%', '', '', '', 'aktif'),
-(12, 31, 3174, 16, 'testsm1', '0', 'testsm1', 'testsm1', '9856-08-07', 'Win', '', '', '0992193', '', 'aktif'),
-(13, 31, 3174, 16, 'testsm1', '0', 'testsm1', 'testsm1', '9856-08-07', 'Win', '', '', '0992193', '', 'aktif'),
-(14, 15, 1501, 12, 'astatang', '0', 'asasasasa', 'asasasasasas', '2001-01-10', 'Prospek', '50%', '', '', 'test', 'aktif'),
-(15, 31, 3174, 8, 'bisa', '0', 'wqwq', 'wqwq', '0001-12-31', 'Prospek', '50%', '', '', '', 'aktif'),
-(16, 31, 3174, 8, 'MAK', '0', 'Vincent punya', 'Vincent', '2021-05-01', 'Prospek', '50%', '', '', 'upssssssss', 'aktif'),
-(17, 31, 3174, 8, 'aa', '0', 'aa', 'aa', '2001-12-11', 'Prospek', '25%', '', '', '', 'aktif'),
-(18, 31, 3174, 8, 'aa', '0', 'aa', 'aa', '2001-12-11', 'Prospek', '25%', '', '', '', 'aktif'),
-(19, 31, 3174, 8, 'MAK', '0', 'aaa', 'aaa', '2021-05-14', 'Prospek', '25%', '', '', '', 'aktif');
+INSERT INTO `mstr_prospek` (`id_pk_prospek`, `id_fk_provinsi`, `id_fk_kabupaten`, `id_fk_rs`, `prospek_principle`, `total_price_prospek`, `notes_kompetitor`, `notes_prospek`, `estimasi_pembelian`, `funnel`, `funnel_percentage`, `no_sirup`, `no_ekatalog`, `note_loss`, `prospek_status`, `prospek_tgl_create`, `prospek_tgl_update`, `prospek_tgl_delete`, `prospek_id_create`, `prospek_id_update`, `prospek_id_delete`) VALUES
+(1, 0, 0, 6, 'MAK', '0', 'test', 'test', '0001-11-11', '', '', '', '', '', 'deleted', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0),
+(2, 0, 0, 5, 'TEST', '0', 'TEST', 'TEST', '0111-11-11', '', '', '', '', '', 'deleted', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0),
+(3, 0, 0, 10, 'bisa', '0', 'bisa', 'bisa', '2991-02-01', 'Lead', '', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0),
+(4, 0, 0, 10, 'bisa2', '0', 'bisa2', 'bisa2', '3004-03-02', 'Prospek', '50%', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0),
+(5, 0, 0, 10, 'bisa3', '0', 'bisa3', 'bisa3', '5530-04-03', 'Loss', '', '', '', 'note loss bisa', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 9, 0, 0),
+(6, 0, 3174, 16, 'testasm', '0', 'testasm', 'testasm', '0111-11-11', 'Lead', '', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 9, 0, 0),
+(7, 0, 3174, 16, 'testasm1', '0', 'testasm1', 'testasm1', '2222-02-22', 'Prospek', '75%', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 9, 0, 0),
+(8, 0, 3174, 16, 'testasm2', '0', 'testasm2', 'testasm2', '0011-11-11', 'Loss', '', '', '', 'test', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(9, 0, 3174, 16, 'testasm3', '0', 'testasm3', 'testasm3', '0022-02-22', 'Prospek', '', '090909', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(11, 31, 3174, 16, 'testsm', '0', 'testsm', 'testsm', '0023-02-04', 'Prospek', '75%', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(12, 31, 3174, 16, 'testsm1', '0', 'testsm1', 'testsm1', '9856-08-07', 'Win', '', '', '0992193', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(13, 31, 3174, 16, 'testsm1', '0', 'testsm1', 'testsm1', '9856-08-07', 'Win', '', '', '0992193', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 8, 0, 0),
+(14, 31, 3174, 12, 'a', '0', 'as', 'as', '0000-00-00', 'Loss', '', '', '', 'test', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 8, 0, 0),
+(15, 31, 3174, 8, 'bisa', '0', 'wqwq', 'wqwq', '0001-12-31', 'Belum Ditentukan', '', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 0),
+(16, 0, 0, 10, 'MAK', '0', 'Note 100', 'Note 100', '2000-11-03', 'Loss', '', '', '', 'Note loss', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 9, 0, 0),
+(17, 0, 0, 10, 'MAK', '1038000', 'Note 100', 'Note 100', '2000-11-03', 'Loss', '', '', '', 'Note loss', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0),
+(18, 0, 0, 10, 'TEST', '140', 'TEST', 'TEST', '1231-03-04', 'Prospek', '25%', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0),
+(19, 0, 0, 10, 'MAK', '0', 'testing', 'testing', '2020-12-01', 'Prospek', '75%', '', '', '', 'aktif', '0000-00-00', '0000-00-00', '0000-00-00', 7, 0, 0);
 
 --
 -- Indexes for dumped tables
