@@ -13,8 +13,20 @@ class M_prospek extends CI_Model{
        return $result;
      }
 
-     public function get_prospek_all(){
+     public function get_prospek_detail($id_pk_prospek, $id_user){
        $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       WHERE id_pk_prospek = $id_pk_prospek AND prospek_status='aktif'";
+       $result = $this->db->query($sql);
+       return $result;
+     }
+
+     public function get_prospek_all(){
+       $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,
+       IF((funnel = 'Prospek' OR funnel = 'Win' OR funnel = 'Loss' OR funnel = 'Hot Prospek' ) AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
        FROM mstr_prospek
        INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
        INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
@@ -93,10 +105,12 @@ class M_prospek extends CI_Model{
 
      public function delete($id_pk_prospek){
        $where = array(
-         "id_pk_prospek" => $id_pk_prospek
+         "id_pk_prospek" => $id_pk_prospek,
+         "prospek_id_create" => $this->session->id_user
        );
        $data = array(
-         "prospek_status" => "deleted"
+         "prospek_status" => "deleted",
+         "prospek_id_delete" => $this->session->id_user
        );
        updateRow("mstr_prospek",$data,$where);
      }
@@ -314,7 +328,8 @@ class M_prospek extends CI_Model{
 
      public function edit_prospek_se($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user) {
        $where = array(
-         "id_pk_prospek" => $id_pk_prospek
+         "id_pk_prospek" => $id_pk_prospek,
+         "prospek_id_create" => $this->session->id_user
        );
 
        $data = array(
@@ -333,7 +348,8 @@ class M_prospek extends CI_Model{
 
      public function edit_prospek_se_prospek($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage) {
        $where = array(
-         "id_pk_prospek" => $id_pk_prospek
+         "id_pk_prospek" => $id_pk_prospek,
+         "prospek_id_create" => $this->session->id_user
        );
 
        $data = array(
@@ -353,7 +369,8 @@ class M_prospek extends CI_Model{
 
      public function edit_prospek_se_loss($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss) {
        $where = array(
-         "id_pk_prospek" => $id_pk_prospek
+         "id_pk_prospek" => $id_pk_prospek,
+         "prospek_id_create" => $this->session->id_user
        );
        $data = array(
          "id_fk_rs"=>$id_fk_rs,
@@ -533,9 +550,9 @@ class M_prospek extends CI_Model{
        return updateRow("mstr_prospek",$data, $where);
      }
 
-     public function edit_produk_prospek($id_pk_prospek, $id_fk_prospek, $id_fk_produk, $prospek_produk_price, $detail_prospek_quantity, $detail_prospek_keterangan){
+     public function edit_produk_prospek($id_pk_prospek_produk, $id_fk_produk, $prospek_produk_price, $detail_prospek_quantity, $detail_prospek_keterangan){
        $where = array(
-         "id_fk_prospek" => $id_pk_prospek
+         "id_pk_prospek_produk" => $id_pk_prospek_produk
        );
        $data = array(
          "id_fk_produk"=>$id_fk_produk,
@@ -553,7 +570,7 @@ class M_prospek extends CI_Model{
       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
-      WHERE prospek_status='aktif' AND mstr_prospek.id_pk_prospek = $id_pk_prospek";
+      WHERE prospek_status='aktif' AND mstr_prospek.id_pk_prospek = $id_pk_prospek AND prospek_id_create = ".$this->session->id_user;
       $result = $this->db->query($sql);
       return $result;
     }
