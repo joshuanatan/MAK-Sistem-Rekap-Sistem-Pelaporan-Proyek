@@ -62,8 +62,102 @@
       </ul>
     </div>
   </div>
-</nav>    
+</nav> 
+<?php if(strtolower($this->session->user_role) == "administrator"):?>   
 <div class="site-menubar">
+  <div class="site-menubar-body">
+    <ul class="site-menu" data-plugin="menu">
+      <li class="dropdown site-menu-item has-sub">
+        <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">Master</span>
+        </a>
+        <div class="dropdown-menu">
+          <div class="site-menu-scroll-wrap is-list">
+            <ul class="site-menu-sub site-menu-normal-list"> 
+              <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>produk">
+                  <span class="site-menu-title">Produk</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>provinsi">
+                  <span class="site-menu-title">Provinsi & Kabupaten</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown site-menu-item has-sub">
+        <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">Rumah Sakit</span>
+        </a>
+        <div class="dropdown-menu">
+          <div class="site-menu-scroll-wrap is-list">
+            <ul class="site-menu-sub site-menu-normal-list">  
+              <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>rumah_sakit">
+                  <span class="site-menu-title">Daftar Rumah Sakit</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>penyelenggara">
+                  <span class="site-menu-title">Penyelenggara Rumah Sakit</span>
+                </a>
+              </li>
+              <li class="site-menu-item">
+                <a class="animsition-link" href="<?php echo base_url();?>jenis_rs">
+                  <span class="site-menu-title">Jenis Rumah Sakit</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown site-menu-item has-sub">
+        <a href="<?php echo base_url();?>sirup" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">SiRUP</span>
+        </a>
+      </li>
+      <li class="dropdown site-menu-item has-sub">
+        <a href="<?php echo base_url();?>ekatalog" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">E-Katalog</span>
+        </a>
+      </li>
+      <li class="dropdown site-menu-item has-sub">
+        <a href="<?php echo base_url();?>user" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">User</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<?php elseif(strtolower($this->session->user_role) == "supervisor"):?>
+<div class="site-menubar">
+  <div class="site-menubar-body">
+    <ul class="site-menu" data-plugin="menu">
+      <li class="dropdown site-menu-item has-sub">
+        <a href="<?php echo base_url();?>sirup" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">SiRUP</span>
+        </a>
+      </li>
+      <li class="dropdown site-menu-item has-sub">
+        <a href="<?php echo base_url();?>prospek" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">Prospek</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<?php elseif(strtolower($this->session->user_role) == "sales manager"):?>
+  <div class="site-menubar">
   <div class="site-menubar-body">
     <ul class="site-menu" data-plugin="menu">
       <li class="dropdown site-menu-item has-sub">
@@ -142,3 +236,17 @@
     </ul>
   </div>
 </div>
+<?php else:?>
+<div class="site-menubar">
+  <div class="site-menubar-body">
+    <ul class="site-menu" data-plugin="menu">
+      <li class="dropdown site-menu-item has-sub">
+        <a href="<?php echo base_url();?>prospek" data-dropdown-toggle="false">
+          <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+          <span class="site-menu-title">Prospek</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<?php endif;?>
