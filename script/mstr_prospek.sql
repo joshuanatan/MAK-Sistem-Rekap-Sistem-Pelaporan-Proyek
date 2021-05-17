@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 10, 2021 at 11:43 AM
+-- Generation Time: May 17, 2021 at 07:09 AM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.2
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,8 +62,12 @@ INSERT INTO `mstr_prospek` (`id_pk_prospek`, `id_fk_provinsi`, `id_fk_kabupaten`
 (11, 31, 3174, 16, 'testsm', '0', 'testsm', 'testsm', '0023-02-04', 'Prospek', '75%', '', '', '', 'aktif'),
 (12, 31, 3174, 16, 'testsm1', '0', 'testsm1', 'testsm1', '9856-08-07', 'Win', '', '', '0992193', '', 'aktif'),
 (13, 31, 3174, 16, 'testsm1', '0', 'testsm1', 'testsm1', '9856-08-07', 'Win', '', '', '0992193', '', 'aktif'),
-(14, 31, 3174, 12, 'a', '0', 'as', 'as', '0000-00-00', 'Loss', '', '', '', 'test', 'aktif'),
-(15, 31, 3174, 8, 'bisa', '0', 'wqwq', 'wqwq', '0001-12-31', 'Belum Ditentukan', '', '', '', '', 'aktif');
+(14, 15, 1501, 12, 'astatang', '0', 'asasasasa', 'asasasasasas', '2001-01-10', 'Prospek', '50%', '', '', 'test', 'aktif'),
+(15, 31, 3174, 8, 'bisa', '0', 'wqwq', 'wqwq', '0001-12-31', 'Prospek', '50%', '', '', '', 'aktif'),
+(16, 31, 3174, 8, 'MAK', '0', 'Vincent punya', 'Vincent', '2021-05-01', 'Prospek', '50%', '', '', 'upssssssss', 'aktif'),
+(17, 31, 3174, 8, 'aa', '0', 'aa', 'aa', '2001-12-11', 'Prospek', '25%', '', '', '', 'aktif'),
+(18, 31, 3174, 8, 'aa', '0', 'aa', 'aa', '2001-12-11', 'Prospek', '25%', '', '', '', 'aktif'),
+(19, 31, 3174, 8, 'MAK', '0', 'aaa', 'aaa', '2021-05-14', 'Prospek', '25%', '', '', '', 'aktif');
 
 --
 -- Indexes for dumped tables
@@ -83,7 +87,7 @@ ALTER TABLE `mstr_prospek`
 -- AUTO_INCREMENT for table `mstr_prospek`
 --
 ALTER TABLE `mstr_prospek`
-  MODIFY `id_pk_prospek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pk_prospek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
