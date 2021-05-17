@@ -5,6 +5,7 @@
     <title>MAK-CRM | Prospek</title>
     <?php $this->load->view("includes/core-head") ?>
     <link rel="stylesheet" href="<?php echo base_url();?>global/fonts/font-awesome/font-awesome.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
       .scroll-produk-table-wrapper{
@@ -26,7 +27,7 @@
       </div>
       <div class="page-content container-fluid">
         <div class="">
-          <form method="post" action="<?php echo base_url();?>prospek/insert">
+          <form method="post" action="<?php echo base_url();?>prospek/insert" id="formSubmit">
             <div class="">
               <div class="panel">
                 <div class="panel-body">
@@ -34,7 +35,7 @@
                   <?php if ($this->session->user_role == "Sales Engineer"):?>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control"  name = "id_fk_rs" id="dataRumahSakit">
+                    <select class = "js-example-basic-single form-control"  name = "id_fk_rs" id="dataRumahSakit">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                       <?php for($a = 0; $a < count($datars); $a++):?>
                       <option value = "<?php echo $datars[$a]["id_pk_rs"];?>"><?php echo $datars[$a]["rs_nama"];?></option>
@@ -45,7 +46,7 @@
                   <?php if ($this->session->user_role == "Supervisor" || $this->session->user_role == "Area Sales Manager"):?>
                   <div class="form-group">
                     <label class="form-control-label">Kabupaten</label>
-                    <select class = "form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
+                    <select class = "js-example-basic-single form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Kabupaten --</option>
                       <?php for($a = 0; $a < count($datakabupaten); $a++):?>
                       <option value = "<?php echo $datakabupaten[$a]["id_pk_kabupaten"];?>"><?php echo $datakabupaten[$a]["kabupaten_nama"];?></option>
@@ -54,7 +55,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control" name = "id_fk_rs" id="dataRumahSakit">
+                    <select class = "js-example-basic-single form-control" name = "id_fk_rs" id="dataRumahSakit">
 
                     </select>
                   </div>
@@ -62,7 +63,7 @@
                   <?php if ($this->session->user_role == "Sales Manager"):?>
                   <div class="form-group">
                     <label class="form-control-label">Provinsi</label>
-                    <select class = "form-control"  name = "provinsi" onchange="showKabupaten()" id="provinsi">
+                    <select class = "js-example-basic-single form-control"  name = "provinsi" onchange="showKabupaten()" id="provinsi">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Provinsi --</option>
                       <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
                       <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
@@ -71,13 +72,13 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Kabupaten</label>
-                    <select class = "form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
+                    <select class = "js-example-basic-single form-control"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
 
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control" name = "id_fk_rs" id="dataRumahSakit">
+                    <select class = "js-example-basic-single form-control" name = "id_fk_rs" id="dataRumahSakit">
 
                     </select>
                   </div>
@@ -144,7 +145,7 @@
                     </table>
                   </div>
                   <button type="button" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-primary">Save changes</button>
+                  <button type="button" onclick="submitForm()" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
@@ -159,20 +160,13 @@
     <?php $this->load->view("includes/core-script")?>
     <script src="<?php echo base_url();?>global/vendor/asrange/jquery-asRange.min.js"></script>
     <script src="<?php echo base_url();?>global/vendor/bootbox/bootbox.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-      var active_provinsi = "";
-      var active_id_provinsi = "";
-      function load_kabupaten_provinsi(provinsi,id_provinsi){
-        active_provinsi = provinsi;
-        active_id_provinsi = id_provinsi;
-        reload_table1();
-      }
-    </script>
-    <script>
+      $(document).ready(function() {
+          $('.js-example-basic-single').select2();
+      });
       var row = 0;
-      var edited_row = 0;
-      var deleted_row = 0;
     </script>
     <script>
       var base_url = "<?php echo base_url();?>";
@@ -285,7 +279,7 @@
               <tr id = "tambahRowProduk${row}">
                 <td>
                   <input type ='hidden' name='data_produk[]' value='${row}'>
-                  <select class = 'form-control' name = 'id_fk_produk${row}' id = 'nama_produk_insert${row}' onchange="showHarga(${row})">
+                  <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'id_fk_produk${row}' id = 'nama_produk_insert${row}' onchange="showHarga(${row})">
                     <option selected disabled>------ Pilih Produk ------</option>
                   <?php for($i = 0; $i < count($dataproduk); $i++):?>
                     <option value = "<?php echo $dataproduk[$i]["id_pk_produk"];?>"><?php echo $dataproduk[$i]["produk_nama"];?></option>
@@ -295,16 +289,16 @@
                 <td>
                   <table>
                     <tr>
-                      <td>Price List</td>
-                      <td id="harga_produk_insert${row}"></td>
+                      <td style="border:none;">Price List</td>
+                      <td style="border:none; text-align:right;" id="harga_produk_insert${row}"></td>
                     </tr>
                     <tr>
-                      <td>Harga Ekatalog</td>
-                      <td id = "harga_produk_ekat${row}"></td>
+                      <td style="border:none;">Harga Ekatalog</td>
+                      <td style="border:none; text-align:right;" id = "harga_produk_ekat${row}"></td>
                     </tr>
                   </table>
-                <td><input type = 'text' class = 'form-control' name = 'detail_wanted_price${row}' id = 'wanted_price${row}'></td>
-                <td><input type = 'number' class = 'form-control' name = 'detail_quantity${row}' id = 'qty_produk_insert${row}' min="0" ></td>
+                <td><input type = 'text' class = 'form-control nf-input' name = 'detail_price${row}'></td>
+                <td><input type = 'text' class = 'form-control nf-input' name = 'detail_quantity${row}' min="0"></td>
                 <td>
                   <textarea class = 'form-control' name = 'detail_keterangan${row}' id ='keterangan_produk_insert${row}'></textarea>
                 </td>
@@ -314,6 +308,8 @@
               </tr>
             `;
         $("#tambah_produk_button_container").before(html);
+        $('.js-example-basic-single').select2();
+        init_nf();
         row++;
       }
 
@@ -330,10 +326,15 @@
           type:"GET",
           dataType:"JSON",
           success:function(respond){
-            $(`#harga_produk_insert${row}`).text(respond['data_price'][0]['produk_price_list']);
-            $(`#harga_produk_ekat${row}`).text(respond['data_price'][0]['produk_harga_ekat']);
+            $(`#harga_produk_insert${row}`).text("Rp. " + format_number(respond['data_price'][0]['produk_price_list']));
+            $(`#harga_produk_ekat${row}`).text("Rp. " + format_number(respond['data_price'][0]['produk_harga_ekat']));
           }
         });
+      }
+
+      function submitForm() {
+        nf_reformat_all();
+        $("#formSubmit").submit();
       }
     </script>
   </body>

@@ -346,7 +346,7 @@
                     </tr>
                   </table>
                 <td><input type = 'text' class = 'form-control nf-input' name = 'detail_price${count}'></td>
-                <td><input type = 'text' class = 'form-control nf-input' name = 'detail_quantity${count}' min="0" ></td>
+                <td><input type = 'text' class = 'form-control nf-input' name = 'detail_quantity${count}' min="0"></td>
                 <td>
                   <textarea class = 'form-control' name = 'detail_keterangan${count}'></textarea>
                 </td>
