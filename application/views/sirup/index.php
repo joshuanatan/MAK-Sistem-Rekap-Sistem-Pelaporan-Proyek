@@ -76,7 +76,7 @@
                   <th>Volume Pekerjaan</th>
                   <th>Uraian Pekerjaan</th>
                   <th>Spesifikasi Pekerjaan</th>
-                  <th style = "width:10%">Action</th>
+                  <th style="width:10%">Action</th>
                 </tr>
               </thead>
               <tbody id="table_content_container">
@@ -566,6 +566,7 @@
 </div>
 <script>
   count_new_daftar_pencarian = $(".pencarian_row").length;
+
   function add_row_daftar_pencarian() {
     var html = `
     <tr class = "pencarian_row" id = "pencarian_row${count_new_daftar_pencarian}">
@@ -1455,5 +1456,5 @@
   }
 </script>
 <script>
-  init_nf();  
+  init_nf();
 </script>

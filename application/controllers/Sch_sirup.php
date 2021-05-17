@@ -21,7 +21,6 @@ class Sch_sirup extends CI_Controller{
       $pencarian_sirup_tahun = $result[0]["pencarian_sirup_tahun"];
       $pencarian_sirup_frase = urlencode($result[0]["pencarian_sirup_frase"]);
       $pencarian_sirup_jenis = $result[0]["pencarian_sirup_jenis"];
-      $search_phrase = $result[0]["pencarian_sirup_frase"]." ".$pencarian_sirup_tahun." ".$pencarian_sirup_jenis;
       $amount = 150; #ini paling ideal untuk masuk ke text type, karena gamuat juga anyway.
 
       $url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=".$pencarian_sirup_tahun."&keyword=".$pencarian_sirup_frase."&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=5&order%5B0%5D%5Bdir%5D=DESC&start=0&length=".$amount."&search%5Bvalue%5D=&search%5Bregex%5D=false";
@@ -36,7 +35,6 @@ class Sch_sirup extends CI_Controller{
         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
         CURLOPT_CUSTOMREQUEST => "GET",
       ));
-      $info = curl_getinfo($curl);
       $response = curl_exec($curl);
       #$response = json_decode($response,true);
       
@@ -162,10 +160,10 @@ class Sch_sirup extends CI_Controller{
     $sirup_volume_pekerjaan = explode("Uraian Pekerjaan",explode("Volume Pekerjaan",$response)[1])[0];
     $sirup_uraian_pekerjaan = explode("Spesifikasi Pekerjaan",explode("Uraian Pekerjaan",$response)[1])[0];
     $sirup_spesifikasi_pekerjaan = explode("Produk Dalam Negeri",explode("Spesifikasi Pekerjaan",$response)[1])[0];
-    $sirup_produk_dalam_negri = explode("Usaha Kecil",explode("Produk Dalam Negeri",$response)[1])[0];
-    $sirup_usaha_kecil = explode("Pra DIPA / DPA",explode("Usaha Kecil",$response)[1])[0];
-    $sirup_pra_dipa = explode("Sumber Dana",explode("Pra DIPA / DPA",$response)[1])[0];
-    $sirup_jenis_pengadaan = explode("Total Pagu",explode("Jenis Pengadaan",$response)[1])[0];
+    $sirup_produk_dalam_negri = trim(explode("Usaha Kecil/Koperasi",explode("Produk Dalam Negeri",$response)[1])[0]);
+    $sirup_usaha_kecil = trim(explode("Pra DIPA / DPA",explode("Usaha Kecil/Koperasi",$response)[1])[0]);
+    $sirup_pra_dipa = trim(explode("Sumber Dana",explode("Pra DIPA / DPA",$response)[1])[0]);
+    $sirup_jenis_pengadaan = str_replace(" ","",str_replace(",","",explode("Total Pagu",explode("Jenis Pengadaan",$response)[1])[0]));
     $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa",explode("Metode Pemilihan",$response)[1])[0];
     $sirup_histori_paket = "";
     $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket",$response)[1];
@@ -253,5 +251,29 @@ class Sch_sirup extends CI_Controller{
     $result = $result->result_array();
     $result = json_decode($result[0]["sirup_general"],true);
     print_r($result["data"]);
+  }
+  public function revalidate_search_similarity(){
+    $sql = "select *, locate(pencarian_sirup_frase,sirup_paket) as similarity
+    from mstr_sirup
+    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+    where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0
+    having similarity > 0";
+    $result = executeQuery($sql);
+    $result = $result->result_array();
+    for($a = 0; $a<count($result); $a++){
+      $where = array(
+        "id_pk_sirup" => $result[$a]["id_pk_sirup"]
+      );
+      $data = array(
+        "sirup_status_sesuai_pencarian" => 1
+      );
+      updateRow("mstr_sirup",$data,$where);
+      $data = array(
+        "log_auto_sirup" => "Changing status similarity SiRUP",
+        "log_auto_sirup_desc" => "Mengupdate status SiRUP yang sesuai dengan pencarian dengan ID sirup: '".$result[$a]["sirup_rup"]."' dan paket sirup: '".$result[$a]["sirup_paket"]."' dan frase pencarian: '".$result[$a]["pencarian_sirup_frase"]."'",
+        "log_auto_sirup_date" => date("Y-m-d H:i:s")
+      );
+      insertRow("log_auto_sirup",$data);
+    }
   }
 }
