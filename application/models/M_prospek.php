@@ -45,7 +45,7 @@ class M_prospek extends CI_Model{
       $sql = "SELECT *
       FROM mstr_kabupaten
       INNER JOIN tbl_user_kabupaten on mstr_kabupaten.id_pk_kabupaten = tbl_user_kabupaten.id_fk_kabupaten
-      WHERE tbl_user_kabupaten.id_fk_user = $id_fk_user AND kabupaten_status = 'aktif'";
+      WHERE tbl_user_kabupaten.id_fk_user = $id_fk_user AND kabupaten_status = 'aktif' AND user_kabupaten_status = 'aktif'";
       return executeQuery($sql);
      }
 
