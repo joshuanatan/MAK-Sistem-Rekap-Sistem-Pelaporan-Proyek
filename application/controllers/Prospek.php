@@ -55,6 +55,8 @@ class Prospek extends CI_Controller{
       $result4 = $this->m_prospek->get_kabupaten($id);
       $result5 = $this->m_prospek->get_prospek_produk($id_pk_prospek);
       $result6 = $this->m_prospek->get_produk();
+      $result7 = $this->m_prospek->get_sirup();
+      $result8 = $this->m_prospek->get_ekat();
       $data = array(
         'dataprospek' => $result->result_array(),
         'datars' => $result2->result_array(),
@@ -62,6 +64,8 @@ class Prospek extends CI_Controller{
         'datakabupaten' => $result4->result_array(),
         'dataprospekproduk' => $result5->result_array(),
         'dataproduk' => $result6->result_array(),
+        'datasirup' => $result7->result_array(),
+        'dataekat' => $result8->result_array(),
       );
       $this->load->view("prospek/edit_prospek", $data);
     }
