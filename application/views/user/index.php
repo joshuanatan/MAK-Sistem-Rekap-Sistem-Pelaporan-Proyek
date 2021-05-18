@@ -375,7 +375,7 @@
     else if (jabatan == "Supervisor" || jabatan == "Area Sales Manager") {
       $("#div_sales_engineer").hide();
       $("#div_supervisor_asm").show();
-    } 
+    }
     else {
       $("#div_sales_engineer").hide();
       $("#div_supervisor_asm").hide();
@@ -390,7 +390,7 @@
     else if (jabatan == "Supervisor" || jabatan == "Area Sales Manager") {
       $("#edit_div_sales_engineer").hide();
       $("#edit_div_supervisor_asm").show();
-    } 
+    }
     else {
       $("#edit_div_sales_engineer").hide();
       $("#edit_div_supervisor_asm").hide();
@@ -447,7 +447,7 @@
         $("#asm_table_kabupaten").html(html);
       }
     });
-    
+
   }
   function edit_sales_engineer_change_provinsi(){
     var id_provinsi = $("#edit_select_provinsi").val();
@@ -529,7 +529,7 @@
     reload_table();
   }
   function change_pagination(page){
-    current_page = page; 
+    current_page = page;
     reload_table();
   }
   function reload_table(){
@@ -538,7 +538,7 @@
       url:url,
       type:"GET",
       dataType:"JSON",
-      success:function(respond){  
+      success:function(respond){
         var html = "";
         content = respond["data"];
         for(var a = 0; a<respond["data"].length; a++){
@@ -605,8 +605,12 @@
       contentType: false,
       processData: false,
       success:function(respond){
-        $("#modalTambahUser").modal("hide");
-        reload_table();
+        if (respond != "") {
+          alert(respond);
+        } else {
+          $("#modalTambahUser").modal("hide");
+          reload_table();
+        }
       }
     });
   }
@@ -651,7 +655,7 @@
     if (content[row]["user_role"].trim() == "Sales Engineer") {
       $("#edit_div_supervisor_asm").hide();
       $("#edit_div_sales_engineer").show();
-      
+
       var id_provinsi = 0;
       var id_kabupaten = 0;
       var respond = "";
@@ -663,7 +667,7 @@
         id_provinsi = respond[0]["id_fk_provinsi"];
       }
       $("#edit_select_provinsi").val(id_provinsi);
-      
+
       respond = load_kabupaten(id_provinsi);
       html = "<option value = 'none'>---- Pilih Kabupaten ----</option>";
       for(var a = 0; a<respond.length; a++){
@@ -699,7 +703,7 @@
           </tr>`;
       }
       $("#edit_se_table_rs_unassigned").html(html);
-      
+
     }
     else if (content[row]["user_role"].trim() == "Supervisor" || content[row]["user_role"].trim() == "Area Sales Manager") {
       $("#edit_div_sales_engineer").hide();
@@ -707,7 +711,7 @@
       var respond = "";
       var html = "";
       var id_provinsi = 0;
-      
+
       respond = load_selected_kabupaten(content[row]["id_pk_user"]);
       html = "";
       for(var a = 0; a<respond.length; a++){
@@ -731,7 +735,7 @@
           </tr>`;
       }
       $("#edit_asm_table_kabupaten_unassigned").html(html);
-    } 
+    }
     else {
       $("#edit_div_sales_engineer").hide();
       $("#edit_div_supervisor_asm").hide();

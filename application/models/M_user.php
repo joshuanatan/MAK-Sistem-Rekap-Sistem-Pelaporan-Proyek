@@ -13,13 +13,17 @@ class M_user extends CI_Model{
       "user_email" => $user_email,
       "user_telepon" => $user_telepon,
       "user_role" => $user_role,
-      "user_status" => "aktif"
+      "user_status" => "aktif",
+      "user_tgl_create" => date("Y-m-d H:i:s"),
+      "user_id_create" => $this->session->id_user
     );
     return insertRow("mstr_user", $data);
   }
   public function delete($id_pk_user) {
     $data = array(
-      "user_status" => "nonaktif"
+      "user_status" => "nonaktif",
+      "user_tgl_delete" => date("Y-m-d H:i:s"),
+      "user_id_delete" => $this->session->id_user
     );
     $where = array(
       "id_pk_user" => $id_pk_user
@@ -31,7 +35,9 @@ class M_user extends CI_Model{
       "user_username" => $user_username,
       "user_email" => $user_email,
       "user_telepon" => $user_telepon,
-      "user_role" => $user_role
+      "user_role" => $user_role,
+      "user_tgl_update" => date("Y-m-d H:i:s"),
+      "user_id_update" => $this->session->id_user
     );
     $where = array(
       "id_pk_user" => $id_pk_user
@@ -66,6 +72,10 @@ class M_user extends CI_Model{
       }
     }
     $sql = "select id_pk_user, user_role, user_username, user_email, user_telepon, user_status, user_tgl_create, user_tgl_update, user_tgl_delete, user_id_create, user_id_update, user_id_delete FROM mstr_user WHERE user_status='aktif' ".$search_query." order by ".$kolom_pengurutan." ".$arah_kolom_pengurutan." limit 20 offset ".(20*($current_page-1));
+    return executeQuery($sql);
+  }
+  public function check($email) {
+    $sql = "SELECT * FROM mstr_user WHERE user_email = '$email'";
     return executeQuery($sql);
   }
 }
