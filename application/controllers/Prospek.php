@@ -17,11 +17,15 @@ class Prospek extends CI_Controller{
       $result2 = $this->m_prospek->get_produk();
       $result3 = $this->m_prospek->get_kabupaten($id);
       $result4 = $this->m_prospek->get_provinsi();
+      $result5 = $this->m_prospek->get_sirup();
+      $result6 = $this->m_prospek->get_ekat();
       $data = array(
         'datars' => $result1->result_array(),
         'dataproduk' => $result2->result_array(),
         'datakabupaten' => $result3->result_array(),
         'dataprovinsi' => $result4->result_array(),
+        'datasirup' => $result5->result_array(),
+        'dataekat' => $result6->result_array(),
       );
       $this->load->view("prospek/tambah_prospek", $data);
     }
@@ -29,19 +33,11 @@ class Prospek extends CI_Controller{
     public function detail_prospek($id_pk_prospek){
       $this->load->model("m_prospek");
       $id = $this->session->id_user;
-      $result1 = $this->m_prospek->get_rs_sales_engineer($id);
-      $result2 = $this->m_prospek->get_produk();
-      $result3 = $this->m_prospek->get_kabupaten($id);
-      $result4 = $this->m_prospek->get_provinsi();
-      $result5 = $this->m_prospek->get_prospek_detail($id_pk_prospek, $id);
-      $result6 = $this->m_prospek->get_prospek_produk($id_pk_prospek);
+      $result1 = $this->m_prospek->get_prospek_detail($id_pk_prospek, $id);
+      $result2 = $this->m_prospek->get_prospek_produk($id_pk_prospek);
       $data = array(
-        'datars' => $result1->result_array(),
-        'dataproduk' => $result2->result_array(),
-        'datakabupaten' => $result3->result_array(),
-        'dataprovinsi' => $result4->result_array(),
-        'detailprospek' => $result5->result_array(),
-        'dataprospekproduk' => $result6->result_array(),
+        'detailprospek' => $result1->result_array(),
+        'dataprospekproduk' => $result2->result_array(),
       );
       $this->load->view("prospek/detail_prospek", $data);
     }

@@ -221,7 +221,12 @@
               $("#noteSirup").show();
               html4 += `
                 <label class="form-control-label">No SiRUP</label>
-                <input type="text" class="form-control" name="no_sirup">
+                <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'no_sirup'>
+                  <option selected disabled>------ Pilih SiRUP ------</option>
+                <?php for($i = 0; $i < count($datasirup); $i++):?>
+                  <option value = "<?php echo $datasirup[$i]["sirup_rup"];?>"><?php echo $datasirup[$i]["sirup_rup"];?></option>
+                <?php endfor;?>
+                </select>
               `;
                 $("#funnelPercentage").html("");
                 $("#noEkatalog").html("");
@@ -231,7 +236,12 @@
               $("#noEkatalog").show();
               html2 += `
                 <label class="form-control-label">No E Katalog</label>
-                <input type="text" class="form-control" name="nomorekatalog">
+                <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'nomorekatalog'>
+                  <option selected disabled>------ Pilih Ekatalog ------</option>
+                <?php for($i = 0; $i < count($dataekat); $i++):?>
+                  <option value = "<?php echo $dataekat[$i]["ekatalog_id_paket"];?>"><?php echo $dataekat[$i]["ekatalog_id_paket"];?></option>
+                <?php endfor;?>
+                </select>
               `;
                 $("#funnelPercentage").html("");
                 $("#noteLoss").html("");
@@ -270,6 +280,7 @@
             $("#noEkatalog").html(html2);
             $("#noteLoss").html(html3);
             $("#noteSirup").html(html4);
+            $('.js-example-basic-single').select2();
           }
         });
       }

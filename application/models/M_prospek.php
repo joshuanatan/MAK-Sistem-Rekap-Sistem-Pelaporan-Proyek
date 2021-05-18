@@ -9,8 +9,7 @@ class M_prospek extends CI_Model{
        INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
        INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
        WHERE prospek_id_create= '$id_user' AND prospek_status='aktif'";
-       $result = $this->db->query($sql);
-       return $result;
+       return executeQuery($sql);
      }
 
      public function get_prospek_detail($id_pk_prospek, $id_user){
@@ -20,8 +19,7 @@ class M_prospek extends CI_Model{
        INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
        INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
        WHERE id_pk_prospek = $id_pk_prospek AND prospek_status='aktif'";
-       $result = $this->db->query($sql);
-       return $result;
+       return executeQuery($sql);
      }
 
      public function get_prospek_all(){
@@ -32,8 +30,7 @@ class M_prospek extends CI_Model{
        INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
        INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
        WHERE prospek_status='aktif'";
-       $result = $this->db->query($sql);
-       return $result;
+       return executeQuery($sql);
      }
 
      public function get_prospek_produk($id_fk_prospek){
@@ -103,18 +100,6 @@ class M_prospek extends CI_Model{
        return executeQuery($sql);
      }
 
-     public function delete($id_pk_prospek){
-       $where = array(
-         "id_pk_prospek" => $id_pk_prospek,
-         "prospek_id_create" => $this->session->id_user
-       );
-       $data = array(
-         "prospek_status" => "deleted",
-         "prospek_id_delete" => $this->session->id_user
-       );
-       updateRow("mstr_prospek",$data,$where);
-     }
-
      public function insert_prospek_se($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user) {
        $data = array(
          "id_fk_rs"=>$id_fk_rs,
@@ -125,7 +110,8 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "funnel"=>$funnel,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -141,7 +127,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "funnel_percentage"=>$funnel_percentage,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -157,7 +144,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "note_loss"=>$note_loss,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -173,7 +161,8 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "funnel"=>$funnel,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -190,7 +179,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "funnel_percentage"=>$funnel_percentage,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -207,7 +197,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "note_loss"=>$note_loss,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -224,7 +215,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "no_sirup"=>$no_sirup,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -241,7 +233,8 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "funnel"=>$funnel,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -259,7 +252,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "funnel_percentage"=>$funnel_percentage,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -277,7 +271,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "note_loss"=>$note_loss,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -295,7 +290,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "no_ekatalog"=>$no_ekatalog,
          "prospek_status"=>"aktif",
-         "prospek_id_create" => $id_user
+         "prospek_id_create" => $id_user,
+         "prospek_tgl_create" => date("Y-m-d H:i:s")
        );
        return insertRow("mstr_prospek",$data);
      }
@@ -308,7 +304,9 @@ class M_prospek extends CI_Model{
          "prospek_produk_price" => $prospek_produk_price,
          "detail_prospek_quantity"=>$detail_prospek_quantity,
          "detail_prospek_keterangan"=>$detail_prospek_keterangan,
-         "detail_prospek_status"=>"aktif"
+         "detail_prospek_status"=>"aktif",
+         "prospek_produk_id_create" => $this->session->id_user,
+         "prospek_produk_tgl_create" => date("Y-m-d H:i:s")
        );
        $this->db->insert("tbl_prospek_produk",$data);
      }
@@ -341,7 +339,8 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "funnel"=>$funnel,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -362,7 +361,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "funnel_percentage"=>$funnel_percentage,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -382,7 +382,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "note_loss"=>$note_loss,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -401,7 +402,8 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "funnel"=>$funnel,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -421,7 +423,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "funnel_percentage"=>$funnel_percentage,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -441,7 +444,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "note_loss"=>$note_loss,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -462,7 +466,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "no_sirup"=>$no_sirup,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -482,7 +487,8 @@ class M_prospek extends CI_Model{
          "estimasi_pembelian"=>$estimasi_pembelian,
          "funnel"=>$funnel,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -503,7 +509,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "funnel_percentage"=>$funnel_percentage,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -524,7 +531,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "note_loss"=>$note_loss,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -545,7 +553,8 @@ class M_prospek extends CI_Model{
          "funnel"=>$funnel,
          "no_ekatalog"=>$no_ekatalog,
          "prospek_status"=>"aktif",
-         "prospek_id_update" => $id_user
+         "prospek_id_update" => $id_user,
+         "prospek_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("mstr_prospek",$data, $where);
      }
@@ -559,7 +568,9 @@ class M_prospek extends CI_Model{
          "detail_prospek_quantity"=>$detail_prospek_quantity,
          "prospek_produk_price" => $prospek_produk_price,
          "detail_prospek_keterangan"=>$detail_prospek_keterangan,
-         "detail_prospek_status"=>"aktif"
+         "detail_prospek_status"=>"aktif",
+         "prospek_produk_id_update" => $this->session->id_user,
+         "prospek_produk_tgl_update" => date("Y-m-d H:i:s")
        );
        return updateRow("tbl_prospek_produk",$data, $where);
      }
@@ -571,8 +582,20 @@ class M_prospek extends CI_Model{
       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
       WHERE prospek_status='aktif' AND mstr_prospek.id_pk_prospek = $id_pk_prospek AND prospek_id_create = ".$this->session->id_user;
-      $result = $this->db->query($sql);
-      return $result;
+      return executeQuery($sql);
+    }
+
+    public function delete($id_pk_prospek){
+      $where = array(
+        "id_pk_prospek" => $id_pk_prospek,
+        "prospek_id_create" => $this->session->id_user
+      );
+      $data = array(
+        "prospek_status" => "deleted",
+        "prospek_id_delete" => $this->session->id_user,
+        "prospek_tgl_delete" => date("Y-m-d H:i:s")
+      );
+      updateRow("mstr_prospek",$data,$where);
     }
 
     public function delete_prospek_produk($id){
@@ -580,9 +603,20 @@ class M_prospek extends CI_Model{
         "id_pk_prospek_produk" => $id
       );
       $data = array(
-        "detail_prospek_status"=>"deleted"
+        "detail_prospek_status"=>"deleted",
+        "prospek_produk_id_delete" => $this->session->id_user,
+        "prospek_produk_tgl_delete" => date("Y-m-d H:i:s")
       );
       return updateRow("tbl_prospek_produk",$data, $where);
+    }
+
+    public function get_sirup() {
+      $sql = "SELECT * FROM mstr_sirup;";
+      return executeQuery($sql);
+    }
+    public function get_ekat() {
+      $sql = "SELECT * FROM mstr_ekatalog;";
+      return executeQuery($sql);
     }
 
 }
