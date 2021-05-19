@@ -45,7 +45,7 @@
                   <?php if ($this->session->user_role == "Supervisor" || $this->session->user_role == "Area Sales Manager"):?>
                   <div class="form-group">
                     <label class="form-control-label">Kabupaten</label>
-                    <select class = "form-control js-example-basic-single"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
+                    <select class = "form-control js-example-basic-single" name = "kabupaten" onchange="showRumahSakit()" id="kabupaten" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["id_fk_kabupaten"];?>" selected hidden><?php echo $dataprospek[0]["nama_kabupaten"];?></option>
                       <?php for($a = 0; $a < count($datakabupaten); $a++):?>
                       <option value = "<?php echo $datakabupaten[$a]["id_pk_kabupaten"];?>"><?php echo $datakabupaten[$a]["kabupaten_nama"];?></option>
@@ -54,7 +54,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control js-example-basic-single" name = "id_fk_rs" id="dataRumahSakit">
+                    <select class = "form-control js-example-basic-single" name = "id_fk_rs" id="dataRumahSakit"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?> <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["id_fk_rs"];?>" selected hidden><?php echo $dataprospek[0]["nama_rs"];?></option>
                     </select>
                   </div>
@@ -62,7 +62,7 @@
                   <?php if ($this->session->user_role == "Sales Manager"):?>
                   <div class="form-group">
                     <label class="form-control-label">Provinsi</label>
-                    <select class = "js-example-basic-single form-control"  name = "provinsi" onchange="showKabupaten()" id="provinsi">
+                    <select class = "js-example-basic-single form-control"  name = "provinsi" onchange="showKabupaten()" id="provinsi" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["id_fk_provinsi"];?>" selected hidden><?php echo $dataprospek[0]["nama_provinsi"];?></option>
                       <?php for($a = 0; $a < count($dataprovinsi); $a++):?>
                         <option value = "<?php echo $dataprovinsi[$a]["id_pk_provinsi"];?>"><?php echo $dataprovinsi[$a]["provinsi_nama"];?></option>
@@ -71,36 +71,36 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Kabupaten</label>
-                    <select class = "form-control js-example-basic-single"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten">
+                    <select class = "form-control js-example-basic-single"  name = "kabupaten" onchange="showRumahSakit()" id="kabupaten" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["id_fk_kabupaten"];?>" selected hidden><?php echo $dataprospek[0]["nama_kabupaten"];?></option>
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control js-example-basic-single" name = "id_fk_rs" id="dataRumahSakit">
+                    <select class = "form-control js-example-basic-single" name = "id_fk_rs" id="dataRumahSakit" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["id_fk_rs"];?>" selected hidden><?php echo $dataprospek[0]["nama_rs"];?></option>
                     </select>
                   </div>
                   <?php endif;?>
                   <div class="form-group">
                     <label class="form-control-label">Prospek Principle</label>
-                    <input type="text" class="form-control" name="prospek_principle" value="<?php echo $dataprospek[0]["prospek_principle"];?>">
+                    <input type="text" class="form-control" name="prospek_principle" value="<?php echo $dataprospek[0]["prospek_principle"];?>"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Notes Kompetitor</label>
-                    <textarea type="text" class="form-control" name="notes_kompetitor"><?php echo $dataprospek[0]["notes_kompetitor"];?></textarea>
+                    <textarea type="text" class="form-control" name="notes_kompetitor"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>><?php echo $dataprospek[0]["notes_kompetitor"];?></textarea>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Notes Prospek</label>
-                    <textarea type="text" class="form-control" name="notes_prospek"><?php echo $dataprospek[0]["notes_prospek"];?></textarea>
+                    <textarea type="text" class="form-control" name="notes_prospek"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>><?php echo $dataprospek[0]["notes_prospek"];?></textarea>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Estimasi Pembelian</label>
-                    <input class="form-control" type="date" name="estimasi_pembelian" value="<?php echo $dataprospek[0]["estimasi_pembelian"];?>">
+                    <input class="form-control" type="date" name="estimasi_pembelian" value="<?php echo $dataprospek[0]["estimasi_pembelian"];?>"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Funnel</label>
-                    <select class = "form-control" name = "funnel" onchange="funnelProspek()" id="prospek">
+                    <select class = "form-control" name = "funnel" onchange="funnelProspek()" id="prospek"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["funnel"];?>" selected hidden><?php echo $dataprospek[0]["funnel"];?></option>
                       <option value = "Lead">Lead</option>
                       <option value = "Prospek">Prospek</option>
@@ -109,13 +109,13 @@
                       <option value = "Loss">Loss</option>
                     </select>
                   </div>
-                  <div class="form-group" id="funnelPercentage">
+                  <div class="form-group" id="funnelPercentage" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
 
                   </div>
                   <div class="form-group" id="noEkatalog">
 
                   </div>
-                  <div class="form-group" id="noteLoss">
+                  <div class="form-group" id="noteLoss" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
 
                   </div>
                   <div class="form-group" id="noteSirup">
@@ -327,6 +327,7 @@
             $("#noEkatalog").html(html2);
             $("#noteLoss").html(html3);
             $("#noteSirup").html(html4);
+            $('.js-example-basic-single').select2();
           }
         });
       }

@@ -576,12 +576,12 @@ class M_prospek extends CI_Model{
      }
 
     public function edit_get_prospek($id_pk_prospek){
-      $sql = "SELECT id_pk_prospek, mstr_prospek.id_fk_provinsi, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_prospek.id_fk_kabupaten, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_prospek.id_fk_rs, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, funnel, funnel_percentage, no_sirup, no_ekatalog, note_loss, estimasi_pembelian, prospek_status
+      $sql = "SELECT id_pk_prospek, mstr_prospek.id_fk_provinsi, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_prospek.id_fk_kabupaten, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_prospek.id_fk_rs, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, funnel, funnel_percentage, no_sirup, no_ekatalog, note_loss, estimasi_pembelian, prospek_status, prospek_id_create
       FROM mstr_prospek
       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
-      WHERE prospek_status='aktif' AND mstr_prospek.id_pk_prospek = $id_pk_prospek AND prospek_id_create = ".$this->session->id_user;
+      WHERE prospek_status='aktif' AND mstr_prospek.id_pk_prospek = $id_pk_prospek";
       return executeQuery($sql);
     }
 
