@@ -56,14 +56,14 @@
             <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
             <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+            <a class="dropdown-item" href="<?php echo base_url();?>logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
           </div>
         </li>
       </ul>
     </div>
   </div>
-</nav> 
-<?php if(strtolower($this->session->user_role) == "administrator"):?>   
+</nav>
+<?php if(strtolower($this->session->user_role) == "administrator"):?>
 <div class="site-menubar">
   <div class="site-menubar-body">
     <ul class="site-menu" data-plugin="menu">
@@ -74,7 +74,7 @@
         </a>
         <div class="dropdown-menu">
           <div class="site-menu-scroll-wrap is-list">
-            <ul class="site-menu-sub site-menu-normal-list"> 
+            <ul class="site-menu-sub site-menu-normal-list">
               <li class="site-menu-item">
                 <a class="animsition-link" href="<?php echo base_url();?>produk">
                   <span class="site-menu-title">Produk</span>
@@ -96,7 +96,7 @@
         </a>
         <div class="dropdown-menu">
           <div class="site-menu-scroll-wrap is-list">
-            <ul class="site-menu-sub site-menu-normal-list">  
+            <ul class="site-menu-sub site-menu-normal-list">
               <li class="site-menu-item">
                 <a class="animsition-link" href="<?php echo base_url();?>rumah_sakit">
                   <span class="site-menu-title">Daftar Rumah Sakit</span>
@@ -167,7 +167,7 @@
         </a>
         <div class="dropdown-menu">
           <div class="site-menu-scroll-wrap is-list">
-            <ul class="site-menu-sub site-menu-normal-list"> 
+            <ul class="site-menu-sub site-menu-normal-list">
               <li class="site-menu-item">
                 <a class="animsition-link" href="<?php echo base_url();?>produk">
                   <span class="site-menu-title">Produk</span>
@@ -189,7 +189,7 @@
         </a>
         <div class="dropdown-menu">
           <div class="site-menu-scroll-wrap is-list">
-            <ul class="site-menu-sub site-menu-normal-list">  
+            <ul class="site-menu-sub site-menu-normal-list">
               <li class="site-menu-item">
                 <a class="animsition-link" href="<?php echo base_url();?>rumah_sakit">
                   <span class="site-menu-title">Daftar Rumah Sakit</span>

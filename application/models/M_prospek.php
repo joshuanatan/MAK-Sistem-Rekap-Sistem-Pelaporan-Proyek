@@ -24,7 +24,7 @@ class M_prospek extends CI_Model{
 
      public function get_prospek_all(){
        $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,
-       IF((funnel = 'Prospek' OR funnel = 'Win' OR funnel = 'Loss' OR funnel = 'Hot Prospek' ) AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
        FROM mstr_prospek
        INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
        INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
@@ -583,6 +583,37 @@ class M_prospek extends CI_Model{
       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
       WHERE prospek_status='aktif' AND mstr_prospek.id_pk_prospek = $id_pk_prospek";
       return executeQuery($sql);
+    }
+
+    public function edit_get_id_user($id_pk_prospek){
+      $sql = "SELECT prospek_id_create
+      FROM mstr_prospek
+      WHERE id_pk_prospek = $id_pk_prospek AND prospek_status='aktif'";
+      return executeQuery($sql);
+    }
+
+    public function edit_sirup($id_pk_prospek,$no_sirup) {
+      $where = array(
+        "id_pk_prospek" => $id_pk_prospek
+      );
+      $data = array(
+        "no_sirup"=>$no_sirup,
+        "prospek_id_update" => $this->session->id_user,
+        "prospek_tgl_update" => date("Y-m-d H:i:s")
+      );
+      return updateRow("mstr_prospek",$data, $where);
+    }
+
+    public function edit_ekatalog($id_pk_prospek,$no_ekatalog) {
+      $where = array(
+        "id_pk_prospek" => $id_pk_prospek
+      );
+      $data = array(
+        "no_ekatalog"=>$no_ekatalog,
+        "prospek_id_update" => $this->session->id_user,
+        "prospek_tgl_update" => date("Y-m-d H:i:s")
+      );
+      return updateRow("mstr_prospek",$data, $where);
     }
 
     public function delete($id_pk_prospek){

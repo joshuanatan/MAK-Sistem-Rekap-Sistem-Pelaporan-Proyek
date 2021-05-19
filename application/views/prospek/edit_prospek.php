@@ -54,7 +54,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label>
-                    <select class = "form-control js-example-basic-single" name = "id_fk_rs" id="dataRumahSakit"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?> <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
+                    <select class = "form-control js-example-basic-single" name = "id_fk_rs" id="dataRumahSakit"<?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) { echo "disabled";} ?>>
                       <option value="<?php echo $dataprospek[0]["id_fk_rs"];?>" selected hidden><?php echo $dataprospek[0]["nama_rs"];?></option>
                     </select>
                   </div>
