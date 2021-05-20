@@ -92,4 +92,19 @@ class M_kabupaten extends CI_Model
     );
     return executeQuery($sql, $args);
   }
+  public function check_duplicate_insert($nama_kabupaten){
+    $where = array(
+      "kabupaten_nama" => $nama_kabupaten,
+      "kabupaten_status !=" => "deleted"
+    );
+    return selectRow("mstr_kabupaten",$where);
+  }
+  public function check_duplicate_update($id_pk_kabupaten, $nama_kabupaten){
+    $where = array(
+      "id_pk_kabupaten !=" => $id_pk_kabupaten,
+      "kabupaten_nama" => $nama_kabupaten,
+      "kabupaten_status !=" => "deleted"
+    );
+    return selectRow("mstr_kabupaten",$where);
+  }
 }

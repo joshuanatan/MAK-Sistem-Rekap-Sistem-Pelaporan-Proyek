@@ -13,14 +13,21 @@ class Kabupaten extends CI_Controller
     $this->form_validation->set_rules("status_kabupaten", "Status Kabupaten", "required");
     $this->form_validation->set_rules("id_provinsi", "ID Provinsi", "required");
     if ($this->form_validation->run()) {
-      $nama_kabupaten = $this->input->post("nama_kabupaten");
+      $nama_kabupaten = strtoupper($this->input->post("nama_kabupaten"));
       $status_kabupaten = $this->input->post("status_kabupaten");
       $id_provinsi = $this->input->post("id_provinsi");
 
       $this->load->model("m_kabupaten");
-      $result = $this->m_kabupaten->insert($nama_kabupaten, $status_kabupaten, $id_provinsi);
-      $response["status"] = true;
-      $response["insert_id"] = $result;
+      $result = $this->m_kabupaten->check_duplicate_insert($nama_kabupaten);
+      if($result->num_rows() == 0){
+        $result = $this->m_kabupaten->insert($nama_kabupaten, $status_kabupaten, $id_provinsi);
+        $response["status"] = true;
+        $response["msg"] = "Data {$nama_kabupaten} berhasil ditambahkan";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Nama kabupaten telah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
@@ -38,23 +45,32 @@ class Kabupaten extends CI_Controller
       $status = $this->input->post("status");
 
       $this->load->model("m_kabupaten");
-      $this->m_kabupaten->update($id, $nama, $status);
-      $response["status"] = true;
+      $result = $this->m_kabupaten->check_duplicate_update($id,$nama);
+      if($result->num_rows() == 0){
+        $this->m_kabupaten->update($id, $nama, $status);
+        $response["status"] = true;
+        $response["msg"] = "Data {$nama} berhasil diubah";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Nama kabupaten telah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
     }
     echo json_encode($response);
   }
-  public function delete()
+  public function delete($id)
   {
-    $id = $this->input->get("id");
-    if ($id != "") {
+    if (is_numeric($id)) {
       $this->load->model("m_kabupaten");
       $this->m_kabupaten->delete($id);
       $response["status"] = true;
+      $response["msg"] = "Data berhasil dihapus";
     } else {
       $response["status"] = false;
+      $response["msg"] = "ID tidak valid";
     }
     echo json_encode($response);
   }

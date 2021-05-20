@@ -6,12 +6,20 @@ class Provinsi extends CI_Controller
     $this->form_validation->set_rules("nama_provinsi", "Nama Provinsi", "required");
     $this->form_validation->set_rules("status_provinsi", "Status Provinsi", "required");
     if ($this->form_validation->run()) {
-      $nama_provinsi = $this->input->post("nama_provinsi");
+      $nama_provinsi = strtoupper($this->input->post("nama_provinsi"));
       $status_provinsi = $this->input->post("status_provinsi");
       $this->load->model("m_provinsi");
-      $last_id = $this->m_provinsi->insert($nama_provinsi, $status_provinsi);
-      $response["status"] = true;
-      $response["last_id"] = $last_id;
+      $result = $this->m_provinsi->check_duplicate_insert($nama_provinsi);
+      if($result->num_rows() == 0){
+
+        $this->m_provinsi->insert($nama_provinsi, $status_provinsi);
+        $response["status"] = true;
+        $response["msg"] = "Data {$nama_provinsi} berhasil ditambahkan";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Nama provinsi sudah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
@@ -25,28 +33,37 @@ class Provinsi extends CI_Controller
     $this->form_validation->set_rules("status", "Status Provinsi", "required");
     if ($this->form_validation->run()) {
       $id_provinsi = $this->input->post("id");
-      $nama_provinsi = $this->input->post("nama");
+      $nama_provinsi = strtoupper($this->input->post("nama"));
       $status_provinsi = $this->input->post("status");
 
       $this->load->model("m_provinsi");
-      $last_id = $this->m_provinsi->update($id_provinsi, $nama_provinsi, $status_provinsi);
-      $response["status"] = true;
+      $result = $this->m_provinsi->check_duplicate_update($id_provinsi,$nama_provinsi);
+      if($result->num_rows() == 0){
+
+        $this->m_provinsi->update($id_provinsi, $nama_provinsi, $status_provinsi);
+        $response["status"] = true;
+        $response["msg"] = "Data {$nama_provinsi} berhasil diubah";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Nama provinsi sudah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
     }
     echo json_encode($response);
   }
-  public function delete()
+  public function delete($id)
   {
-    $id = $this->input->get("id");
-    if ($id != "") {
+    if (is_numeric($id)) {
       $this->load->model("m_provinsi");
       $this->m_provinsi->delete($id);
       $response["status"] = true;
+      $response["msg"] = "Data berhasil dihapus";
     } else {
       $response["status"] = false;
-      $response["msg"] = "The ID Provinsi field is required";
+      $response["msg"] = "ID tidak valid";
     }
     echo json_encode($response);
   }

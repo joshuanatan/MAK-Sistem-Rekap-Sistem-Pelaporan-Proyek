@@ -76,4 +76,19 @@ class M_provinsi extends CI_Model
     $sql = "select id_pk_provinsi from mstr_provinsi where provinsi_status != 'deleted' " . $search_query;
     return executeQuery($sql);
   }
+  public function check_duplicate_insert($nama_provinsi){
+    $where = array(
+      "provinsi_nama" => $nama_provinsi,
+      "provinsi_status !=" => "deleted"
+    );
+    return selectRow("mstr_provinsi",$where);
+  }
+  public function check_duplicate_update($id_pk_provinsi, $nama_provinsi){
+    $where = array(
+      "id_pk_provinsi !=" => $id_pk_provinsi,
+      "provinsi_nama" => $nama_provinsi,
+      "provinsi_status !=" => "deleted"
+    );
+    return selectRow("mstr_provinsi",$where);
+  }
 }

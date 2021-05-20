@@ -3,7 +3,7 @@
 
 <head>
   <?php $this->load->view("includes/meta") ?>
-  <title>MAK-CRM | Master provinsi</title>
+  <title>MAK-CRM | Master Provinsi & Kabupaten</title>
   <?php $this->load->view("includes/core-head") ?>
   <link rel="stylesheet" href="<?php echo base_url(); ?>global/fonts/font-awesome/font-awesome.css">
 
@@ -21,7 +21,7 @@
     <div class="page-header">
       <h1 class="page-title">Provinsi & Kabupaten</h1>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>welcome/home">Home</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
         <li class="breadcrumb-item active">Provinsi & Kabupaten</li>
       </ol>
@@ -189,6 +189,22 @@
     row++;
   }
 
+  function load_edit(row) {
+    edited_row = row;
+    var id_provinsi = $("#id_provinsi" + row).val();
+    var nama_provinsi = $("#nama_provinsi" + row).val();
+    var status_provinsi = $("#status_provinsi" + row).val();
+    $("#id_provinsi_edit").val(id_provinsi);
+    $("#nama_provinsi_edit").val(nama_provinsi);
+    $("#status_provinsi_edit").val(status_provinsi);
+  }
+
+  function load_delete(row) {
+    deleted_row = row;
+    var id = $("#id_provinsi" + row).val();
+    $("#id_provinsi_delete").val(id);
+  }
+
   function submit_data_provinsi(row) {
     var nama_provinsi = $("#nama_provinsi_insert" + row).val();
     var status_provinsi = $("#status_provinsi_insert" + row).val();
@@ -201,25 +217,13 @@
         "status_provinsi": status_provinsi
       },
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#tambahRowProvinsi" + row).remove();
-          alert("Provinsi Berhasil Ditambahkan");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
-  }
-
-  function load_edit(row) {
-    edited_row = row;
-    var id_provinsi = $("#id_provinsi" + row).val();
-    var nama_provinsi = $("#nama_provinsi" + row).val();
-    var status_provinsi = $("#status_provinsi" + row).val();
-    $("#id_provinsi_edit").val(id_provinsi);
-    $("#nama_provinsi_edit").val(nama_provinsi);
-    $("#status_provinsi_edit").val(status_provinsi);
   }
 
   function submit_changes() {
@@ -236,36 +240,27 @@
         "status": status_provinsi_edit
       },
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           reload_table();
-          alert("Provinsi Berhasil Diubah");
           $("#edit_provinsi").modal("hide");
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
   }
 
-  function load_delete(row) {
-    deleted_row = row;
-    var id = $("#id_provinsi" + row).val();
-    $("#id_provinsi_delete").val(id);
-  }
-
   function submit_delete() {
     var id = $("#id_provinsi_delete").val();
     $.ajax({
-      url: "<?php echo base_url(); ?>ws/provinsi/delete?id=" + id,
+      url: "<?php echo base_url(); ?>ws/provinsi/delete/" + id,
       type: "delete",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          $("#provinsi_row" + deleted_row).remove();
           reload_table();
+          $("#provinsi_row" + deleted_row).remove();
           $("#delete_provinsi").modal("hide");
-        } else {
-          alert("Provinsi Gagal Dihapus");
         }
       }
     });
@@ -292,6 +287,22 @@
     row_kabupaten++;
   }
 
+  function load_edit_kabupaten(row) {
+    edited_row = row;
+    var id_kabupaten = $("#id_kabupaten" + row).val();
+    var nama_kabupaten = $("#nama_kabupaten" + row).val();
+    var status_kabupaten = $("#status_kabupaten" + row).val();
+    $("#id_kabupaten_edit").val(id_kabupaten);
+    $("#nama_kabupaten_edit").val(nama_kabupaten);
+    $("#status_kabupaten_edit").val(status_kabupaten);
+  }
+
+  function load_delete_kabupaten(row) {
+    deleted_row = row;
+    var id = $("#id_kabupaten" + row).val();
+    $("#id_kabupaten_delete").val(id);
+  }
+
   function submit_data_kabupaten(row) {
     var nama_kabupaten = $("#nama_kabupaten_insert" + row).val();
     var status_kabupaten = $("#status_kabupaten_insert" + row).val();
@@ -306,25 +317,13 @@
         "id_provinsi": id_provinsi
       },
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $(`tambahRowKabupaten${row}`).remove();
-          alert("Kabupaten Berhasil Ditambahkan");
           reload_table1();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
-  }
-
-  function load_edit_kabupaten(row) {
-    edited_row = row;
-    var id_kabupaten = $("#id_kabupaten" + row).val();
-    var nama_kabupaten = $("#nama_kabupaten" + row).val();
-    var status_kabupaten = $("#status_kabupaten" + row).val();
-    $("#id_kabupaten_edit").val(id_kabupaten);
-    $("#nama_kabupaten_edit").val(nama_kabupaten);
-    $("#status_kabupaten_edit").val(status_kabupaten);
   }
 
   function submit_changes_kabupaten() {
@@ -341,36 +340,27 @@
         "status": status_kabupaten_edit
       },
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           reload_table1();
-          alert("Kabupaten Berhasil Diubah");
           $("#edit_kabupaten").modal("hide");
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
   }
 
-  function load_delete_kabupaten(row) {
-    deleted_row = row;
-    var id = $("#id_kabupaten" + row).val();
-    $("#id_kabupaten_delete").val(id);
-  }
-
   function submit_delete_kabupaten() {
     var id = $("#id_kabupaten_delete").val();
     $.ajax({
-      url: "<?php echo base_url(); ?>ws/kabupaten/delete?id=" + id,
+      url: "<?php echo base_url(); ?>ws/kabupaten/delete/" + id,
       type: "delete",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#kabupaten_row" + deleted_row).remove();
           $("#delete_kabupaten").modal("hide");
           reload_table1();
-        } else {
-          alert("Kabupaten Gagal Dihapus");
         }
       }
     });
@@ -526,6 +516,12 @@
         var html = "";
         content = respond["data"];
         for (var a = 0; a < respond["data"].length; a++) {
+          var html_status = "";
+          if (respond["data"][a]["provinsi_status"].toLowerCase() == "aktif") {
+            html_status = `<button type = "button" class = "btn btn-success btn-sm">${respond["data"][a]["provinsi_status"].toUpperCase()}</button>`;
+          } else if (respond["data"][a]["provinsi_status"].toLowerCase() == "nonaktif" || respond["data"][a]["provinsi_status"].toLowerCase() == "deleted") {
+            html_status = `<button type = "button" class = "btn btn-danger btn-sm">${respond["data"][a]["provinsi_status"].toUpperCase()}</button>`;
+          }
           html += `
           <tr class = "provinsi_row" id = "provinsi_row${a}">
             <input type = "hidden" id = "id_provinsi${a}" value = "${respond["data"][a]["id_pk_provinsi"]}">
@@ -533,7 +529,7 @@
             <input type = "hidden" id = "status_provinsi${a}" value = "${respond["data"][a]["provinsi_status"]}">
             <td id = "nama_provinsi_display${a}" onclick = "load_kabupaten_provinsi('${respond["data"][a]['provinsi_nama']}',${respond["data"][a]['id_pk_provinsi']})">${respond["data"][a]["provinsi_nama"]}</td>
             <td id = "status_provinsi_display${a}" onclick = "load_kabupaten_provinsi('${respond["data"][a]['provinsi_nama']}',${respond["data"][a]['id_pk_provinsi']})">
-              ${respond["data"][a]["provinsi_status"]}
+              ${html_status}
             </td>
             <td>
               <button type = "button" onclick = "load_edit(${a})" class = "btn btn-primary btn-sm" data-target="#edit_provinsi" data-toggle="modal"><i class = "icon md-edit"></i></button>
@@ -630,13 +626,21 @@
         var html = "";
         content1 = respond["data"];
         for (var a = 0; a < respond["data"].length; a++) {
+          
+          var html_status = "";
+          if (respond["data"][a]["kabupaten_status"].toLowerCase() == "aktif") {
+            html_status = `<button type = "button" class = "btn btn-success btn-sm">${respond["data"][a]["kabupaten_status"].toUpperCase()}</button>`;
+          } else if (respond["data"][a]["kabupaten_status"].toLowerCase() == "nonaktif" || respond["data"][a]["kabupaten_status"].toLowerCase() == "deleted") {
+            html_status = `<button type = "button" class = "btn btn-danger btn-sm">${respond["data"][a]["kabupaten_status"].toUpperCase()}</button>`;
+          }
+
           html += `
           <tr class = "kabupaten_row" id = "kabupaten_row${a}">
             <input type = "hidden" id = "id_kabupaten${a}" value = "${respond["data"][a]["id_pk_kabupaten"]}">
             <input type = "hidden" id = "nama_kabupaten${a}" value = "${respond["data"][a]["kabupaten_nama"]}">
             <input type = "hidden" id = "status_kabupaten${a}" value = "${respond["data"][a]["kabupaten_status"]}">
             <td id = 'nama_kabupaten_display${a}'>${respond["data"][a]["kabupaten_nama"]}</td>
-            <td id = 'status_kabupaten_display${a}'>${respond["data"][a]["kabupaten_status"]}</td>
+            <td id = 'status_kabupaten_display${a}'>${html_status}</td>
             <td>
               <button type = "button" onclick = "load_edit_kabupaten(${a})" class = "btn btn-primary btn-sm" data-target="#edit_kabupaten" data-toggle="modal"><i class = "icon md-edit"></i></button>
               <button type = "button" onclick = "load_delete_kabupaten(${a})" class = "btn btn-danger btn-sm" data-target="#delete_kabupaten" data-toggle="modal"><i class = "icon md-delete"></i></button>
