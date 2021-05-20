@@ -50,4 +50,19 @@ class M_jenis_rs extends CI_Model
     $sql = "SELECT id_pk_jenis_rs, jenis_rs_nama, jenis_rs_kode, jenis_rs_status FROM mstr_jenis_rs where jenis_rs_status = 'aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     return executeQuery($sql);
   }
+  public function check_duplicate_insert($jenis_rs_kode){
+    $where = array(
+      "jenis_rs_kode" => $jenis_rs_kode,
+      "jenis_rs_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_jenis_rs",$where);
+  }
+  public function check_duplicate_update($id_pk_jenis_rs, $jenis_rs_kode){
+    $where = array(
+      "id_pk_jenis_rs !=" => $id_pk_jenis_rs,
+      "jenis_rs_kode" => $jenis_rs_kode,
+      "jenis_rs_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_jenis_rs",$where);
+  }
 }

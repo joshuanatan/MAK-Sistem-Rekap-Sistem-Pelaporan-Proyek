@@ -66,8 +66,8 @@
           <table class="table table-hover dataTable table-striped w-full">
             <thead>
               <tr>
-                <th>Jenis Rumah Sakit</th>
                 <th>Kode Jenis Rumah Sakit</th>
+                <th>Jenis Rumah Sakit</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -104,12 +104,12 @@
       <form id="createForm">
         <div class="modal-body">
           <div class="form-group">
-            <label class="form-control-label">Jenis Rumah Sakit</label>
-            <input type="text" class="form-control" name="namajenisrs" placeholder="Jenis Rumah Sakit" autocomplete="off">
-          </div>
-          <div class="form-group">
             <label class="form-control-label">Kode Jenis Rumah Sakit</label>
             <input type="text" class="form-control" name="kodejenisrs" placeholder="Kode Jenis Rumah Sakit" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <input type="text" class="form-control" name="namajenisrs" placeholder="Jenis Rumah Sakit" autocomplete="off">
           </div>
         </div>
         <div class="modal-footer">
@@ -133,12 +133,12 @@
         <input type="hidden" class="form-control" name="idjenisrs" id="edit_idjenisrs">
         <div class="modal-body">
           <div class="form-group">
-            <label class="form-control-label">Jenis Rumah Sakit</label>
-            <input type="text" class="form-control" name="namajenisrs" id="edit_namajenisrs">
-          </div>
-          <div class="form-group">
             <label class="form-control-label">Kode Jenis Rumah Sakit</label>
             <input type="text" class="form-control" name="kodejenisrs" id="edit_kodejenisrs">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <input type="text" class="form-control" name="namajenisrs" id="edit_namajenisrs">
           </div>
         </div>
         <div class="modal-footer">
@@ -217,11 +217,18 @@
         var html = "";
         content = respond["data"];
         for (var a = 0; a < respond["data"].length; a++) {
+          var html_status = "";
+          if (respond["data"][a]["jenis_rs_status"].toLowerCase() == "aktif") {
+            html_status = `<button type = "button" class = "btn btn-success btn-sm">${respond["data"][a]["jenis_rs_status"].toUpperCase()}</button>`;
+          } else if (respond["data"][a]["jenis_rs_status"].toLowerCase() == "nonaktif" || respond["data"][a]["jenis_rs_status"].toLowerCase() == "deleted") {
+            html_status = `<button type = "button" class = "btn btn-danger btn-sm">${respond["data"][a]["jenis_rs_status"].toUpperCase()}</button>`;
+          }
+
           html += `
           <tr id = "jenis_rs_row${a}">
-            <td>${respond["data"][a]["jenis_rs_nama"]}</td>
             <td>${respond["data"][a]["jenis_rs_kode"]}</td>
-            <td>${respond["data"][a]["jenis_rs_status"]}</td>
+            <td>${respond["data"][a]["jenis_rs_nama"]}</td>
+            <td>${html_status}</td>
             <td>
             <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#updateModal"><i class = "icon md-edit"></i></button>
             <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#deleteModal"><i class = "icon md-delete"></i></button>
@@ -288,14 +295,12 @@
       contentType: false,
       processData: false,
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#createForm").html(create_jenis_rs_form);
           $("#createModal").modal("hide");
-          alert("Data Jenis Rumah Sakit Berhasil Dimasukan");
           reload_table();
-        } else {
-          alert(respond["msg"]);
-        }
+        } 
       }
     });
   }
@@ -310,12 +315,10 @@
       contentType: false,
       processData: false,
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#updateModal").modal("hide");
-          alert("Data Jenis Rumah Sakit Berhasil Diubah");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
@@ -328,12 +331,10 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#deleteModal").modal("hide");
-          alert("Data Jenis Rumah Sakit Berhasil Dihapus");
           reload_table();
-        } else {
-          alert("Data Jenis Rumah Sakit Gagal Dihapus");
         }
       }
     });

@@ -22,12 +22,20 @@ class Jenis_rs extends CI_Controller
     $this->form_validation->set_rules("namajenisrs", "Jenis Rumah Sakit", "required");
     $this->form_validation->set_rules("kodejenisrs", "Kode Jenis Rumah Sakit", "required");
     if ($this->form_validation->run()) {
-      $temp_jenis_rs_nama = $this->input->post('namajenisrs');
-      $temp_jenis_rs_kode = $this->input->post('kodejenisrs');
+      $temp_jenis_rs_nama = ucwords($this->input->post('namajenisrs'));
+      $temp_jenis_rs_kode = strtoupper($this->input->post('kodejenisrs'));
       $temp_jenis_rs_status = "aktif";
       $this->load->model("m_jenis_rs");
-      $this->m_jenis_rs->insert($temp_jenis_rs_nama, $temp_jenis_rs_kode, $temp_jenis_rs_status);
-      $response["status"] = true;
+      if($this->m_jenis_rs->check_duplicate_insert($temp_jenis_rs_kode)->num_rows() == 0){
+
+        $this->m_jenis_rs->insert($temp_jenis_rs_nama, $temp_jenis_rs_kode, $temp_jenis_rs_status);
+        $response["status"] = true;
+        $response["msg"] = "Data {$temp_jenis_rs_kode} - {$temp_jenis_rs_nama} berhasil ditambah";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Kode jenis rumah sakit sudah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
@@ -36,13 +44,14 @@ class Jenis_rs extends CI_Controller
   }
   public function delete($id_pk_jenis_rs)
   {
-    if ($id_pk_jenis_rs != "") {
+    if (is_numeric($id_pk_jenis_rs)) {
       $this->load->model("m_jenis_rs");
       $this->m_jenis_rs->delete_jenis_rs($id_pk_jenis_rs);
       $response["status"] = true;
+      $response["msg"] = "Data berhasil dihapus";
     } else {
       $response["status"] = false;
-      $response["msg"] = "The ID Jenis Rumah Sakit field is required";
+      $response["msg"] = "ID jenis rumah sakit tidak valid";
     }
     echo json_encode($response);
   }
@@ -53,11 +62,19 @@ class Jenis_rs extends CI_Controller
     $this->form_validation->set_rules("kodejenisrs", "Kode Jenis Rumah Sakit", "required");
     if ($this->form_validation->run()) {
       $temp_id_pk_jenis_rs = $this->input->post('idjenisrs');
-      $temp_jenis_rs_nama = $this->input->post('namajenisrs');
-      $temp_jenis_rs_kode = $this->input->post('kodejenisrs');
+      $temp_jenis_rs_nama = ucwords($this->input->post('namajenisrs'));
+      $temp_jenis_rs_kode = strtoupper($this->input->post('kodejenisrs'));
       $this->load->model("m_jenis_rs");
-      $this->m_jenis_rs->edit_jenis_rs($temp_id_pk_jenis_rs, $temp_jenis_rs_nama, $temp_jenis_rs_kode);
-      $response["status"] = true;
+      if($this->m_jenis_rs->check_duplicate_update($temp_id_pk_jenis_rs,$temp_jenis_rs_kode)->num_rows() == 0){
+
+        $this->m_jenis_rs->edit_jenis_rs($temp_id_pk_jenis_rs, $temp_jenis_rs_nama, $temp_jenis_rs_kode);
+        $response["status"] = true;
+        $response["msg"] = "Data {$temp_jenis_rs_kode} - {$temp_jenis_rs_nama} berhasil diubah";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Kode jenis rumah sakit sudah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
