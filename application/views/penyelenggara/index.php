@@ -211,10 +211,17 @@
         var html = "";
         content = respond["data"];
         for (var a = 0; a < respond["data"].length; a++) {
+          
+          var html_status = "";
+          if (respond["data"][a]["penyelenggara_status"].toLowerCase() == "aktif") {
+            html_status = `<button type = "button" class = "btn btn-success btn-sm">${respond["data"][a]["penyelenggara_status"].toUpperCase()}</button>`;
+          } else if (respond["data"][a]["penyelenggara_status"].toLowerCase() == "nonaktif" || respond["data"][a]["penyelenggara_status"].toLowerCase() == "deleted") {
+            html_status = `<button type = "button" class = "btn btn-danger btn-sm">${respond["data"][a]["penyelenggara_status"].toUpperCase()}</button>`;
+          }
           html += `
           <tr id = "penyelenggara${a}">
             <td>${respond["data"][a]["penyelenggara_nama"]}</td>
-            <td>${respond["data"][a]["penyelenggara_status"]}</td>
+            <td>${html_status}</td>
             <td>
             <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})" data-toggle = "modal" data-target = "#updateModal"><i class = "icon md-edit"></i></button>
             <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})" data-toggle = "modal" data-target = "#deleteModal"><i class = "icon md-delete"></i></button>
@@ -281,13 +288,11 @@
       contentType: false,
       processData: false,
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#createForm").html(create_penyelenggara_form);
           $("#createModal").modal("hide");
-          alert("Data Penyelenggara Rumah Sakit Berhasil Dimasukan");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
@@ -303,12 +308,10 @@
       contentType: false,
       processData: false,
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#updateModal").modal("hide");
-          alert("Data Penyelenggara Rumah Sakit Berhasil Diubah");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
@@ -321,12 +324,10 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          $("#deleteModal").modal("hide");
-          alert("Data Penyelenggara Rumah Sakit Berhasil Dihapus");
+          $("#deleteModal").modal("hide")
           reload_table();
-        } else {
-          alert("Data Penyelenggara Rumah Sakit Gagal Dihapus");
         }
       }
     });

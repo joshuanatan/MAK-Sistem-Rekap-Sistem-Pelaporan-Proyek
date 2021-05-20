@@ -48,4 +48,19 @@ class M_penyelenggara extends CI_Model
     $sql = "SELECT id_pk_penyelenggara, penyelenggara_nama, penyelenggara_status FROM mstr_penyelenggara where penyelenggara_status = 'aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     return executeQuery($sql);
   }
+  public function check_duplicate_insert($penyelenggara_nama){
+    $where = array(
+      "penyelenggara_nama" => $penyelenggara_nama,
+      "penyelenggara_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_penyelenggara",$where);
+  }
+  public function check_duplicate_update($id_pk_penyelenggara, $penyelenggara_nama){
+    $where = array(
+      "id_pk_penyelenggara !=" => $id_pk_penyelenggara,
+      "penyelenggara_nama" => $penyelenggara_nama,
+      "penyelenggara_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_penyelenggara",$where);
+  }
 }
