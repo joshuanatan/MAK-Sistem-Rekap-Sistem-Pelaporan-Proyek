@@ -27,80 +27,116 @@ class User extends CI_Controller
   }
   public function insert()
   {
-    $temp_user_username = $this->input->post('username');
-    $temp_user_password = $this->input->post('password');
-    $temp_user_email = $this->input->post('email');
-    $temp_user_telepon = $this->input->post('telepon');
-    $temp_user_role = $this->input->post('role');
-    $this->load->model("m_user");
-    $checker = $this->m_user->check($temp_user_email);
-    if ($checker->num_rows() > 0) {
-      echo json_encode("Email has been used! Please use another email");
-    } else {
-      $id_user = $this->m_user->insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon, $temp_user_role);
+    $this->form_validation->set_rules("username","Username","required");
+    $this->form_validation->set_rules("password","Password","required");
+    $this->form_validation->set_rules("email","Email","required");
+    $this->form_validation->set_rules("telepon","Telepon","required");
+    $this->form_validation->set_rules("role","Role","required");
+    if($this->form_validation->run()){
+      $temp_user_username = ucwords($this->input->post('username'));
+      $temp_user_password = $this->input->post('password');
+      $temp_user_email = $this->input->post('email');
+      $temp_user_telepon = $this->input->post('telepon');
+      $temp_user_role = $this->input->post('role');
+      $this->load->model("m_user");
+      $checker = $this->m_user->check($temp_user_email);
+      if ($checker->num_rows() > 0) {
+        $response["status"] = false;
+        $response["msg"] = "Email sudah terdaftar";
+      } else {
+        $id_user = $this->m_user->insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon, $temp_user_role);
+        if ($temp_user_role == "Sales Engineer") {
+          $id_kabupaten = $this->input->post("kabupaten");
+
+          $this->load->model("m_user_kabupaten");
+          $this->m_user_kabupaten->insert($id_user, $id_kabupaten);
+
+          $this->load->model("m_user_rs");
+          $rumah_sakit = $this->input->post("se_rs");
+          foreach ($rumah_sakit as $rs) {
+            $this->m_user_rs->insert($id_user, $rs);
+          }
+        } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+          $this->load->model("m_user_kabupaten");
+          $asm_kabupaten = $this->input->post("asm_kabupaten");
+          foreach ($asm_kabupaten as $a) {
+            $this->m_user_kabupaten->insert($id_user, $a);
+          }
+        }
+        $response["status"] = true;
+        $response["msg"] = "Data {$temp_user_username} berhasil diinput";
+      }
+    }
+    else {
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
+    }
+    echo json_encode($response);
+  }
+  public function update()
+  {
+    $this->form_validation->set_rules("username","Username","required");
+    $this->form_validation->set_rules("email","Email","required");
+    $this->form_validation->set_rules("telepon","Telepon","required");
+    $this->form_validation->set_rules("role","Role","required");
+    $this->form_validation->set_rules("id_user","ID","required");
+    if($this->form_validation->run()){
+      $temp_id_user = $this->input->post('id_user');
+      $temp_user_username = ucwords($this->input->post('username'));
+      $temp_user_email = $this->input->post('email');
+      $temp_user_telepon = $this->input->post('telepon');
+      $temp_user_role = $this->input->post('role');
+      $this->load->model("m_user");
+      $this->m_user->update($temp_id_user, $temp_user_username, $temp_user_email, $temp_user_telepon, $temp_user_role);
       if ($temp_user_role == "Sales Engineer") {
         $id_kabupaten = $this->input->post("kabupaten");
 
         $this->load->model("m_user_kabupaten");
-        $this->m_user_kabupaten->insert($id_user, $id_kabupaten);
+        $this->m_user_kabupaten->deactive_data($temp_id_user);
+        $this->m_user_kabupaten->insert($temp_id_user, $id_kabupaten);
 
         $this->load->model("m_user_rs");
+        $this->m_user_rs->deactive_data($temp_id_user);
         $rumah_sakit = $this->input->post("se_rs");
         foreach ($rumah_sakit as $rs) {
-          $this->m_user_rs->insert($id_user, $rs);
+          $this->m_user_rs->insert($temp_id_user, $rs);
         }
       } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
         $this->load->model("m_user_kabupaten");
+        $this->m_user_kabupaten->deactive_data($temp_id_user);
         $asm_kabupaten = $this->input->post("asm_kabupaten");
         foreach ($asm_kabupaten as $a) {
-          $this->m_user_kabupaten->insert($id_user, $a);
+          $this->m_user_kabupaten->insert($temp_id_user, $a);
         }
       }
+      $response["status"] = true;
+      $response["msg"] = "Data user berhasil diupdate menjadi {$temp_user_username}";
     }
-  }
-  public function update()
-  {
-    $temp_id_user = $this->input->post('id_user');
-    $temp_user_username = $this->input->post('username');
-    $temp_user_email = $this->input->post('email');
-    $temp_user_telepon = $this->input->post('telepon');
-    $temp_user_role = $this->input->post('role');
-    $this->load->model("m_user");
-    $this->m_user->update($temp_id_user, $temp_user_username, $temp_user_email, $temp_user_telepon, $temp_user_role);
-    if ($temp_user_role == "Sales Engineer") {
-      $id_kabupaten = $this->input->post("kabupaten");
-
-      $this->load->model("m_user_kabupaten");
-      $this->m_user_kabupaten->deactive_data($temp_id_user);
-      $this->m_user_kabupaten->insert($temp_id_user, $id_kabupaten);
-
-      $this->load->model("m_user_rs");
-      $this->m_user_rs->deactive_data($temp_id_user);
-      $rumah_sakit = $this->input->post("se_rs");
-      foreach ($rumah_sakit as $rs) {
-        $this->m_user_rs->insert($temp_id_user, $rs);
-      }
-    } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
-      $this->load->model("m_user_kabupaten");
-      $this->m_user_kabupaten->deactive_data($temp_id_user);
-      $asm_kabupaten = $this->input->post("asm_kabupaten");
-      foreach ($asm_kabupaten as $a) {
-        $this->m_user_kabupaten->insert($temp_id_user, $a);
-      }
+    else {
+      $response["status"] = false;
+      $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
     }
+    echo json_encode($response);
   }
   public function delete($id_user)
   {
-    $this->load->model("m_user");
-    $this->m_user->delete($id_user);
+    if(is_numeric($id_user)){
+      $this->load->model("m_user");
+      $this->m_user->delete($id_user);
 
-    $this->load->model("m_user_kabupaten");
-    $this->m_user_kabupaten->deactive_data($id_user);
+      $this->load->model("m_user_kabupaten");
+      $this->m_user_kabupaten->deactive_data($id_user);
 
-    $this->load->model("m_user_rs");
-    $this->m_user_rs->deactive_data($id_user);
+      $this->load->model("m_user_rs");
+      $this->m_user_rs->deactive_data($id_user);
 
-    $response["status"] = true;
+      $response["status"] = true;
+      $response["msg"] = "Data berhasil dihapus";
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "ID yang diberikan tidak valid";
+    }
     echo json_encode($response);
   }
   public function get_data()
