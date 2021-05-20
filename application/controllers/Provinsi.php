@@ -1,9 +1,12 @@
 <?php
-class Provinsi extends CI_Controller{
-  public function __construct(){
-      parent::__construct();
+class Provinsi extends CI_Controller
+{
+  public function __construct()
+  {
+    parent::__construct();
   }
-  public function index(){
+  public function index()
+  {
     $data["field"] = array(
       array(
         "field_value" => "provinsi_nama",

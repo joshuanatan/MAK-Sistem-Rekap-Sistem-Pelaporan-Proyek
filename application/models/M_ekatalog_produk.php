@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
-class M_ekatalog_produk extends CI_Model{
+class M_ekatalog_produk extends CI_Model
+{
   /*
     create table tbl_ekatalog_produk(
       id_pk_ekatalog_produk int primary key auto_increment,
@@ -26,7 +27,8 @@ class M_ekatalog_produk extends CI_Model{
       id_fk_ekatalog int
     )
   */
-  public function insert($id_fk_ekatalog,$ekatalog_produk_nama_produk,$ekatalog_produk_kuantitas,$ekatalog_produk_mata_uang,$ekatalog_produk_harga_satuan,$ekatalog_produk_perkiraan_ongkos_kirim,$ekatalog_produk_total_harga,$ekatalog_produk_catatan){
+  public function insert($id_fk_ekatalog, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan)
+  {
     $data = array(
       "ekatalog_produk_nama_produk" => $ekatalog_produk_nama_produk,
       "ekatalog_produk_kuantitas_online" => $ekatalog_produk_kuantitas,
@@ -45,9 +47,10 @@ class M_ekatalog_produk extends CI_Model{
       "ekatalog_produk_id_create" => $this->session->id_user,
       "id_fk_ekatalog" => $id_fk_ekatalog
     );
-    return insertRow("tbl_ekatalog_produk",$data);
+    return insertRow("tbl_ekatalog_produk", $data);
   }
-  public function update($id_pk_ekatalog_produk,$ekatalog_produk_nama_produk,$ekatalog_produk_kuantitas,$ekatalog_produk_mata_uang,$ekatalog_produk_harga_satuan,$ekatalog_produk_perkiraan_ongkos_kirim,$ekatalog_produk_total_harga,$ekatalog_produk_catatan){
+  public function update($id_pk_ekatalog_produk, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan)
+  {
     $where = array(
       "id_pk_ekatalog_produk" => $id_pk_ekatalog_produk,
     );
@@ -67,9 +70,10 @@ class M_ekatalog_produk extends CI_Model{
       "ekatalog_produk_tgl_update" => date("Y-m-d H:i:s"),
       "ekatalog_produk_id_update" => $this->session->id_user
     );
-    updateRow("tbl_ekatalog_produk",$data,$where);
+    updateRow("tbl_ekatalog_produk", $data, $where);
   }
-  public function delete($id_pk_ekatalog_produk){
+  public function delete($id_pk_ekatalog_produk)
+  {
     $where = array(
       "id_pk_ekatalog_produk" => $id_pk_ekatalog_produk,
     );
@@ -78,9 +82,10 @@ class M_ekatalog_produk extends CI_Model{
       "ekatalog_produk_tgl_delete" => date("Y-m-d H:i:s"),
       "ekatalog_produk_id_delete" => $this->session->id_user
     );
-    updateRow("tbl_ekatalog_produk",$data,$where);
+    updateRow("tbl_ekatalog_produk", $data, $where);
   }
-  public function get_ekatalog_produk($id_pk_ekatalog){
+  public function get_ekatalog_produk($id_pk_ekatalog)
+  {
     $sql = "select id_pk_ekatalog_produk, ekatalog_produk_nama_produk, ekatalog_produk_kuantitas_online, ekatalog_produk_mata_uang_online, ekatalog_produk_harga_satuan_online, ekatalog_produk_perkiraan_ongkos_kirim_online, ekatalog_produk_total_harga_online, ekatalog_produk_kuantitas, ekatalog_produk_mata_uang, ekatalog_produk_harga_satuan, ekatalog_produk_perkiraan_ongkos_kirim, ekatalog_produk_total_harga, ekatalog_produk_catatan, ekatalog_produk_status from tbl_ekatalog_produk where ekatalog_produk_status = 'aktif' and id_fk_ekatalog = ?";
     $args = array(
       $id_pk_ekatalog

@@ -1,15 +1,18 @@
 <?php
 
-class User extends CI_Controller{
-    #list all user, baik developer, admin, dan client representatives.
-  public function __construct(){
+class User extends CI_Controller
+{
+  #list all user, baik developer, admin, dan client representatives.
+  public function __construct()
+  {
     parent::__construct();
   }
-  public function index(){
+  public function index()
+  {
     $this->load->model("m_provinsi");
     $result_provinsi = $this->m_provinsi->get_active_data();
 
-    $data = array (
+    $data = array(
       "data_provinsi" => $result_provinsi->result_array(),
     );
     $data["field"] = array(
@@ -33,7 +36,8 @@ class User extends CI_Controller{
     $this->load->view("user/index", $data);
   }
 
-  public function insert() {
+  public function insert()
+  {
     //$temp_id_fk_user_level = $this->input->post('');
     $temp_user_username = $this->input->post('username');
     $temp_user_password = $this->input->post('password');
@@ -43,25 +47,22 @@ class User extends CI_Controller{
     $this->load->model("m_user");
     $id_user = $this->m_user->insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon, $temp_user_role);
 
-    if($temp_user_role == "Sales Engineer"){
-
-    }
-    else if($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager"){
-
-    }
-    else{
-      
+    if ($temp_user_role == "Sales Engineer") {
+    } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+    } else {
     }
     redirect("user/index");
   }
 
-  public function delete($id_pk_user) {
+  public function delete($id_pk_user)
+  {
     $this->load->model("m_user");
     $this->m_user->delete($id_pk_user);
     Redirect("user/index");
   }
 
-  public function edit() {
+  public function edit()
+  {
     $temp_id_user = $this->input->post('id_user');
     $temp_user_username = $this->input->post('username');
     $temp_user_email = $this->input->post('email');

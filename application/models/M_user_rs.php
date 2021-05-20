@@ -1,14 +1,17 @@
 <?php
-class M_user_rs extends CI_model{
-  public function insert($id_fk_user, $id_fk_rs){
+class M_user_rs extends CI_model
+{
+  public function insert($id_fk_user, $id_fk_rs)
+  {
     $data = array(
       "id_fk_user" => $id_fk_user,
       "id_fk_rs" => $id_fk_rs,
       "user_rs_status" => "aktif",
     );
-    insertRow("tbl_user_rs",$data);
+    insertRow("tbl_user_rs", $data);
   }
-  public function get_selected_rs($id_pk_user){
+  public function get_selected_rs($id_pk_user)
+  {
     $sql = "
     select id_pk_user_rs, id_pk_rs, rs_nama, rs_kelas, rs_alamat, rs_kategori from tbl_user_rs
     inner join mstr_rs on mstr_rs.id_pk_rs = tbl_user_rs.id_fk_rs
@@ -19,9 +22,10 @@ class M_user_rs extends CI_model{
     $args = array(
       $id_pk_user
     );
-    return executeQuery($sql,$args);
+    return executeQuery($sql, $args);
   }
-  public function get_unselected_rs($id_pk_user,$id_kabupaten){
+  public function get_unselected_rs($id_pk_user, $id_kabupaten)
+  {
     #per terkahir, id pk user ini memang gakepake karena mau tampilin rs yang belom di assign ke siapapun regardless dr orangnya.
     #current justification: tampilin semua rs yang belom di assign ke siapapun. Jadi kaalau uda d assign ke org lain, itu juga gamuncul
     $sql = "
@@ -37,7 +41,8 @@ class M_user_rs extends CI_model{
     );
     return executeQuery($sql, $args);
   }
-  public function deactive_data($id_user){
+  public function deactive_data($id_user)
+  {
     $where = array(
       "id_fk_user" => $id_user
     );

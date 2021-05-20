@@ -1,6 +1,8 @@
 <?php
-class Jenis_rs extends CI_Controller{
-  public function index(){
+class Jenis_rs extends CI_Controller
+{
+  public function index()
+  {
     $data["field"] = array(
       array(
         "field_value" => "jenis_rs_nama",
@@ -11,7 +13,6 @@ class Jenis_rs extends CI_Controller{
         "field_text" => "Kode Jenis RS"
       )
     );
-    $this->load->view("jenis_rs/index",$data);
+    $this->load->view("jenis_rs/index", $data);
   }
 }
-?>
