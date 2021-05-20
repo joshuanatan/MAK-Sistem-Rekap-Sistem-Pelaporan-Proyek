@@ -61,7 +61,7 @@
             <button type="button" class="btn btn-primary btn-sm" data-target="#modalCreate" data-toggle="modal">Tambah Data</button>
           </div>
           <div class="table-responsive">
-            <table class="table table-hover table-striped table-bordered w-full">
+            <table class="table table-hover table-striped w-full">
               <thead>
                 <tr>
                   <th>No. Katalog Produk</th>
@@ -90,6 +90,147 @@
   <!-- End Page -->
   <?php $this->load->view("includes/footer"); ?>
   <!-- Core  -->
+  <div class="modal fade" id="modalCreate">
+    <div class="modal-dialog modal-simple modal-center">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Tambah Produk</h4>
+        </div>
+        <form id="createProdukForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-control-label">No. Katalog</label>
+              <input type="text" class="form-control" name="nokatalogproduk" placeholder="No. Katalog" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Principal</label>
+              <input type="text" class="form-control" name="principalproduk" placeholder="Produk Principal" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">No. SAP</label>
+              <input type="text" class="form-control" name="nosapproduk" placeholder="No. SAP Produk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Nama Produk</label>
+              <textarea class="form-control" name="namaproduk" placeholder="Nama Produk" rows=4></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Kategori</label>
+              <input type="text" class="form-control" name="kategoriproduk" placeholder="Kategori" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Price List</label>
+              <input type="text" class="form-control nf-input" name="pricelistproduk" placeholder="Price List" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Harga Ekat</label>
+              <input type="text" class="form-control nf-input" name="hargaekatproduk" placeholder="Harga Ekat" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Deskripsi</label>
+              <textarea class="form-control" name="deskripsiproduk" placeholder="Deskripsi" autocomplete="off"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Foto Produk</label><br />
+              <input type="file" name="foto_produk">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="create_row()">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalEdit">
+    <div class="modal-dialog modal-simple modal-center">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Edit Produk</h4>
+        </div>
+        <form id="editProdukForm">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="idproduk" id="idproduk" autocomplete="off">
+            <div class="form-group">
+              <label class="form-control-label">No. Katalog</label>
+              <input type="text" class="form-control" name="nokatalogproduk" id="nokatalogproduk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Principal</label>
+              <input type="text" class="form-control" name="principalproduk" id="principalproduk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">No. SAP</label>
+              <input type="text" class="form-control" name="nosapproduk" id="nosapproduk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Nama Produk</label>
+              <textarea class="form-control" name="namaproduk" id="namaproduk"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Kategori</label>
+              <input type="text" class="form-control" name="kategoriproduk" id="kategoriproduk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Price List</label>
+              <input type="text" class="form-control nf-input" name="pricelistproduk" id="pricelistproduk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Harga Ekat</label>
+              <input type="text" class="form-control nf-input" name="hargaekatproduk" id="hargaekatproduk" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Deskripsi</label>
+              <textarea class="form-control" name="deskripsiproduk" id="deskripsiproduk"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Foto Produk Saat Ini </label>
+              <br />
+              <a class="inline-block" id="displayfotoproduk" data-plugin="magnificPopup" data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom" data-zoom='{"enabled": "true","duration":"300"}'>
+                <img class="img-fluid col-lg-6 col-sm-12" id="displayfoto" alt="..." />
+              </a>
+              <br />
+              <br />
+              <label>Foto Produk Baru </label><br />
+              <input type="file" name="foto_produk">
+              <input type="hidden" name="foto_produk_current" id="sourceimage" value="">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="edit_button">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalDelete">
+    <div class="modal-dialog modal-simple modal-center">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Confirmation Delete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" id="delete_button" class="btn btn-primary">Delete</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <?php $this->load->view("includes/core-script"); ?>
 
   <script src="<?php echo base_url(); ?>global/js/Plugin/magnific-popup.js"></script>
@@ -99,148 +240,7 @@
 
 </html>
 
-<div class="modal fade" id="modalCreate">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Tambah Produk</h4>
-      </div>
-      <form id="createProdukForm">
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="form-control-label">No. Katalog</label>
-            <input type="text" class="form-control" name="nokatalogproduk" placeholder="No. Katalog" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Principal</label>
-            <input type="text" class="form-control" name="principalproduk" placeholder="Produk Principal" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">No. SAP</label>
-            <input type="text" class="form-control" name="nosapproduk" placeholder="No. SAP Produk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Nama Produk</label>
-            <textarea class="form-control" name="namaproduk" placeholder="Nama Produk" rows=4></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Kategori</label>
-            <input type="text" class="form-control" name="kategoriproduk" placeholder="Kategori" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Price List</label>
-            <input type="text" class="form-control" name="pricelistproduk" placeholder="Price List" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Harga Ekat</label>
-            <input type="text" class="form-control" name="hargaekatproduk" placeholder="Harga Ekat" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Deskripsi</label>
-            <textarea class="form-control" name="deskripsiproduk" placeholder="Deskripsi" autocomplete="off"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Foto Produk</label><br />
-            <input type="file" name="foto_produk">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="create_row()">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="modalEdit">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Edit Produk</h4>
-      </div>
-      <form id="editProdukForm">
-        <div class="modal-body">
-          <div class="form-group">
-            <input type="hidden" class="form-control" name="idproduk" id="idproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">No. Katalog</label>
-            <input type="text" class="form-control" name="nokatalogproduk" id="nokatalogproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Principal</label>
-            <input type="text" class="form-control" name="principalproduk" id="principalproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">No. SAP</label>
-            <input type="text" class="form-control" name="nosapproduk" id="nosapproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Nama Produk</label>
-            <textarea class="form-control" name="namaproduk" id="namaproduk"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Kategori</label>
-            <input type="text" class="form-control" name="kategoriproduk" id="kategoriproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Price List</label>
-            <input type="text" class="form-control" name="pricelistproduk" id="pricelistproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Harga Ekat</label>
-            <input type="text" class="form-control" name="hargaekatproduk" id="hargaekatproduk" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Deskripsi</label>
-            <textarea class="form-control" name="deskripsiproduk" id="deskripsiproduk"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Foto Produk Saat Ini </label>
-            <br />
-            <a class="inline-block" id="displayfotoproduk" data-plugin="magnificPopup" data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom" data-zoom='{"enabled": "true","duration":"300"}'>
-              <img class="img-fluid col-lg-6 col-sm-12" id="displayfoto" alt="..." />
-            </a>
-            <br />
-            <br />
-            <label>Foto Produk Baru </label><br />
-            <input type="file" name="foto_produk">
-            <input type="hidden" name="foto_produk_current" id="sourceimage" value="">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" id="edit_button">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="modalDelete">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Confirmation Delete</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" id="delete_button" class="btn btn-primary">Delete</a></button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <script>
   var base_url = "<?php echo base_url(); ?>";
   var kolom_pengurutan = "id_pk_produk";
@@ -297,8 +297,8 @@
             <td>${respond["data"][a]["produk_no_sap"]}</td>
             <td>${respond["data"][a]["produk_nama"]}</td>
             <td>${respond["data"][a]["produk_kategori"]}</td>
-            <td>${respond["data"][a]["produk_price_list"]}</td>
-            <td>${respond["data"][a]["produk_harga_ekat"]}</td>
+            <td>${format_number(respond["data"][a]["produk_price_list"])}</td>
+            <td>${format_number(respond["data"][a]["produk_harga_ekat"])}</td>
             <td>${respond["data"][a]["produk_deskripsi"]}</td>
             <td>
             <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
@@ -352,8 +352,8 @@
     $("#nosapproduk").val(content[row]["produk_no_sap"]);
     $("#namaproduk").val(content[row]["produk_nama"]);
     $("#kategoriproduk").val(content[row]["produk_kategori"]);
-    $("#pricelistproduk").val(content[row]["produk_price_list"]);
-    $("#hargaekatproduk").val(content[row]["produk_harga_ekat"]);
+    $("#pricelistproduk").val(format_number(content[row]["produk_price_list"]));
+    $("#hargaekatproduk").val(format_number(content[row]["produk_harga_ekat"]));
     $("#deskripsiproduk").val(content[row]["produk_deskripsi"]);
     $("#displayfotoproduk").attr("href", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
     $("#displayfoto").attr("src", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
@@ -369,6 +369,7 @@
   var default_insert_form = $("#createProdukForm").html();
 
   function create_row() {
+    nf_reformat_all();
     var formData = new FormData($("#createProdukForm")[0]);
     $.ajax({
       url: `${base_url}ws/produk/insert/`,
@@ -378,19 +379,18 @@
       processData: false,
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#modalCreate").modal("hide");
-          alert("Data Produk Berhasil Ditambahkan");
           reload_table();
           $("#createProdukForm").html(default_insert_form);
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
   }
 
   function update_row(row) {
+    nf_reformat_all();
     var formData = new FormData($("#editProdukForm")[0]);
     $.ajax({
       url: `${base_url}ws/produk/update/`,
@@ -400,13 +400,11 @@
       processData: false,
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data Produk Berhasil Diubah");
           $("#modalEdit").modal("hide");
           reload_table();
-        } else {
-          alert(respond["msg"]);
-        }
+        } 
       }
     });
   }
@@ -418,9 +416,11 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
-        alert("Data Produk Berhasil Dihapus");
-        $("#modalDelete").modal("hide");
-        $(`#produk_row${row}`).remove();
+        alert(respond["msg"]);
+        if(respond["status"]){
+          $("#modalDelete").modal("hide");
+          $(`#produk_row${row}`).remove();
+        }
       }
     });
   }

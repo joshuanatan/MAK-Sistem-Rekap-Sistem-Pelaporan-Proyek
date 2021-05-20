@@ -68,4 +68,20 @@ class M_produk extends CI_Model
     $sql = "SELECT id_pk_produk, produk_no_katalog, produk_principal, produk_no_sap, produk_nama, produk_kategori, produk_price_list, produk_harga_ekat, produk_deskripsi,produk_foto  FROM mstr_produk WHERE produk_status = 'aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     return executeQuery($sql);
   }
+  
+  public function check_duplicate_insert($produk_no_katalog){
+    $where = array(
+      "produk_no_katalog" => $produk_no_katalog,
+      "produk_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_produk",$where);
+  }
+  public function check_duplicate_update($id_pk_produk, $produk_no_katalog){
+    $where = array(
+      "id_pk_produk !=" => $id_pk_produk,
+      "produk_no_katalog" => $produk_no_katalog,
+      "produk_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_produk",$where);
+  }
 }
