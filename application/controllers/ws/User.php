@@ -39,7 +39,7 @@ class User extends CI_Controller
       $temp_user_telepon = $this->input->post('telepon');
       $temp_user_role = $this->input->post('role');
       $this->load->model("m_user");
-      $checker = $this->m_user->check($temp_user_email);
+      $checker = $this->m_user->check_duplicate_insert($temp_user_email);
       if ($checker->num_rows() > 0) {
         $response["status"] = false;
         $response["msg"] = "Email sudah terdaftar";
@@ -87,30 +87,36 @@ class User extends CI_Controller
       $temp_user_telepon = $this->input->post('telepon');
       $temp_user_role = $this->input->post('role');
       $this->load->model("m_user");
-      $this->m_user->update($temp_id_user, $temp_user_username, $temp_user_email, $temp_user_telepon, $temp_user_role);
-      if ($temp_user_role == "Sales Engineer") {
-        $id_kabupaten = $this->input->post("kabupaten");
+      $checker = $this->m_user->check_duplicate_update($temp_id_user,$temp_user_email);
+      if ($checker->num_rows() > 0) {
+        $response["status"] = false;
+        $response["msg"] = "Email sudah terdaftar";
+      } else {
+        $this->m_user->update($temp_id_user, $temp_user_username, $temp_user_email, $temp_user_telepon, $temp_user_role);
+        if ($temp_user_role == "Sales Engineer") {
+          $id_kabupaten = $this->input->post("kabupaten");
 
-        $this->load->model("m_user_kabupaten");
-        $this->m_user_kabupaten->deactive_data($temp_id_user);
-        $this->m_user_kabupaten->insert($temp_id_user, $id_kabupaten);
+          $this->load->model("m_user_kabupaten");
+          $this->m_user_kabupaten->deactive_data($temp_id_user);
+          $this->m_user_kabupaten->insert($temp_id_user, $id_kabupaten);
 
-        $this->load->model("m_user_rs");
-        $this->m_user_rs->deactive_data($temp_id_user);
-        $rumah_sakit = $this->input->post("se_rs");
-        foreach ($rumah_sakit as $rs) {
-          $this->m_user_rs->insert($temp_id_user, $rs);
+          $this->load->model("m_user_rs");
+          $this->m_user_rs->deactive_data($temp_id_user);
+          $rumah_sakit = $this->input->post("se_rs");
+          foreach ($rumah_sakit as $rs) {
+            $this->m_user_rs->insert($temp_id_user, $rs);
+          }
+        } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+          $this->load->model("m_user_kabupaten");
+          $this->m_user_kabupaten->deactive_data($temp_id_user);
+          $asm_kabupaten = $this->input->post("asm_kabupaten");
+          foreach ($asm_kabupaten as $a) {
+            $this->m_user_kabupaten->insert($temp_id_user, $a);
+          }
         }
-      } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
-        $this->load->model("m_user_kabupaten");
-        $this->m_user_kabupaten->deactive_data($temp_id_user);
-        $asm_kabupaten = $this->input->post("asm_kabupaten");
-        foreach ($asm_kabupaten as $a) {
-          $this->m_user_kabupaten->insert($temp_id_user, $a);
-        }
+        $response["status"] = true;
+        $response["msg"] = "Data user berhasil diupdate menjadi {$temp_user_username}";
       }
-      $response["status"] = true;
-      $response["msg"] = "Data user berhasil diupdate menjadi {$temp_user_username}";
     }
     else {
       $response["status"] = false;

@@ -79,9 +79,20 @@ class M_user extends CI_Model
     $sql = "select id_pk_user, user_role, user_username, user_email, user_telepon, user_status, user_tgl_create, user_tgl_update, user_tgl_delete, user_id_create, user_id_update, user_id_delete FROM mstr_user WHERE user_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     return executeQuery($sql);
   }
-  public function check($email)
+  public function check_duplicate_insert($email)
   {
-    $sql = "SELECT * FROM mstr_user WHERE user_email = '$email'";
-    return executeQuery($sql);
+    $sql = "SELECT * FROM mstr_user WHERE user_email = ? and user_status = 'aktif'";
+    $args = array(
+      $email
+    );
+    return executeQuery($sql,$args);
+  }
+  public function check_duplicate_update($id_user, $email)
+  {
+    $sql = "SELECT * FROM mstr_user WHERE id_pk_user != ? and user_email = ? and user_status = 'aktif'";
+    $args = array(
+      $id_user, $email
+    );
+    return executeQuery($sql,$args);
   }
 }
