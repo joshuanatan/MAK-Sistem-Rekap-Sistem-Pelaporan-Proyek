@@ -39,7 +39,7 @@ class Rumah_sakit extends CI_Controller
     $this->form_validation->set_rules("penyelenggara", "Penyelenggara Rumah Sakit", "required");
     if ($this->form_validation->run()) {
       $temp_rs_kode = $this->input->post('koderumahsakit');
-      $temp_rs_nama = $this->input->post('namarumahsakit');
+      $temp_rs_nama = ucwords($this->input->post('namarumahsakit'));
       $temp_rs_kelas = $this->input->post('kelasrumahsakit');
       $temp_rs_direktur = $this->input->post('direktur');
       $temp_rs_alamat = $this->input->post('alamat');
@@ -52,8 +52,16 @@ class Rumah_sakit extends CI_Controller
       $temp_id_fk_penyelenggara = $this->input->post('penyelenggara');
       $temp_rs_status = "aktif";
       $this->load->model("m_rumah_sakit");
-      $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
-      $response["status"] = true;
+      if($this->m_rumah_sakit->check_duplicate_insert($temp_rs_kode)->num_rows() == 0){
+
+        $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
+        $response["status"] = true;
+        $response["status"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil ditambahkan";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Kode rumah sakit telah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
@@ -62,13 +70,14 @@ class Rumah_sakit extends CI_Controller
   }
   public function delete($id_pk_rs)
   {
-    if ($id_pk_rs != "") {
+    if (is_numeric($id_pk_rs)) {
       $this->load->model("m_rumah_sakit");
       $this->m_rumah_sakit->delete_rs($id_pk_rs);
       $response["status"] = true;
+      $response["msg"] = "Data berhasil dihapus";
     } else {
       $response["status"] = false;
-      $response["msg"] = "The ID Rumah Sakit field is required";
+      $response["msg"] = "ID rumah sakit tidak valid";
     }
     echo json_encode($response);
   }
@@ -90,7 +99,7 @@ class Rumah_sakit extends CI_Controller
     if ($this->form_validation->run()) {
       $id_pk_rs = $this->input->post('id_pk_rs');
       $temp_rs_kode = $this->input->post('koderumahsakit');
-      $temp_rs_nama = $this->input->post('namarumahsakit');
+      $temp_rs_nama = ucwords($this->input->post('namarumahsakit'));
       $temp_rs_kelas = $this->input->post('kelasrumahsakit');
       $temp_rs_direktur = $this->input->post('direktur');
       $temp_rs_alamat = $this->input->post('alamat');
@@ -102,8 +111,16 @@ class Rumah_sakit extends CI_Controller
       $temp_id_fk_jenis_rs = $this->input->post('jenisrumahsakit');
       $temp_id_fk_penyelenggara = $this->input->post('penyelenggara');
       $this->load->model("m_rumah_sakit");
-      $this->m_rumah_sakit->edit_rs($id_pk_rs, $temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara);
-      $response["status"] = true;
+      if($this->m_rumah_sakit->check_duplicate_update($id_pk_rs, $temp_rs_kode)->num_rows() == 0){
+
+        $this->m_rumah_sakit->edit_rs($id_pk_rs, $temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara);
+        $response["status"] = true;
+        $response["status"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil diubah";
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "Kode rumah sakit telah terdaftar";
+      }
     } else {
       $response["status"] = false;
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));

@@ -461,13 +461,11 @@
       contentType: false,
       processData: false,
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#createForm").html(create_rumah_sakit_form);
-          alert("Data Rumah Sakit Berhasil Ditambahkan");
           $("#createModal").modal("hide");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
@@ -483,12 +481,10 @@
       contentType: false,
       processData: false,
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#editModal").modal("hide");
-          alert("Data Rumah Sakit Berhasil Diubah");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     });
@@ -501,12 +497,10 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#deleteModal").modal("hide");
-          alert("Data Rumah Sakit Berhasil Dihapus");
           $(`#rumah_sakit_row${row}`).remove();
-        } else {
-          alert("Data Rumah Sakit Gagal Dihapus");
         }
       }
     });

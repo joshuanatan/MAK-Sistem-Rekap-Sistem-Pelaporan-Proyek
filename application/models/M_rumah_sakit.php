@@ -126,4 +126,19 @@ class M_rumah_sakit extends CI_Model
 
     return executeQuery($sql);
   }
+  public function check_duplicate_insert($rs_kode){
+    $where = array(
+      "rs_kode" => $rs_kode,
+      "rs_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_rs",$where);
+  }
+  public function check_duplicate_update($id_pk_rs, $rs_kode){
+    $where = array(
+      "id_pk_rs !=" => $id_pk_rs,
+      "rs_kode" => $rs_kode,
+      "rs_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_rs",$where);
+  }
 }
