@@ -51,16 +51,12 @@ class M_ekatalog_produk extends CI_Model
   }
   public function update($id_pk_ekatalog_produk, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan)
   {
+    #yang online jangan diupdate sebagai acuan
     $where = array(
       "id_pk_ekatalog_produk" => $id_pk_ekatalog_produk,
     );
     $data = array(
       "ekatalog_produk_nama_produk" => $ekatalog_produk_nama_produk,
-      "ekatalog_produk_kuantitas_online" => $ekatalog_produk_kuantitas,
-      "ekatalog_produk_mata_uang_online" => $ekatalog_produk_mata_uang,
-      "ekatalog_produk_harga_satuan_online" => $ekatalog_produk_harga_satuan,
-      "ekatalog_produk_perkiraan_ongkos_kirim_online" => $ekatalog_produk_perkiraan_ongkos_kirim,
-      "ekatalog_produk_total_harga_online" => $ekatalog_produk_total_harga,
       "ekatalog_produk_kuantitas" => $ekatalog_produk_kuantitas,
       "ekatalog_produk_mata_uang" => $ekatalog_produk_mata_uang,
       "ekatalog_produk_harga_satuan" => $ekatalog_produk_harga_satuan,

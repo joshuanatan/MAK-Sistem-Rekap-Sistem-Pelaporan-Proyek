@@ -59,6 +59,7 @@ class Ekatalog extends CI_Controller
           $this->m_ekatalog_produk->insert($id_ekatalog, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan);
         }
       }
+      $response["msg"] = "Data ekatalog {$ekatalog_id_paket} berhasil ditambahkan";
       $response["status"] = true;
     } else {
       $response["status"] = false;
@@ -105,6 +106,9 @@ class Ekatalog extends CI_Controller
       $this->load->model("m_ekatalog");
       $this->m_ekatalog->update($id_pk_ekatalog, $ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket);
 
+      $response["msg"] = "Data ekatalog {$ekatalog_id_paket} berhasil diubah";
+      $response["status"] = true;
+
       $checks = $this->input->post("edit_produk_ekatalog");
       if ($checks != "") {
         $this->load->model("m_ekatalog_produk");
@@ -144,12 +148,14 @@ class Ekatalog extends CI_Controller
   }
   public function delete($id_pk_ekatalog)
   {
-    if ($id_pk_ekatalog != "") {
+    if (is_numeric($id_pk_ekatalog)) {
       $this->load->model("m_ekatalog");
       $this->m_ekatalog->delete($id_pk_ekatalog);
+      $response["msg"] = "Data berhasil dihapus";
       $response["status"] = true;
     } else {
       $response["status"] = false;
+      $response["msg"] = "ID ekatalog tidak valid";
     }
     echo json_encode($response);
   }

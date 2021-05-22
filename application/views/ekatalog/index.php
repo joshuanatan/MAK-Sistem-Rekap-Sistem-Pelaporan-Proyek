@@ -172,11 +172,11 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Total Produk</label>
-            <input type="int" class="form-control" name="total_produk">
+            <input type="int" class="form-control nf-input" name="total_produk">
           </div>
           <div class="form-group">
             <label class="form-control-label">Total Harga</label>
-            <input type="int" class="form-control" name="total_harga">
+            <input type="int" class="form-control nf-input" name="total_harga">
           </div>
           <div class="form-group">
             <label class="form-control-label">Status Paket</label>
@@ -270,11 +270,11 @@
           </div>
           <div class="form-group">
             <label class="form-control-label">Total Produk</label>
-            <input type="int" class="form-control" name="total_produk" id="edit_total_produk">
+            <input type="int" class="form-control nf-input" name="total_produk" id="edit_total_produk">
           </div>
           <div class="form-group">
             <label class="form-control-label">Total Harga</label> <strong><span id="edit_total_harga_info"></span></strong>
-            <input type="int" class="form-control" name="total_harga" id="edit_total_harga">
+            <input type="int" class="form-control nf-input" name="total_harga" id="edit_total_harga">
           </div>
           <div class="form-group">
             <label class="form-control-label">Status Paket</label>
@@ -316,6 +316,7 @@
   var create_ekatalog_form = $("#createForm").html();
 
   function create_ekatalog_row() {
+    nf_reformat_all();
     var fd = new FormData($("#createForm")[0]);
     $.ajax({
       url: "<?php echo base_url(); ?>ws/ekatalog/insert",
@@ -325,9 +326,12 @@
       contentType: false,
       processData: false,
       success: function(respond) {
-        $("#createForm").html(create_ekatalog_form);
-        $("#createModal").modal("hide");
-        reload_table();
+        alert(respond["msg"]);
+        if(respond["status"]){
+          $("#createForm").html(create_ekatalog_form);
+          $("#createModal").modal("hide");
+          reload_table();
+        }
       }
     });
   }
@@ -349,7 +353,7 @@
     $("#edit_tgl_ubah_online_info").text(content[row]["ekatalog_tgl_ubah_online"]);
     $("#edit_tahun_anggaran").val(content[row]["ekatalog_tahun_anggaran"]);
     $("#edit_total_produk").val(content[row]["ekatalog_total_produk"]);
-    $("#edit_total_harga").val(content[row]["ekatalog_total_harga"]);
+    $("#edit_total_harga").val(format_number(content[row]["ekatalog_total_harga"]));
     $("#edit_total_harga_info").text(content[row]["ekatalog_total_harga_online"]);
     $("#edit_status_paket").val(content[row]["ekatalog_status_paket"]);
     $("#edit_posisi_paket").val(content[row]["ekatalog_posisi_paket"]);
@@ -378,13 +382,13 @@
               <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_mata_uang"]}" name = "ekatalog_produk_mata_uang${a}"></td>
             <td>
               <label>online: ${respond[a]["ekatalog_produk_harga_satuan_online"]}</label>
-              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_harga_satuan"]}" name = "ekatalog_produk_harga_satuan${a}"></td>
+              <input type = "text" class = "form-control nf-input" value = "${format_number(respond[a]["ekatalog_produk_harga_satuan"])}" name = "ekatalog_produk_harga_satuan${a}"></td>
             <td>
               <label>online: ${respond[a]["ekatalog_produk_perkiraan_ongkos_kirim_online"]}</label>
-              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_perkiraan_ongkos_kirim"]}" name = "ekatalog_produk_perkiraan_ongkos_kirim${a}"></td>
+              <input type = "text" class = "form-control nf-input" value = "${format_number(respond[a]["ekatalog_produk_perkiraan_ongkos_kirim"])}" name = "ekatalog_produk_perkiraan_ongkos_kirim${a}"></td>
             <td>
               <label>online: ${respond[a]["ekatalog_produk_total_harga_online"]}</label>
-              <input type = "text" class = "form-control" value = "${respond[a]["ekatalog_produk_total_harga"]}" name = "ekatalog_produk_total_harga${a}"></td>
+              <input type = "text" class = "form-control nf-input" value = "${format_number(respond[a]["ekatalog_produk_total_harga"])}" name = "ekatalog_produk_total_harga${a}"></td>
             <td>
               <textarea class = "form-control" name = "ekatalog_produk_catatan${a}">${respond[a]["ekatalog_produk_catatan"]}</textarea>
             </td>
@@ -395,14 +399,15 @@
           `;
         }
         $("#edit_tambah_row_produk_ekatalog_container").before(html);
+        init_nf();
       }
-    })
-
+    });
     $("#updateModal").modal("show");
   }
 
   function update_ekatalog_row() {
-
+    
+    nf_reformat_all();
     var fd = new FormData($("#updateForm")[0]);
     $.ajax({
       url: "<?php echo base_url(); ?>ws/ekatalog/update",
@@ -412,8 +417,11 @@
       contentType: false,
       processData: false,
       success: function(respond) {
-        $("#updateModal").modal("hide");
-        reload_table();
+        alert(respond["msg"]);
+        if(respond["status"]){
+          $("#updateModal").modal("hide");
+          reload_table();
+        }
       }
     });
   }
@@ -430,8 +438,11 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
-        $("#deleteModal").modal("hide");
-        $(`#ekatalog_row${row}`).remove();
+        alert(respond["msg"]);
+        if(respond["status"]){
+          $("#deleteModal").modal("hide");
+          $(`#ekatalog_row${row}`).remove();  
+        }
       }
     });
   }
@@ -494,7 +505,7 @@
             <td>${respond["data"][a]["ekatalog_instansi"]}</td>
             <td>${respond["data"][a]["ekatalog_status_paket"]}</td>
             <td>${respond["data"][a]["ekatalog_posisi_paket"]}</td>
-            <td>${respond["data"][a]["ekatalog_total_harga"]}</td>
+            <td>${format_number(respond["data"][a]["ekatalog_total_harga"])}</td>
             <td>${respond["data"][a]["ekatalog_tgl_buat_online"]}</td>
             <td>
               <button type = "button" onclick = "load_edit(${a})" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
@@ -551,9 +562,9 @@
         </td>
         <td><input type = "text" class = "form-control" name = "ekatalog_produk_kuantitas${count}"></td>
         <td><input type = "text" class = "form-control" name = "ekatalog_produk_mata_uang${count}"></td>
-        <td><input type = "text" class = "form-control" name = "ekatalog_produk_harga_satuan${count}"></td>
-        <td><input type = "text" class = "form-control" name = "ekatalog_produk_perkiraan_ongkos_kirim${count}"></td>
-        <td><input type = "text" class = "form-control" name = "ekatalog_produk_total_harga${count}"></td>
+        <td><input type = "text" class = "form-control nf-input" name = "ekatalog_produk_harga_satuan${count}"></td>
+        <td><input type = "text" class = "form-control nf-input" name = "ekatalog_produk_perkiraan_ongkos_kirim${count}"></td>
+        <td><input type = "text" class = "form-control nf-input" name = "ekatalog_produk_total_harga${count}"></td>
         <td>
           <textarea class = "form-control" name = "ekatalog_produk_catatan${count}"></textarea>
         </td>
@@ -563,6 +574,7 @@
       </tr>
     `;
     $("#tambah_row_produk_ekatalog_container").before(html);
+    init_nf();
   }
 
   function hapus_tambah_row_produk_ekatalog(row) {
@@ -591,9 +603,9 @@
         </td>
         <td><input type = "text" class = "form-control" name = "ekatalog_produk_kuantitas${count}"></td>
         <td><input type = "text" class = "form-control" name = "ekatalog_produk_mata_uang${count}"></td>
-        <td><input type = "text" class = "form-control" name = "ekatalog_produk_harga_satuan${count}"></td>
-        <td><input type = "text" class = "form-control" name = "ekatalog_produk_perkiraan_ongkos_kirim${count}"></td>
-        <td><input type = "text" class = "form-control" name = "ekatalog_produk_total_harga${count}"></td>
+        <td><input type = "text" class = "form-control nf-input" name = "ekatalog_produk_harga_satuan${count}"></td>
+        <td><input type = "text" class = "form-control nf-input" name = "ekatalog_produk_perkiraan_ongkos_kirim${count}"></td>
+        <td><input type = "text" class = "form-control nf-input" name = "ekatalog_produk_total_harga${count}"></td>
         <td>
           <textarea class = "form-control" name = "ekatalog_produk_catatan${count}"></textarea>
         </td>
@@ -603,6 +615,7 @@
       </tr>
     `;
     $("#edit_tambah_row_produk_ekatalog_container").before(html);
+    init_nf();
   }
 
   function hapus_edit_tambah_row_produk_ekatalog(row) {
