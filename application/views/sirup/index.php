@@ -109,397 +109,396 @@
   <!-- End Page -->
   <?php $this->load->view("includes/footer"); ?>
   <!-- Core  -->
+  <div class="modal fade" id="insertSirupModal">
+    <div class="modal-dialog modal-center modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalTitle">Tambah Data SiRUP</h4>
+        </div>
+        <form id="insert_form">
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-control-label">Kode RUP</label>
+              <input type="text" class="form-control" name="kode_rup">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Nama Paket</label>
+              <input type="text" class="form-control" name="nama_paket">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Nama KLPD</label>
+              <input type="text" class="form-control" name="nama_klpd">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Satuan Kerja</label>
+              <input type="text" class="form-control" name="satuan_kerja">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Tahun Anggaran</label>
+              <input type="number" class="form-control" name="tahun_anggaran">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Lokasi Pekerjaan</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Provinsi</th>
+                    <th>Kabupaten/Kota</th>
+                    <th>Detail Lokasi</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="add_lokasi_pekerjaan_button_container">
+                      <td colspan="4"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_lokasi_pekerjaan_row()">Tambah Lokasi Pekerjaan</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Volume Pekerjaan</label>
+              <input type="text" class="form-control nf-input" name="volume_pekerjaan">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Uraian Pekerjaan</label>
+              <textarea class="form-control" name="uraian_pekerjaan"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Spesifikasi Pekerjaan</label>
+              <textarea class="form-control" name="spesifikasi_pekerjaan"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Produk Dalam Negeri</label>
+              <select class="form-control" name="produk_dalam_negeri">
+                <option value="ya">YA</option>
+                <option value="tidak">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Usaha Kecil</label>
+              <select class="form-control" name="usaha_kecil">
+                <option value="ya">YA</option>
+                <option value="tidak">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Pra DIPA/DPA</label>
+              <select class="form-control" name="pra_dipa_dpa">
+                <option value="ya">YA</option>
+                <option value="tidak">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Sumber Dana</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Sumber Dana</th>
+                    <th>T.A</th>
+                    <th>KLPD</th>
+                    <th>MAK</th>
+                    <th>Pagu</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="add_sumber_dana_button_container">
+                      <td colspan="6"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_sumber_dana_row()">Tambah Sumber Dana</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jenis Pengadaan</label>
+              <input type="text" class="form-control" name="jenis_pengadaan">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Total Pagu</label>
+              <input type="text" class="form-control nf-input" name="total_pagu">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Metode Pemilihan</label>
+              <input type="text" class="form-control" name="metode_pemilihan">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Mulai</th>
+                    <th>Akhir</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="add_pemanfaatan_barang_button_container">
+                      <td colspan="3"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemanfaatan_barang_row()">Tambah Pemanfaatan Barang/Jasa</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Mulai</th>
+                    <th>Akhir</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="add_pelaksanaan_kontrak_button_container">
+                      <td colspan="3"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pelaksanaan_kontrak_row()">Tambah Pelaksanaan Kontrak</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Mulai</th>
+                    <th>Akhir</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="add_jadwal_pemilihan_button_container">
+                      <td colspan="3"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemilihan_penyedia_row()">Tambah Jadwal Pemilihan Penyedia</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Histori Paket</label>
+              <input type="text" class="form-control" name="histori_paket">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Tanggal Perbaharui Paket</label>
+              <input type="date" class="form-control" name="tgl_perbarui_paket">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="insert_row()">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="updateSirupModal">
+    <div class="modal-dialog modal-center modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Update Data SiRUP</h4>
+        </div>
+        <form id="update_form">
+          <input type="hidden" name="id_sirup" id="edit_id_sirup">
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-control-label">Kode RUP</label>
+              <input type="text" class="form-control" name="kode_rup" id="edit_kode_rup">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Nama Paket</label>
+              <input type="text" class="form-control" name="nama_paket" id="edit_nama_paket">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Nama KLPD</label>
+              <input type="text" class="form-control" name="nama_klpd" id="edit_nama_klpd">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Satuan Kerja</label>
+              <input type="text" class="form-control" name="satuan_kerja" id="edit_satuan_kerja">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Tahun Anggaran</label>
+              <input type="number" class="form-control" name="tahun_anggaran" id="edit_tahun_anggaran">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Lokasi Pekerjaan</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Provinsi</th>
+                    <th>Kabupaten/Kota</th>
+                    <th>Detail Lokasi</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="edit_lokasi_pekerjaan">
+                      <td colspan=4><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_lokasi_pekerjaan_edit()">Tambah Lokasi Pekerjaan</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Volume Pekerjaan</label>
+              <input type="text" class="form-control nf-input" name="volume_pekerjaan" id="edit_volume_pekerjaan">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Uraian Pekerjaan</label>
+              <textarea class="form-control" name="uraian_pekerjaan" id="edit_uraian_pekerjaan"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Spesifikasi Pekerjaan</label>
+              <textarea class="form-control" name="spesifikasi_pekerjaan" id="edit_spesifikasi_pekerjaan"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Produk Dalam Negeri</label>
+              <select class="form-control" name="produk_dalam_negeri" id="edit_produk_dalam_negeri">
+                <option value="ya">YA</option>
+                <option value="tidak">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Usaha Kecil</label>
+              <select class="form-control" name="usaha_kecil" id="edit_usaha_kecil">
+                <option value="ya">YA</option>
+                <option value="tidak">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Pra DIPA/DPA</label>
+              <select class="form-control" name="pra_dipa_dpa" id="edit_pra_dipa_dpa">
+                <option value="ya">YA</option>
+                <option value="tidak">Tidak</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Sumber Dana</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Sumber Dana</th>
+                    <th>T.A</th>
+                    <th>KLPD</th>
+                    <th>MAK</th>
+                    <th>Pagu</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="edit_sumber_dana">
+                      <td colspan=6><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_sumber_dana_edit()">Tambah Sumber Dana</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jenis Pengadaan</label>
+              <input type="text" class="form-control" name="jenis_pengadaan" id="edit_jenis_pengadaan">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Total Pagu</label>
+              <input type="text" class="form-control nf-input" name="total_pagu" id="edit_total_pagu">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Metode Pemilihan</label>
+              <input type="text" class="form-control" name="metode_pemilihan" id="edit_metode_pemilihan">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Mulai</th>
+                    <th>Akhir</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="edit_pemanfaatan_barang">
+                      <td colspan=3><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemanfaatan_barang_edit()">Tambah Pemanfaatan Barang</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Mulai</th>
+                    <th>Akhir</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="edit_pelaksanaan_kontrak">
+                      <td colspan=3><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pelaksanaan_kontrak_edit()">Tambah Pelaksanaan Kontrak</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
+              <div class="table-responsive">
+                <table class="table table-bordered table-stripped">
+                  <thead>
+                    <th>Mulai</th>
+                    <th>Akhir</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr id="edit_jadwal_pemilihan">
+                      <td colspan=3><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemilihan_penyedia_edit()">Tambah Jadwal Pemilihan</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Histori Paket</label>
+              <input type="text" class="form-control" name="histori_paket" id="edit_histori_paket">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Tanggal Perbaharui Paket</label>
+              <input type="date" class="form-control" name="tgl_perbarui_paket" id="edit_tgl_perbarui_paket">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="update_row()">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="deleteSirupModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <div class="modal-title">
+            <h4>Konfirmasi Hapus</h4>
+          </div>
+        </div>
+        <div class="modal-body">
+          <h5 align="center">Apakah yakin akan menghapus data SiRUP dengan Paket <i>"<span id="konfirmasiHapusSirupPaket"></span>"</i></h5>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button id="deleteButtonSirup" type="button" class="btn btn-danger btn-sm">Hapus</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <?php $this->load->view("includes/core-script"); ?>
 
 </body>
 
 </html>
-
-<div class="modal fade" id="insertSirupModal">
-  <div class="modal-dialog modal-center modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title" id="exampleModalTitle">Tambah Data SiRUP</h4>
-      </div>
-      <form id="insert_form">
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="form-control-label">Kode RUP</label>
-            <input type="text" class="form-control" name="kode_rup">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Nama Paket</label>
-            <input type="text" class="form-control" name="nama_paket">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Nama KLPD</label>
-            <input type="text" class="form-control" name="nama_klpd">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Satuan Kerja</label>
-            <input type="text" class="form-control" name="satuan_kerja">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Tahun Anggaran</label>
-            <input type="number" class="form-control" name="tahun_anggaran">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Lokasi Pekerjaan</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Provinsi</th>
-                  <th>Kabupaten/Kota</th>
-                  <th>Detail Lokasi</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="add_lokasi_pekerjaan_button_container">
-                    <td colspan="4"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_lokasi_pekerjaan_row()">Tambah Lokasi Pekerjaan</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Volume Pekerjaan</label>
-            <input type="text" class="form-control nf-input" name="volume_pekerjaan">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Uraian Pekerjaan</label>
-            <textarea class="form-control" name="uraian_pekerjaan"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Spesifikasi Pekerjaan</label>
-            <textarea class="form-control" name="spesifikasi_pekerjaan"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Produk Dalam Negeri</label>
-            <select class="form-control" name="produk_dalam_negeri">
-              <option value="ya">YA</option>
-              <option value="tidak">Tidak</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Usaha Kecil</label>
-            <select class="form-control" name="usaha_kecil">
-              <option value="ya">YA</option>
-              <option value="tidak">Tidak</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Pra DIPA/DPA</label>
-            <select class="form-control" name="pra_dipa_dpa">
-              <option value="ya">YA</option>
-              <option value="tidak">Tidak</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Sumber Dana</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Sumber Dana</th>
-                  <th>T.A</th>
-                  <th>KLPD</th>
-                  <th>MAK</th>
-                  <th>Pagu</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="add_sumber_dana_button_container">
-                    <td colspan="6"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_sumber_dana_row()">Tambah Sumber Dana</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Jenis Pengadaan</label>
-            <input type="text" class="form-control" name="jenis_pengadaan">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Total Pagu</label>
-            <input type="text" class="form-control nf-input" name="total_pagu">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Metode Pemilihan</label>
-            <input type="text" class="form-control" name="metode_pemilihan">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Mulai</th>
-                  <th>Akhir</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="add_pemanfaatan_barang_button_container">
-                    <td colspan="3"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemanfaatan_barang_row()">Tambah Pemanfaatan Barang/Jasa</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Mulai</th>
-                  <th>Akhir</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="add_pelaksanaan_kontrak_button_container">
-                    <td colspan="3"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pelaksanaan_kontrak_row()">Tambah Pelaksanaan Kontrak</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Mulai</th>
-                  <th>Akhir</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="add_jadwal_pemilihan_button_container">
-                    <td colspan="3"><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemilihan_penyedia_row()">Tambah Jadwal Pemilihan Penyedia</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Histori Paket</label>
-            <input type="text" class="form-control" name="histori_paket">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Tanggal Perbaharui Paket</label>
-            <input type="date" class="form-control" name="tgl_perbarui_paket">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="insert_row()">Save changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="updateSirupModal">
-  <div class="modal-dialog modal-center modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Update Data SiRUP</h4>
-      </div>
-      <form id="update_form">
-        <input type="hidden" name="id_sirup" id="edit_id_sirup">
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="form-control-label">Kode RUP</label>
-            <input type="text" class="form-control" name="kode_rup" id="edit_kode_rup">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Nama Paket</label>
-            <input type="text" class="form-control" name="nama_paket" id="edit_nama_paket">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Nama KLPD</label>
-            <input type="text" class="form-control" name="nama_klpd" id="edit_nama_klpd">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Satuan Kerja</label>
-            <input type="text" class="form-control" name="satuan_kerja" id="edit_satuan_kerja">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Tahun Anggaran</label>
-            <input type="number" class="form-control" name="tahun_anggaran" id="edit_tahun_anggaran">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Lokasi Pekerjaan</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Provinsi</th>
-                  <th>Kabupaten/Kota</th>
-                  <th>Detail Lokasi</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="edit_lokasi_pekerjaan">
-                    <td colspan=4><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_lokasi_pekerjaan_edit()">Tambah Lokasi Pekerjaan</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Volume Pekerjaan</label>
-            <input type="text" class="form-control nf-input" name="volume_pekerjaan" id="edit_volume_pekerjaan">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Uraian Pekerjaan</label>
-            <textarea class="form-control" name="uraian_pekerjaan" id="edit_uraian_pekerjaan"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Spesifikasi Pekerjaan</label>
-            <textarea class="form-control" name="spesifikasi_pekerjaan" id="edit_spesifikasi_pekerjaan"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Produk Dalam Negeri</label>
-            <select class="form-control" name="produk_dalam_negeri" id="edit_produk_dalam_negeri">
-              <option value="ya">YA</option>
-              <option value="tidak">Tidak</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Usaha Kecil</label>
-            <select class="form-control" name="usaha_kecil" id="edit_usaha_kecil">
-              <option value="ya">YA</option>
-              <option value="tidak">Tidak</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Pra DIPA/DPA</label>
-            <select class="form-control" name="pra_dipa_dpa" id="edit_pra_dipa_dpa">
-              <option value="ya">YA</option>
-              <option value="tidak">Tidak</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Sumber Dana</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Sumber Dana</th>
-                  <th>T.A</th>
-                  <th>KLPD</th>
-                  <th>MAK</th>
-                  <th>Pagu</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="edit_sumber_dana">
-                    <td colspan=6><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_sumber_dana_edit()">Tambah Sumber Dana</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Jenis Pengadaan</label>
-            <input type="text" class="form-control" name="jenis_pengadaan" id="edit_jenis_pengadaan">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Total Pagu</label>
-            <input type="text" class="form-control nf-input" name="total_pagu" id="edit_total_pagu">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Metode Pemilihan</label>
-            <input type="text" class="form-control" name="metode_pemilihan" id="edit_metode_pemilihan">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Pemanfaatan Barang/Jasa</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Mulai</th>
-                  <th>Akhir</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="edit_pemanfaatan_barang">
-                    <td colspan=3><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemanfaatan_barang_edit()">Tambah Pemanfaatan Barang</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Jadwal Pelaksanaan Kontrak</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Mulai</th>
-                  <th>Akhir</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="edit_pelaksanaan_kontrak">
-                    <td colspan=3><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pelaksanaan_kontrak_edit()">Tambah Pelaksanaan Kontrak</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Jadwal Pemilihan Penyedia</label>
-            <div class="table-responsive">
-              <table class="table table-bordered table-stripped">
-                <thead>
-                  <th>Mulai</th>
-                  <th>Akhir</th>
-                  <th></th>
-                </thead>
-                <tbody>
-                  <tr id="edit_jadwal_pemilihan">
-                    <td colspan=3><button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="add_pemilihan_penyedia_edit()">Tambah Jadwal Pemilihan</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Histori Paket</label>
-            <input type="text" class="form-control" name="histori_paket" id="edit_histori_paket">
-          </div>
-          <div class="form-group">
-            <label class="form-control-label">Tanggal Perbaharui Paket</label>
-            <input type="date" class="form-control" name="tgl_perbaharui_paket" id="edit_tgl_perbarui_paket">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="update_row()">Save Changes</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="deleteSirupModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <div class="modal-title">
-          <h4>Konfirmasi Hapus</h4>
-        </div>
-      </div>
-      <div class="modal-body">
-        <h5 align="center">Apakah yakin akan menghapus data SiRUP dengan Paket <i>"<span id="konfirmasiHapusSirupPaket"></span>"</i></h5>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button id="deleteButtonSirup" type="button" class="btn btn-danger btn-sm">Hapus</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="modal fade" id="pencarianModal">
   <div class="modal-dialog modal-lg modal-simple modal-center">
@@ -675,11 +674,12 @@
       <td><input type = "text" class = "form-control" name = "ta${count}"></td>
       <td><input type = "text" class = "form-control" name = "klpd${count}"></td>
       <td><input type = "text" class = "form-control" name = "mak${count}"></td>
-      <td><input type = "text" class = "form-control" name = "pagu${count}"></td>
+      <td><input type = "text" class = "form-control nf-input" name = "pagu${count}"></td>
       <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_sumber_dana_new_row(${count})"><i class = "icon md-delete"></i></button></td>
     </tr>
     `;
     $("#add_sumber_dana_button_container").before(html);
+    init_nf();
   }
 
   function add_pemanfaatan_barang_row() {
@@ -744,11 +744,12 @@
       <td><input type = "text" class = "form-control" name = "ta${count}"></td>
       <td><input type = "text" class = "form-control" name = "klpd${count}"></td>
       <td><input type = "text" class = "form-control" name = "mak${count}"></td>
-      <td><input type = "text" class = "form-control" name = "pagu${count}"></td>
+      <td><input type = "text" class = "form-control nf-input" name = "pagu${count}"></td>
       <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_sumber_dana_new_row_edit(${count})"><i class = "icon md-delete"></i></button>
       </tr>
     `;
     $("#edit_sumber_dana").before(html);
+    init_nf();
   }
 
   function add_pemanfaatan_barang_edit() {
@@ -793,171 +794,6 @@
 <script>
   var content = "";
 
-  function load_detail(row) {
-    $("#detail_kode_rup").val(content[row]["sirup_rup"]);
-    $("#detail_nama_paket").val(content[row]["sirup_paket"]);
-    $("#detail_nama_klpd").val(content[row]["sirup_klpd"]);
-    $("#detail_satuan_kerja").val(content[row]["sirup_satuan_kerja"]);
-    $("#detail_tahun_anggaran").val(content[row]["sirup_tahun_anggaran"]);
-    $("#detail_volume_pekerjaan").val(content[row]["sirup_volume_pekerjaan"]);
-    $("#detail_uraian_pekerjaan").val(content[row]["sirup_uraian_pekerjaan"]);
-    $("#detail_spesifikasi_pekerjaan").val(content[row]["sirup_spesifikasi_pekerjaan"]);
-    $("#detail_produk_dalam_negeri").val(content[row]["sirup_produk_dalam_negri"]);
-    $("#detail_usaha_kecil").val(content[row]["sirup_usaha_kecil"]);
-    $("#detail_pra_dipa_dpa").val(content[row]["sirup_pra_dipa"]);
-    $("#detail_jenis_pengadaan").val(content[row]["sirup_jenis_pengadaan"]);
-    $("#detail_total_pagu").val(content[row]["sirup_total"]);
-    $("#detail_metode_pemilihan").val(content[row]["sirup_metode_pemilihan"]);
-    $("#detail_histori_paket").val(content[row]["sirup_histori_paket"]);
-    $("#detail_tgl_perbarui_paket").val(content[row]["sirup_tgl_perbarui_paket"]);
-
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/sirup/get_detail_lokasi_pekerjaan/" + content[row]["id_pk_sirup"],
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          var split = respond[a]["lokasi_pekerjaan"].split("|");
-          if (split.length > 1) {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td>${split[0]}</td>
-              <td>${split[1]}</td>
-              <td>${split[2]}</td>
-            </tr>`;
-          } else {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td colspan = 3>${respond[a]["lokasi_pekerjaan"]}</td>
-            </tr>
-            `;
-          }
-        }
-        $("#detail_lokasi_pekerjaan").html(html);
-      }
-    });
-
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/sirup/get_detail_sumber_dana/" + content[row]["id_pk_sirup"],
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          var split = respond[a]["sumber_dana"].split("|");
-          if (split.length > 1) {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td>${split[0]}</td>
-              <td>${split[1]}</td>
-              <td>${split[2]}</td>
-              <td>${split[3]}</td>
-              <td>${split[4]}</td>
-            </tr>
-            `;
-          } else {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td colspan = 5>${respond[a]["sumber_dana"]}</td>
-            </tr>
-            `;
-          }
-        }
-        $("#detail_sumber_dana").html(html);
-      }
-    });
-
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/sirup/get_detail_pemanfaatan_barang/" + content[row]["id_pk_sirup"],
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          var split = respond[a]["pemanfaatan_barang"].split("|");
-          if (split.length > 1) {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td>${split[0]}</td>
-              <td>${split[1]}</td>
-            </tr>`;
-          } else {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td colspan = 2 >${respond[a]["pemanfaatan_barang"]}</td>
-            </tr>
-            `;
-          }
-        }
-        $("#detail_pemanfaatan_barang").html(html);
-      }
-    });
-
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/sirup/get_detail_pelaksanaan_kontrak/" + content[row]["id_pk_sirup"],
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          var split = respond[a]["jadwal_pelaksanaan"].split("|");
-          if (split.length > 1) {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td>${split[0]}</td>
-              <td>${split[1]}</td>
-            </tr>`;
-          } else {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td colspan = 2>${respond[a]["jadwal_pelaksanaan"]}</td>
-            </tr>
-            `;
-          }
-        }
-        $("#detail_pelaksanaan_kontrak").html(html);
-      }
-    });
-
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/sirup/get_detail_jadwal_pemilihan/" + content[row]["id_pk_sirup"],
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          var split = respond[a]["pemilihan_penyedia"].split("|");
-          if (split.length > 1) {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td>${split[0]}</td>
-              <td>${split[1]}</td>
-            </tr>`;
-          } else {
-            html += `
-            <tr>
-              <td>${a+1}</td>
-              <td colspan = 2>${respond[a]["pemilihan_penyedia"]}</td>
-            </tr>
-            `;
-          }
-        }
-        $("#detail_jadwal_pemilihan").html(html);
-      }
-    });
-    $("#detailSirupModal").modal("show");
-  }
-
   function load_edit(row) {
     $("#edit_id_sirup").val(content[row]["id_pk_sirup"]);
     $("#edit_kode_rup").val(content[row]["sirup_rup"]);
@@ -972,7 +808,7 @@
     $("#edit_usaha_kecil").val(content[row]["sirup_usaha_kecil"]);
     $("#edit_pra_dipa_dpa").val(content[row]["sirup_pra_dipa"]);
     $("#edit_jenis_pengadaan").val(content[row]["sirup_jenis_pengadaan"]);
-    $("#edit_total_pagu").val(content[row]["sirup_total"]);
+    $("#edit_total_pagu").val(format_number(content[row]["sirup_total"]));
     $("#edit_metode_pemilihan").val(content[row]["sirup_metode_pemilihan"]);
     $("#edit_histori_paket").val(content[row]["sirup_histori_paket"]);
     $("#edit_tgl_perbarui_paket").val(content[row]["sirup_tgl_perbarui_paket"]);
@@ -1027,7 +863,7 @@
               <td><input type = "text" class = "form-control" name = "edit_ta${a}" value = "${split[1]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_klpd${a}" value = "${split[2]}"></td>
               <td><input type = "text" class = "form-control" name = "edit_mak${a}" value = "${split[3]}"></td>
-              <td><input type = "text" class = "form-control" name = "edit_pagu${a}" value = "${split[4]}"></td>
+              <td><input type = "text" class = "form-control nf-input" name = "edit_pagu${a}" value = "${format_number(split[4])}"></td>
               <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "delete_sumber_dana_row_edit(${a})"><i class = "icon md-delete"></i></button></td>
             </tr>
             `;
@@ -1043,6 +879,7 @@
         }
         $(".sumber_dana_row_edit").remove();
         $("#edit_sumber_dana").before(html);
+        init_nf();
       }
     });
 
@@ -1168,7 +1005,7 @@
 <script>
   var base_url = "<?php echo base_url(); ?>";
   var kolom_pengurutan = "id_pk_sirup";
-  var arah_kolom_pengurutan = "ASC";
+  var arah_kolom_pengurutan = "DESC";
   var pencarian_phrase = "";
   var kolom_pencarian = "all";
   var current_page = 1;
@@ -1281,11 +1118,10 @@
       processData: false,
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
           $("#insertSirupModal").modal("hide");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     })
@@ -1302,17 +1138,29 @@
       processData: false,
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data SiRUP Berhasil Diubah");
           $("#updateSirupModal").modal("hide");
           reload_table();
-        } else {
-          alert(respond["msg"]);
         }
       }
     })
   }
 
+  function delete_row(id_pk_sirup) {
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/sirup/delete/${id_pk_sirup}`,
+      type: "DELETE",
+      dataType: "JSON",
+      success: function(respond) {
+        alert(respond["msg"]);
+        if (respond["status"]) {
+          $("#deleteSirupModal").modal("hide");
+          reload_table();
+        } 
+      }
+    })
+  }
   function delete_lokasi_pekerjaan_row_edit(row) {
     var id = $("#id_lokasi_pekerjaan" + row).val();
     $.ajax({
@@ -1320,11 +1168,9 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data Lokasi Pekerjaan Berhasil Dihapus");
           $("#lokasi_pekerjaan_row_edit" + row).remove();
-        } else {
-          alert("Data Lokasi Pekerjaan Gagal Dihapus");
         }
       }
     })
@@ -1337,11 +1183,9 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data Sumber Dana Berhasil Dihapus");
           $("#sumber_dana_row_edit" + row).remove();
-        } else {
-          alert("Data Sumber Dana Gagal Dihapus");
         }
       }
     })
@@ -1354,12 +1198,10 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data Pemanfaatan Barang Berhasil Dihapus");
           $("#pemanfaatan_barang_row_edit" + row).remove();
-        } else {
-          alert("Data Pemanfaatan Barang Gagal Dihapus");
-        }
+        } 
       }
     })
   }
@@ -1371,11 +1213,9 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data Pelaksanaan Kontrak Berhasil Dihapus");
           $("#pelaksanaan_kontrak_row_edit" + row).remove();
-        } else {
-          alert("Data Pelaksanaan Kontrak Gagal Dihapus");
         }
       }
     })
@@ -1388,11 +1228,9 @@
       type: "DELETE",
       dataType: "JSON",
       success: function(respond) {
+        alert(respond["msg"]);
         if (respond["status"]) {
-          alert("Data Pemilihan Penyedia Berhasil Dihapus");
           $("#pemilihan_penyedia_row_edit" + row).remove();
-        } else {
-          alert("Data Pemilihan Penyedia Gagal Dihapus");
         }
       }
     })
@@ -1438,23 +1276,4 @@
     $("#pemilihan_penyedia_row" + row).remove();
   }
 
-  function delete_row(id_pk_sirup) {
-    $.ajax({
-      url: `<?php echo base_url(); ?>ws/sirup/delete/${id_pk_sirup}`,
-      type: "DELETE",
-      dataType: "JSON",
-      success: function(respond) {
-        if (respond["status"]) {
-          alert("Data SiRUP Berhasil Dihapus");
-          $("#deleteSirupModal").modal("hide");
-          reload_table();
-        } else {
-          alert("Data SiRUP Gagal Dihapus");
-        }
-      }
-    })
-  }
-</script>
-<script>
-  init_nf();
 </script>

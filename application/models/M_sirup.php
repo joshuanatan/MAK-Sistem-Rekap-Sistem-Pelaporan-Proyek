@@ -347,7 +347,11 @@ class M_sirup extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-    $sql = "select id_pk_sirup from mstr_sirup where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query;
+    $sql = "
+    select id_pk_sirup 
+    from mstr_sirup 
+    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+    where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query;
     return executeQuery($sql);
   }
   public function delete_lokasi_pekerjaan($id)
@@ -384,5 +388,20 @@ class M_sirup extends CI_Model
       "id_pk_pemilihan_penyedia" => $id
     );
     deleteRow("tbl_sirup_pemilihan_penyedia", $where);
+  }
+  public function check_duplicate_insert($sirup_rup){
+    $where = array(
+      "sirup_rup" => $sirup_rup,
+      "sirup_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_sirup",$where);
+  }
+  public function check_duplicate_update($id_pk_sirup, $sirup_rup){
+    $where = array(
+      "id_pk_sirup !=" => $id_pk_sirup,
+      "sirup_rup" => $sirup_rup,
+      "sirup_status !=" => "nonaktif"
+    );
+    return selectRow("mstr_sirup",$where);
   }
 }

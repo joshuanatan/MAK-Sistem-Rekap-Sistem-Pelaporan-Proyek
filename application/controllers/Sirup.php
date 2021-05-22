@@ -50,8 +50,12 @@ class Sirup extends CI_Controller
       ),
       array(
         "field_value" => "sirup_tgl_perbarui_paket",
-        "field_text" => "Tanggal Perbahauri Paket"
+        "field_text" => "Tanggal Perbarui Paket"
       ),
+      array(
+        "field_value" => "pencarian_sirup_frase",
+        "field_text" => "Kata Kunci Pencarian"
+      )
     );
 
     $this->load->view("sirup/index", $data);
