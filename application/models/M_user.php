@@ -95,4 +95,44 @@ class M_user extends CI_Model
     );
     return executeQuery($sql,$args);
   }
+  public function user_profile($id_user){
+    $sql = "select user_username,user_email,user_telepon from mstr_user where id_pk_user = ?";
+    $args = array(
+      $id_user
+    );
+    return executeQuery($sql, $args);
+  }
+  public function update_profile($id,$username,$email,$telepon){
+    $where = array(
+      "id_pk_user" => $id
+    );
+    $data = array(
+      "user_username" => $username,
+      "user_email" => $email,
+      "user_telepon" => $telepon
+    );
+    updateRow("mstr_user",$data,$where);
+    return true;
+  }
+  public function update_password($id,$pass_now,$new_pass,$conf_pass){
+    if($new_pass == $conf_pass){
+      $where = array(
+        "id_pk_user" => $id,
+        "user_password" => md5($pass_now)
+      );
+      if(isExistsInTable("mstr_user",$where)){
+        $data = array(
+          "user_password" => md5($new_pass)
+        );
+        updateRow("mstr_user",$data,$where);
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      return false;
+    }
+  }
 }

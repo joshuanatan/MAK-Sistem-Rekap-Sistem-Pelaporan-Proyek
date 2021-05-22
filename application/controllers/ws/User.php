@@ -187,4 +187,92 @@ class User extends CI_Controller
     $result = $this->m_user_rs->get_unselected_rs($id_pk_user, $id_kabupaten);
     echo json_encode($result->result_array());
   }
+  public function profile_detail(){
+    if($this->session->id_user != ""){
+      $this->load->model("m_user");
+      $result = $this->m_user->user_profile($this->session->id_user);
+      if($result->num_rows() > 0){
+        $response["status"] = true;
+        $response["data"] = $result->result_array();
+      }
+      else{
+        $response["status"] = false;
+        $response["msg"] = "ID tidak terdaftar";
+      }
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "Unauthorized access";
+    }
+    echo json_encode($response);
+  }
+  public function update_profile(){
+    if($this->session->id_user != ""){
+      $this->load->model("m_user");
+
+      $this->form_validation->set_rules("username","Username","required");
+      $this->form_validation->set_rules("email","Email","required");
+      $this->form_validation->set_rules("telepon","Telepon","required");
+      if($this->form_validation->run()){
+        $id = $this->session->id_user;
+        $username = $this->input->post("username");
+        $email = $this->input->post("email");
+        $telepon = $this->input->post("telepon");
+
+        if($this->m_user->check_duplicate_update($id,$email)->num_rows() == 0){
+          $this->m_user->update_profile($id,$username,$email,$telepon);
+          $this->session->nama_user = $username;
+          $response["status"] = true;
+          $response["msg"] = "Data berhasil diubah";
+        }
+        else{
+          $response["status"] = false;
+          $response["msg"] = "Email telah terdaftar";
+        }
+      }
+      else {
+        $response["status"] = false;
+        $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
+      }
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "Unauthorized access";
+    }
+    echo json_encode($response);
+  }
+  public function update_password(){
+    if($this->session->id_user != ""){
+
+      $this->form_validation->set_rules("pass_now","Password Saat Ini","required");
+      $this->form_validation->set_rules("new_pass","Password Baru","required");
+      $this->form_validation->set_rules("conf_pass","Konfirmasi Password","required");
+      if($this->form_validation->run()){
+        $this->load->model("m_user");
+
+        $id = $this->session->id_user;
+        $pass_now = $this->input->post("pass_now");
+        $new_pass = $this->input->post("new_pass");
+        $conf_pass = $this->input->post("conf_pass");
+
+        if($this->m_user->update_password($id,$pass_now,$new_pass,$conf_pass)){
+          $response["status"] = true;
+          $response["msg"] = "Password berhasil diubah";
+        }
+        else{
+          $response["status"] = false;
+          $response["msg"] = "Password gagal diubah (password baru dan konfirmasi password tidak sesuai / password saat ini salah)";
+        }
+      }
+      else {
+        $response["status"] = false;
+        $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
+      }
+    }
+    else{
+      $response["status"] = false;
+      $response["msg"] = "Unauthorized access";
+    }
+    echo json_encode($response);
+  }
 }

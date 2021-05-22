@@ -7,15 +7,11 @@
     <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse" data-toggle="collapse">
       <i class="icon md-more" aria-hidden="true"></i>
     </button>
-    <a class="navbar-brand navbar-brand-center" href="/index.html">
-      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?php echo base_url(); ?>assets/images/logo.png" title="Remark">
-      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?php echo base_url(); ?>assets/images/logo-colored.png" title="Remark">
-      <span class="navbar-brand-text hidden-xs-down"> Remark</span>
+    <a class="navbar-brand navbar-brand-center" href="<?php echo base_url();?>welcome/home">
+      <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?php echo base_url(); ?>assets/images/logo.png" title="PT. Mega Andalan Kalasan">
+      <img class="navbar-brand-logo navbar-brand-logo-special" src="<?php echo base_url(); ?>assets/images/logo-colored.png" title="PT. Mega Andalan Kalasan">
+      <span class="navbar-brand-text hidden-xs-down"> PT. Mega Andalan Kalasan</span>
     </a>
-    <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search" data-toggle="collapse">
-      <span class="sr-only">Toggle Search</span>
-      <i class="icon md-search" aria-hidden="true"></i>
-    </button>
   </div>
 
   <div class="navbar-container container-fluid">
@@ -41,17 +37,16 @@
       <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
         <li class="nav-item dropdown">
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false" data-animation="scale-up" role="button">
-            <span class="avatar avatar-online">
+            <span class="avatar">
               <img src="<?php echo base_url(); ?>global/portraits/5.jpg" alt="...">
               <i></i>
             </span>
           </a>
           <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-card" aria-hidden="true"></i> Billing</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon md-settings" aria-hidden="true"></i> Settings</a>
+            <a class="dropdown-item" onclick = "load_profile()" data-toggle = "modal" data-target = "#modal_update_profile" role="menuitem" style = "cursor:pointer"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
+            <a class="dropdown-item" data-toggle = "modal" data-target = "#modal_update_password" role="menuitem" style = "cursor:pointer"><i class="icon md-key" aria-hidden="true"></i> Ubah Password</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="<?php echo base_url(); ?>logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>welcome/logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
           </div>
         </li>
       </ul>
@@ -86,7 +81,7 @@
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-store-24" aria-hidden="true"></i>
             <span class="site-menu-title">Rumah Sakit</span>
           </a>
           <div class="dropdown-menu">
@@ -113,19 +108,19 @@
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>sirup" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-collection-bookmark" aria-hidden="true"></i>
             <span class="site-menu-title">SiRUP</span>
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>ekatalog" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-inbox" aria-hidden="true"></i>
             <span class="site-menu-title">E-Katalog</span>
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>user" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-account" aria-hidden="true"></i>
             <span class="site-menu-title">User</span>
           </a>
         </li>
@@ -138,13 +133,13 @@
       <ul class="site-menu" data-plugin="menu">
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>sirup" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-collection-bookmark" aria-hidden="true"></i>
             <span class="site-menu-title">SiRUP</span>
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>prospek" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-assignment-check" aria-hidden="true"></i>
             <span class="site-menu-title">Prospek</span>
           </a>
         </li>
@@ -179,7 +174,7 @@
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a data-toggle="dropdown" href="javascript:void(0)" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-store-24" aria-hidden="true"></i>
             <span class="site-menu-title">Rumah Sakit</span>
           </a>
           <div class="dropdown-menu">
@@ -206,25 +201,25 @@
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>sirup" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-collection-bookmark" aria-hidden="true"></i>
             <span class="site-menu-title">SiRUP</span>
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>ekatalog" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-inbox" aria-hidden="true"></i>
             <span class="site-menu-title">E-Katalog</span>
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>prospek" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-assignment-check" aria-hidden="true"></i>
             <span class="site-menu-title">Prospek</span>
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>user" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-account" aria-hidden="true"></i>
             <span class="site-menu-title">User</span>
           </a>
         </li>
@@ -237,7 +232,7 @@
       <ul class="site-menu" data-plugin="menu">
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>prospek" data-dropdown-toggle="false">
-            <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+            <i class="site-menu-icon md-assignment-check" aria-hidden="true"></i>
             <span class="site-menu-title">Prospek</span>
           </a>
         </li>
@@ -245,3 +240,121 @@
     </div>
   </div>
 <?php endif; ?>
+
+<div class="modal fade" id="modal_update_profile">
+  <div class="modal-dialog modal-simple modal-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Update Profile</h4>
+      </div>
+      <form id="update_profile_form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-control-label">Username</label>
+            <input type="text" class="form-control" name="username" id="profile_username" placeholder="username">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Email</label>
+            <input type="email" class="form-control" name="email" id="profile_email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Telepon</label>
+            <input type="text" class="form-control" name="telepon" id="profile_telepon" placeholder="Telepon">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="update_profile()">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal_update_password">
+  <div class="modal-dialog modal-simple modal-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Update Password</h4>
+      </div>
+      <form id="update_password_form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-control-label">Password Saat Ini</label>
+            <input type="password" class="form-control" name="pass_now" placeholder="Password Saat Ini">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Password Baru</label>
+            <input type="password" class="form-control" name="new_pass" placeholder="Password Baru">
+          </div>
+          <div class="form-group">
+            <label class="form-control-label">Konfirmasi Password Baru</label>
+            <input type="password" class="form-control" name="conf_pass" placeholder="Konfirmasi Password Baru">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="update_password()">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  function update_profile() {
+    var fd = new FormData($("#update_profile_form")[0]);
+    $.ajax({
+      url: `<?php echo base_url();?>ws/user/update_profile/`,
+      type: 'POST',
+      data: fd,
+      contentType: false,
+      processData: false,
+      dataType: "JSON",
+      success: function(respond) {
+        alert(respond["msg"]);
+        if (respond["status"]) {
+          $("#modal_update_profile").modal("hide");
+        }
+      }
+    });
+  }
+
+  var form = document.getElementById("update_password_form").innerHTML;
+  function update_password() {
+    var fd = new FormData($("#update_password_form")[0]);
+    $.ajax({
+      url: `<?php echo base_url();?>ws/user/update_password/`,
+      type: 'POST',
+      data: fd,
+      contentType: false,
+      processData: false,
+      dataType: "JSON",
+      success: function(respond) {
+        alert(respond["msg"]);
+        if (respond["status"]) {
+          $("#modal_update_password").modal("hide");
+          $("#update_password_form").html(form);
+        }
+      }
+    });
+  }
+  function load_profile() {
+    $.ajax({
+      url:"<?php echo base_url();?>ws/user/profile_detail",
+      type:"GET",
+      dataType:"JSON",
+      success:function(respond){
+        var content = respond["data"];
+        $("#profile_username").val(content[0]["user_username"]);
+        $("#profile_email").val(content[0]["user_email"]);
+        $("#profile_telepon").val(content[0]["user_telepon"]);
+      }
+    })
+  }
+</script>
