@@ -22,24 +22,21 @@
       <h1 class="page-title">Prospek</h1>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>">Home</a></li>
-        <li class="breadcrumb-item active">Prospek</li>
+        <li class="breadcrumb-item ">Prospek</li>
+        <li class="breadcrumb-item active">Supervisee</li>
       </ol>
     </div>
     <div class="page-content">
       <div class="panel">
         <div class="panel-body">
-          <h3>Daftar Prospek</h3>
+          <h3>Daftar Prospek Supervisee</h3>
           <br>
           <div class="row">
             <div class="form-group col-lg-1">
               <h5>&nbsp;</h5>
-              <a href="<?php echo base_url(); ?>prospek/add_prospek" type="button" class="btn btn-primary btn-sm">Tambah Prospek</a>
+              <a href="<?php echo base_url(); ?>prospek/" type="button" class="btn btn-primary btn-sm">Kembali ke Prospek</a>
             </div>
             <div class="form-group col-lg-1">
-              <?php if(strtolower($this->session->user_role) != "sales engineer" && strtolower($this->session->user_role) != "administrator"):?> 
-              <h5>&nbsp;</h5>
-              <a href="<?php echo base_url(); ?>prospek/supervisee" type="button" class="btn btn-primary btn-sm">Prospek Supervisee</a>
-              <?php endif;?>
             </div>
             <div class="form-group col-lg-1"></div>
             <div class="form-group col-lg-3">
@@ -85,7 +82,7 @@
                   <th>Funnel</th>
                   <th>Total Price</th>
                   <th>Estimasi Pembelian</th>
-                  <th>Creator</th>
+                  <th>Supervisee</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -103,51 +100,9 @@
 
     <?php $this->load->view("includes/footer") ?>
     <?php $this->load->view("includes/core-script") ?>
-    <script src="<?php echo base_url(); ?>global/vendor/asrange/jquery-asRange.min.js"></script>
-    <script src="<?php echo base_url(); ?>global/vendor/bootbox/bootbox.js"></script>
-
-    <script>
-      function load_delete(row) {
-        $("#delete_button").attr("onclick", `delete_row(${row})`);
-        $("#modalDelete").modal("show");
-      }
-
-      function delete_row(row) {
-        var id_prospek = content[row]["id_pk_prospek"];
-        $.ajax({
-          url: `${base_url}ws/prospek/delete/${id_prospek}`,
-          type: "DELETE",
-          dataType: "JSON",
-          success: function(respond) {
-            alert("Data Produk Berhasil Dihapus");
-            $("#modalDelete").modal("hide");
-            $(`#prospek_row${row}`).remove();
-          }
-        });
-      }
-    </script>
 </body>
 
 </html>
-<div class="modal fade" id="modalDelete">
-  <div class="modal-dialog modal-simple modal-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title">Confirmation Delete</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to delete?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-danger" data-dismiss="modal" id="delete_button">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
 </script>
 
 <script>
@@ -157,13 +112,10 @@
   var kolom_pencarian = "all";
   var current_page = 1;
   var content = [];
-  var base_url = "<?php echo base_url(); ?>";
-  var user_role = "<?php echo $this->session->user_role ?>";
-  var user_id = "<?php echo $this->session->id_user ?>";
   reload_table();
 
   function reload_table() {
-    var url = `<?php echo base_url(); ?>ws/prospek/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
+    var url = `<?php echo base_url(); ?>ws/prospek/get_data_supervisee?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
     $.ajax({
       url: url,
       type: "POST",
@@ -172,14 +124,6 @@
         var html = "";
         content = respond["data"];
         for (var a = 0; a < respond["data"].length; a++) {
-          var htmlEditButton = "";
-          var htmlDeleteButton = "";
-          if ((respond["data"][a]["flag_sirup"] == 1 && user_role == "Supervisor") || (respond["data"][a]["flag_ekatalog"] == 1 && user_role == "Sales Manager") || (respond["data"][a]["prospek_id_create"] == user_id)) {
-            htmlEditButton = `<a target="_blank" href="<?php echo base_url(); ?>prospek/edit_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></a>`;
-          }
-          if (respond["data"][a]["prospek_id_create"] == user_id) {
-            htmlDeleteButton = `<button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>`;
-          }
           html += `
             <tr id = "prospek_row${a}">
               <td>${respond["data"][a]["nama_provinsi"]}</td>
@@ -194,8 +138,6 @@
               <td>${respond["data"][a]["user_username"]}</td>
               <td>
                 <a href="<?php echo base_url(); ?>prospek/detail_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-light btn-sm" id="load_button"><i class="icon md-search" aria-hidden="true"></i></button>
-                ${htmlEditButton}
-                ${htmlDeleteButton}
               </td>
             </tr>
             `;

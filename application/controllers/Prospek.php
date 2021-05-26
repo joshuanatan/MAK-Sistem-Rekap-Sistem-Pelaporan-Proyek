@@ -4,14 +4,105 @@ class Prospek extends CI_Controller
   public function index()
   {
     $this->load->model("m_prospek");
-    $id_user = $this->session->id_user;
-    $result1 = $this->m_prospek->get_prospek($id_user);
-    $data = array(
-      'dataprospek' => $result1->result_array(),
+    $data["field"] = array(
+      array(
+        "field_value" => "provinsi_nama",
+        "field_text" => "Provinsi"
+      ),
+      array(
+        "field_value" => "kabupaten_nama",
+        "field_text" => "Kabupaten"
+      ),
+      array(
+        "field_value" => "rs_nama",
+        "field_text" => "Nama Rumah Sakit"
+      ),
+      array(
+        "field_value" => "prospek_principle",
+        "field_text" => "Principle"
+      ),
+      array(
+        "field_value" => "total_price_prospek",
+        "field_text" => "Harga Prospek"
+      ),
+      array(
+        "field_value" => "no_sirup",
+        "field_text" => "No Sirup"
+      ),
+      array(
+        "field_value" => "no_ekatalog",
+        "field_text" => "No Ekatalog"
+      ),
+      array(
+        "field_value" => "funnel_percentage",
+        "field_text" => "Persentase Win"
+      ),
+      array(
+        "field_value" => "estimasi_pembelian",
+        "field_text" => "Estimasi Pembelian"
+      ),
+      array(
+        "field_value" => "funnel",
+        "field_text" => "Funnel"
+      ),
+      array(
+        "field_value" => "prospek_status",
+        "field_text" => "Status Prospek"
+      ),
     );
     $this->load->view("prospek/index", $data);
   }
-
+  public function supervisee()
+  {
+    $this->load->model("m_prospek");
+    $data["field"] = array(
+      array(
+        "field_value" => "provinsi_nama",
+        "field_text" => "Provinsi"
+      ),
+      array(
+        "field_value" => "kabupaten_nama",
+        "field_text" => "Kabupaten"
+      ),
+      array(
+        "field_value" => "rs_nama",
+        "field_text" => "Nama Rumah Sakit"
+      ),
+      array(
+        "field_value" => "prospek_principle",
+        "field_text" => "Principle"
+      ),
+      array(
+        "field_value" => "total_price_prospek",
+        "field_text" => "Harga Prospek"
+      ),
+      array(
+        "field_value" => "no_sirup",
+        "field_text" => "No Sirup"
+      ),
+      array(
+        "field_value" => "no_ekatalog",
+        "field_text" => "No Ekatalog"
+      ),
+      array(
+        "field_value" => "funnel_percentage",
+        "field_text" => "Persentase Win"
+      ),
+      array(
+        "field_value" => "estimasi_pembelian",
+        "field_text" => "Estimasi Pembelian"
+      ),
+      array(
+        "field_value" => "funnel",
+        "field_text" => "Funnel"
+      ),
+      array(
+        "field_value" => "prospek_status",
+        "field_text" => "Status Prospek"
+      ),
+    );
+    $this->load->view("prospek/supervisee", $data);
+  }
   public function add_prospek()
   {
     $this->load->model("m_prospek");
