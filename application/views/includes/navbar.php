@@ -25,11 +25,6 @@
             </i>
           </a>
         </li>
-        <li class="nav-item hidden-sm-down" id="toggleFullscreen">
-          <a class="nav-link icon icon-fullscreen" data-toggle="fullscreen" href="#" role="button">
-            <span class="sr-only">Toggle fullscreen</span>
-          </a>
-        </li>
       </ul>
       <!-- End Navbar Toolbar -->
 
