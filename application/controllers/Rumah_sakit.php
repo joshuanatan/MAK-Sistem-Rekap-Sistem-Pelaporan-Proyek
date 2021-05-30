@@ -2,6 +2,15 @@
 
 class Rumah_sakit extends CI_Controller
 {
+  public function __construct(){
+    parent::__construct();
+    if(!$this->session->id_user){
+      $this->session->set_flashdata("status","danger");
+      $this->session->set_flashdata("msg","Session expired, silahkan login");
+      redirect("welcome");
+      exit();
+    }
+  }
 
   public function index()
   {

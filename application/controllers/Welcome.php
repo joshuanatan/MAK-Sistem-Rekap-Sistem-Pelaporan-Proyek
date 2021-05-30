@@ -21,12 +21,19 @@ class Welcome extends CI_Controller
       $this->session->user_role = $result["msg"][0]["user_role"];
       redirect("welcome/home");
     } else {
-      $this->session->set_flashdata("msg", $result["msg"]);
+      $this->session->set_flashdata("msg", "Kombinasi tidak ditemukan, silahkan coba lagi");
+      $this->session->set_flashdata("status", "danger");
       redirect("welcome");
     }
   }
   public function home()
   {
+    if(!$this->session->id_user){
+      $this->session->set_flashdata("status","danger");
+      $this->session->set_flashdata("msg","Session expired, silahkan login");
+      redirect("welcome/logout");
+      exit();
+    }
     $this->load->view("welcome/home");
   }
   public function logout()
