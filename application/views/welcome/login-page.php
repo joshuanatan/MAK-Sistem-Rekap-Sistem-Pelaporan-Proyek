@@ -49,6 +49,15 @@
     <div class="page-content vertical-align-middle">
       <div class="panel ">
         <div class="panel-body">
+          <?php if(isset($this->session->msg)):?>
+          <div class="alert alert-<?php echo $this->session->status;?> alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              <span class="sr-only">Close</span>
+            </button>
+            <?php echo $this->session->msg;?>.
+          </div>
+          <?php endif;?>
           <div class="brand">
             <img class="brand-img" src="<?php echo base_url(); ?>assets/images/logo-colored.png" alt="...">
             <h2 class="brand-text font-size-18"><strong>MAK</strong><br />Customer Relationship Management</h2>
@@ -66,22 +75,6 @@
           </form>
         </div>
       </div>
-
-      <footer class="page-copyright page-copyright-inverse">
-        <p>WEBSITE BY Creation Studio</p>
-        <p>© 2018. All RIGHT RESERVED.</p>
-        <div class="social">
-          <a class="btn btn-icon btn-pure" href="javascript:void(0)">
-            <i class="icon bd-twitter" aria-hidden="true"></i>
-          </a>
-          <a class="btn btn-icon btn-pure" href="javascript:void(0)">
-            <i class="icon bd-facebook" aria-hidden="true"></i>
-          </a>
-          <a class="btn btn-icon btn-pure" href="javascript:void(0)">
-            <i class="icon bd-google-plus" aria-hidden="true"></i>
-          </a>
-        </div>
-      </footer>
     </div>
   </div>
   <!-- End Page -->

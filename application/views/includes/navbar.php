@@ -7,7 +7,7 @@
     <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse" data-toggle="collapse">
       <i class="icon md-more" aria-hidden="true"></i>
     </button>
-    <a class="navbar-brand navbar-brand-center" href="<?php echo base_url();?>welcome/home">
+    <a class="navbar-brand navbar-brand-center" href="<?php echo base_url(); ?>welcome/home">
       <img class="navbar-brand-logo navbar-brand-logo-normal" src="<?php echo base_url(); ?>assets/images/logo.png" title="PT. Mega Andalan Kalasan">
       <img class="navbar-brand-logo navbar-brand-logo-special" src="<?php echo base_url(); ?>assets/images/logo-colored.png" title="PT. Mega Andalan Kalasan">
       <span class="navbar-brand-text hidden-xs-down"> PT. Mega Andalan Kalasan</span>
@@ -38,8 +38,8 @@
             </span>
           </a>
           <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" onclick = "load_profile()" data-toggle = "modal" data-target = "#modal_update_profile" role="menuitem" style = "cursor:pointer"><i class="icon md-account" aria-hidden="true"></i> Profile</a>
-            <a class="dropdown-item" data-toggle = "modal" data-target = "#modal_update_password" role="menuitem" style = "cursor:pointer"><i class="icon md-key" aria-hidden="true"></i> Ubah Password</a>
+            <a class="dropdown-item" onclick="load_profile()" data-toggle="modal" data-target="#modal_update_profile" role="menuitem" style="cursor:pointer"><i class="icon md-account" aria-hidden="true"></i> Profil</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#modal_update_password" role="menuitem" style="cursor:pointer"><i class="icon md-key" aria-hidden="true"></i> Ubah Password</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?php echo base_url(); ?>welcome/logout" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
           </div>
@@ -235,7 +235,9 @@
     </div>
   </div>
 <?php endif; ?>
-
+<div class="alert alert-success alert-dismissible" role="alert">
+  Currently login: <strong><?php echo $this->session->nama_user;?></strong> <strong>[ <?php echo $this->session->user_role;?> ]</strong>
+</div>
 <div class="modal fade" id="modal_update_profile">
   <div class="modal-dialog modal-simple modal-center">
     <div class="modal-content">
@@ -243,7 +245,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title">Update Profile</h4>
+        <h4 class="modal-title">Update Profil</h4>
       </div>
       <form id="update_profile_form">
         <div class="modal-body">
@@ -305,7 +307,7 @@
   function update_profile() {
     var fd = new FormData($("#update_profile_form")[0]);
     $.ajax({
-      url: `<?php echo base_url();?>ws/user/update_profile/`,
+      url: `<?php echo base_url(); ?>ws/user/update_profile/`,
       type: 'POST',
       data: fd,
       contentType: false,
@@ -321,10 +323,11 @@
   }
 
   var form = document.getElementById("update_password_form").innerHTML;
+
   function update_password() {
     var fd = new FormData($("#update_password_form")[0]);
     $.ajax({
-      url: `<?php echo base_url();?>ws/user/update_password/`,
+      url: `<?php echo base_url(); ?>ws/user/update_password/`,
       type: 'POST',
       data: fd,
       contentType: false,
@@ -339,12 +342,13 @@
       }
     });
   }
+
   function load_profile() {
     $.ajax({
-      url:"<?php echo base_url();?>ws/user/profile_detail",
-      type:"GET",
-      dataType:"JSON",
-      success:function(respond){
+      url: "<?php echo base_url(); ?>ws/user/profile_detail",
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
         var content = respond["data"];
         $("#profile_username").val(content[0]["user_username"]);
         $("#profile_email").val(content[0]["user_email"]);

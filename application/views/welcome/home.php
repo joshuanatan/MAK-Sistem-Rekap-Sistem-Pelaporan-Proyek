@@ -16,16 +16,18 @@
   <?php $this->load->view("includes/navbar"); ?>
   <div class="page">
     <div class="page-content container-fluid">
-      Selamat datang di MAK - CRM
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        Hi <strong><?php echo $this->session->nama_user;?></strong>, Selamat datang di MAK - CRM
+      </div>
+      
       <hr />
       <table>
         <tr>
-          <th>Currently login user</th>
-          <th>:</th>
-          <td style="padding-left:20px"><?php echo strtoupper($this->session->nama_user); ?></td>
-        </tr>
-        <tr>
-          <th>Roles</th>
+          <th>Role</th>
           <th>:</th>
           <td style="padding-left:20px"><?php echo ucwords($this->session->user_role) ?></td>
         </tr>
