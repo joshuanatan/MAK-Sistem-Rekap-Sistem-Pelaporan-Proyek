@@ -51,7 +51,7 @@ class M_rumah_sakit extends CI_Model
       "id_fk_penyelenggara" => $id_fk_penyelenggara,
       "rs_status" => "aktif"
     );
-    $this->db->insert("mstr_rs", $data);
+    return insertRow("mstr_rs", $data);
   }
 
   public function delete_rs($id_pk_rs)

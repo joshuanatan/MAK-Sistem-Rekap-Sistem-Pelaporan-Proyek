@@ -12,7 +12,7 @@ class M_prospek extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create,user_username,
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create,user_username
     FROM mstr_prospek
     INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
     INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
