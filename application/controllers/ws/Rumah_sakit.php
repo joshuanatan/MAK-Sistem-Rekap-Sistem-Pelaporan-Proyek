@@ -54,9 +54,10 @@ class Rumah_sakit extends CI_Controller
       $this->load->model("m_rumah_sakit");
       if($this->m_rumah_sakit->check_duplicate_insert($temp_rs_kode)->num_rows() == 0){
 
-        $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
+        $response["insert_id"] = $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
         $response["status"] = true;
         $response["status"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil ditambahkan";
+        $response["msg"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil ditambahkan";
       }
       else{
         $response["status"] = false;

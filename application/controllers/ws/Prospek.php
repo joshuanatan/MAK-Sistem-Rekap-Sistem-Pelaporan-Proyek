@@ -110,4 +110,82 @@ class Prospek extends CI_Controller
 
     echo json_encode($response);
   }
+  
+  public function get_rs_list(){
+    if(strtolower($this->session->user_role) == "sales engineer"){
+      $sql = "select id_pk_rs, rs_kode, rs_nama from tbl_user_rs 
+      inner join mstr_rs on mstr_rs.id_pk_rs = tbl_user_rs.id_fk_rs
+      where user_rs_status = 'aktif' and id_fk_user = ? and rs_status = 'aktif'";
+      $args = array(
+        $this->session->id_user
+      );
+      $result = executeQuery($sql, $args);
+      if($result->num_rows() > 0){
+        $response["status"] = true;
+        $response["data"] = $result->result_array();
+      }
+      else{
+        $response["status"] = false;
+      }
+      echo json_encode($response);
+    }
+    else if(strtolower($this->session->user_role) == "supervisor" || strtolower($this->session->user_role) == "area sales manager"){
+      $id_kabupaten = $this->input->get("id_kabupaten");
+      $sql = "select * from tbl_user_kabupaten
+      inner join mstr_rs on mstr_rs.id_fk_kabupaten = tbl_user_kabupaten.id_fk_kabupaten
+      where user_kabupaten_status = 'aktif' and rs_status = 'aktif' and id_fk_user = ? and id_fk_kabupaten = ?";
+      $args = array(
+        $this->session->id_user, $id_kabupaten
+      );
+      $result = executeQuery($sql, $args);
+      if($result->num_rows() > 0){
+        $response["status"] = true;
+        $response["data"] = $result->result_array();
+      }
+      else{
+        $response["status"] = false;
+      }
+      echo json_encode($response);
+    }
+    else if(strtolower($this->session->user_role) == "sales manager"){
+      $id_kabupaten = $this->input->get("id_kabupaten");
+      $sql = "select * from mstr_rs
+      where rs_status = 'aktif' and id_fk_kabupaten = ?";
+      $args = array(
+        $this->session->id_user, $id_kabupaten
+      );
+      $result = executeQuery($sql, $args);
+      if($result->num_rows() > 0){
+        $response["status"] = true;
+        $response["data"] = $result->result_array();
+      }
+      else{
+        $response["status"] = false;
+      }
+      echo json_encode($response);
+    }
+    else{
+      $response["status"] = false;
+      echo json_encode($response);
+    }
+  }
+  public function assign_rs_to_se(){
+    $sql = "
+      select * from mstr_rs where id_fk_kabupaten in 
+        (select id_fk_kabupaten from tbl_user_kabupaten 
+        where user_kabupaten_status = 'aktif' and id_fk_user = ?)
+      and id_pk_rs = ?";
+    $args = array(
+      $this->session->id_user, $this->input->post("id_rs")
+    );
+    $result = executeQuery($sql, $args);
+    if($result->num_rows() > 0){
+      $data = array(
+        "id_fk_rs" => $this->input->post("id_rs"),
+        "id_fk_user" => $this->session->id_user,
+        "user_rs_status" => "aktif"
+      );
+      insertRow("tbl_user_rs", $data);
+    }
+  }
 }
