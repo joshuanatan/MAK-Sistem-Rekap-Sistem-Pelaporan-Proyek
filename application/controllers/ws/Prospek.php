@@ -12,7 +12,7 @@ class Prospek extends CI_Controller
 
     $this->load->model("m_prospek");
     $id_user = $this->session->id_user;
-    if ($this->session->user_role == "Sales Manager" || $this->session->user_role == "Supervisor") {
+    if ($this->session->user_role == "Sales Manager" || $this->session->user_role == "Supervisor" || $this->session->user_role == "Administrator") {
       $response["data"] = $this->m_prospek->search($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
       $total_data = $this->m_prospek->get_prospek_all($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
     } else {
@@ -37,7 +37,7 @@ class Prospek extends CI_Controller
 
     $this->load->model("m_prospek");
     $id_user = $this->session->id_user;
-    
+
     $response["data"] = $this->m_prospek->search_supervisee($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $id_user)->result_array();
     $total_data = $this->m_prospek->get_prospek_supervisee($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $id_user)->num_rows();
 

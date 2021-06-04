@@ -114,6 +114,12 @@
           </a>
         </li>
         <li class="dropdown site-menu-item has-sub">
+          <a href="<?php echo base_url(); ?>prospek" data-dropdown-toggle="false">
+            <i class="site-menu-icon md-assignment-check" aria-hidden="true"></i>
+            <span class="site-menu-title">Prospek</span>
+          </a>
+        </li>
+        <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>user" data-dropdown-toggle="false">
             <i class="site-menu-icon md-account" aria-hidden="true"></i>
             <span class="site-menu-title">User</span>

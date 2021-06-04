@@ -31,17 +31,21 @@
           <h3>Daftar Prospek</h3>
           <br>
           <div class="row">
-            <div class="form-group col-lg-1">
-              <h5>&nbsp;</h5>
-              <a href="<?php echo base_url(); ?>prospek/add_prospek" type="button" class="btn btn-primary btn-sm">Tambah Prospek</a>
-            </div>
-            <div class="form-group col-lg-1">
-              <?php if(strtolower($this->session->user_role) != "sales engineer" && strtolower($this->session->user_role) != "administrator"):?> 
-              <h5>&nbsp;</h5>
-              <a href="<?php echo base_url(); ?>prospek/supervisee" type="button" class="btn btn-primary btn-sm">Prospek Supervisee</a>
-              <?php endif;?>
-            </div>
-            <div class="form-group col-lg-1"></div>
+            <?php if(strtolower($this->session->user_role) != "administrator"):?>
+              <div class="form-group col-lg-1">
+                <h5>&nbsp;</h5>
+                <a href="<?php echo base_url(); ?>prospek/add_prospek" type="button" class="btn btn-primary btn-sm">Tambah Prospek</a>
+              </div>
+            <?php endif;?>
+            <?php if(strtolower($this->session->user_role) != "sales engineer" && strtolower($this->session->user_role) != "administrator"):?>
+              <div class="form-group col-lg-1">
+                <h5>&nbsp;</h5>
+                <a href="<?php echo base_url(); ?>prospek/supervisee" type="button" class="btn btn-primary btn-sm">Prospek Supervisee</a>
+              </div>
+            <?php endif;?>
+            <?php if(strtolower($this->session->user_role) != "administrator"):?>
+              <div class="form-group col-lg-1"></div>
+            <?php endif;?>
             <div class="form-group col-lg-3">
               <h5>Kolom Pengurutan</h5>
               <select class="form-control" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
@@ -57,7 +61,11 @@
                 <option value="DESC">Z-A</option>
               </select>
             </div>
-            <div class="form-group col-lg-3">
+            <?php if(strtolower($this->session->user_role) != "administrator"):?>
+              <div class="form-group col-lg-3">
+            <?php else:?>
+              <div class="form-group col-lg-6">
+            <?php endif;?>
               <h5>Pencarian</h5>
               <input type="text" class="form-control" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
             </div>
@@ -180,6 +188,10 @@
           if (respond["data"][a]["prospek_id_create"] == user_id) {
             htmlDeleteButton = `<button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>`;
           }
+          if (user_role == "Administrator") {
+            htmlEditButton = ``;
+            htmlDeleteButton = ``;
+          }
           html += `
             <tr id = "prospek_row${a}">
               <td>${respond["data"][a]["nama_provinsi"]}</td>
@@ -205,7 +217,7 @@
       }
     });
   }
-  
+
   function change_kolom_pengurutan() {
     var pengurutan = $("#kolom_pengurutan").val();
     kolom_pengurutan = pengurutan;
@@ -234,7 +246,7 @@
     current_page = page;
     reload_table();
   }
-  
+
   function pagination(page_rules) {
     html = "";
     if (page_rules["previous"]) {
