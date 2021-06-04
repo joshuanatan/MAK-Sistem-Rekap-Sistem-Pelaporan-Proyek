@@ -35,7 +35,7 @@
                 <h4 class="title">Edit Prospek</h4>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
-                    <label class="form-control-label js-example-basic-single">Rumah Sakit</label>
+                    <label class="form-control-label js-example-basic-single">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
                     <select class="form-control" name="id_fk_rs" id="dataRumahSakit">
                       <option value="<?php echo $dataprospek[0]["id_fk_rs"]; ?>" selected><?php echo $dataprospek[0]["nama_rs"]; ?></option>
                       <?php for ($a = 0; $a < count($datars); $a++) : ?>
@@ -57,7 +57,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label>
+                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
                     <select class="form-control js-example-basic-single" name="id_fk_rs" id="dataRumahSakit" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) {
                                                                                                                 echo "disabled";
                                                                                                               } ?>>
@@ -86,7 +86,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label>
+                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
                     <select class="form-control js-example-basic-single" name="id_fk_rs" id="dataRumahSakit" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) {
                                                                                                                 echo "disabled";
                                                                                                               } ?>>
@@ -203,7 +203,7 @@
                     </tbody>
                   </table>
                 </div>
-                <button type="button" class="btn btn-default">Cancel</button>
+                <a href = "<?php echo base_url();?>prospek" class="btn btn-default">Cancel</a>
                 <button type="button" onclick="submitForm()" class="btn btn-primary">Save changes</button>
               </div>
             </div>
@@ -453,6 +453,227 @@
       $("#formSubmit").submit();
     }
   </script>
+  <?php
+    $sql = "select count(id_pk_rs) as jmlh_rs from MSTR_RS order by id_pk_rs DESC";
+    $jmlh_rs = executeQuery($sql)->result_array()[0]["jmlh_rs"];
+  ?>
+  <div class="modal fade" id="tambah_rs_modal">
+    <div class="modal-dialog modal-simple modal-center">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">Tambah Rumah Sakit</h4>
+        </div>
+        <form id="createFormRs">
+          <div class="modal-body">
+            <input type="hidden" value = "<?php echo md5("rs-".$jmlh_rs)?>" name="koderumahsakit">
+            <input type="hidden" value = "-" name="direktur">
+            
+            <div class = "form-group">
+              <label class="form-control-label">Nama Rumah Sakit</label>
+              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Kelas Rumah Sakit</label>
+              <br>
+              <select class="form-control" name="kelasrumahsakit">
+                <option value="none" selected disabled hidden>-- Silahkan Pilih Kelas --</option>
+                <option value="Belum Ditentukan">Belum Ditentukan</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Alamat</label>
+              <textarea type="text" class="form-control" name="alamat" placeholder="Alamat"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Kategori</label>
+              <br>
+              <select class="form-control" name="kategori">
+                <option value="none" selected disabled hidden>-- Silahkan Pilih Kategori --</option>
+                <option value="Pemerintah">Pemerintah</option>
+                <option value="Swasta">Swasta</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Provinsi</label>
+              <select class="form-control" onchange="load_kabupaten_provinsi()" id="rs_provinsi">
+                <option value="none" selected disabled hidden>-- Silahkan Pilih Provinsi --</option>
+                <?php for ($a = 0; $a < count($dataprovinsi); $a++) : ?>
+                  <option value="<?php echo $dataprovinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $dataprovinsi[$a]["provinsi_nama"]; ?></option>
+                <?php endfor; ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Kabupaten</label>
+              <select class="form-control" name="kabupaten" id="rs_kabupaten"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Kode Pos</label>
+              <input type="text" class="form-control" name="kodepos" placeholder="Kode Pos">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Telepon</label>
+              <input type="text" class="form-control" name="telepon" placeholder="Telepon">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Fax</label>
+              <input type="text" class="form-control" name="fax" placeholder="Fax">
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Jenis Rumah Sakit</label>
+              <select class="form-control dropdown_jenis" name="jenisrumahsakit"></select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label">Penyelenggara</label>
+              <select class="form-control dropdown_penyelenggara" name="penyelenggara" class=""></select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" onclick="create_row()" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    function load_kabupaten_provinsi(edit = false) {
+      var id_provinsi = "";
+      if (edit) {
+        id_provinsi = $("#edit_provinsi option:selected").val();
+      } else {
+        id_provinsi = $("#rs_provinsi option:selected").val();
+      }
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/kabupaten/kabupaten_provinsi/" + id_provinsi,
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+          var html = "";
+          for (var a = 0; a < respond.length; a++) {
+            html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
+          }
+          if (edit) {
+            $("#edit_kabupaten").html(html);
+          } else {
+            $("#rs_kabupaten").html(html);
+          }
+        }
+      });
+    }
+
+    function load_provinsi(edit = false) {
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/provinsi/get_active_data",
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+          var html = ``;
+          for (var a = 0; a < respond["data"].length; a++) {
+            html += `
+            <option value = "${respond["data"][a]["id_pk_provinsi"]}">${respond["data"][a]["provinsi_nama"]}</option>
+            `;
+          }
+          if (edit) {
+            $("#edit_provinsi").html(html);
+          } else {
+            $("#rs_provinsi").html(html);
+          }
+        }
+      })
+    }
+    load_jenis_rumah_sakit();
+
+    function load_jenis_rumah_sakit() {
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/rumah_sakit/get_jenis_rumah_sakit",
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+          var html = "<option value = 0>Lain-lain</option>";
+          for (var a = 0; a < respond["data"].length; a++) {
+            html += `
+            <option value = ${respond["data"][a]["id_pk_jenis_rs"]}>(${respond["data"][a]["jenis_rs_kode"]}) ${respond["data"][a]["jenis_rs_nama"]}</option>
+            `;
+          }
+          $(".dropdown_jenis").html(html);
+        }
+      })
+    }
+    load_penyelenggara();
+
+    function load_penyelenggara() {
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/rumah_sakit/get_penyelenggara",
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+          var html = "<option value = 0>Lain-lain</option>";
+          for (var a = 0; a < respond["data"].length; a++) {
+            html += `
+            <option value = ${respond["data"][a]["id_pk_penyelenggara"]}>${respond["data"][a]["penyelenggara_nama"]}</option>
+            `;
+          }
+          $(".dropdown_penyelenggara").html(html);
+        }
+      })
+    }
+    var create_rumah_sakit_form = $("#createFormRs").html();
+
+    function create_row() {
+      var fd = new FormData($("#createFormRs")[0]);
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/rumah_sakit/insert",
+        type: "POST",
+        dataType: "JSON",
+        data: fd,
+        contentType: false,
+        processData: false,
+        success: function(respond) {
+          if (respond["status"]) {
+            var id_rs = respond["insert_id"];
+            alert("Rumah sakit baru telah terdaftar, silahkan muat ulang rumah sakit");
+            $("#createFormRs").html(create_rumah_sakit_form);
+            $("#tambah_rs_modal").modal("hide");
+            
+            <?php if(strtolower($this->session->user_role) == "sales engineer"):?>
+              $.ajax({
+                url:"<?php echo base_url();?>ws/prospek/assign_rs_to_se",
+                type:"POST",
+                data: {
+                  "id_rs": id_rs
+                },
+                dataType:"JSON",
+                async: false
+              });
+              var html = "";
+              $.ajax({
+                url:"<?php echo base_url();?>ws/prospek/get_rs_list",
+                type:"GET",
+                dataType:"JSON",
+                async: false,
+                success:function(respond){
+                  if(respond["status"]){
+                    for(var a = 0; a<respond["data"].length; a++){
+                      html += `<option value = '${respond["data"][a]["id_pk_rs"]}'>${respond["data"][a]["rs_nama"]}</option>`;
+                    }
+                    $("#dataRumahSakit").html(html);
+                  }
+                }
+              });
+            <?php endif;?>
+          }
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>
+
