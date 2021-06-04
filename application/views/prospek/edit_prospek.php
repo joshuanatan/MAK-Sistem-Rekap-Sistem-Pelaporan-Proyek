@@ -35,7 +35,7 @@
                 <h4 class="title">Edit Prospek</h4>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
-                    <label class="form-control-label js-example-basic-single">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label js-example-basic-single">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="form-control" name="id_fk_rs" id="dataRumahSakit">
                       <option value="<?php echo $dataprospek[0]["id_fk_rs"]; ?>" selected><?php echo $dataprospek[0]["nama_rs"]; ?></option>
                       <?php for ($a = 0; $a < count($datars); $a++) : ?>
@@ -57,7 +57,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="form-control js-example-basic-single" name="id_fk_rs" id="dataRumahSakit" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) {
                                                                                                                 echo "disabled";
                                                                                                               } ?>>
@@ -86,7 +86,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="form-control js-example-basic-single" name="id_fk_rs" id="dataRumahSakit" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) {
                                                                                                                 echo "disabled";
                                                                                                               } ?>>
@@ -454,7 +454,7 @@
     }
   </script>
   <?php
-    $sql = "select count(id_pk_rs) as jmlh_rs from MSTR_RS order by id_pk_rs DESC";
+    $sql = "select count(id_pk_rs) as jmlh_rs from mstr_rs order by id_pk_rs DESC";
     $jmlh_rs = executeQuery($sql)->result_array()[0]["jmlh_rs"];
   ?>
   <div class="modal fade" id="tambah_rs_modal">

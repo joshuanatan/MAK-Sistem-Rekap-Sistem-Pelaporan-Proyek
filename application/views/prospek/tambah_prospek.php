@@ -36,7 +36,7 @@
                 <h4 class="title">Tambah Prospek</h4>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                       <?php for ($a = 0; $a < count($datars); $a++) : ?>
@@ -56,7 +56,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit">
 
                     </select>
@@ -79,7 +79,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit">
 
                     </select>
@@ -352,7 +352,7 @@
     }
   </script>
   <?php
-    $sql = "select count(id_pk_rs) as jmlh_rs from MSTR_RS order by id_pk_rs DESC";
+    $sql = "select count(id_pk_rs) as jmlh_rs from mstr_rs order by id_pk_rs DESC";
     $jmlh_rs = executeQuery($sql)->result_array()[0]["jmlh_rs"];
   ?>
   <div class="modal fade" id="tambah_rs_modal">
