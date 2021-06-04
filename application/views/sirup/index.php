@@ -76,6 +76,7 @@
                   <th>Volume Pekerjaan</th>
                   <th>Uraian Pekerjaan</th>
                   <th>Spesifikasi Pekerjaan</th>
+                  <th>Tanggal Query</th>
                   <th style="width:10%">Action</th>
                 </tr>
               </thead>
@@ -463,7 +464,7 @@
             </div>
             <div class="form-group">
               <label class="form-control-label">Tanggal Perbaharui Paket</label>
-              <input type="date" class="form-control" name="tgl_perbarui_paket" id="edit_tgl_perbarui_paket">
+              <input type="text" class="form-control" name="tgl_perbarui_paket" id="edit_tgl_perbarui_paket" readonly>
             </div>
           </div>
           <div class="modal-footer">
@@ -1062,6 +1063,7 @@
             <td>${respond["data"][a]["sirup_volume_pekerjaan"]}</td>
             <td>${respond["data"][a]["sirup_uraian_pekerjaan"]}</td>
             <td>${respond["data"][a]["sirup_spesifikasi_pekerjaan"]}</td>
+            <td>${respond["data"][a]["sirup_tgl_create"]}</td>
             <td>
             <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
             <button type = "button" class = "btn btn-danger btn-sm" onclick = "load_delete(${a})"><i class = "icon md-delete"></i></button>
