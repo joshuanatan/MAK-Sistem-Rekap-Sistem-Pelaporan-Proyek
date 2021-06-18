@@ -57,9 +57,14 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
-                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit">
+                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit"  onchange="showDetailRS()">
 
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Detail Rumah Sakit</label>
+                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    </table>
                   </div>
                 <?php endif; ?>
                 <?php if ($this->session->user_role == "Sales Manager") : ?>
@@ -80,9 +85,14 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
-                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit">
+                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit"  onchange="showDetailRS()">
 
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Detail Rumah Sakit</label>
+                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    </table>
                   </div>
                 <?php endif; ?>
                 <div class="form-group">
@@ -189,6 +199,129 @@
               `;
           }
           $("#dataRumahSakit").html(html);
+          showDetailRS();
+        }
+      });
+    }
+
+    function showDetailRS() {
+      var base_url = "<?php echo base_url(); ?>";
+      var id_rs = $("#dataRumahSakit").val();
+      $.ajax({
+        url: `${base_url}ws/prospek/get_detail_rs/${id_rs}`,
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+
+          var html = "";
+          for (var a = 0; a < respond["data_detail_rs"].length; a++) {
+            html += `
+              <tr>
+                <td>Kode RS</td>
+                <td>${respond["data_detail_rs"][a]["rs_kode"]}</td>
+              </tr>
+              <tr>
+                <td>Kelas</td>
+                <td>${respond["data_detail_rs"][a]["rs_kelas"]}</td>
+              </tr>
+              <tr>
+                <td>Direktur</td>
+                <td>${respond["data_detail_rs"][a]["rs_direktur"]}</td>
+              </tr>
+              <tr>
+                <td>Alamat</td>
+                <td>${respond["data_detail_rs"][a]["rs_alamat"]}, ${respond["data_detail_rs"][a]["rs_kode_pos"]}</td>
+              </tr>
+              <tr>
+                <td>Kategori</td>
+                <td>${respond["data_detail_rs"][a]["rs_kategori"]}</td>
+              </tr>
+              <tr>
+                <td>Telepon / Fax</td>
+                <td>${respond["data_detail_rs"][a]["rs_telepon"]} / ${respond["data_detail_rs"][a]["rs_fax"]}</td>
+              </tr>
+              <tr>
+                <td>Kabupaten</td>
+                <td>${respond["data_detail_rs"][a]["nama_kabupaten"]}</td>
+              </tr>
+              <tr>
+                <td>Jenis RS</td>
+                <td>${respond["data_detail_rs"][a]["jenis_rs"]}</td>
+              </tr>
+              <tr>
+                <td>Penyelenggara</td>
+                <td>${respond["data_detail_rs"][a]["penyelenggara"]}</td>
+              </tr>
+              `;
+          }
+          $("#detailRS").html(html);
+        }
+      });
+    }
+
+    function showDetailEkat() {
+      var base_url = "<?php echo base_url(); ?>";
+      var id_ekat = $("#noEkat").val();
+      $.ajax({
+        url: `${base_url}ws/prospek/get_detail_ekat/${id_ekat}`,
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+
+          var html = "";
+          for (var a = 0; a < respond["data_detail_ekat"].length; a++) {
+            html += `
+              <tr>
+                <td>Komoditas</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_komoditas"]}</td>
+              </tr>
+              <tr>
+                <td>Ekatalog</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_nama"]}</td>
+              </tr>
+              <tr>
+                <td>Instansi</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_instansi"]}</td>
+              </tr>
+              <tr>
+                <td>Satuan Kerja</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_satuan_kerja"]}</td>
+              </tr>
+              <tr>
+                <td>NPWP Satuan Kerja</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_npwp_satuan_kerja"]}</td>
+              </tr>
+              <tr>
+                <td>Alamat Satuan Kerja</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_alamat_satuan_kerja"]}</td>
+              </tr>
+              <tr>
+                <td>Alamat Pengiriman</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_alamat_pengiriman"]}</td>
+              </tr>
+              <tr>
+                <td>Tahun Anggaran</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_tahun_anggaran"]}</td>
+              </tr>
+              <tr>
+                <td>Total Produk</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_total_produk"]}</td>
+              </tr>
+              <tr>
+                <td>Total Harga</td>
+                <td>Rp ${respond["data_detail_ekat"][a]["ekatalog_total_harga"]}</td>
+              </tr>
+              <tr>
+                <td>Total Harga Online</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_total_harga_online"]}</td>
+              </tr>
+              <tr>
+                <td>Status Paket / Posisi Paket</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_status_paket"]} / ${respond["data_detail_ekat"][a]["ekatalog_posisi_paket"]}</td>
+              </tr>
+              `;
+          }
+          $("#detailEkat").html(html);
         }
       });
     }
@@ -239,12 +372,15 @@
             $("#noEkatalog").show();
             html2 += `
                 <label class="form-control-label">No E Katalog</label>
-                <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'nomorekatalog'>
+                <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'nomorekatalog' id="noEkat" onchange="showDetailEkat()">
                   <option selected disabled>------ Pilih Ekatalog ------</option>
                 <?php for ($i = 0; $i < count($dataekat); $i++) : ?>
-                  <option value = "<?php echo $dataekat[$i]["ekatalog_id_paket"]; ?>"><?php echo $dataekat[$i]["ekatalog_id_paket"]; ?></option>
+                  <option value = "<?php echo $dataekat[$i]["id_pk_ekatalog"]; ?>"><?php echo $dataekat[$i]["ekatalog_id_paket"]; ?></option>
                 <?php endfor; ?>
                 </select>
+                <label class="form-control-label">Detail E Katalog</label>
+                <table class="table table-hover table-striped w-full border" id ="detailEkat">
+                </table>
               `;
             $("#funnelPercentage").html("");
             $("#noteLoss").html("");
@@ -368,7 +504,7 @@
           <div class="modal-body">
             <input type="hidden" value = "<?php echo md5("rs-".$jmlh_rs)?>" name="koderumahsakit">
             <input type="hidden" value = "-" name="direktur">
-            
+
             <div class = "form-group">
               <label class="form-control-label">Nama Rumah Sakit</label>
               <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
@@ -539,7 +675,7 @@
             alert("Rumah sakit baru telah terdaftar, silahkan muat ulang rumah sakit");
             $("#createFormRs").html(create_rumah_sakit_form);
             $("#tambah_rs_modal").modal("hide");
-            
+
             <?php if(strtolower($this->session->user_role) == "sales engineer"):?>
               $.ajax({
                 url:"<?php echo base_url();?>ws/prospek/assign_rs_to_se",

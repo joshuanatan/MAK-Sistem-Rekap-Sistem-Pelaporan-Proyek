@@ -102,6 +102,25 @@ class M_prospek extends CI_Model
     return executeQuery($sql);
   }
 
+  public function get_detail_rs($id_pk_rs)
+  {
+    $sql = "SELECT id_pk_rs, rs_kode, rs_nama, rs_kelas, rs_direktur, rs_alamat, rs_kategori, rs_kode_pos, rs_telepon, rs_fax, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_jenis_rs.jenis_rs_nama as jenis_rs, mstr_penyelenggara.penyelenggara_nama as penyelenggara
+       FROM mstr_rs
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_rs.id_fk_kabupaten
+       INNER JOIN mstr_jenis_rs on mstr_jenis_rs.id_pk_jenis_rs = mstr_rs.id_fk_jenis_rs
+       INNER JOIN mstr_penyelenggara on mstr_penyelenggara.id_pk_penyelenggara = mstr_rs.id_fk_penyelenggara
+       WHERE id_pk_rs = $id_pk_rs AND rs_status='aktif'";
+    return executeQuery($sql);
+  }
+
+  public function get_detail_ekat($id_pk_ekatalog)
+  {
+    $sql = "SELECT *
+       FROM mstr_ekatalog
+       WHERE id_pk_ekatalog = '$id_pk_ekatalog' AND ekatalog_status='aktif'";
+    return executeQuery($sql);
+  }
+
   public function get_prospek_all($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
   {
     $search_query = "";

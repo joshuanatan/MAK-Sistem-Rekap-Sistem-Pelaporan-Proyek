@@ -87,6 +87,22 @@ class Prospek extends CI_Controller
     echo json_encode($response);
   }
 
+  public function get_detail_rs($id_pk_rs)
+  {
+    $this->load->model("m_prospek");
+    $response["data_detail_rs"] = $this->m_prospek->get_detail_rs($id_pk_rs)->result_array();
+
+    echo json_encode($response);
+  }
+
+  public function get_detail_ekat($id_pk_ekatalog)
+  {
+    $this->load->model("m_prospek");
+    $response["data_detail_ekat"] = $this->m_prospek->get_detail_ekat($id_pk_ekatalog)->result_array();
+
+    echo json_encode($response);
+  }
+
   public function get_kabupaten($id_pk_provinsi)
   {
     $this->load->model("m_prospek");
@@ -110,10 +126,10 @@ class Prospek extends CI_Controller
 
     echo json_encode($response);
   }
-  
+
   public function get_rs_list(){
     if(strtolower($this->session->user_role) == "sales engineer"){
-      $sql = "select id_pk_rs, rs_kode, rs_nama from tbl_user_rs 
+      $sql = "select id_pk_rs, rs_kode, rs_nama from tbl_user_rs
       inner join mstr_rs on mstr_rs.id_pk_rs = tbl_user_rs.id_fk_rs
       where user_rs_status = 'aktif' and id_fk_user = ? and rs_status = 'aktif'";
       $args = array(
@@ -171,8 +187,8 @@ class Prospek extends CI_Controller
   }
   public function assign_rs_to_se(){
     $sql = "
-      select * from mstr_rs where id_fk_kabupaten in 
-        (select id_fk_kabupaten from tbl_user_kabupaten 
+      select * from mstr_rs where id_fk_kabupaten in
+        (select id_fk_kabupaten from tbl_user_kabupaten
         where user_kabupaten_status = 'aktif' and id_fk_user = ?)
       and id_pk_rs = ?";
     $args = array(
