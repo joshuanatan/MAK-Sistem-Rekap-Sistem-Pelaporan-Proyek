@@ -10,7 +10,9 @@ class Ekatalog extends CI_Controller
   public function insert()
   {
     $this->form_validation->set_rules("komoditas", "Komoditas", "required");
-    $this->form_validation->set_rules("id_paket", "ID Paket", "required");
+    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog.id_paket]", array(
+      "is_unique" => "ID Paket sudah ada, mohon menambahkan tanda di ID paket bahwa ID paket telah diubah"
+    ));
     $this->form_validation->set_rules("nama_paket", "Nama Paket", "required");
     $this->form_validation->set_rules("instansi", "Instansi", "required");
     $this->form_validation->set_rules("satuan_kerja", "Satuan Kerja", "required");
@@ -71,7 +73,9 @@ class Ekatalog extends CI_Controller
   {
     $this->form_validation->set_rules("id_ekatalog", "ID Ekatalog", "required");
     $this->form_validation->set_rules("komoditas", "Komoditas", "required");
-    $this->form_validation->set_rules("id_paket", "ID Paket", "required");
+    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog.id_paket]", array(
+      "is_unique" => "ID Paket sudah ada, mohon menambahkan tanda di ID paket bahwa ID paket telah diubah"
+    ));
     $this->form_validation->set_rules("nama_paket", "Nama Paket", "required");
     $this->form_validation->set_rules("instansi", "Instansi", "required");
     $this->form_validation->set_rules("satuan_kerja", "Satuan Kerja", "required");

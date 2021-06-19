@@ -72,6 +72,7 @@
                   <th>Posisi Paket</th>
                   <th>Total Harga</th>
                   <th>Tanggal Buat</th>
+                  <th>Tanggal Ubah</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -506,7 +507,8 @@
             <td>${respond["data"][a]["ekatalog_status_paket"]}</td>
             <td>${respond["data"][a]["ekatalog_posisi_paket"]}</td>
             <td>${format_number(respond["data"][a]["ekatalog_total_harga"])}</td>
-            <td>${respond["data"][a]["ekatalog_tgl_buat_online"]}</td>
+            <td>${respond["data"][a]["format_tgl_buat_online"]}</td>
+            <td>${respond["data"][a]["format_tgl_ubah_online"]}</td>
             <td>
               <button type = "button" onclick = "load_edit(${a})" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
               <button type = "button" onclick = "load_delete(${a})" class = "btn btn-danger btn-sm"><i class = "icon md-delete"></i></button>

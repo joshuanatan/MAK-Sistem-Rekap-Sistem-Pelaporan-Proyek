@@ -50,6 +50,10 @@ class Ekatalog extends CI_Controller
         "field_value" => "ekatalog_tgl_buat_online",
         "field_text" => "Tanggal Buat"
       ),
+      array(
+        "field_value" => "ekatalog_tgl_ubah_online",
+        "field_text" => "Tanggal Ubah"
+      ),
     );
     $this->load->view("ekatalog/index", $data);
   }

@@ -1,7 +1,26 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
+error_reporting(0);
 class Sch_ekatalog extends CI_Controller{
   private $login_cookies;
+  public function index(){
+    if($this->input->get("login")){
+      if(md5($this->input->get("login")) == "523c2c2940a37fb651b7a19b68149e0b"){
+        echo "Welcome to sch_ekatalog, below is our available links!:<br/>";
+        echo "<a href = '".base_url()."sch_ekatalog/get_data'>function get_data()</a><br/>";
+        echo "<a href = '".base_url()."sch_ekatalog/get_ekatalog_detail'>function get_ekatalog_detail()</a><br/>";
+        echo "<a href = '".base_url()."sch_ekatalog/extract_ekatalog_detail'>function extract_ekatalog_detail()</a><br/>";
+      }
+      else{
+        echo "babai.";
+        exit();
+      }
+    }
+    else{
+      echo "babai.";
+      exit();
+    }
+  }
   public function __construct(){
     parent::__construct();
   }
@@ -55,262 +74,93 @@ class Sch_ekatalog extends CI_Controller{
     // echo "<br/><br/>";  
     $this->login_cookies = explode(";",$response[2])[0];
   }
-  public function test_get_data(){
-    if($this->login_cookies == ""){
-      $this->login();
-    }
-    $page = 100;
-    $url = "https://e-katalog.lkpp.go.id/purchasing/paket?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=desc&per_page=$page&offset=1";
-    #$url = "http://localhost/mak/data/test_ekatalog.html";
-
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $url,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "GET",
-      CURLOPT_HTTPHEADER => array(
-        "Cookie: ".$this->login_cookies
-      )
-    ));
-    $response = (curl_exec($curl)); #string
-    $response = str_replace('<table aria-describedby="mydesc" class="table table-striped" id="tblListPaket">','<table>',$response);
-    #echo $response;
-    $split = explode('<table>',$response);
-    $split = explode('</table>',$split[1])[0];
-    $split = explode('<tbody>',$split);
-    $split = explode('</tbody>',$split[1])[0];
-
-    $split = explode("<tr>",$split);
-    for($a = 1; $a<count($split); $a++){
-      $regex_link = "/(\/[a-z]+)+(\/[0-9]+)/";
-      preg_match($regex_link, $split[$a],$matches);
-      $link = $matches[0];
-
-      $regex_link_id = "/([0-9]){7}/"; #contoh id 3809900
-      preg_match($regex_link_id, $link,$matches);
-      $id = $matches[0];
-      $where = array(
-        "ekatalog_id" => $id,
-        "ekatalog_id_status_query" => 0
-      );
-        echo isExistsInTable("temp_ekatalog_id",$where); echo " - ".$this->db->last_query()."<br/>";
-      if(!isExistsInTable("temp_ekatalog_id",$where)){
-        $data = array(
-          "ekatalog_id_link" => $link,
-          "ekatalog_id" => $id,  
-          "ekatalog_id_status_query" => 0,  
-        );
-        echo $this->db->last_query();
-        #insertRow("temp_ekatalog_id",$data);
-      }
-    }
-    $data = array(
-      "log_auto_ekatalog" => "Mengambil daftar E-Katalog",
-      "log_auto_ekatalog_desc" => "Mengambil $page data terakhir dari e-katalog",
-      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
-    );
-    insertRow("log_auto_ekatalog",$data);
-  }
   public function get_data(){
     if($this->login_cookies == ""){
       $this->login();
     }
-    $page = 100;
-    $url = "https://e-katalog.lkpp.go.id/purchasing/paket?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=desc&per_page=$page&offset=1";
-    #$url = "http://localhost/mak/data/test_ekatalog.html";
+    $count = 0;
+    while(true){
+      $count++;
+      $page = 20;
+      $url = "https://e-katalog.lkpp.go.id/purchasing/paket?keyword=&commodity=0&position=&negotiation=&year=2021&status=&sortby=desc&per_page=$page&offset=$count";
+      #$url = "http://localhost/mak/data/test_ekatalog.html";
 
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => $url,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "GET",
-      CURLOPT_HTTPHEADER => array(
-        "Cookie: ".$this->login_cookies
-      )
-    ));
-    $response = (curl_exec($curl)); #string
-    $response = str_replace('<table aria-describedby="mydesc" class="table table-striped" id="tblListPaket">','<table>',$response);
-    #echo $response;
-    $split = explode('<table>',$response);
-    $split = explode('</table>',$split[1])[0];
-    $split = explode('<tbody>',$split);
-    $split = explode('</tbody>',$split[1])[0];
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+          "Cookie: ".$this->login_cookies
+        )
+      ));
+      $response = (curl_exec($curl)); #string
+      $response = str_replace('<table aria-describedby="mydesc" class="table table-striped" id="tblListPaket">','<table>',$response);
+      #echo $response;
+      $split = explode('<table>',$response);
+      $split = explode('</table>',$split[1])[0];
+      $split = explode('<tbody>',$split);
+      $split = explode('</tbody>',$split[1])[0];
 
-    $split = explode("<tr>",$split);
-    for($a = 1; $a<count($split); $a++){
-      $regex_link = "/(\/[a-z]+)+(\/[0-9]+)/";
-      preg_match($regex_link, $split[$a],$matches);
-      $link = $matches[0];
+      $split = explode("<tr>",$split);
+      echo "Queried data: ".count($split)." url: ".$url;
+      for($a = 1; $a<count($split); $a++){
+        $regex_link = "/(\/[a-z]+)+(\/[0-9]+)/";
+        preg_match($regex_link, $split[$a],$matches);
+        $link = $matches[0];
 
-      $regex_link_id = "/([0-9]){7}/"; #contoh id 3809900
-      preg_match($regex_link_id, $link,$matches);
-      $id = $matches[0];
+        $regex_link_id = "/([0-9]){7}/"; #contoh id 3809900
+        preg_match($regex_link_id, $link,$matches);
+        $id = $matches[0];
 
-      $where = array(
-        "ekatalog_id" => $id,
-        "ekatalog_id_status_query" => 0
-      );
-      if(!isExistsInTable("temp_ekatalog_id",$where)){
-        $data = array(
-          "ekatalog_id_link" => $link,
-          "ekatalog_id" => $id,  
-          "ekatalog_id_status_query" => 0,  
+        $where = array(
+          "ekatalog_id" => $id,
+          "ekatalog_id_status_query" => 0
         );
-        insertRow("temp_ekatalog_id",$data);
+        if(!isExistsInTable("temp_ekatalog_id",$where)){
+          $data = array(
+            "ekatalog_id_link" => $link,
+            "ekatalog_id" => $id,  
+            "ekatalog_id_status_query" => 0,  
+          );
+          insertRow("temp_ekatalog_id",$data);
+        }
+      }
+      $data = array(
+        "log_auto_ekatalog" => "Mengambil daftar E-Katalog",
+        "log_auto_ekatalog_desc" => "Mengambil $page data terakhir dari e-katalog",
+        "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
+      );
+      insertRow("log_auto_ekatalog",$data);
+      if(count($split) < $page){
+        break;
       }
     }
-    $data = array(
-      "log_auto_ekatalog" => "Mengambil daftar E-Katalog",
-      "log_auto_ekatalog_desc" => "Mengambil $page data terakhir dari e-katalog",
-      "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
-    );
-    insertRow("log_auto_ekatalog",$data);
-  }
-  public function test_double($ekatalog_id){
-      $this->login();
-      $url = "https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/".$ekatalog_id;
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-          CURLOPT_URL => $url,
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => "",
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => "GET",
-          CURLOPT_HTTPHEADER => array(
-            "Cookie: ".$this->login_cookies
-          )
-        ));
-        
-        $response = (curl_exec($curl)); #string
-        $ekatalog_detail = $response;
-        $ekatalog_detail = explode('<div role="tabpanel" class="tab-pane active" id="informasi-utama">', $ekatalog_detail)[1];
-        $ekatalog_detail = explode('<div role="tabpanel" class="tab-pane" id="pp-ppk">', $ekatalog_detail)[0];
-        
-        $ekatalog_status = $response;
-        $ekatalog_status = explode('<div class="detail-heading col-md-4">Status</div>',$ekatalog_status)[1];
-        $ekatalog_status = explode('<div class="detail-heading col-md-4">Posisi Paket</div>',$ekatalog_status);
-        $ekatalog_status_main = trim(strip_tags($ekatalog_status[0]));
-        $ekatalog_status_posisi = trim(strip_tags(explode("Riwayat Paket",$ekatalog_status[1])[0]));
-    
-    
-        #echo $ekatalog_detail;
-        $regex = "/(\<div class\=\"detail\-description col\-md\-9\"\>).*/";
-        preg_match_all($regex, $ekatalog_detail, $matches);
-        $matches = $matches[0];
-        #print_r($matches);
-        
-    
-        for($a = 0; $a<count($matches); $a++){
-          $split = explode('<div class="detail-description col-md-9">',$matches[$a])[1];
-          $matches[$a] = str_replace("</div>","",$split);
-          #echo $a." - ".$matches[$a]."<br/>";
-        }
-        #refrensi urutan liat dari https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/3631844
-        $where = array(
-          "ekatalog_id_paket" => $matches[1],
-          "ekatalog_status" => "aktif"
-        );
-        $result_temp = selectRow("mstr_ekatalog",$where);
-        if($result_temp->num_rows() > 0){
-            echo "ID paket aktif terkait sudah terdaftar";
-          $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
-          $where = array(
-            "ekatalog_komoditas" => $matches[0],
-            "ekatalog_id_paket" => $matches[1],
-            "ekatalog_nama_paket" => $matches[2],
-            "ekatalog_instansi" => $matches[3],
-            "ekatalog_satuan_kerja" => $matches[4],
-            "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
-            "ekatalog_alamat_satuan_kerja" => $matches[6],
-            "ekatalog_alamat_pengiriman" => $matches[7],
-            "ekatalog_tgl_buat_online" => $matches[8],
-            "ekatalog_tgl_ubah_online" => $matches[9],
-            "ekatalog_tahun_anggaran" => $matches[10],
-            "ekatalog_total_produk" => $matches[11],
-            "ekatalog_total_harga" => $total_harga,
-            "ekatalog_total_harga_online" => $matches[12],
-            "ekatalog_status_paket" => $ekatalog_status_main,
-            "ekatalog_posisi_paket" => $ekatalog_status_posisi,
-            "ekatalog_status" => "aktif"
-          );
-          if(!isExistsInTable("mstr_ekatalog", $where)){
-            $data = array(
-              "ekatalog_komoditas" => $matches[0],
-              "ekatalog_id_paket" => $matches[1]." Revision ".$result_temp->num_rows(),
-              "ekatalog_nama_paket" => $matches[2],
-              "ekatalog_instansi" => $matches[3],
-              "ekatalog_satuan_kerja" => $matches[4],
-              "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
-              "ekatalog_alamat_satuan_kerja" => $matches[6],
-              "ekatalog_alamat_pengiriman" => $matches[7],
-              "ekatalog_tgl_buat_online" => $matches[8],
-              "ekatalog_tgl_ubah_online" => $matches[9],
-              "ekatalog_tahun_anggaran" => $matches[10],
-              "ekatalog_total_produk" => $matches[11],
-              "ekatalog_total_harga" => $total_harga,
-              "ekatalog_total_harga_online" => $matches[12],
-              "ekatalog_status_paket" => $ekatalog_status_main,
-              "ekatalog_posisi_paket" => $ekatalog_status_posisi,
-              "ekatalog_status" => "aktif",
-              "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
-              "ekatalog_id_create" => 0,
-            );
-            echo "Double tapi tidak sama persis, masuk ke db";
-            print_r($data);
-          }
-          else{
-            return false;
-            echo "Double sama persis, tidak masuk ke db";
-            print_r($where);
-          }
-        }
-        else{
-          $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
-          $data = array(
-            "ekatalog_komoditas" => $matches[0],
-            "ekatalog_id_paket" => $matches[1],
-            "ekatalog_nama_paket" => $matches[2],
-            "ekatalog_instansi" => $matches[3],
-            "ekatalog_satuan_kerja" => $matches[4],
-            "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
-            "ekatalog_alamat_satuan_kerja" => $matches[6],
-            "ekatalog_alamat_pengiriman" => $matches[7],
-            "ekatalog_tgl_buat_online" => $matches[8],
-            "ekatalog_tgl_ubah_online" => $matches[9],
-            "ekatalog_tahun_anggaran" => $matches[10],
-            "ekatalog_total_produk" => $matches[11],
-            "ekatalog_total_harga" => $total_harga,
-            "ekatalog_total_harga_online" => $matches[12],
-            "ekatalog_status_paket" => $ekatalog_status_main,
-            "ekatalog_posisi_paket" => $ekatalog_status_posisi,
-            "ekatalog_status" => "aktif",
-            "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
-            "ekatalog_id_create" => 0,
-          );
-          echo  "tidak double, normal";
-          print_r($data);
-        }
   }
   public function get_ekatalog_detail(){
     if($this->login_cookies == ""){
         $this->login();
     }
-    $sql = "select id_pk_ekatalog_id, ekatalog_id_link, ekatalog_id, ekatalog_id_status_query, ekatalog_id_query_date from temp_ekatalog_id where ekatalog_id_status_query = 0 limit 1";
+    $sql = "select id_pk_ekatalog_id, ekatalog_id_link, ekatalog_id, ekatalog_id_status_query, ekatalog_id_query_date from temp_ekatalog_id where ekatalog_id_status_query = 0 limit 50";
     $result = executeQuery($sql);
     if($result->num_rows() > 0){
-        $result = $result->result_array();
+      $result = $result->result_array();
+      for($ekatalog_id_row = 0; $ekatalog_id_row < count($result); $ekatalog_id_row++){
+        $where = array(
+          "id_pk_ekatalog_id" => $result[$ekatalog_id_row]["id_pk_ekatalog_id"]
+        );
+        $data = array(
+          "ekatalog_id_status_query" => 1,
+          "ekatalog_id_query_date" => date("Y-m-d H:i:s")
+        );
+        updateRow("temp_ekatalog_id",$data,$where);
+        
     
-        $url = "https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/".$result[0]["ekatalog_id"];
+        $url = "https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/".$result[$ekatalog_id_row]["ekatalog_id"];
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => $url,
@@ -325,14 +175,15 @@ class Sch_ekatalog extends CI_Controller{
           )
         ));
         $response = (curl_exec($curl)); #string
+        echo $response."<br/>";
         $data = array(
           "log_auto_ekatalog" => "Mengambil detail E-Katalog",
-          "log_auto_ekatalog_desc" => "Mengambil data detail dari e-katalog dengan id paket = ".$result[0]["ekatalog_id"],
+          "log_auto_ekatalog_desc" => "Mengambil data detail dari e-katalog dengan id paket = ".$result[$ekatalog_id_row]["ekatalog_id"],
           "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
         );
         insertRow("log_auto_ekatalog",$data);
         
-        $url = "https://e-katalog.lkpp.go.id/id/purchasing/paket/".$result[0]["ekatalog_id"]."/daftar-produk";
+        $url = "https://e-katalog.lkpp.go.id/id/purchasing/paket/".$result[$ekatalog_id_row]["ekatalog_id"]."/daftar-produk";
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => $url,
@@ -347,42 +198,45 @@ class Sch_ekatalog extends CI_Controller{
           )
         ));
         $response_produk = (curl_exec($curl)); #string
+        echo $response_produk."<br/>";
         $data = array(
-          "log_auto_ekatalog" => "Mengambil detail E-Katalog",
-          "log_auto_ekatalog_desc" => "Mengambil data daftar produk dari e-katalog dengan id paket = ".$result[0]["ekatalog_id"],
-          "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
-        );
-        insertRow("log_auto_ekatalog",$data);
-    
-        $data = array(
-          "id_fk_ekatalog_id" => $result[0]["id_pk_ekatalog_id"],
+          "id_fk_ekatalog_id" => $result[$ekatalog_id_row]["id_pk_ekatalog_id"],
           "ekatalog_detail" => $response,
           "ekatalog_detail_item" => $response_produk
         );
         insertRow("temp_ekatalog_detail",$data);
-    
-        $where = array(
-          "id_pk_ekatalog_id" => $result[0]["id_pk_ekatalog_id"]
-        );
+
+        
         $data = array(
-          "ekatalog_id_status_query" => 1,
-          "ekatalog_id_query_date" => date("Y-m-d H:i:s")
+          "log_auto_ekatalog" => "Mengambil detail E-Katalog",
+          "log_auto_ekatalog_desc" => "Mengambil data daftar produk dari e-katalog dengan id paket = ".$result[$ekatalog_id_row]["ekatalog_id"],
+          "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
         );
-        updateRow("temp_ekatalog_id",$data,$where);
-        echo $this->db->last_query();
+        insertRow("log_auto_ekatalog",$data);
+        echo "=================================<br/>";
+      }
     }
   }
   public function extract_ekatalog_detail(){
-    $sql = "select id_pk_ekatalog_detail, id_fk_ekatalog_id, ekatalog_detail, ekatalog_detail_item, ekatalog_detail_status_extract, ekatalog_detail_extract_date from temp_ekatalog_detail where ekatalog_detail_status_extract = 0 limit 1";
+    $sql = "select id_pk_ekatalog_detail, id_fk_ekatalog_id, ekatalog_detail, ekatalog_detail_item, ekatalog_detail_status_extract, ekatalog_detail_extract_date from temp_ekatalog_detail where ekatalog_detail_status_extract = 0";
     $result = executeQuery($sql);
     if($result->num_rows() > 0){
-        $result = $result->result_array();
-    
-        $ekatalog_detail = $result[0]["ekatalog_detail"];
+      $result = $result->result_array();
+      for($row_mstr = 0; $row_mstr<count($result); $row_mstr++){
+        $where = array(
+          "id_pk_ekatalog_detail" => $result[$row_mstr]["id_pk_ekatalog_detail"]
+        );
+        $data = array(
+          "ekatalog_detail_status_extract" => 1,
+          "ekatalog_detail_extract_date" => date("Y-m-d H:i:s"),
+        );
+        updateRow("temp_ekatalog_detail",$data,$where);
+
+        $ekatalog_detail = $result[$row_mstr]["ekatalog_detail"];
         $ekatalog_detail = explode('<div role="tabpanel" class="tab-pane active" id="informasi-utama">', $ekatalog_detail)[1];
         $ekatalog_detail = explode('<div role="tabpanel" class="tab-pane" id="pp-ppk">', $ekatalog_detail)[0];
         
-        $ekatalog_status = $result[0]["ekatalog_detail"];
+        $ekatalog_status = $result[$row_mstr]["ekatalog_detail"];
         $ekatalog_status = explode('<div class="detail-heading col-md-4">Status</div>',$ekatalog_status)[1];
         $ekatalog_status = explode('<div class="detail-heading col-md-4">Posisi Paket</div>',$ekatalog_status);
         $ekatalog_status_main = trim(strip_tags($ekatalog_status[0]));
@@ -401,97 +255,50 @@ class Sch_ekatalog extends CI_Controller{
           #echo $a." - ".$matches[$a]."<br/>";
         }
         #refrensi urutan liat dari https://e-katalog.lkpp.go.id/id/purchasing/paket/detail/3631844
-        $where = array(
-          "ekatalog_id_paket" => $matches[1],
-          "ekatalog_status" => "aktif"
+        $sql = "delete from mstr_ekatalog where ekatalog_id_paket = ? and ekatalog_tgl_update is null and ekatalog_id_create = 0"; 
+        #hapus yang gapernah diupdate (which is masih original) dan yang id_create 0 (yg which is dibuat oleh sistem)
+        $args = array(
+          $matches[1]
         );
-        $result_temp = selectRow("mstr_ekatalog",$where);
-        if($result_temp->num_rows() > 0){
-            echo "sama";
-          $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
-          $where = array(
-            "ekatalog_komoditas" => $matches[0],
-            "ekatalog_id_paket" => $matches[1],
-            "ekatalog_nama_paket" => $matches[2],
-            "ekatalog_instansi" => $matches[3],
-            "ekatalog_satuan_kerja" => $matches[4],
-            "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
-            "ekatalog_alamat_satuan_kerja" => $matches[6],
-            "ekatalog_alamat_pengiriman" => $matches[7],
-            "ekatalog_tgl_buat_online" => $matches[8],
-            "ekatalog_tgl_ubah_online" => $matches[9],
-            "ekatalog_tahun_anggaran" => $matches[10],
-            "ekatalog_total_produk" => $matches[11],
-            "ekatalog_total_harga" => $total_harga,
-            "ekatalog_total_harga_online" => $matches[12],
-            "ekatalog_status_paket" => $ekatalog_status_main,
-            "ekatalog_posisi_paket" => $ekatalog_status_posisi,
-            "ekatalog_status" => "aktif"
-          );
-          if(!isExistsInTable("mstr_ekatalog", $where)){
-            echo " revisi";
-            $data = array(
-              "ekatalog_komoditas" => $matches[0],
-              "ekatalog_id_paket" => $matches[1]." Revision ".$result_temp->num_rows(),
-              "ekatalog_nama_paket" => $matches[2],
-              "ekatalog_instansi" => $matches[3],
-              "ekatalog_satuan_kerja" => $matches[4],
-              "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
-              "ekatalog_alamat_satuan_kerja" => $matches[6],
-              "ekatalog_alamat_pengiriman" => $matches[7],
-              "ekatalog_tgl_buat_online" => $matches[8],
-              "ekatalog_tgl_ubah_online" => $matches[9],
-              "ekatalog_tahun_anggaran" => $matches[10],
-              "ekatalog_total_produk" => $matches[11],
-              "ekatalog_total_harga" => $total_harga,
-              "ekatalog_total_harga_online" => $matches[12],
-              "ekatalog_status_paket" => $ekatalog_status_main,
-              "ekatalog_posisi_paket" => $ekatalog_status_posisi,
-              "ekatalog_status" => "aktif",
-              "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
-              "ekatalog_id_create" => 0,
-            );
-            $id_ekatalog = insertRow("mstr_ekatalog",$data);
-          }
-          else{
-            echo " persis";
-            $where = array(
-              "id_pk_ekatalog_detail" => $result[0]["id_pk_ekatalog_detail"]
-            );
-            $data = array(
-              "ekatalog_detail_status_extract" => 1,
-              "ekatalog_detail_extract_date" => date("Y-m-d H:i:s"),
-            );
-            updateRow("temp_ekatalog_detail",$data,$where);
-            return false;
-          }
-        }
-        else{
-            echo " pertama";
-          $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
-          $data = array(
-            "ekatalog_komoditas" => $matches[0],
-            "ekatalog_id_paket" => $matches[1],
-            "ekatalog_nama_paket" => $matches[2],
-            "ekatalog_instansi" => $matches[3],
-            "ekatalog_satuan_kerja" => $matches[4],
-            "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
-            "ekatalog_alamat_satuan_kerja" => $matches[6],
-            "ekatalog_alamat_pengiriman" => $matches[7],
-            "ekatalog_tgl_buat_online" => $matches[8],
-            "ekatalog_tgl_ubah_online" => $matches[9],
-            "ekatalog_tahun_anggaran" => $matches[10],
-            "ekatalog_total_produk" => $matches[11],
-            "ekatalog_total_harga" => $total_harga,
-            "ekatalog_total_harga_online" => $matches[12],
-            "ekatalog_status_paket" => $ekatalog_status_main,
-            "ekatalog_posisi_paket" => $ekatalog_status_posisi,
-            "ekatalog_status" => "aktif",
-            "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
-            "ekatalog_id_create" => 0,
-          );
-          $id_ekatalog = insertRow("mstr_ekatalog",$data);
-        }
+        executeQuery($sql,$args); #delete sirup yang udah kedaftar di mstr sirup supaya prevent duplicate. However, setiap kali data masuk ke mstr_sirup, itu sudah pasti ada backupnya di archieve.
+        $matches[8] = $this->change_date($matches[8]);
+        $matches[9] = $this->change_date($matches[9]);
+        $total_harga = trim(str_replace("Rp ","",str_replace(".","",str_replace(",00","",strip_tags($matches[12])))));
+        $data = array(
+          "ekatalog_komoditas" => $matches[0],
+          "ekatalog_komoditas_online" => $matches[0],
+          "ekatalog_id_paket" => $matches[1],
+          "ekatalog_id_paket_online" => $matches[1],
+          "ekatalog_nama_paket" => $matches[2],
+          "ekatalog_nama_paket_online" => $matches[2],
+          "ekatalog_instansi" => $matches[3],
+          "ekatalog_instansi_online" => $matches[3],
+          "ekatalog_satuan_kerja" => $matches[4],
+          "ekatalog_satuan_kerja_online" => $matches[4],
+          "ekatalog_npwp_satuan_kerja" => str_replace("&ndash;","-",$matches[5]),
+          "ekatalog_npwp_satuan_kerja_online" => str_replace("&ndash;","-",$matches[5]),
+          "ekatalog_alamat_satuan_kerja" => $matches[6],
+          "ekatalog_alamat_satuan_kerja_online" => $matches[6],
+          "ekatalog_alamat_pengiriman" => $matches[7],
+          "ekatalog_alamat_pengiriman_online" => $matches[7],
+          "ekatalog_tgl_buat_online" => $matches[8],
+          "ekatalog_tgl_ubah_online" => $matches[9],
+          "ekatalog_tahun_anggaran" => $matches[10],
+          "ekatalog_tahun_anggaran_online" => $matches[10],
+          "ekatalog_total_produk" => $matches[11],
+          "ekatalog_total_produk_online" => $matches[11],
+          "ekatalog_total_harga" => $total_harga,
+          "ekatalog_total_harga_online" => $matches[12],
+          "ekatalog_status_paket" => $ekatalog_status_main,
+          "ekatalog_status_paket_online" => $ekatalog_status_main,
+          "ekatalog_posisi_paket" => $ekatalog_status_posisi,
+          "ekatalog_posisi_paket_online" => $ekatalog_status_posisi,
+          "ekatalog_status" => "aktif",
+          "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
+          "ekatalog_id_create" => 0,
+        );
+        insertRow("mstr_ekatalog_archieve",$data);
+        $id_ekatalog = insertRow("mstr_ekatalog",$data);
         $data = array(
           "log_auto_ekatalog" => "Mengekstrak dan memasukan detail E-Katalog ke database MAK-CRM",
           "log_auto_ekatalog_desc" => "Mengekstrak dan memasukan detail dari e-katalog dengan id paket = ".$matches[1]." dan nama paket: ".$matches[2],
@@ -499,7 +306,7 @@ class Sch_ekatalog extends CI_Controller{
         );
         insertRow("log_auto_ekatalog",$data);
     
-        $ekatalog_item = trim($result[0]["ekatalog_detail_item"]);
+        $ekatalog_item = trim($result[$row_mstr]["ekatalog_detail_item"]);
         $ekatalog_item = explode('<table aria-describedby="mydesc" class="table table-bordered">',$ekatalog_item);
         $ekatalog_item = $ekatalog_item[1];
         $ekatalog_item = explode("<tr>",$ekatalog_item);
@@ -515,6 +322,7 @@ class Sch_ekatalog extends CI_Controller{
     
           $data = array(
             "ekatalog_produk_nama_produk" => trim(strip_tags($matches[0])),
+            "ekatalog_produk_nama_produk_online" => trim(strip_tags($matches[0])),
             "ekatalog_produk_kuantitas_online" => trim(strip_tags($matches[1])),
             "ekatalog_produk_kuantitas" => floatval($kuantitas),
             "ekatalog_produk_mata_uang_online" => trim(strip_tags($matches[2])),
@@ -526,6 +334,7 @@ class Sch_ekatalog extends CI_Controller{
             "ekatalog_produk_total_harga_online" => trim(strip_tags($matches[5])),
             "ekatalog_produk_total_harga" => intval($total_harga),
             "ekatalog_produk_catatan" => trim(strip_tags($matches[6])),
+            "ekatalog_produk_catatan_online" => trim(strip_tags($matches[6])),
             "ekatalog_produk_status" => "aktif",
             "ekatalog_produk_tgl_create" => date("Y-m-d H:i:s"),
             "ekatalog_produk_id_create" => 0,
@@ -539,16 +348,32 @@ class Sch_ekatalog extends CI_Controller{
           "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
         );
         insertRow("log_auto_ekatalog",$data);
-        $where = array(
-          "id_pk_ekatalog_detail" => $result[0]["id_pk_ekatalog_detail"]
-        );
-        $data = array(
-          "ekatalog_detail_status_extract" => 1,
-          "ekatalog_detail_extract_date" => date("Y-m-d H:i:s"),
-        );
-        updateRow("temp_ekatalog_detail",$data,$where);
+        
         #print_r($ekatalog_item);
         #echo $ekatalog_item;
+      }
     }
+  }
+  public function change_date($tanggal) {
+    echo $tanggal;
+    $tanggal = explode(" ",$tanggal);
+    $tgl = $tanggal[0];    
+    $bln = strtolower(substr($tanggal[1],0,3));    
+    $thn = $tanggal[2];    
+
+    if(strtolower($bln) == "mei"){
+      $bln = "may";
+    }
+    else if(strtolower($bln) == "agu"){
+      $bln = "aug";
+    }
+    else if(strtolower($bln) == "okt"){
+      $bln = "oct";
+    }
+    else if(strtolower($bln) == "des"){
+      $bln = "dec";
+    }
+    $formatteddate = date("Y-m-d", strtotime($tgl." ".$bln." ".$thn));
+    return $formatteddate;
   }
 }
