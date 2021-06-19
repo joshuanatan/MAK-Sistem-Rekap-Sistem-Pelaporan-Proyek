@@ -1109,6 +1109,7 @@
   }
 </script>
 <script>
+  var insert_html = $("#insert_form").html();
   function insert_row() {
     nf_reformat_all();
     var fd = new FormData($("#insert_form")[0]);
@@ -1123,6 +1124,7 @@
         alert(respond["msg"]);
         if (respond["status"]) {
           $("#insertSirupModal").modal("hide");
+          $("#insert_form").html(insert_html);
           reload_table();
         }
       }

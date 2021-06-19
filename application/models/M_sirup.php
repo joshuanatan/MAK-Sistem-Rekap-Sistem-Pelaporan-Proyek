@@ -64,85 +64,38 @@ class M_sirup extends CI_Model
 
   public function insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, $sirup_status, $sirup_status_sesuai_pencarian = 1)
   {
-    $where = array(
-      "sirup_rup" => $sirup_rup,
-      "sirup_status" => "aktif"
+    $sql = "delete from mstr_sirup where sirup_rup = ? and sirup_tgl_update is null and id_fk_pencarian_sirup != 0"; 
+    #hapus yan gapernah diupdate (which is masih original) dan yang id_fk_pencarian_sirup tidak 0 (yg which is ini bukan diinput manual)
+    $args = array(
+      $sirup_rup
     );
-    $result = selectRow("mstr_sirup", $where);
-    if ($result->num_rows() > 0) {
-      #check existing data utk liat apakah apa perubahan atau enggak.
-      $where = array(
-        "sirup_rup" => $sirup_rup,
-        "sirup_paket" => $sirup_paket,
-        "sirup_klpd" => $sirup_klpd,
-        "sirup_satuan_kerja" => $sirup_satuan_kerja,
-        "sirup_tahun_anggaran" => $sirup_tahun_anggaran,
-        "sirup_volume_pekerjaan" => $sirup_volume_pekerjaan,
-        "sirup_uraian_pekerjaan" => $sirup_uraian_pekerjaan,
-        "sirup_spesifikasi_pekerjaan" => $sirup_spesifikasi_pekerjaan,
-        "sirup_produk_dalam_negri" => $sirup_produk_dalam_negri,
-        "sirup_usaha_kecil" => $sirup_usaha_kecil,
-        "sirup_pra_dipa" => $sirup_pra_dipa,
-        "sirup_jenis_pengadaan" => $sirup_jenis_pengadaan,
-        "sirup_total" => $sirup_total,
-        "sirup_metode_pemilihan" => $sirup_metode_pemilihan,
-        "sirup_histori_paket" => $sirup_histori_paket,
-        "sirup_tgl_perbarui_paket" => $sirup_tgl_perbarui_paket,
-        "id_fk_pencarian_sirup" => $id_fk_pencarian_sirup
-      );
-      if (!isExistsInTable("mstr_sirup", $where)) {
-        $data = array(
-          "sirup_rup" => $sirup_rup . " Revision " . $result->num_rows(),
-          "sirup_paket" => $sirup_paket,
-          "sirup_klpd" => $sirup_klpd,
-          "sirup_satuan_kerja" => $sirup_satuan_kerja,
-          "sirup_tahun_anggaran" => $sirup_tahun_anggaran,
-          "sirup_volume_pekerjaan" => $sirup_volume_pekerjaan,
-          "sirup_uraian_pekerjaan" => $sirup_uraian_pekerjaan,
-          "sirup_spesifikasi_pekerjaan" => $sirup_spesifikasi_pekerjaan,
-          "sirup_produk_dalam_negri" => $sirup_produk_dalam_negri,
-          "sirup_usaha_kecil" => $sirup_usaha_kecil,
-          "sirup_pra_dipa" => $sirup_pra_dipa,
-          "sirup_jenis_pengadaan" => $sirup_jenis_pengadaan,
-          "sirup_total" => $sirup_total,
-          "sirup_metode_pemilihan" => $sirup_metode_pemilihan,
-          "sirup_histori_paket" => $sirup_histori_paket,
-          "sirup_tgl_perbarui_paket" => $sirup_tgl_perbarui_paket,
-          "sirup_status" => $sirup_status,
-          "sirup_tgl_create" => date("Y-m-d H:i:s"),
-          "sirup_id_create" => $sirup_id_create,
-          "id_fk_pencarian_sirup" => $id_fk_pencarian_sirup,
-          "sirup_status_sesuai_pencarian" => $sirup_status_sesuai_pencarian
-        );
-        return insertRow("mstr_sirup", $data);
-      }
-      return false;
-    } else {
-      $data = array(
-        "sirup_rup" => $sirup_rup,
-        "sirup_paket" => $sirup_paket,
-        "sirup_klpd" => $sirup_klpd,
-        "sirup_satuan_kerja" => $sirup_satuan_kerja,
-        "sirup_tahun_anggaran" => $sirup_tahun_anggaran,
-        "sirup_volume_pekerjaan" => $sirup_volume_pekerjaan,
-        "sirup_uraian_pekerjaan" => $sirup_uraian_pekerjaan,
-        "sirup_spesifikasi_pekerjaan" => $sirup_spesifikasi_pekerjaan,
-        "sirup_produk_dalam_negri" => $sirup_produk_dalam_negri,
-        "sirup_usaha_kecil" => $sirup_usaha_kecil,
-        "sirup_pra_dipa" => $sirup_pra_dipa,
-        "sirup_jenis_pengadaan" => $sirup_jenis_pengadaan,
-        "sirup_total" => $sirup_total,
-        "sirup_metode_pemilihan" => $sirup_metode_pemilihan,
-        "sirup_histori_paket" => $sirup_histori_paket,
-        "sirup_tgl_perbarui_paket" => $sirup_tgl_perbarui_paket,
-        "sirup_status" => $sirup_status,
-        "sirup_tgl_create" => date("Y-m-d H:i:s"),
-        "sirup_id_create" => $sirup_id_create,
-        "id_fk_pencarian_sirup" => $id_fk_pencarian_sirup,
-        "sirup_status_sesuai_pencarian" => $sirup_status_sesuai_pencarian
-      );
-      return insertRow("mstr_sirup", $data);
-    }
+    executeQuery($sql,$args); #delete sirup yang udah kedaftar di mstr sirup supaya prevent duplicate. However, setiap kali data masuk ke mstr_sirup, itu sudah pasti ada backupnya di archieve.
+
+    $data = array(
+      "sirup_rup" => $sirup_rup,
+      "sirup_paket" => $sirup_paket,
+      "sirup_klpd" => $sirup_klpd,
+      "sirup_satuan_kerja" => $sirup_satuan_kerja,
+      "sirup_tahun_anggaran" => $sirup_tahun_anggaran,
+      "sirup_volume_pekerjaan" => $sirup_volume_pekerjaan,
+      "sirup_uraian_pekerjaan" => $sirup_uraian_pekerjaan,
+      "sirup_spesifikasi_pekerjaan" => $sirup_spesifikasi_pekerjaan,
+      "sirup_produk_dalam_negri" => $sirup_produk_dalam_negri,
+      "sirup_usaha_kecil" => $sirup_usaha_kecil,
+      "sirup_pra_dipa" => $sirup_pra_dipa,
+      "sirup_jenis_pengadaan" => $sirup_jenis_pengadaan,
+      "sirup_total" => $sirup_total,
+      "sirup_metode_pemilihan" => $sirup_metode_pemilihan,
+      "sirup_histori_paket" => $sirup_histori_paket,
+      "sirup_tgl_perbarui_paket" => $sirup_tgl_perbarui_paket,
+      "sirup_status" => $sirup_status,
+      "sirup_tgl_create" => date("Y-m-d H:i:s"),
+      "sirup_id_create" => $sirup_id_create,
+      "id_fk_pencarian_sirup" => $id_fk_pencarian_sirup,
+      "sirup_status_sesuai_pencarian" => $sirup_status_sesuai_pencarian
+    );
+    insertRow("mstr_sirup_archieve", $data); #masukin ke archieve
+    return insertRow("mstr_sirup", $data); #masukin ke table utama
   }
   public function insert_lokasi_pekerjaan($data, $id_fk_sirup)
   {
@@ -151,6 +104,7 @@ class M_sirup extends CI_Model
       "id_fk_sirup" => $id_fk_sirup
     );
     insertRow("tbl_sirup_lokasi_pekerjaan", $data);
+    insertRow("tbl_sirup_lokasi_pekerjaan_archieve", $data);
   }
   public function insert_sumber_dana($data, $id_fk_sirup)
   {
@@ -159,6 +113,7 @@ class M_sirup extends CI_Model
       "id_fk_sirup" => $id_fk_sirup
     );
     insertRow("tbl_sirup_sumber_dana", $data);
+    insertRow("tbl_sirup_sumber_dana_archieve", $data);
   }
   public function insert_pemanfaatan_barang($data, $id_fk_sirup)
   {
@@ -167,6 +122,7 @@ class M_sirup extends CI_Model
       "id_fk_sirup" => $id_fk_sirup
     );
     insertRow("tbl_sirup_pemanfaatan_barang", $data);
+    insertRow("tbl_sirup_pemanfaatan_barang_archieve", $data);
   }
   public function insert_jadwal_pelaksanaan($data, $id_fk_sirup)
   {
@@ -175,6 +131,7 @@ class M_sirup extends CI_Model
       "id_fk_sirup" => $id_fk_sirup
     );
     insertRow("tbl_sirup_jadwal_pelaksanaan", $data);
+    insertRow("tbl_sirup_jadwal_pelaksanaan_archieve", $data);
   }
   public function insert_pemilihan_penyedia($data, $id_fk_sirup)
   {
@@ -183,6 +140,7 @@ class M_sirup extends CI_Model
       "id_fk_sirup" => $id_fk_sirup
     );
     insertRow("tbl_sirup_pemilihan_penyedia", $data);
+    insertRow("tbl_sirup_pemilihan_penyedia_archieve", $data);
   }
   public function is_id_exists($id)
   {

@@ -92,7 +92,9 @@ class Sirup extends CI_Controller
   }
   public function insert()
   {
-    $this->form_validation->set_rules("kode_rup", "kode_rup", "required");
+    $this->form_validation->set_rules("kode_rup", "kode_rup", "required|is_unique[mstr_sirup.sirup_rup]'", array(
+      "is_unique" => "Sirup RUP telah terdaftar, tolong masukkan RUP yang berbeda."
+    ));
     $this->form_validation->set_rules("nama_paket", "nama_paket", "required");
     $this->form_validation->set_rules("nama_klpd", "nama_klpd", "required");
     $this->form_validation->set_rules("satuan_kerja", "satuan_kerja", "required");
@@ -189,7 +191,9 @@ class Sirup extends CI_Controller
   public function update()
   {
     $this->form_validation->set_rules("id_sirup", "ID Sirup", "required");
-    $this->form_validation->set_rules("kode_rup", "kode_rup", "required");
+    $this->form_validation->set_rules("kode_rup", "kode_rup", "required|is_unique[mstr_sirup.sirup_rup]'", array(
+      "is_unique" => "Sirup RUP telah terdaftar, tolong masukkan RUP yang berbeda."
+    ));
     $this->form_validation->set_rules("nama_paket", "nama_paket", "required");
     $this->form_validation->set_rules("nama_klpd", "nama_klpd", "required");
     $this->form_validation->set_rules("satuan_kerja", "satuan_kerja", "required");
