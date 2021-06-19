@@ -481,7 +481,7 @@
             html4 += `
                 <label class="form-control-label">No SiRUP</label>
                 <select class = 'js-example-basic-single form-control' style='width:100%;' name = 'no_sirup' id='noSirup' onchange='showDetailSirup()'>
-                  <option value="<?php echo $dataprospek[0]["no_sirup"]; ?>" selected disabled><?php echo $dataprospek[0]["no_sirup"]; ?></option>
+                  <option value="<?php echo $dataprospek[0]["no_sirup"]; ?>" selected hidden><?php echo $dataprospek[0]["no_sirup"]; ?></option>
                 <?php for ($i = 0; $i < count($datasirup); $i++) : ?>
                   <option value = "<?php echo $datasirup[$i]["sirup_rup"]; ?>"><?php echo $datasirup[$i]["sirup_rup"]; ?></option>
                 <?php endfor; ?>
@@ -500,7 +500,7 @@
             html2 += `
                 <label class="form-control-label">No E Katalog</label>
                 <select class = 'js-example-basic-single form-control' style='width:100%;' name = 'nomorekatalog' id='noEkat' onchange='showDetailEkat()'>
-                  <option value="<?php echo $dataprospek[0]["no_ekatalog"]; ?>" selected disabled><?php echo $dataprospek[0]["no_ekatalog"]; ?></option>
+                  <option value="<?php echo $dataprospek[0]["no_ekatalog"]; ?>" selected hidden><?php echo $dataprospek[0]["no_ekatalog"]; ?></option>
                 <?php for ($i = 0; $i < count($dataekat); $i++) : ?>
                   <option value = "<?php echo $dataekat[$i]["ekatalog_id_paket"]; ?>"><?php echo $dataekat[$i]["ekatalog_id_paket"]; ?></option>
                 <?php endfor; ?>
