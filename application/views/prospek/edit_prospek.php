@@ -497,7 +497,7 @@
             html2 += `
                 <label class="form-control-label">No E Katalog</label>
                 <select class = 'js-example-basic-single form-control' style='width:100%;' name = 'nomorekatalog' id='noEkat' onchange='showDetailEkat()'>
-                  <option value="<?php echo $dataprospek[0]["no_ekatalog"]; ?>" selected disabled><?php echo $dataprospek[0]["ekatalog_id_paket"]; ?></option>
+                  <option value="<?php echo $dataprospek[0]["no_ekatalog"]; ?>" selected disabled><?php echo $dataprospek[0]["no_ekatalog"]; ?></option>
                 <?php for ($i = 0; $i < count($dataekat); $i++) : ?>
                   <option value = "<?php echo $dataekat[$i]["ekatalog_id_paket"]; ?>"><?php echo $dataekat[$i]["ekatalog_id_paket"]; ?></option>
                 <?php endfor; ?>
