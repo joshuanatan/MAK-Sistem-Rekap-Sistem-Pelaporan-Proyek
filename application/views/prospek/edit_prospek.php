@@ -486,6 +486,9 @@
                   <option value = "<?php echo $datasirup[$i]["sirup_rup"]; ?>"><?php echo $datasirup[$i]["sirup_rup"]; ?></option>
                 <?php endfor; ?>
                 </select>
+                <label class="form-control-label">Detail SiRUP</label>
+                <table class="table table-hover table-striped w-full border" id ="detailSirup">
+                </table>
               `;
             $("#funnelPercentage").html("");
             $("#noEkatalog").html("");
