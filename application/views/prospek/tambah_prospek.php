@@ -326,6 +326,65 @@
       });
     }
 
+    function showDetailSirup() {
+      var base_url = "<?php echo base_url(); ?>";
+      var id_sirup = $("#noSirup").val();
+      $.ajax({
+        url: `${base_url}ws/prospek/get_detail_sirup/${id_sirup}`,
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+
+          var html = "";
+          for (var a = 0; a < respond["data_detail_sirup"].length; a++) {
+            html += `
+              <tr>
+                <td>Paket SiRUP</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_paket"]}</td>
+              </tr>
+              <tr>
+                <td>KLPD</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_klpd"]}</td>
+              </tr>
+              <tr>
+                <td>Satuan Kerja</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_satuan_kerja"]}</td>
+              </tr>
+              <tr>
+                <td>Tahun Anggaran</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_tahun_anggaran"]}</td>
+              </tr>
+              <tr>
+                <td>Volume Pekerjaan</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_volume_pekerjaan"]}</td>
+              </tr>
+              <tr>
+                <td>Uraian Pekerjaan</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_uraian_pekerjaan"]}</td>
+              </tr>
+              <tr>
+                <td>Spesifikasi Pekerjaan</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_spesifikasi_pekerjaan"]}</td>
+              </tr>
+              <tr>
+                <td>Produk dalam Negeri / Usaha Kecil / Pra Dipa</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_produk_dalam_negri"]} / ${respond["data_detail_sirup"][a]["sirup_usaha_kecil"]} / ${respond["data_detail_sirup"][a]["sirup_pra_dipa"]}</td>
+              </tr>
+              <tr>
+                <td>Metode Pemilihan</td>
+                <td>Rp ${respond["data_detail_sirup"][a]["sirup_metode_pemilihan"]}</td>
+              </tr>
+              <tr>
+                <td>History Paket</td>
+                <td>${respond["data_detail_sirup"][a]["sirup_histori_paket"]}</td>
+              </tr>
+              `;
+          }
+          $("#detailSirup").html(html);
+        }
+      });
+    }
+
     function showKabupaten() {
       var id_provinsi = $("#provinsi").val();
       $.ajax({
@@ -357,12 +416,15 @@
             $("#noteSirup").show();
             html4 += `
                 <label class="form-control-label">No SiRUP</label>
-                <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'no_sirup'>
+                <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'no_sirup' id="noSirup" onchange="showDetailSirup()">
                   <option selected disabled>------ Pilih SiRUP ------</option>
                 <?php for ($i = 0; $i < count($datasirup); $i++) : ?>
                   <option value = "<?php echo $datasirup[$i]["sirup_rup"]; ?>"><?php echo $datasirup[$i]["sirup_rup"]; ?></option>
                 <?php endfor; ?>
                 </select>
+                <label class="form-control-label">Detail SiRUP</label>
+                <table class="table table-hover table-striped w-full border" id ="detailSirup">
+                </table>
               `;
             $("#funnelPercentage").html("");
             $("#noEkatalog").html("");
@@ -375,7 +437,7 @@
                 <select class = 'js-example-basic-single form-control' style="width:100%;" name = 'nomorekatalog' id="noEkat" onchange="showDetailEkat()">
                   <option selected disabled>------ Pilih Ekatalog ------</option>
                 <?php for ($i = 0; $i < count($dataekat); $i++) : ?>
-                  <option value = "<?php echo $dataekat[$i]["id_pk_ekatalog"]; ?>"><?php echo $dataekat[$i]["ekatalog_id_paket"]; ?></option>
+                  <option value = "<?php echo $dataekat[$i]["ekatalog_id_paket"]; ?>"><?php echo $dataekat[$i]["ekatalog_id_paket"]; ?></option>
                 <?php endfor; ?>
                 </select>
                 <label class="form-control-label">Detail E Katalog</label>

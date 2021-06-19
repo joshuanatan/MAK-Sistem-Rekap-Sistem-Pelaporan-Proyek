@@ -117,7 +117,15 @@ class M_prospek extends CI_Model
   {
     $sql = "SELECT *
        FROM mstr_ekatalog
-       WHERE id_pk_ekatalog = '$id_pk_ekatalog' AND ekatalog_status='aktif'";
+       WHERE ekatalog_id_paket = '$id_pk_ekatalog' AND ekatalog_status='aktif'";
+    return executeQuery($sql);
+  }
+
+  public function get_detail_sirup($id_pk_sirup)
+  {
+    $sql = "SELECT *
+       FROM mstr_sirup
+       WHERE sirup_rup = '$id_pk_sirup' AND sirup_status='aktif'";
     return executeQuery($sql);
   }
 

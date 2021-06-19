@@ -103,6 +103,14 @@ class Prospek extends CI_Controller
     echo json_encode($response);
   }
 
+  public function get_detail_sirup($id_pk_sirup)
+  {
+    $this->load->model("m_prospek");
+    $response["data_detail_sirup"] = $this->m_prospek->get_detail_sirup($id_pk_sirup)->result_array();
+
+    echo json_encode($response);
+  }
+
   public function get_kabupaten($id_pk_provinsi)
   {
     $this->load->model("m_prospek");
