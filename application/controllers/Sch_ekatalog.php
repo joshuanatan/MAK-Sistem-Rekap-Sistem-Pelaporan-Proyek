@@ -175,6 +175,7 @@ class Sch_ekatalog extends CI_Controller{
           )
         ));
         $response = (curl_exec($curl)); #string
+        echo $response."<br/>";
         $data = array(
           "log_auto_ekatalog" => "Mengambil detail E-Katalog",
           "log_auto_ekatalog_desc" => "Mengambil data detail dari e-katalog dengan id paket = ".$result[$ekatalog_id_row]["ekatalog_id"],
@@ -197,6 +198,7 @@ class Sch_ekatalog extends CI_Controller{
           )
         ));
         $response_produk = (curl_exec($curl)); #string
+        echo $response_produk."<br/>";
         $data = array(
           "id_fk_ekatalog_id" => $result[$ekatalog_id_row]["id_pk_ekatalog_id"],
           "ekatalog_detail" => $response,
@@ -211,6 +213,7 @@ class Sch_ekatalog extends CI_Controller{
           "log_auto_ekatalog_date" => date("Y-m-d H:i:s"),
         );
         insertRow("log_auto_ekatalog",$data);
+        echo "=================================<br/>";
       }
     }
   }
