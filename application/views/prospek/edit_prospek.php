@@ -35,13 +35,18 @@
                 <h4 class="title">Edit Prospek</h4>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
-                    <label class="form-control-label js-example-basic-single">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="form-control" name="id_fk_rs" id="dataRumahSakit" onchange="showDetailRS()">
                       <option value="<?php echo $dataprospek[0]["id_fk_rs"]; ?>" selected><?php echo $dataprospek[0]["nama_rs"]; ?></option>
                       <?php for ($a = 0; $a < count($datars); $a++) : ?>
                         <option value="<?php echo $datars[$a]["id_pk_rs"]; ?>"><?php echo $datars[$a]["rs_nama"]; ?></option>
                       <?php endfor; ?>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Detail Rumah Sakit</label>
+                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    </table>
                   </div>
                 <?php endif; ?>
                 <?php if ($this->session->user_role == "Supervisor" || $this->session->user_role == "Area Sales Manager") : ?>

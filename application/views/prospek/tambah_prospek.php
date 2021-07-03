@@ -33,16 +33,20 @@
           <div class="">
             <div class="panel">
               <div class="panel-body">
-                <h4 class="title">Tambah Prospek</h4>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
-                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit">
+                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit" onchange = "showDetailRS()">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                       <?php for ($a = 0; $a < count($datars); $a++) : ?>
                         <option value="<?php echo $datars[$a]["id_pk_rs"]; ?>"><?php echo $datars[$a]["rs_nama"]; ?></option>
                       <?php endfor; ?>
                     </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Detail Rumah Sakit</label>
+                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    </table>
                   </div>
                 <?php endif; ?>
                 <?php if ($this->session->user_role == "Supervisor" || $this->session->user_role == "Area Sales Manager") : ?>
@@ -57,7 +61,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
-                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit"  onchange="showDetailRS()">
+                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit" onchange="showDetailRS()">
 
                     </select>
                   </div>
@@ -217,7 +221,7 @@
           for (var a = 0; a < respond["data_detail_rs"].length; a++) {
             html += `
               <tr>
-                <td>Kode RS</td>
+                <td style = "width:25%">Kode RS</td>
                 <td>${respond["data_detail_rs"][a]["rs_kode"]}</td>
               </tr>
               <tr>
@@ -277,7 +281,7 @@
               </tr>
               <tr>
                 <td>Ekatalog</td>
-                <td>${respond["data_detail_ekat"][a]["ekatalog_nama"]}</td>
+                <td>${respond["data_detail_ekat"][a]["ekatalog_nama_paket"]}</td>
               </tr>
               <tr>
                 <td>Instansi</td>
@@ -392,7 +396,7 @@
         type: "GET",
         dataType: "JSON",
         success: function(respond) {
-          var html = "";
+          var html = "<option disabled selected>Silahkan Pilih Kabupaten</option>";
           for (var a = 0; a < respond["data_kabupaten"].length; a++) {
             html += `
                 <option value = '${respond["data_kabupaten"][a]["id_pk_kabupaten"]}'>${respond["data_kabupaten"][a]["kabupaten_nama"]}</option>
