@@ -102,16 +102,58 @@
           </div>
         </li>
         <li class="dropdown site-menu-item has-sub">
-          <a href="<?php echo base_url(); ?>sirup" data-dropdown-toggle="false">
+          <a href="#" data-dropdown-toggle="false">
             <i class="site-menu-icon md-collection-bookmark" aria-hidden="true"></i>
             <span class="site-menu-title">SiRUP</span>
           </a>
+          <div class="dropdown-menu">
+            <div class="site-menu-scroll-wrap is-list">
+              <ul class="site-menu-sub site-menu-normal-list">
+                <li class="site-menu-item">
+                  <a class="animsition-link" href="<?php echo base_url(); ?>sirup/semua">
+                    <span class="site-menu-title">Semua SiRUP</span>
+                  </a>
+                </li>
+                <li class="site-menu-item">
+                  <a class="animsition-link" href="<?php echo base_url(); ?>sirup">
+                    <span class="site-menu-title">Data Penarikan SiRUP LKPP</span>
+                  </a>
+                </li>
+                <li class="site-menu-item">
+                  <a class="animsition-link" href="<?php echo base_url(); ?>sirup/buatan">
+                    <span class="site-menu-title">SiRUP Buatan</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </li>
         <li class="dropdown site-menu-item has-sub">
-          <a href="<?php echo base_url(); ?>ekatalog" data-dropdown-toggle="false">
+          <a href="#" data-dropdown-toggle="false">
             <i class="site-menu-icon md-inbox" aria-hidden="true"></i>
             <span class="site-menu-title">E-Katalog</span>
           </a>
+          <div class="dropdown-menu">
+            <div class="site-menu-scroll-wrap is-list">
+              <ul class="site-menu-sub site-menu-normal-list">
+                <li class="site-menu-item">
+                  <a class="animsition-link" href="<?php echo base_url(); ?>ekatalog/semua">
+                    <span class="site-menu-title">Semua eKatalog</span>
+                  </a>
+                </li>
+                <li class="site-menu-item">
+                  <a class="animsition-link" href="<?php echo base_url(); ?>ekatalog">
+                    <span class="site-menu-title">Data Penarikan eKatalog LKPP</span>
+                  </a>
+                </li>
+                <li class="site-menu-item">
+                  <a class="animsition-link" href="<?php echo base_url(); ?>ekatalog/buatan">
+                    <span class="site-menu-title">eKatalog Buatan</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </li>
         <li class="dropdown site-menu-item has-sub">
           <a href="<?php echo base_url(); ?>prospek" data-dropdown-toggle="false">

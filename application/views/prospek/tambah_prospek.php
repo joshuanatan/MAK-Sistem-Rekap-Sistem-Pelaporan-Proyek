@@ -35,8 +35,8 @@
               <div class="panel-body">
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
-                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit" onchange = "showDetailRS()">
+                    <label class="form-control-label">Rumah Sakit</label> <br /><a data-toggle="modal" data-target="#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
+                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit" onchange="showDetailRS()">
                       <option value="Belum Ditentukan" selected disabled hidden>-- Silahkan Pilih Rumah Sakit --</option>
                       <?php for ($a = 0; $a < count($datars); $a++) : ?>
                         <option value="<?php echo $datars[$a]["id_pk_rs"]; ?>"><?php echo $datars[$a]["rs_nama"]; ?></option>
@@ -45,7 +45,7 @@
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Detail Rumah Sakit</label>
-                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    <table class="table table-hover table-striped w-full border" id="detailRS">
                     </table>
                   </div>
                 <?php endif; ?>
@@ -60,14 +60,14 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
+                    <label class="form-control-label">Rumah Sakit</label> <br /><a data-toggle="modal" data-target="#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
                     <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit" onchange="showDetailRS()">
 
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Detail Rumah Sakit</label>
-                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    <table class="table table-hover table-striped w-full border" id="detailRS">
                     </table>
                   </div>
                 <?php endif; ?>
@@ -88,14 +88,14 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-control-label">Rumah Sakit</label> <br/><a data-toggle = "modal" data-target = "#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
-                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit"  onchange="showDetailRS()">
+                    <label class="form-control-label">Rumah Sakit</label> <br /><a data-toggle="modal" data-target="#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
+                    <select class="js-example-basic-single form-control" name="id_fk_rs" id="dataRumahSakit" onchange="showDetailRS()">
 
                     </select>
                   </div>
                   <div class="form-group">
                     <label class="form-control-label">Detail Rumah Sakit</label>
-                    <table class="table table-hover table-striped w-full border" id ="detailRS">
+                    <table class="table table-hover table-striped w-full border" id="detailRS">
                     </table>
                   </div>
                 <?php endif; ?>
@@ -160,7 +160,7 @@
                     </tbody>
                   </table>
                 </div>
-                <a href = "<?php echo base_url();?>prospek" class="btn btn-default">Cancel</a>
+                <a href="<?php echo base_url(); ?>prospek" class="btn btn-default">Cancel</a>
                 <button type="button" onclick="submitForm()" class="btn btn-primary">Save changes</button>
               </div>
             </div>
@@ -554,8 +554,8 @@
     }
   </script>
   <?php
-    $sql = "select count(id_pk_rs) as jmlh_rs from mstr_rs order by id_pk_rs DESC";
-    $jmlh_rs = executeQuery($sql)->result_array()[0]["jmlh_rs"];
+  $sql = "select count(id_pk_rs) as jmlh_rs from mstr_rs order by id_pk_rs DESC";
+  $jmlh_rs = executeQuery($sql)->result_array()[0]["jmlh_rs"];
   ?>
   <div class="modal fade" id="tambah_rs_modal">
     <div class="modal-dialog modal-simple modal-center">
@@ -568,10 +568,10 @@
         </div>
         <form id="createFormRs">
           <div class="modal-body">
-            <input type="hidden" value = "<?php echo md5("rs-".$jmlh_rs)?>" name="koderumahsakit">
-            <input type="hidden" value = "-" name="direktur">
+            <input type="hidden" value="<?php echo md5("rs-" . $jmlh_rs) ?>" name="koderumahsakit">
+            <input type="hidden" value="-" name="direktur">
 
-            <div class = "form-group">
+            <div class="form-group">
               <label class="form-control-label">Nama Rumah Sakit</label>
               <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
             </div>
@@ -740,34 +740,36 @@
             var id_rs = respond["insert_id"];
             alert("Rumah sakit baru telah terdaftar, silahkan muat ulang rumah sakit");
             $("#createFormRs").html(create_rumah_sakit_form);
+            load_jenis_rumah_sakit();
+            load_penyelenggara();
             $("#tambah_rs_modal").modal("hide");
 
-            <?php if(strtolower($this->session->user_role) == "sales engineer"):?>
-              $.ajax({
-                url:"<?php echo base_url();?>ws/prospek/assign_rs_to_se",
-                type:"POST",
-                data: {
-                  "id_rs": id_rs
-                },
-                dataType:"JSON",
-                async: false
-              });
-              var html = "";
-              $.ajax({
-                url:"<?php echo base_url();?>ws/prospek/get_rs_list",
-                type:"GET",
-                dataType:"JSON",
-                async: false,
-                success:function(respond){
-                  if(respond["status"]){
-                    for(var a = 0; a<respond["data"].length; a++){
-                      html += `<option value = '${respond["data"][a]["id_pk_rs"]}'>${respond["data"][a]["rs_nama"]}</option>`;
-                    }
-                    $("#dataRumahSakit").html(html);
-                  }
-                }
-              });
-            <?php endif;?>
+            <?php if (strtolower($this->session->user_role) == "sales engineer") : ?>
+              // $.ajax({
+              //   url: "<?php echo base_url(); ?>ws/prospek/assign_rs_to_se",
+              //   type: "POST",
+              //   data: {
+              //     "id_rs": id_rs
+              //   },
+              //   dataType: "JSON",
+              //   async: false
+              // });
+              // var html = "";
+              // $.ajax({
+              //   url: "<?php echo base_url(); ?>ws/prospek/get_rs_list",
+              //   type: "GET",
+              //   dataType: "JSON",
+              //   async: false,
+              //   success: function(respond) {
+              //     if (respond["status"]) {
+              //       for (var a = 0; a < respond["data"].length; a++) {
+              //         html += `<option value = '${respond["data"][a]["id_pk_rs"]}'>${respond["data"][a]["rs_nama"]}</option>`;
+              //       }
+              //       $("#dataRumahSakit").html(html);
+              //     }
+              //   }
+              // });
+            <?php endif; ?>
           }
         }
       });

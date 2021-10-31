@@ -10,7 +10,7 @@ class Ekatalog extends CI_Controller
   public function insert()
   {
     $this->form_validation->set_rules("komoditas", "Komoditas", "required");
-    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog.id_paket]", array(
+    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog_id_paket]", array(
       "is_unique" => "ID Paket sudah ada, mohon menambahkan tanda di ID paket bahwa ID paket telah diubah"
     ));
     $this->form_validation->set_rules("nama_paket", "Nama Paket", "required");
@@ -73,7 +73,7 @@ class Ekatalog extends CI_Controller
   {
     $this->form_validation->set_rules("id_ekatalog", "ID Ekatalog", "required");
     $this->form_validation->set_rules("komoditas", "Komoditas", "required");
-    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog.id_paket]", array(
+    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog_id_paket]", array(
       "is_unique" => "ID Paket sudah ada, mohon menambahkan tanda di ID paket bahwa ID paket telah diubah"
     ));
     $this->form_validation->set_rules("nama_paket", "Nama Paket", "required");
@@ -174,6 +174,40 @@ class Ekatalog extends CI_Controller
     $response["data"] = $this->m_ekatalog->search($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
     #echo $this->db->last_query();
     $total_data = $this->m_ekatalog->get($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+
+    echo json_encode($response);
+  }
+  public function get_data_system()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+    $this->load->model("m_ekatalog");
+    $response["data"] = $this->m_ekatalog->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    #echo $this->db->last_query();
+    $total_data = $this->m_ekatalog->get_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+
+    echo json_encode($response);
+  }
+  public function get_data_creator()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+    $this->load->model("m_ekatalog");
+    $response["data"] = $this->m_ekatalog->search_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    #echo $this->db->last_query();
+    $total_data = $this->m_ekatalog->get_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);

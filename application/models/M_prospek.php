@@ -7,7 +7,7 @@ class M_prospek extends CI_Model
     $search_query = "";
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
-        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -29,7 +29,8 @@ class M_prospek extends CI_Model
     $search_query = "";
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
-        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -52,7 +53,8 @@ class M_prospek extends CI_Model
     $search_query = "";
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
-        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -74,7 +76,7 @@ class M_prospek extends CI_Model
     $search_query = "";
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
-        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -134,7 +136,8 @@ class M_prospek extends CI_Model
     $search_query = "";
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
-        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -154,7 +157,7 @@ class M_prospek extends CI_Model
     $search_query = "";
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
-        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }

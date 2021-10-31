@@ -76,6 +76,40 @@ class Sirup extends CI_Controller
 
     echo json_encode($response);
   }
+  public function get_data_system()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+    $this->load->model("m_sirup");
+    $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    #echo $this->db->last_query();
+    $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+
+    echo json_encode($response);
+  }
+  public function get_data_creator()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+    $this->load->model("m_sirup");
+    $response["data"] = $this->m_sirup->search_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    #echo $this->db->last_query();
+    $total_data = $this->m_sirup->get_data_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+
+    echo json_encode($response);
+  }
 
   public function delete($id_pk_sirup)
   {

@@ -391,7 +391,7 @@
     });
   }
 
-  function load_provinsi(edit = false) {
+  function load_provinsi() {
     $.ajax({
       url: "<?php echo base_url(); ?>ws/provinsi/get_active_data",
       type: "GET",
@@ -403,11 +403,7 @@
           <option value = "${respond["data"][a]["id_pk_provinsi"]}">${respond["data"][a]["provinsi_nama"]}</option>
           `;
         }
-        if (edit) {
-          $("#edit_provinsi").html(html);
-        } else {
-          $("#rs_provinsi").html(html);
-        }
+        $("#edit_provinsi").html(html);
       }
     })
   }

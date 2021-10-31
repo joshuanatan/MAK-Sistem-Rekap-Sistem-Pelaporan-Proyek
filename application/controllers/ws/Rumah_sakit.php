@@ -56,7 +56,6 @@ class Rumah_sakit extends CI_Controller
 
         $response["insert_id"] = $this->m_rumah_sakit->insert_rs($temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara, $temp_rs_status);
         $response["status"] = true;
-        $response["status"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil ditambahkan";
         $response["msg"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil ditambahkan";
       }
       else{
@@ -116,7 +115,7 @@ class Rumah_sakit extends CI_Controller
 
         $this->m_rumah_sakit->edit_rs($id_pk_rs, $temp_rs_kode, $temp_rs_nama, $temp_rs_kelas, $temp_rs_direktur, $temp_rs_alamat, $temp_rs_kategori, $temp_id_fk_kabupaten, $temp_rs_kode_pos, $temp_rs_telepon, $temp_rs_fax, $temp_id_fk_jenis_rs, $temp_id_fk_penyelenggara);
         $response["status"] = true;
-        $response["status"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil diubah";
+        $response["msg"] = "Data {$temp_rs_kode} - {$temp_rs_nama} berhasil diubah";
       }
       else{
         $response["status"] = false;

@@ -58,6 +58,14 @@ class Prospek extends CI_Controller
         "field_value" => "prospek_status",
         "field_text" => "Status Prospek"
       ),
+      array(
+        "field_value" => "notes_kompetitor",
+        "field_text" => "Notes Kompetitor"
+      ),
+      array(
+        "field_value" => "notes_prospek",
+        "field_text" => "Notes Prospek"
+      ),
     );
     $this->load->view("prospek/index", $data);
   }

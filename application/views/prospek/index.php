@@ -205,7 +205,7 @@
               <td>${respond["data"][a]["estimasi_pembelian"]}</td>
               <td>${respond["data"][a]["user_username"]}</td>
               <td>
-                <a href="<?php echo base_url(); ?>prospek/detail_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-light btn-sm" id="load_button"><i class="icon md-search" aria-hidden="true"></i></button>
+                <a href="<?php echo base_url(); ?>prospek/detail_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-light btn-sm" id="load_button"><i class="icon md-search" aria-hidden="true"></i></a>
                 ${htmlEditButton}
                 ${htmlDeleteButton}
               </td>

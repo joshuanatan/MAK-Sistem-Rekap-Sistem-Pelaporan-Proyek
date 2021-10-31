@@ -266,6 +266,20 @@ class Sch_sirup extends CI_Controller
       $sirup_id_create = $this->session->id_user;
     }
     $this->load->model("m_sirup");
+    $args = array(
+      $sirup_rup
+    );
+    $sql = "delete tbl_sirup_jadwal_pelaksanaan from tbl_sirup_jadwal_pelaksanaan inner join mstr_sirup on mstr_sirup.id_pk_sirup = tbl_sirup_jadwal_pelaksanaan.id_fk_sirup where sirup_rup = ?";
+    executeQuery($sql,$args);
+    $sql = "delete tbl_sirup_lokasi_pekerjaan from tbl_sirup_lokasi_pekerjaan inner join mstr_sirup on mstr_sirup.id_pk_sirup = tbl_sirup_lokasi_pekerjaan.id_fk_sirup where sirup_rup = ?";
+    executeQuery($sql,$args);
+    $sql = "delete tbl_sirup_pemanfaatan_barang from tbl_sirup_pemanfaatan_barang inner join mstr_sirup on mstr_sirup.id_pk_sirup = tbl_sirup_pemanfaatan_barang.id_fk_sirup where sirup_rup = ?";
+    executeQuery($sql,$args);
+    $sql = "delete tbl_sirup_pemilihan_penyedia from tbl_sirup_pemilihan_penyedia inner join mstr_sirup on mstr_sirup.id_pk_sirup = tbl_sirup_pemilihan_penyedia.id_fk_sirup where sirup_rup = ?";
+    executeQuery($sql,$args);
+    $sql = "delete tbl_sirup_sumber_dana from tbl_sirup_sumber_dana inner join mstr_sirup on mstr_sirup.id_pk_sirup = tbl_sirup_sumber_dana.id_fk_sirup where sirup_rup = ?";
+    executeQuery($sql,$args);
+    
     if (strpos($sirup_paket, $search_phrase) !== false) {
       $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 1);
     } else {

@@ -35,10 +35,7 @@ class M_pencarian_sirup extends CI_Model
   }
   public function get_data($search = "")
   {
-    $query = "";
-    if ($search != "") {
-    }
-    $sql = "select id_pk_pencarian_sirup,pencarian_sirup_tahun,pencarian_sirup_frase,pencarian_sirup_jenis,pencarian_sirup_status,pencarian_sirup_id_create,pencarian_sirup_id_update,pencarian_sirup_id_delete,pencarian_sirup_tgl_create,pencarian_sirup_tgl_update,pencarian_sirup_tgl_delete from mstr_pencarian_sirup where pencarian_sirup_status = 'aktif' " . $query;
+    $sql = "select id_pk_pencarian_sirup,pencarian_sirup_tahun,pencarian_sirup_frase,pencarian_sirup_jenis,pencarian_sirup_status,pencarian_sirup_id_create,pencarian_sirup_id_update,pencarian_sirup_id_delete,pencarian_sirup_tgl_create,pencarian_sirup_tgl_update,pencarian_sirup_tgl_delete from mstr_pencarian_sirup where pencarian_sirup_status = 'aktif' ";
 
     $result = executeQuery($sql);
     return $result;

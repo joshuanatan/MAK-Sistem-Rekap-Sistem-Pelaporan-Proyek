@@ -18,7 +18,7 @@
     <div class="page-header">
       <h1 class="page-title">Jenis Rumah Sakit</h1>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
         <li class="breadcrumb-item"><a href="javascript:void(0)">Master</a></li>
         <li class="breadcrumb-item active">Jenis Rumah Sakit</li>
       </ol>
