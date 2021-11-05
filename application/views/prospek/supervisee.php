@@ -124,6 +124,25 @@
         var html = "";
         content = respond["data"];
         for (var a = 0; a < respond["data"].length; a++) {
+          var funnel_html = "";
+          if(respond["data"][a]["funnel"].toLowerCase() == "belum ditentukan"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-primary'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "lead"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-info'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "prospek"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-warning'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "hot prospek"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-danger'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "win"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-success'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "loss"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-dark'>${respond["data"][a]["funnel"]}</button>`;
+          }
           html += `
             <tr id = "prospek_row${a}">
               <td>${respond["data"][a]["nama_provinsi"]}</td>
@@ -132,7 +151,7 @@
               <td>${respond["data"][a]["prospek_principle"]}</td>
               <td>${respond["data"][a]["notes_kompetitor"]}</td>
               <td>${respond["data"][a]["notes_prospek"]}</td>
-              <td>${respond["data"][a]["funnel"]}</td>
+              <td>${funnel_html}</td>
               <td>${format_number(respond["data"][a]["total_price_prospek"])}</td>
               <td>${respond["data"][a]["estimasi_pembelian"]}</td>
               <td>${respond["data"][a]["user_username"]}</td>

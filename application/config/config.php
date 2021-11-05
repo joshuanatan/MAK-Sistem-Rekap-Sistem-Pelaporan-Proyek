@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8080/MAK-Sistem-Rekap-Sistem-Pelaporan-Proyek/';
+$config['base_url'] = 'http://localhost/project/mak-crm-21';
 /*
 |--------------------------------------------------------------------------
 | Index File

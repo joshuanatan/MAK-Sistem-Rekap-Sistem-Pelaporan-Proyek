@@ -27,6 +27,73 @@ class Prospek extends CI_Controller
 
     echo json_encode($response);
   }
+  public function get_data_ekat()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+
+    $this->load->model("m_prospek");
+    $id_user = $this->session->id_user;
+    $response["data"] = $this->m_prospek->search_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $total_data = $this->m_prospek->get_prospek_all_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+    echo json_encode($response);
+  }
+  public function get_data_belum_ekat()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+
+    $this->load->model("m_prospek");
+    $id_user = $this->session->id_user;
+    $response["data"] = $this->m_prospek->search_belum_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $total_data = $this->m_prospek->get_prospek_all_belum_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+    echo json_encode($response);
+  }
+  public function get_data_sirup()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+
+    $this->load->model("m_prospek");
+    $id_user = $this->session->id_user;
+    $response["data"] = $this->m_prospek->search_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $total_data = $this->m_prospek->get_prospek_all_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+    echo json_encode($response);
+  }
+  public function get_data_belum_sirup()
+  {
+    $kolom_pengurutan = $this->input->get("kolom_pengurutan");
+    $arah_kolom_pengurutan = $this->input->get("arah_kolom_pengurutan");
+    $pencarian_phrase = $this->input->get("pencarian_phrase");
+    $kolom_pencarian = $this->input->get("kolom_pencarian");
+    $current_page = $this->input->get("current_page");
+
+    $this->load->model("m_prospek");
+    $id_user = $this->session->id_user;
+    $response["data"] = $this->m_prospek->search_belum_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $total_data = $this->m_prospek->get_prospek_all_belum_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $this->load->library("pagination");
+    $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+    echo json_encode($response);
+  }
   public function get_data_supervisee()
   {
     $kolom_pengurutan = $this->input->get("kolom_pengurutan");
@@ -135,8 +202,9 @@ class Prospek extends CI_Controller
     echo json_encode($response);
   }
 
-  public function get_rs_list(){
-    if(strtolower($this->session->user_role) == "sales engineer"){
+  public function get_rs_list()
+  {
+    if (strtolower($this->session->user_role) == "sales engineer") {
       $sql = "select id_pk_rs, rs_kode, rs_nama from tbl_user_rs
       inner join mstr_rs on mstr_rs.id_pk_rs = tbl_user_rs.id_fk_rs
       where user_rs_status = 'aktif' and id_fk_user = ? and rs_status = 'aktif'";
@@ -144,16 +212,14 @@ class Prospek extends CI_Controller
         $this->session->id_user
       );
       $result = executeQuery($sql, $args);
-      if($result->num_rows() > 0){
+      if ($result->num_rows() > 0) {
         $response["status"] = true;
         $response["data"] = $result->result_array();
-      }
-      else{
+      } else {
         $response["status"] = false;
       }
       echo json_encode($response);
-    }
-    else if(strtolower($this->session->user_role) == "supervisor" || strtolower($this->session->user_role) == "area sales manager"){
+    } else if (strtolower($this->session->user_role) == "supervisor" || strtolower($this->session->user_role) == "area sales manager") {
       $id_kabupaten = $this->input->get("id_kabupaten");
       $sql = "select * from tbl_user_kabupaten
       inner join mstr_rs on mstr_rs.id_fk_kabupaten = tbl_user_kabupaten.id_fk_kabupaten
@@ -162,16 +228,14 @@ class Prospek extends CI_Controller
         $this->session->id_user, $id_kabupaten
       );
       $result = executeQuery($sql, $args);
-      if($result->num_rows() > 0){
+      if ($result->num_rows() > 0) {
         $response["status"] = true;
         $response["data"] = $result->result_array();
-      }
-      else{
+      } else {
         $response["status"] = false;
       }
       echo json_encode($response);
-    }
-    else if(strtolower($this->session->user_role) == "sales manager"){
+    } else if (strtolower($this->session->user_role) == "sales manager") {
       $id_kabupaten = $this->input->get("id_kabupaten");
       $sql = "select * from mstr_rs
       where rs_status = 'aktif' and id_fk_kabupaten = ?";
@@ -179,21 +243,20 @@ class Prospek extends CI_Controller
         $this->session->id_user, $id_kabupaten
       );
       $result = executeQuery($sql, $args);
-      if($result->num_rows() > 0){
+      if ($result->num_rows() > 0) {
         $response["status"] = true;
         $response["data"] = $result->result_array();
-      }
-      else{
+      } else {
         $response["status"] = false;
       }
       echo json_encode($response);
-    }
-    else{
+    } else {
       $response["status"] = false;
       echo json_encode($response);
     }
   }
-  public function assign_rs_to_se(){
+  public function assign_rs_to_se()
+  {
     $sql = "
       select * from mstr_rs where id_fk_kabupaten in
         (select id_fk_kabupaten from tbl_user_kabupaten
@@ -203,7 +266,7 @@ class Prospek extends CI_Controller
       $this->session->id_user, $this->input->post("id_rs")
     );
     $result = executeQuery($sql, $args);
-    if($result->num_rows() > 0){
+    if ($result->num_rows() > 0) {
       $data = array(
         "id_fk_rs" => $this->input->post("id_rs"),
         "id_fk_user" => $this->session->id_user,

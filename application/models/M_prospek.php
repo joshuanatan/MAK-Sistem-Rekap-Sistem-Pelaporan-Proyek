@@ -30,7 +30,6 @@ class M_prospek extends CI_Model
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
         $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
-      
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -54,7 +53,6 @@ class M_prospek extends CI_Model
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
         $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
-      
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -69,7 +67,7 @@ class M_prospek extends CI_Model
     $args = array(
       $this->session->id_user #yang login pasti user yg bisa ada supervisee (gamungkin ke akses)
     );
-    return executeQuery($sql,$args);
+    return executeQuery($sql, $args);
   }
   public function search_supervisee($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
   {
@@ -87,7 +85,7 @@ class M_prospek extends CI_Model
     INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
     INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
     INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
-    WHERE user_supervisor = ? AND prospek_status='aktif' " .$search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    WHERE user_supervisor = ? AND prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     $args = array(
       $this->session->id_user #yang login pasti user yg bisa ada supervisee (gamungkin ke akses)
     );
@@ -137,7 +135,6 @@ class M_prospek extends CI_Model
     if ($pencarian_phrase != "") {
       if ($kolom_pencarian == "all") {
         $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
-      
       } else {
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
@@ -152,6 +149,87 @@ class M_prospek extends CI_Model
        WHERE prospek_status='aktif' " . $search_query;
     return executeQuery($sql);
   }
+  public function get_prospek_all_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_ekatalog is not null and no_ekatalog != '') and prospek_status='aktif' " . $search_query;
+    return executeQuery($sql);
+  }
+  public function get_prospek_all_belum_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_ekatalog is null or no_ekatalog = '') and prospek_status='aktif' " . $search_query;
+    return executeQuery($sql);
+  }
+  public function get_prospek_all_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_sirup is not null and no_sirup != '') and prospek_status='aktif' " . $search_query;
+    return executeQuery($sql);
+  }
+  public function get_prospek_all_belum_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_sirup is null or no_sirup = '') and prospek_status='aktif' " . $search_query;
+    return executeQuery($sql);
+  }
+
   public function search($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
   {
     $search_query = "";
@@ -170,6 +248,86 @@ class M_prospek extends CI_Model
        INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
        INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
        WHERE prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    return executeQuery($sql);
+  }
+  public function search_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_ekatalog is not null and no_ekatalog != '') and prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    return executeQuery($sql);
+  }
+  public function search_belum_ekat($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_ekatalog is null or no_ekatalog = '') and prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    return executeQuery($sql);
+  }
+  public function search_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_sirup is not null and no_sirup != '') and prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    return executeQuery($sql);
+  }
+  public function search_belum_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_prospek.id_fk_provinsi
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_prospek.id_fk_kabupaten
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE rs_kategori='Pemerintah' and (no_sirup is null or no_sirup = '') and prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     return executeQuery($sql);
   }
   public function get_prospek_produk($id_fk_prospek)

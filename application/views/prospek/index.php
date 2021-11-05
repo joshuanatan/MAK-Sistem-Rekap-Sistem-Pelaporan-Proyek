@@ -79,6 +79,32 @@
               </select>
             </div>
           </div>
+          
+          <?php if(strtolower($this->session->user_role) == "sales manager"):?>
+          <div class="row">
+            <div class="form-group col-lg-2">
+              <h5>Tampilkan</h5>
+              <select class="form-control" onchange="change_base_url()" id="status_tampilkan">
+                <option value="get_data">Semua</option>
+                <option value="get_data_ekat">Sudah ada E-katalog</option>
+                <option value="get_data_belum_ekat">Belum ada E-katalog</option>
+              </select>
+            </div>
+          </div>
+          <?php endif;?>
+          
+          <?php if(strtolower($this->session->user_role) == "supervisor"):?>
+          <div class="row">
+            <div class="form-group col-lg-2">
+              <h5>Tampilkan</h5>
+              <select class="form-control" onchange="change_base_url()" id="status_tampilkan">
+                <option value="get_data">Semua</option>
+                <option value="get_data_sirup">Sudah ada SiRUP</option>
+                <option value="get_data_belum_sirup">Belum ada SiRUP</option>
+              </select>
+            </div>
+          </div>
+          <?php endif;?>
           <br>
           <div class="scroll-provinsi-table-wrapper">
             <table class="table table-hover table-striped w-full">
@@ -159,6 +185,13 @@
 </script>
 
 <script>
+  function change_base_url(){
+    final_base_url = base_url+"ws/prospek/"+$("#status_tampilkan").val();
+    console.log(final_base_url);
+    reload_table();
+  }
+</script>
+<script>
   var kolom_pengurutan = "id_pk_prospek";
   var arah_kolom_pengurutan = "DESC";
   var pencarian_phrase = "";
@@ -166,12 +199,13 @@
   var current_page = 1;
   var content = [];
   var base_url = "<?php echo base_url(); ?>";
+  var final_base_url = base_url+"ws/prospek/get_data";
   var user_role = "<?php echo $this->session->user_role ?>";
   var user_id = "<?php echo $this->session->id_user ?>";
   reload_table();
 
   function reload_table() {
-    var url = `<?php echo base_url(); ?>ws/prospek/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
+    var url = `${final_base_url}?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
     $.ajax({
       url: url,
       type: "POST",
@@ -192,6 +226,25 @@
             htmlEditButton = ``;
             htmlDeleteButton = ``;
           }
+          var funnel_html = "";
+          if(respond["data"][a]["funnel"].toLowerCase() == "belum ditentukan"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-primary'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "lead"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-info'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "prospek"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-warning'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "hot prospek"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-danger'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "win"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-success'>${respond["data"][a]["funnel"]}</button>`;
+          }
+          else if(respond["data"][a]["funnel"].toLowerCase() == "loss"){
+            funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-dark'>${respond["data"][a]["funnel"]}</button>`;
+          }
           html += `
             <tr id = "prospek_row${a}">
               <td>${respond["data"][a]["nama_provinsi"]}</td>
@@ -200,7 +253,7 @@
               <td>${respond["data"][a]["prospek_principle"]}</td>
               <td>${respond["data"][a]["notes_kompetitor"]}</td>
               <td>${respond["data"][a]["notes_prospek"]}</td>
-              <td>${respond["data"][a]["funnel"]}</td>
+              <td>${funnel_html}</td>
               <td>${format_number(respond["data"][a]["total_price_prospek"])}</td>
               <td>${respond["data"][a]["estimasi_pembelian"]}</td>
               <td>${respond["data"][a]["user_username"]}</td>

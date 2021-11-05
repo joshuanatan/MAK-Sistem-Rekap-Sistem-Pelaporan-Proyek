@@ -60,20 +60,14 @@ class Sch_ekatalog extends CI_Controller
       CURLOPT_POSTFIELDS => "username=" . $username . "&password=" . $password . "&authenticityToken=" . $authentication_code,
     ));
     $response = curl_exec($curl);
-    $response = explode("Set-Cookie:", $response);
-    #echo count($response);
-    #set=cookie itu ada di array index 1,2,3 SAJA. Index 0 dan 4 itu tidak ada karena sudah diakhir. 
-    /*
-    [1] E_KATALOG_5_FLASH=; Max-Age=0; Expires=Sat, 10 Apr 2021 06:35:51 GMT; Path=/; SameSite=Lax; HttpOnly
-    [2] E_KATALOG_5_SESSION=6dc2855c69edff702a881019e68da7e3943266d2-___TS=1618040151095&___ID=e7f462a7-de6a-4f38-abae-750b13906f7a; Max-Age=3600; Expires=Sat, 10 Apr 2021 07:35:51 GMT; Path=/; SameSite=Lax; HttpOnly
-    [3] E_KATALOG_5_ERRORS=; Max-Age=0; Expires=Sat, 10 Apr 2021 06:35:51 GMT; Path=/; SameSite=Lax; HttpOnly
-    */
-    // echo explode(";",$response[1])[0];
-    // echo "<br/><br/>";  
-    // echo explode(";",$response[2])[0]; #katalog session
-    // echo "<br/><br/>";  
-    // echo explode(";",$response[3])[0];
-    // echo "<br/><br/>";  
+    echo $response;
+    $key = 'Set-Cookie:';
+    if (strpos($response, $key) !== false) {
+      echo 'true';
+    }
+    #print_r(explode("Set-Cookie:", $response));
+    $response = explode("Set-Cookie:", $response); 
+    #echo $response;
     $this->login_cookies = explode(";", $response[2])[0];
   }
   public function get_data()
