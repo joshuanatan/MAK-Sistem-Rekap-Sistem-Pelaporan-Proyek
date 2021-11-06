@@ -15,6 +15,10 @@ class Prospek extends CI_Controller
     $this->load->model("m_prospek");
     $data["field"] = array(
       array(
+        "field_value" => "prospek_kode",
+        "field_text" => "Kode Prospek"
+      ),
+      array(
         "field_value" => "provinsi_nama",
         "field_text" => "Provinsi"
       ),
@@ -283,6 +287,15 @@ class Prospek extends CI_Controller
       }
     }
     $this->m_prospek->insert_total_price($id_fk_prospek, $total_price);
+
+    #ini terpisah sendiri gara2 taunya belakangan dan fungsi insernya agak ribet. toh semua prospek yg diinput, regardless role apa yg buat
+    $where = array(
+      "id_pk_prospek" => $id_fk_prospek
+    );
+    $data = array(
+      "prospek_kode" => $this->input->post("kodeprospek")
+    );
+    updateRow("mstr_prospek", $data,$where);
     redirect("prospek/index");
   }
 
@@ -413,6 +426,15 @@ class Prospek extends CI_Controller
       $this->load->model("m_prospek");
       $this->m_prospek->edit_ekatalog($id_pk_prospek, $temp_no_ekatalog);
     }
+    
+    #ini terpisah sendiri gara2 taunya belakangan dan fungsi insernya agak ribet. toh semua prospek yg ngubah, regardless role apa yg buat
+    $where = array(
+      "id_pk_prospek" => $id_pk_prospek
+    );
+    $data = array(
+      "prospek_kode" => $this->input->post("kodeprospek")
+    );
+    updateRow("mstr_prospek", $data,$where);
     redirect("prospek/index");
   }
 }

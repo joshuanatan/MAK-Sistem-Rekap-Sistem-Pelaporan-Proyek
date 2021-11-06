@@ -110,6 +110,7 @@
             <table class="table table-hover table-striped w-full">
               <thead>
                 <tr>
+                  <th>Kode Prospek</th>
                   <th>Provinsi</th>
                   <th>Kabupaten</th>
                   <th>Rumah Sakit</th>
@@ -247,6 +248,7 @@
           }
           html += `
             <tr id = "prospek_row${a}">
+              <td>${respond["data"][a]["prospek_kode"]}</td>
               <td>${respond["data"][a]["nama_provinsi"]}</td>
               <td>${respond["data"][a]["nama_kabupaten"]}</td>
               <td>${respond["data"][a]["nama_rs"]}</td>

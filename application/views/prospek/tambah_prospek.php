@@ -33,6 +33,10 @@
           <div class="">
             <div class="panel">
               <div class="panel-body">
+                <div class="form-group">
+                  <label class="form-control-label">ID Prospek</label>
+                  <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" required>
+                </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
                     <label class="form-control-label">Rumah Sakit</label> <br /><a data-toggle="modal" data-target="#tambah_rs_modal"><strong>[+] Tambah Rumah Sakit</strong></a>
@@ -570,7 +574,6 @@
           <div class="modal-body">
             <input type="hidden" value="<?php echo md5("rs-" . $jmlh_rs) ?>" name="koderumahsakit">
             <input type="hidden" value="-" name="direktur">
-
             <div class="form-group">
               <label class="form-control-label">Nama Rumah Sakit</label>
               <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>

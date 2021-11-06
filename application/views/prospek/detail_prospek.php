@@ -33,6 +33,10 @@
             <br>
             <table class="table table-hover table-striped w-full">
               <tr>
+                <td style="border:none;">Kode Prospek</td>
+                <td style="border:none;"><?php echo $detailprospek[0]["prospek_kode"]; ?></td>
+              </tr>
+              <tr>
                 <td style="border:none;">Provinsi</td>
                 <td style="border:none;"><?php echo $detailprospek[0]["nama_provinsi"]; ?></td>
               </tr>
