@@ -34,7 +34,7 @@
             <div class="panel">
               <div class="panel-body">
                 <div class="form-group">
-                  <label class="form-control-label">ID Prospek</label>
+                  <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode;?>
                   <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" required>
                 </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>

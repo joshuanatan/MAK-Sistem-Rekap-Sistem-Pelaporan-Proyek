@@ -34,7 +34,7 @@
               <div class="panel-body">
                 <h4 class="title">Edit Prospek</h4>
                   <div class="form-group">
-                    <label class="form-control-label">ID Prospek</label>
+                    <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode;?>
                     <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" required value = "<?php echo $dataprospek[0]["prospek_kode"];?>">
                   </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>

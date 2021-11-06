@@ -142,6 +142,9 @@ class Prospek extends CI_Controller
       'datasirup' => $result5->result_array(),
       'dataekat' => $result6->result_array(),
     );
+    $sql = "select prospek_kode from mstr_prospek where prospek_status = 'aktif' order by id_pk_prospek DESC limit 1";
+    $result = executeQuery($sql)->result_array();
+    $data["last_kode"] = $result[0]["prospek_kode"];
     $this->load->view("prospek/tambah_prospek", $data);
   }
 
@@ -184,6 +187,10 @@ class Prospek extends CI_Controller
       'datasirup' => $result7->result_array(),
       'dataekat' => $result8->result_array(),
     );
+    
+    $sql = "select prospek_kode from mstr_prospek where prospek_status = 'aktif' order by id_pk_prospek DESC limit 1";
+    $result = executeQuery($sql)->result_array();
+    $data["last_kode"] = $result[0]["prospek_kode"];
     $this->load->view("prospek/edit_prospek", $data);
   }
 
