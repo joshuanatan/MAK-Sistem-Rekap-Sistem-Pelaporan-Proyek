@@ -462,7 +462,7 @@
             </div>
             <div class="form-group">
               <label class="form-control-label">Tanggal Perbaharui Paket</label>
-              <input type="text" class="form-control" name="tgl_perbarui_paket" id="edit_tgl_perbarui_paket" readonly>
+              <input type="text" class="form-control" name="tgl_perbarui_paket" id="edit_tgl_perbarui_paket">
             </div>
           </div>
           <div class="modal-footer">

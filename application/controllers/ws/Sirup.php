@@ -225,7 +225,7 @@ class Sirup extends CI_Controller
   public function update()
   {
     $this->form_validation->set_rules("id_sirup", "ID Sirup", "required");
-    $this->form_validation->set_rules("kode_rup", "kode_rup", "required|is_unique[mstr_sirup.sirup_rup]'", array(
+    $this->form_validation->set_rules("kode_rup", "kode_rup", "required", array(
       "is_unique" => "Sirup RUP telah terdaftar, tolong masukkan RUP yang berbeda."
     ));
     $this->form_validation->set_rules("nama_paket", "nama_paket", "required");

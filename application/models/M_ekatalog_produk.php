@@ -49,7 +49,7 @@ class M_ekatalog_produk extends CI_Model
     );
     return insertRow("tbl_ekatalog_produk", $data);
   }
-  public function update($id_pk_ekatalog_produk, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan)
+  public function update($id_pk_ekatalog_produk, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan, $ekatalog_produk_kuantitas_online)
   {
     #yang online jangan diupdate sebagai acuan
     $where = array(
@@ -58,6 +58,7 @@ class M_ekatalog_produk extends CI_Model
     $data = array(
       "ekatalog_produk_nama_produk" => $ekatalog_produk_nama_produk,
       "ekatalog_produk_kuantitas" => $ekatalog_produk_kuantitas,
+      "ekatalog_produk_kuantitas_online" => $ekatalog_produk_kuantitas_online,
       "ekatalog_produk_mata_uang" => $ekatalog_produk_mata_uang,
       "ekatalog_produk_harga_satuan" => $ekatalog_produk_harga_satuan,
       "ekatalog_produk_perkiraan_ongkos_kirim" => $ekatalog_produk_perkiraan_ongkos_kirim,

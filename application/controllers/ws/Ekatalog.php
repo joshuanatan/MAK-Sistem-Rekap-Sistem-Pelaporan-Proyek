@@ -73,7 +73,7 @@ class Ekatalog extends CI_Controller
   {
     $this->form_validation->set_rules("id_ekatalog", "ID Ekatalog", "required");
     $this->form_validation->set_rules("komoditas", "Komoditas", "required");
-    $this->form_validation->set_rules("id_paket", "ID Paket", "required|is_unique[mstr_ekatalog.ekatalog_id_paket]", array(
+    $this->form_validation->set_rules("id_paket", "ID Paket", "required", array(
       "is_unique" => "ID Paket sudah ada, mohon menambahkan tanda di ID paket bahwa ID paket telah diubah"
     ));
     $this->form_validation->set_rules("nama_paket", "Nama Paket", "required");
@@ -126,7 +126,7 @@ class Ekatalog extends CI_Controller
           $ekatalog_produk_total_harga = $this->input->post("ekatalog_produk_total_harga" . $a);
           $ekatalog_produk_catatan = $this->input->post("ekatalog_produk_catatan" . $a);
 
-          $this->m_ekatalog_produk->update($id_ekatalog_produk, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan);
+          $this->m_ekatalog_produk->update($id_ekatalog_produk, $ekatalog_produk_nama_produk, $ekatalog_produk_kuantitas, $ekatalog_produk_mata_uang, $ekatalog_produk_harga_satuan, $ekatalog_produk_perkiraan_ongkos_kirim, $ekatalog_produk_total_harga, $ekatalog_produk_catatan, $ekatalog_produk_kuantitas);
         }
       }
       $checks = $this->input->post("produk_ekatalog");
