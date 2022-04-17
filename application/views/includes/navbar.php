@@ -92,11 +92,11 @@
                     <span class="site-menu-title">Penyelenggara Rumah Sakit</span>
                   </a>
                 </li>
-                <li class="site-menu-item">
+                <!-- <li class="site-menu-item">
                   <a class="animsition-link" href="<?php echo base_url(); ?>jenis_rs">
                     <span class="site-menu-title">Jenis Rumah Sakit</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -233,11 +233,11 @@
                     <span class="site-menu-title">Penyelenggara Rumah Sakit</span>
                   </a>
                 </li>
-                <li class="site-menu-item">
+                <!-- <li class="site-menu-item">
                   <a class="animsition-link" href="<?php echo base_url(); ?>jenis_rs">
                     <span class="site-menu-title">Jenis Rumah Sakit</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
