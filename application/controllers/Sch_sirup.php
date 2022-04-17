@@ -63,7 +63,10 @@ class Sch_sirup extends CI_Controller
         echo $count."<br/>";
         #urutin pagu itu ada di kolom 2 dengan order dir nya DESC.
         $start = $amount*$count;
-        $url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&keyword=" . $pencarian_sirup_frase . "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount . "&search%5Bvalue%5D=&search%5Bregex%5D=false";
+        // new
+        $url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun. "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount  . "&search%5Bvalue%5D=" . $pencarian_sirup_frase . "&search%5Bregex%5D=false";
+        // old
+        //$url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&keyword=" . $pencarian_sirup_frase . "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount . "&search%5Bvalue%5D=&search%5Bregex%5D=false";
         echo $url."<br/>";
 
         $curl = curl_init();
@@ -237,14 +240,26 @@ class Sch_sirup extends CI_Controller
     $sirup_paket = explode("Nama KLPD", explode("Nama Paket", $response)[1])[0];
     $sirup_klpd = explode("Satuan Kerja", explode("Nama KLPD", $response)[1])[0];
     $sirup_satuan_kerja = explode("Tahun Anggaran", explode("Satuan Kerja", $response)[1])[0];
-    $sirup_tahun_anggaran = explode("Lokasi Pekerjaan", explode("Tahun Anggaran", $response)[1])[0];
+    $sirup_tahun_anggaran = explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", explode("Tahun Anggaran", $response)[1])[0];
+    $sirup_lokasi = explode("Volume Pekerjaan", explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi",$response)[1])[0];
     $sirup_volume_pekerjaan = explode("Uraian Pekerjaan", explode("Volume Pekerjaan", $response)[1])[0];
     $sirup_uraian_pekerjaan = explode("Spesifikasi Pekerjaan", explode("Uraian Pekerjaan", $response)[1])[0];
     $sirup_spesifikasi_pekerjaan = explode("Produk Dalam Negeri", explode("Spesifikasi Pekerjaan", $response)[1])[0];
     $sirup_produk_dalam_negri = trim(explode("Usaha Kecil/Koperasi", explode("Produk Dalam Negeri", $response)[1])[0]);
-    $sirup_usaha_kecil = trim(explode("Pra DIPA / DPA", explode("Usaha Kecil/Koperasi", $response)[1])[0]);
-    $sirup_pra_dipa = trim(explode("Sumber Dana", explode("Pra DIPA / DPA", $response)[1])[0]);
+    $sirup_usaha_kecil = trim(explode("Pengadaan Berkelanjutan atau Sustainable Public Procurement (SPP)", explode("Usaha Kecil/Koperasi", $response)[1])[0]);
+    
+    $sirup_aspek_ekonomi = trim(explode("Aspek Sosial", explode("Aspek Ekonomi", $response)[1])[0]);
+    $sirup_aspek_sosial = trim(explode("Aspek Lingkungan", explode("Aspek Sosial", $response)[1])[0]);
+    $sirup_aspek_lingkungan = trim(explode("Pra DIPA / DPA", explode("Aspek Lingkungan", $response)[1])[0]);
+
+    $sirup_pra_dipa = trim(explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", explode("Pra DIPA / DPA", $response)[1])[0]);
+
+    $sirup_sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu",$response)[1])[0];
+
     $sirup_jenis_pengadaan = str_replace(" ", "", str_replace(",", "", explode("Total Pagu", explode("Jenis Pengadaan", $response)[1])[0]));
+
+    $sirup_total_pagu = str_replace(" ", "", str_replace(",", "", explode("Metode Pemilihan", explode("Total Pagu", $response)[1])[0]));
+   
     $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa", explode("Metode Pemilihan", $response)[1])[0];
     $sirup_histori_paket = "";
     $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket", $response)[1];
