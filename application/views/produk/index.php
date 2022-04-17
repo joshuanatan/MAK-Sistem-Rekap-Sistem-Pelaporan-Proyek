@@ -70,7 +70,7 @@
                   <th>Nama Produk</th>
                   <th>Kategori</th>
                   <th>Price List</th>
-                  <th>Harga Ekat</th>
+                  <!-- <th>Harga Ekat</th> -->
                   <th>Deskripsi</th>
                   <th>Action</th>
                 </tr>
@@ -125,10 +125,10 @@
               <label class="form-control-label">Price List</label>
               <input type="text" class="form-control nf-input" name="pricelistproduk" placeholder="Price List" autocomplete="off">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="form-control-label">Harga Ekat</label>
               <input type="text" class="form-control nf-input" name="hargaekatproduk" placeholder="Harga Ekat" autocomplete="off">
-            </div>
+            </div> -->
             <div class="form-group">
               <label class="form-control-label">Deskripsi</label>
               <textarea class="form-control" name="deskripsiproduk" placeholder="Deskripsi" autocomplete="off"></textarea>
@@ -182,10 +182,10 @@
               <label class="form-control-label">Price List</label>
               <input type="text" class="form-control nf-input" name="pricelistproduk" id="pricelistproduk" autocomplete="off">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="form-control-label">Harga Ekat</label>
               <input type="text" class="form-control nf-input" name="hargaekatproduk" id="hargaekatproduk" autocomplete="off">
-            </div>
+            </div> -->
             <div class="form-group">
               <label class="form-control-label">Deskripsi</label>
               <textarea class="form-control" name="deskripsiproduk" id="deskripsiproduk"></textarea>
@@ -280,6 +280,9 @@
     reload_table();
   }
 
+  // previous harga ekat 
+  // <td>${format_number(respond["data"][a]["produk_harga_ekat"])}</td>
+
   function reload_table() {
     var url = `<?php echo base_url(); ?>ws/produk/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
     $.ajax({
@@ -298,7 +301,6 @@
             <td>${respond["data"][a]["produk_nama"]}</td>
             <td>${respond["data"][a]["produk_kategori"]}</td>
             <td>${format_number(respond["data"][a]["produk_price_list"])}</td>
-            <td>${format_number(respond["data"][a]["produk_harga_ekat"])}</td>
             <td>${respond["data"][a]["produk_deskripsi"]}</td>
             <td>
             <button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit(${a})"><i class = "icon md-edit"></i></button>
@@ -353,7 +355,7 @@
     $("#namaproduk").val(content[row]["produk_nama"]);
     $("#kategoriproduk").val(content[row]["produk_kategori"]);
     $("#pricelistproduk").val(format_number(content[row]["produk_price_list"]));
-    $("#hargaekatproduk").val(format_number(content[row]["produk_harga_ekat"]));
+    // $("#hargaekatproduk").val(format_number(content[row]["produk_harga_ekat"]));
     $("#deskripsiproduk").val(content[row]["produk_deskripsi"]);
     $("#displayfotoproduk").attr("href", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
     $("#displayfoto").attr("src", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);

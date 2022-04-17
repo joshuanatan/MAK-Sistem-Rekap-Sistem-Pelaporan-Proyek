@@ -25,7 +25,7 @@ class Produk extends CI_Controller
     $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
     $this->form_validation->set_rules('kategoriproduk', 'Kategori Produk', 'required');
     $this->form_validation->set_rules('pricelistproduk', 'Price List Produk', 'required|integer');
-    $this->form_validation->set_rules('hargaekatproduk', 'Harga E-katalog', 'required|integer');
+    // $this->form_validation->set_rules('hargaekatproduk', 'Harga E-katalog', 'required|integer');
     $this->form_validation->set_rules('deskripsiproduk', 'Deskripsi Produk', 'required');
     if (!$this->form_validation->run()) {
       $response["status"] = false;
@@ -51,10 +51,10 @@ class Produk extends CI_Controller
         $temp_produk_nama = $this->input->post('namaproduk');
         $temp_produk_kategori = $this->input->post('kategoriproduk');
         $temp_produk_price_list = $this->input->post('pricelistproduk');
-        $temp_produk_harga_ekat = $this->input->post('hargaekatproduk');
+        // $temp_produk_harga_ekat = $this->input->post('hargaekatproduk');
         $temp_produk_deskripsi = $this->input->post('deskripsiproduk');
         $temp_produk_status = "aktif";
-        $this->m_produk->insert($temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_harga_ekat, $temp_produk_deskripsi, $temp_produk_file, $temp_produk_status);
+        $this->m_produk->insert($temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_deskripsi, $temp_produk_file, $temp_produk_status);
         $response["status"] = true;
         $response["msg"] = "Data {$temp_produk_no_katalog} berhasil ditambah";
       }
@@ -87,7 +87,7 @@ class Produk extends CI_Controller
     $this->form_validation->set_rules('namaproduk', 'Nama Produk', 'required');
     $this->form_validation->set_rules('kategoriproduk', 'Kategori Produk', 'required');
     $this->form_validation->set_rules('pricelistproduk', 'Price List Produk', 'required|integer');
-    $this->form_validation->set_rules('hargaekatproduk', 'Harga E-katalog', 'required|integer');
+    // $this->form_validation->set_rules('hargaekatproduk', 'Harga E-katalog', 'required|integer');
     $this->form_validation->set_rules('deskripsiproduk', 'Deskripsi Produk', 'required');
     if (!$this->form_validation->run()) {
       $response["status"] = false;
@@ -113,9 +113,9 @@ class Produk extends CI_Controller
         $temp_produk_nama = $this->input->post('namaproduk');
         $temp_produk_kategori = $this->input->post('kategoriproduk');
         $temp_produk_price_list = $this->input->post('pricelistproduk');
-        $temp_produk_harga_ekat = $this->input->post('hargaekatproduk');
+        // $temp_produk_harga_ekat = $this->input->post('hargaekatproduk');
         $temp_produk_deskripsi = $this->input->post('deskripsiproduk');
-        $this->m_produk->edit_produk($temp_id_pk_produk, $temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_harga_ekat, $temp_produk_deskripsi, $temp_produk_file);
+        $this->m_produk->edit_produk($temp_id_pk_produk, $temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_deskripsi, $temp_produk_file);
         $response["status"] = true;
         $response["msg"] = "Data {$temp_produk_no_katalog} berhasil diubah";
       }
