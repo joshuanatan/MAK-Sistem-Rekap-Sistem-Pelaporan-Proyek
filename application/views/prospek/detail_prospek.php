@@ -21,7 +21,7 @@
       <div class="page-header">
         <h1 class="page-title">Prospek</h1>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>welcome/home">Home</a></li>
           <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>Prospek">Prospek</a></li>
           <li class="breadcrumb-item active">Detail Prospek</li>
         </ol>
