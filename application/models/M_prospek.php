@@ -2,6 +2,13 @@
 date_default_timezone_set("Asia/Jakarta");
 class M_prospek extends CI_Model
 {
+  public function get_curr_year_prospek() {
+    $sql = "SELECT id_pk_prospek
+    FROM mstr_prospek
+    WHERE year(prospek_tgl_create) =".date("Y");
+    return executeQuery($sql);
+  }
+
   public function get_prospek($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $id_user)
   {
     $search_query = "";

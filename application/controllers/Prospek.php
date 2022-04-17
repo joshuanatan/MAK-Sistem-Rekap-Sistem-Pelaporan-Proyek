@@ -134,6 +134,8 @@ class Prospek extends CI_Controller
     $result4 = $this->m_prospek->get_provinsi();
     $result5 = $this->m_prospek->get_sirup();
     $result6 = $this->m_prospek->get_ekat();
+    $result7 = $this->m_prospek->get_curr_year_prospek();
+    $generated_id = "PRPK-RSUD-".date("Y").'-'.(count($result7->result_array())+1);
     $data = array(
       'datars' => $result1->result_array(),
       'dataproduk' => $result2->result_array(),
@@ -141,6 +143,7 @@ class Prospek extends CI_Controller
       'dataprovinsi' => $result4->result_array(),
       'datasirup' => $result5->result_array(),
       'dataekat' => $result6->result_array(),
+      'generated_id' => $generated_id
     );
     $sql = "select prospek_kode from mstr_prospek where prospek_status = 'aktif' order by id_pk_prospek DESC limit 1";
     $result = executeQuery($sql)->result_array();
@@ -286,9 +289,10 @@ class Prospek extends CI_Controller
     if ($temp_data_produk != '') {
       foreach ($temp_data_produk as $a) {
         $temp_id_fk_produk = $this->input->post('id_fk_produk' . $a);
+        $temp_prospek_diskon = $this->input->post('detail_diskon' . $a);
         $temp_prospek_produk_price = $this->input->post('detail_price' . $a);
         $temp_detail_prospek_quantity = $this->input->post('detail_quantity' . $a);
-        $total_price = $total_price + ($temp_prospek_produk_price * $temp_detail_prospek_quantity);
+        $total_price = $total_price + ($temp_prospek_produk_price * (1 - $temp_prospek_diskon/100) * $temp_detail_prospek_quantity);
         $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan' . $a);
         $this->m_prospek->insert_produk_prospek($id_fk_prospek, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan);
       }

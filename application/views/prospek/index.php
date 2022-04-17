@@ -110,17 +110,17 @@
             <table class="table table-hover table-striped w-full">
               <thead>
                 <tr>
-                  <th>Kode Prospek</th>
+                  <!-- <th>Kode Prospek</th>
                   <th>Provinsi</th>
-                  <th>Kabupaten</th>
+                  <th>Kabupaten</th> -->
                   <th>Rumah Sakit</th>
                   <th>Prospek Principle</th>
-                  <th>Notes Kompetitor</th>
-                  <th>Notes Prospek</th>
+                  <!-- <th>Notes Kompetitor</th>
+                  <th>Notes Prospek</th> -->
                   <th>Funnel</th>
                   <th>Total Price</th>
-                  <th>Estimasi Pembelian</th>
-                  <th>Creator</th>
+                  <!-- <th>Estimasi Pembelian</th>
+                  <th>Creator</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -246,19 +246,20 @@
           else if(respond["data"][a]["funnel"].toLowerCase() == "loss"){
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-dark'>${respond["data"][a]["funnel"]}</button>`;
           }
+          // Previous Table
+          // <td>${respond["data"][a]["prospek_kode"]}</td>
+          // <td>${respond["data"][a]["nama_provinsi"]}</td>
+          // <td>${respond["data"][a]["nama_kabupaten"]}</td>
+          // <td>${respond["data"][a]["notes_kompetitor"]}</td>
+          // <td>${respond["data"][a]["notes_prospek"]}</td>
+          // <td>${respond["data"][a]["estimasi_pembelian"]}</td>
+          // <td>${respond["data"][a]["user_username"]}</td>
           html += `
             <tr id = "prospek_row${a}">
-              <td>${respond["data"][a]["prospek_kode"]}</td>
-              <td>${respond["data"][a]["nama_provinsi"]}</td>
-              <td>${respond["data"][a]["nama_kabupaten"]}</td>
               <td>${respond["data"][a]["nama_rs"]}</td>
               <td>${respond["data"][a]["prospek_principle"]}</td>
-              <td>${respond["data"][a]["notes_kompetitor"]}</td>
-              <td>${respond["data"][a]["notes_prospek"]}</td>
               <td>${funnel_html}</td>
               <td>${format_number(respond["data"][a]["total_price_prospek"])}</td>
-              <td>${respond["data"][a]["estimasi_pembelian"]}</td>
-              <td>${respond["data"][a]["user_username"]}</td>
               <td>
                 <a href="<?php echo base_url(); ?>prospek/detail_prospek/${respond["data"][a]["id_pk_prospek"]}" type = "button" class = "btn btn-light btn-sm" id="load_button"><i class="icon md-search" aria-hidden="true"></i></a>
                 ${htmlEditButton}
