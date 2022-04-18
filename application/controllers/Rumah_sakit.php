@@ -72,7 +72,7 @@ class Rumah_sakit extends CI_Controller
         "field_text" => "Provinsi"
       ),
       array(
-        "field_value" => "jenis_rs",
+        "field_value" => "id_pk_jenis_rs",
         "field_text" => "Jenis Rumah Sakit"
       ),
       array(
