@@ -7,22 +7,22 @@ class Sch_sirup extends CI_Controller
 
   public function index()
   {
-    if ($this->input->get("login")) {
-      if (md5($this->input->get("login")) == "523c2c2940a37fb651b7a19b68149e0b") {
-        echo "Welcome to sch_sirup, below is our available links!:<br/>";
-        echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/reset_status_query'>function reset_status_query()</a><br/>";
-        echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup'>function query_sirup()</a><br/>";
-        echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/extract_sirup_item'>function extract_sirup_item()</a><br/>";
-        echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup_detail'>function query_sirup_detail()</a><br/>";
-        echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/revalidate_search_similarity'>function revalidate_search_similarity()</a><br/>";
-      } else {
-        echo "babai.";
-        exit();
-      }
-    } else {
-      echo "babai.";
-      exit();
-    }
+    // if ($this->input->get("login")) {
+    //   if (md5($this->input->get("login")) == "523c2c2940a37fb651b7a19b68149e0b") {
+    echo "Welcome to sch_sirup, below is our available links!:<br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/reset_status_query'>function reset_status_query()</a><br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup'>function query_sirup()</a><br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/extract_sirup_item'>function extract_sirup_item()</a><br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup_detail'>function query_sirup_detail()</a><br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/revalidate_search_similarity'>function revalidate_search_similarity()</a><br/>";
+    //   } else {
+    //     echo "babai.";
+    //     exit();
+    //   }
+    // } else {
+    //   echo "babai.";
+    //   exit();
+    // }
   }
   public function reset_status_query()
   {
@@ -156,9 +156,10 @@ class Sch_sirup extends CI_Controller
     select * from temp_sirup_detil
     inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general 
     inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
-    where sirup_detil_status_query_today	= 0 and sirup_general is not null limit 500";
+    where sirup_detil_status_query_today	= 1 and sirup_general is not null limit 500";
     $result = executeQuery($sql);
     $result = $result->result_array();
+
     for ($temp_sirup_detil_row = 0; $temp_sirup_detil_row < count($result); $temp_sirup_detil_row++) {
       $this->load->model("m_sirup");
       $id_pk_sirup_detil = $result[$temp_sirup_detil_row]["id_pk_sirup_detil"];
@@ -178,7 +179,8 @@ class Sch_sirup extends CI_Controller
 
       $id = str_replace(" ", "", $sirup_no);
 
-      $url = "https://sirup.lkpp.go.id/sirup/home/detailPaketPenyediaPublic2017/" . $id;
+      $url = "https://sirup.lkpp.go.id/sirup/ro/pp/2018/" . $id;
+
       #$url = "https://sirup.lkpp.go.id/sirup/home/detailPaketPenyediaPublic2017/29375834";
       $curl = curl_init();
       curl_setopt_array($curl, array(
@@ -251,24 +253,31 @@ class Sch_sirup extends CI_Controller
 
     $sirup_pra_dipa = trim(explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", explode("Pra DIPA / DPA", $response)[1])[0]);
 
-    $sirup_sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
+    $sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
 
     $sirup_jenis_pengadaan = explode("Total Pagu", explode("Jenis Pengadaan No. Jenis Pengadaan Pagu Jenis Pengadaan", $response)[1])[0];
 
     $sirup_total_pagu = explode("Metode Pemilihan", explode("Total Pagu", $response)[2])[0];
 
     $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa", explode("Metode Pemilihan", $response)[1])[0];
-    // $sirup_histori_paket = "";
 
+    if (strpos($response, 'History Paket') == false) {
+      $sirup_histori_paket = "";
+      $sirup_jadwal_pemilihan = "";
+    } else {
+      $sirup_histori_paket = explode("Tanggal Perbarui Paket", explode("History Paket", $response)[1])[0];
+      if (strpos($response, 'Jadwal Pemilihan Penyedia') == false) {
+        $sirup_jadwal_pemilihan = "";
+      } else {
+        $sirup_jadwal_pemilihan = explode("History Paket", explode("Jadwal Pemilihan Penyedia Mulai Akhir", $response)[1])[0];
+      }
+    }
     $lokasi_pekerjaan = explode("Volume Pekerjaan", explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", $response)[1])[0];
     $sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
     #echo "sumberdana atas:".$sumber_dana;
     $pemanfaatan_barang = explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", explode("Pemanfaatan Barang/Jasa Mulai Akhir", $response)[1])[0];
     $jadwal_pelaksanaan = explode("Jadwal Pemilihan Penyedia Mulai Akhir", explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", $response)[1])[0];
     $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket", $response)[1];
-
-    $sirup_histori_paket = "";
-    $pemilihan_penyedia = "";
     if (strpos($response, 'History Paket') !== false) {
       $sirup_histori_paket = explode("Tanggal Perbarui Paket", explode("History Paket", $response)[1])[0];
       $pemilihan_penyedia = explode("History Paket", explode("Jadwal Pemilihan Penyedia Mulai Akhir", $response)[1])[0];
@@ -295,9 +304,9 @@ class Sch_sirup extends CI_Controller
     executeQuery($sql, $args);
 
     if (strpos($sirup_paket, $search_phrase) !== false) {
-      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 1);
+      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 1, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan);
     } else {
-      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 0);
+      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 0, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan);
     }
     if (!$id_pk_sirup) {
       echo "fail";
