@@ -63,6 +63,8 @@ class Sch_sirup extends CI_Controller
         #urutin pagu itu ada di kolom 2 dengan order dir nya DESC.
         $start = $amount * $count;
         // new
+        $new_url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&jenisPengadaan=$pencarian_sirup_jenis=&minPagu=&maxPagu=&bulan=&draw=1&columns=&order[0][column]=5&order[0][dir]=DESC&start=$start&length=" . $amount  . "&search[value]=" . $pencarian_sirup_frase . "&search[regex]=false";
+
         $url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount  . "&search%5Bvalue%5D=" . $pencarian_sirup_frase . "&search%5Bregex%5D=false";
         // old
         //$url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&keyword=" . $pencarian_sirup_frase . "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount . "&search%5Bvalue%5D=&search%5Bregex%5D=false";
