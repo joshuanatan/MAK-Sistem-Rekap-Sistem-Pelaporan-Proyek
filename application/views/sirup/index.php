@@ -27,13 +27,17 @@
           <div class="row">
             <div class="form-group col-lg-1">
               <h5>&nbsp;</h5>
-              <a href = "<?php echo base_url();?>sirup/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
+              <a href="<?php echo base_url(); ?>sirup/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
             </div>
             <div class="form-group col-lg-1">
               <h5>&nbsp;</h5>
               <button type="button" class="btn btn-primary btn-sm" data-target="#pencarianModal" data-toggle="modal">Lihat Pencarian</button>
             </div>
             <div class="form-group col-lg-1">
+              <h5>&nbsp;</h5>
+
+              <form action="<?php echo base_url(); ?>sirup/export" method="POST">
+                <button class="btn btn-primary btn-sm" type="submit">Export to Excel</button><br />
             </div>
             <div class="form-group col-lg-3">
               <h5>Kolom Pengurutan</h5>
@@ -65,6 +69,8 @@
             </div>
           </div>
           <div class="table-responsive">
+
+
             <table class="table table-hover table-striped">
               <thead>
                 <tr>
@@ -84,6 +90,7 @@
               <tbody id="table_content_container">
               </tbody>
             </table>
+            </form>
           </div>
           <nav class="d-flex justify-content-center">
             <ul class="pagination">
@@ -169,17 +176,28 @@
           html += `
           <tr id = "sirup_row${a}">
             <td>${respond["data"][a]["sirup_rup"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_rup"]}" name="sirup_rup${a}">
             <td>${respond["data"][a]["pencarian_sirup_frase"]}</td>
+            <input type="hidden" value="${respond["data"][a]["pencarian_sirup_frase"]}" name="pencarian_sirup_frase${a}">
             <td>${respond["data"][a]["sirup_paket"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_paket"]}" name="sirup_paket${a}">
             <td>${format_number(respond["data"][a]["sirup_total"])}</td>
+            <input type="hidden" value="${format_number(respond["data"][a]["sirup_total"])}" name="sirup_total${a}">
             <td>${respond["data"][a]["sirup_jenis_pengadaan"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_jenis_pengadaan"]}" name="sirup_jenis_pengadaan${a}">
             <td>${respond["data"][a]["sirup_satuan_kerja"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_satuan_kerja"]}" name="sirup_satuan_kerja${a}">
             <td>${respond["data"][a]["sirup_volume_pekerjaan"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_volume_pekerjaan"]}" name="sirup_volume_pekerjaan${a}">
             <td>${respond["data"][a]["sirup_uraian_pekerjaan"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_uraian_pekerjaan"]}" name="sirup_uraian_pekerjaan${a}">
             <td>${respond["data"][a]["sirup_spesifikasi_pekerjaan"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_spesifikasi_pekerjaan"]}" name="sirup_spesifikasi_pekerjaan${a}">
             <td>${respond["data"][a]["sirup_tgl_create"]}</td>
+            <input type="hidden" value="${respond["data"][a]["sirup_tgl_create"]}" name="sirup_tgl_create${a}">
             <td><button type = "button" onclick = "load_edit(${a})" class = "btn btn-light btn-sm" data-toggle="modal" data-target="#updateSirupModal"><i class="icon md-search" aria-hidden="true"></i></button></td>
           </tr>
+          <input type="hidden" name="count" value="${a}">
           `;
         }
         $("#table_content_container").html(html);
@@ -385,35 +403,35 @@
 <script>
   var content = "";
 
-function load_edit(row) {
-  $("#edit_id_sirup").val(content[row]["id_pk_sirup"]);
-  $("#edit_kode_rup").val(content[row]["sirup_rup"]);
-  $("#edit_nama_paket").val(content[row]["sirup_paket"]);
-  $("#edit_nama_klpd").val(content[row]["sirup_klpd"]);
-  $("#edit_satuan_kerja").val(content[row]["sirup_satuan_kerja"]);
-  $("#edit_tahun_anggaran").val(content[row]["sirup_tahun_anggaran"]);
-  $("#edit_volume_pekerjaan").val(content[row]["sirup_volume_pekerjaan"]);
-  $("#edit_uraian_pekerjaan").val(content[row]["sirup_uraian_pekerjaan"]);
-  $("#edit_spesifikasi_pekerjaan").val(content[row]["sirup_spesifikasi_pekerjaan"]);
-  $("#edit_produk_dalam_negeri").val(content[row]["sirup_produk_dalam_negri"]);
-  $("#edit_usaha_kecil").val(content[row]["sirup_usaha_kecil"]);
-  $("#edit_pra_dipa_dpa").val(content[row]["sirup_pra_dipa"]);
-  $("#edit_jenis_pengadaan").val(content[row]["sirup_jenis_pengadaan"]);
-  $("#edit_total_pagu").val(format_number(content[row]["sirup_total"]));
-  $("#edit_metode_pemilihan").val(content[row]["sirup_metode_pemilihan"]);
-  $("#edit_histori_paket").val(content[row]["sirup_histori_paket"]);
-  $("#edit_tgl_perbarui_paket").val(content[row]["sirup_tgl_perbarui_paket"]);
+  function load_edit(row) {
+    $("#edit_id_sirup").val(content[row]["id_pk_sirup"]);
+    $("#edit_kode_rup").val(content[row]["sirup_rup"]);
+    $("#edit_nama_paket").val(content[row]["sirup_paket"]);
+    $("#edit_nama_klpd").val(content[row]["sirup_klpd"]);
+    $("#edit_satuan_kerja").val(content[row]["sirup_satuan_kerja"]);
+    $("#edit_tahun_anggaran").val(content[row]["sirup_tahun_anggaran"]);
+    $("#edit_volume_pekerjaan").val(content[row]["sirup_volume_pekerjaan"]);
+    $("#edit_uraian_pekerjaan").val(content[row]["sirup_uraian_pekerjaan"]);
+    $("#edit_spesifikasi_pekerjaan").val(content[row]["sirup_spesifikasi_pekerjaan"]);
+    $("#edit_produk_dalam_negeri").val(content[row]["sirup_produk_dalam_negri"]);
+    $("#edit_usaha_kecil").val(content[row]["sirup_usaha_kecil"]);
+    $("#edit_pra_dipa_dpa").val(content[row]["sirup_pra_dipa"]);
+    $("#edit_jenis_pengadaan").val(content[row]["sirup_jenis_pengadaan"]);
+    $("#edit_total_pagu").val(format_number(content[row]["sirup_total"]));
+    $("#edit_metode_pemilihan").val(content[row]["sirup_metode_pemilihan"]);
+    $("#edit_histori_paket").val(content[row]["sirup_histori_paket"]);
+    $("#edit_tgl_perbarui_paket").val(content[row]["sirup_tgl_perbarui_paket"]);
 
-  $.ajax({
-    url: "<?php echo base_url(); ?>ws/sirup/get_detail_lokasi_pekerjaan/" + content[row]["id_pk_sirup"],
-    type: "GET",
-    dataType: "JSON",
-    success: function(respond) {
-      var html = "";
-      for (var a = 0; a < respond.length; a++) {
-        var split = respond[a]["lokasi_pekerjaan"].split("|");
-        if (split.length > 1) {
-          html += `
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/get_detail_lokasi_pekerjaan/" + content[row]["id_pk_sirup"],
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
+        var html = "";
+        for (var a = 0; a < respond.length; a++) {
+          var split = respond[a]["lokasi_pekerjaan"].split("|");
+          if (split.length > 1) {
+            html += `
           <tr class = "lokasi_pekerjaan_row_edit" id = "lokasi_pekerjaan_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "edit_id_pk_lokasi_pekerjaan${a}" id = "id_lokasi_pekerjaan${a}">
             <input type = "hidden" name = "edit_lokasi_pekerjaan[]" value = "${a}">
@@ -421,30 +439,30 @@ function load_edit(row) {
             <td><input type = "text" class = "form-control" name = "edit_kabupaten${a}" value = "${split[1]}"></td>
             <td><input type = "text" class = "form-control" name = "edit_detail_lokasi${a}" value = "${split[2]}"></td>
           </tr>`;
-        } else {
-          html += `
+          } else {
+            html += `
           <tr class = "lokasi_pekerjaan_row_edit" id = "lokasi_pekerjaan_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_lokasi_pekerjaan"]}" name = "edit_id_pk_lokasi_pekerjaan${a}" id = "id_lokasi_pekerjaan${a}">
             <td colspan = 3>${respond[a]["lokasi_pekerjaan"]}</td>
           </tr>
           `;
+          }
         }
+        $(".lokasi_pekerjaan_row_edit").remove();
+        $("#edit_lokasi_pekerjaan").html(html);
       }
-      $(".lokasi_pekerjaan_row_edit").remove();
-      $("#edit_lokasi_pekerjaan").html(html);
-    }
-  });
+    });
 
-  $.ajax({
-    url: "<?php echo base_url(); ?>ws/sirup/get_detail_sumber_dana/" + content[row]["id_pk_sirup"],
-    type: "GET",
-    dataType: "JSON",
-    success: function(respond) {
-      var html = "";
-      for (var a = 0; a < respond.length; a++) {
-        var split = respond[a]["sumber_dana"].split("|");
-        if (split.length > 1) {
-          html += `
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/get_detail_sumber_dana/" + content[row]["id_pk_sirup"],
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
+        var html = "";
+        for (var a = 0; a < respond.length; a++) {
+          var split = respond[a]["sumber_dana"].split("|");
+          if (split.length > 1) {
+            html += `
           <tr class = "sumber_dana_row_edit" id = "sumber_dana_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" name = "edit_id_pk_sumber_dana${a}" id = "id_sumber_dana${a}">
             <input type = "hidden" name = "edit_sumber_dana[]" value = "${a}">
@@ -455,112 +473,112 @@ function load_edit(row) {
             <td><input type = "text" class = "form-control nf-input" readonly name = "edit_pagu${a}" value = "${format_number(split[4])}"></td>
           </tr>
           `;
-        } else {
-          html += `
+          } else {
+            html += `
           <tr class = "sumber_dana_row_edit" id = "sumber_dana_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_sumber_dana"]}" readonly name = "edit_id_pk_sumber_dana${a}" id = "id_sumber_dana${a}">
             <td colspan = 5>${respond[a]["sumber_dana"]}</td>
           </tr>
           `;
+          }
         }
+        $(".sumber_dana_row_edit").remove();
+        $("#edit_sumber_dana").html(html);
+        init_nf();
       }
-      $(".sumber_dana_row_edit").remove();
-      $("#edit_sumber_dana").html(html);
-      init_nf();
-    }
-  });
+    });
 
-  $.ajax({
-    url: "<?php echo base_url(); ?>ws/sirup/get_detail_pemanfaatan_barang/" + content[row]["id_pk_sirup"],
-    type: "GET",
-    dataType: "JSON",
-    success: function(respond) {
-      var html = "";
-      for (var a = 0; a < respond.length; a++) {
-        var split = respond[a]["pemanfaatan_barang"].split("|");
-        if (split.length > 1) {
-          html += `
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/get_detail_pemanfaatan_barang/" + content[row]["id_pk_sirup"],
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
+        var html = "";
+        for (var a = 0; a < respond.length; a++) {
+          var split = respond[a]["pemanfaatan_barang"].split("|");
+          if (split.length > 1) {
+            html += `
           <tr class = "pemanfaatan_barang_row_edit" id = "pemanfaatan_barang_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" name = "edit_id_pk_pemanfaatan_barang${a}" id = "id_pemanfaatan_barang${a}">
             <input type = "hidden" name = "edit_pemanfaatan_barang[]" value = "${a}">
             <td><input type = "text" class = "form-control" value = "${split[0]}" readonly name = "edit_mulai_pemanfaatan_barang${a}"></td>
             <td><input type = "text" class = "form-control" value = "${split[1]}" readonly name = "edit_akhir_pemanfaatan_barang${a}"></td>
           </tr>`;
-        } else {
-          html += `
+          } else {
+            html += `
           <tr class = "pemanfaatan_barang_row_edit" id = "pemanfaatan_barang_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_pemanfaatan_barang"]}" readonly name = "edit_id_pk_pemanfaatan_barang${a}" id = "id_pemanfaatan_barang${a}">
             <td colspan = 2 >${respond[a]["pemanfaatan_barang"]}</td>
           </tr>
           `;
+          }
         }
+        $(".pemanfaatan_barang_row_edit").remove();
+        $("#edit_pemanfaatan_barang").html(html);
       }
-      $(".pemanfaatan_barang_row_edit").remove();
-      $("#edit_pemanfaatan_barang").html(html);
-    }
-  });
+    });
 
-  $.ajax({
-    url: "<?php echo base_url(); ?>ws/sirup/get_detail_pelaksanaan_kontrak/" + content[row]["id_pk_sirup"],
-    type: "GET",
-    dataType: "JSON",
-    success: function(respond) {
-      var html = "";
-      for (var a = 0; a < respond.length; a++) {
-        var split = respond[a]["jadwal_pelaksanaan"].split("|");
-        if (split.length > 1) {
-          html += `
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/get_detail_pelaksanaan_kontrak/" + content[row]["id_pk_sirup"],
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
+        var html = "";
+        for (var a = 0; a < respond.length; a++) {
+          var split = respond[a]["jadwal_pelaksanaan"].split("|");
+          if (split.length > 1) {
+            html += `
           <tr class = "pelaksanaan_kontrak_row_edit" id = "pelaksanaan_kontrak_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" name = "edit_id_pk_jadwal_pelaksanaan${a}" id = "id_pelaksanaan_kontrak${a}">
             <input type = "hidden" name = "edit_jadwal_pelaksanaan[]" value = "${a}">
             <td><input type = "text" class = "form-control" value = "${split[0]}" readonly name = "edit_mulai_jadwal_pelaksanaan${a}"></td>
             <td><input type = "text" class = "form-control" value = "${split[1]}" readonly name = "edit_akhir_jadwal_pelaksanaan${a}"></td>
           </tr>`;
-        } else {
-          html += `
+          } else {
+            html += `
           <tr class = "pelaksanaan_kontrak_row_edit" id = "pelaksanaan_kontrak_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_jadwal_pelaksanaan"]}" readonly name = "edit_id_pk_jadwal_pelaksanaan${a}" id = "id_pelaksanaan_kontrak${a}">
             <td colspan = 2>${respond[a]["jadwal_pelaksanaan"]}</td>
           </tr>
           `;
+          }
         }
+        $(".pelaksanaan_kontrak_row_edit").remove();
+        $("#edit_pelaksanaan_kontrak").html(html);
       }
-      $(".pelaksanaan_kontrak_row_edit").remove();
-      $("#edit_pelaksanaan_kontrak").html(html);
-    }
-  });
+    });
 
-  $.ajax({
-    url: "<?php echo base_url(); ?>ws/sirup/get_detail_jadwal_pemilihan/" + content[row]["id_pk_sirup"],
-    type: "GET",
-    dataType: "JSON",
-    success: function(respond) {
-      var html = "";
-      for (var a = 0; a < respond.length; a++) {
-        var split = respond[a]["pemilihan_penyedia"].split("|");
-        if (split.length > 1) {
-          html += `
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/get_detail_jadwal_pemilihan/" + content[row]["id_pk_sirup"],
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
+        var html = "";
+        for (var a = 0; a < respond.length; a++) {
+          var split = respond[a]["pemilihan_penyedia"].split("|");
+          if (split.length > 1) {
+            html += `
           <tr class = "pemilihan_penyedia_row_edit" id = "pemilihan_penyedia_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" name = "edit_id_pk_pemilihan_penyedia${a}" id = "id_pemilihan_penyedia${a}">
             <input type = "hidden" name = "edit_pemilihan_penyedia[]" value = "${a}">
             <td><input type = "text" class = "form-control" value = "${split[0]}" readonly name = "edit_mulai_pemilihan_penyedia${a}"></td>
             <td><input type = "text" class = "form-control" value = "${split[1]}" readonly name = "edit_akhir_pemilihan_penyedia${a}"></td>
           </tr>`;
-        } else {
-          html += `
+          } else {
+            html += `
           <tr class = "pemilihan_penyedia_row_edit" id = "pemilihan_penyedia_row_edit${a}">
             <input type = "hidden" value = "${respond[a]["id_pk_pemilihan_penyedia"]}" readonly name = "edit_id_pk_pemilihan_penyedia${a}" id = "id_pemilihan_penyedia${a}">
             <td colspan = 2>${respond[a]["pemilihan_penyedia"]}</td>
           </tr>
           `;
+          }
         }
+        $(".pemilihan_penyedia_row_edit").remove();
+        $("#edit_jadwal_pemilihan").html(html);
       }
-      $(".pemilihan_penyedia_row_edit").remove();
-      $("#edit_jadwal_pemilihan").html(html);
-    }
-  });
-  $("#updateSirupModal").modal("show");
-}
+    });
+    $("#updateSirupModal").modal("show");
+  }
 </script>
 <div class="modal fade" id="pencarianModal">
   <div class="modal-dialog modal-lg modal-simple modal-center">

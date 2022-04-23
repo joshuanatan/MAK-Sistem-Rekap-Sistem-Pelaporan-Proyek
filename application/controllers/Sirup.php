@@ -1,12 +1,13 @@
 <?php
 class Sirup extends CI_Controller
 {
-  
-  public function __construct(){
+
+  public function __construct()
+  {
     parent::__construct();
-    if(!$this->session->id_user){
-      $this->session->set_flashdata("status","danger");
-      $this->session->set_flashdata("msg","Session expired, silahkan login");
+    if (!$this->session->id_user) {
+      $this->session->set_flashdata("status", "danger");
+      $this->session->set_flashdata("msg", "Session expired, silahkan login");
       redirect("welcome");
       exit();
     }
@@ -63,6 +64,9 @@ class Sirup extends CI_Controller
         "field_text" => "Kata Kunci Pencarian"
       )
     );
+
+    // var_dump($data['field'][0]['field_text']);
+    // die();
 
     $this->load->view("sirup/index", $data);
   }
@@ -225,5 +229,10 @@ class Sirup extends CI_Controller
       }
     }
     redirect("sirup");
+  }
+
+  public function export()
+  {
+    $this->load->view('sirup/sirup_export');
   }
 }
