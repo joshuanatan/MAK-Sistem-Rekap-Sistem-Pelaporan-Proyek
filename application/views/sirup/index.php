@@ -36,8 +36,7 @@
             <div class="form-group col-lg-1">
               <h5>&nbsp;</h5>
 
-              <form action="<?php echo base_url(); ?>sirup/export" method="POST">
-                <button class="btn btn-primary btn-sm" type="submit">Export to Excel</button><br />
+              
             </div>
             <div class="form-group col-lg-3">
               <h5>Kolom Pengurutan</h5>
@@ -70,7 +69,8 @@
           </div>
           <div class="table-responsive">
 
-
+          <form action="<?php echo base_url(); ?>sirup/export" method="POST">
+                <button class="btn btn-primary btn-sm" type="submit">Export to Excel</button><br />
             <table class="table table-hover table-striped">
               <thead>
                 <tr>
@@ -197,7 +197,7 @@
             <input type="hidden" value="${respond["data"][a]["sirup_tgl_create"]}" name="sirup_tgl_create${a}">
             <td><button type = "button" onclick = "load_edit(${a})" class = "btn btn-light btn-sm" data-toggle="modal" data-target="#updateSirupModal"><i class="icon md-search" aria-hidden="true"></i></button></td>
           </tr>
-          <input type="hidden" name="count" value="${a}">
+          <input type="hidden" name="count_data" value="${a}">
           `;
         }
         $("#table_content_container").html(html);

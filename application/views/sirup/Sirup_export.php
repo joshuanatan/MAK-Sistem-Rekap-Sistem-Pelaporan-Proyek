@@ -1,13 +1,15 @@
 <?php
-
+date_default_timezone_set("Asia/Jakarta");
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Sirup_export.xls");
+header("Content-Disposition: attachment; filename=Sirup_export_".date("Y-m-d-H-i-s").".xls");
 
 ?>
 <html>
 
 <body>
-    <table>
+    <h2>SiRUP Export</h2>
+    <h3>Exported at: <?php echo date("Y-m-d-H-i-s")?></h3>
+    <table border="1">
         <thead>
             <tr>
                 <th>ID Sirup</th>
@@ -23,7 +25,7 @@ header("Content-Disposition: attachment; filename=Sirup_export.xls");
             </tr>
         </thead>
         <tbody>
-            <?php for ($i = 0; $i < $_POST['count']; $i++) : ?>
+            <?php for ($i = 0; $i <= $_POST['count_data']; $i++) : ?>
                 <tr>
                     <td><?php echo $_POST["sirup_rup$i"] ?></td>
                     <td><?php echo $_POST["pencarian_sirup_frase$i"] ?></td>
