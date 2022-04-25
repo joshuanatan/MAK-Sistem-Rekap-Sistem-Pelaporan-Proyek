@@ -1,12 +1,13 @@
 <?php
 class Sirup extends CI_Controller
 {
-  
-  public function __construct(){
+
+  public function __construct()
+  {
     parent::__construct();
-    if(!$this->session->id_user){
-      $this->session->set_flashdata("status","danger");
-      $this->session->set_flashdata("msg","Session expired, silahkan login");
+    if (!$this->session->id_user) {
+      $this->session->set_flashdata("status", "danger");
+      $this->session->set_flashdata("msg", "Session expired, silahkan login");
       redirect("welcome");
       exit();
     }
@@ -63,6 +64,9 @@ class Sirup extends CI_Controller
         "field_text" => "Kata Kunci Pencarian"
       )
     );
+
+    // var_dump($data['field'][0]['field_text']);
+    // die();
 
     $this->load->view("sirup/index", $data);
   }
@@ -225,5 +229,19 @@ class Sirup extends CI_Controller
       }
     }
     redirect("sirup");
+  }
+
+  public function export()
+  {
+    $this->load->model("m_sirup");
+    $kolom_pengurutan = $_POST['kolom_pengurutan'];
+    $arah_kolom_pengurutan = $_POST['urutan'];
+    $pencarian_phrase = $_POST['pencarian_phrase'];
+    $kolom_pencarian = $_POST['kolom_pencarian'];
+
+    $data['data'] = $this->m_sirup->export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)->result_array();
+
+    $data['pencarian_phrase'] = $pencarian_phrase;
+    $this->load->view('sirup/sirup_export', $data);
   }
 }
