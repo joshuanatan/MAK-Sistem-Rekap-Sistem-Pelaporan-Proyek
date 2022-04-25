@@ -24,53 +24,54 @@
     <div class="page-content">
       <div class="panel">
         <div class="panel-body">
-          <div class="row">
-            <div class="form-group col-lg-1">
-              <h5>&nbsp;</h5>
-              <a href="<?php echo base_url(); ?>sirup/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
-            </div>
-            <div class="form-group col-lg-1">
-              <h5>&nbsp;</h5>
-              <button type="button" class="btn btn-primary btn-sm" data-target="#pencarianModal" data-toggle="modal">Lihat Pencarian</button>
-            </div>
-            <div class="form-group col-lg-1">
-              <h5>&nbsp;</h5>
+          <form action="<?php echo base_url(); ?>sirup/export" method="POST">
 
-              
+            <div class="row">
+              <div class="form-group col-lg-1">
+                <h5>&nbsp;</h5>
+                <a href="<?php echo base_url(); ?>sirup/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
+              </div>
+              <div class="form-group col-lg-1">
+                <h5>&nbsp;</h5>
+                <button type="button" class="btn btn-primary btn-sm" data-target="#pencarianModal" data-toggle="modal">Lihat Pencarian</button>
+              </div>
+              <div class="form-group col-lg-1">
+                <h5>&nbsp;</h5>
+              </div>
+
+              <div class="form-group col-lg-3">
+                <h5>Kolom Pengurutan</h5>
+                <select class="form-control" name="kolom_pengurutan" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
+                  <?php for ($a = 0; $a < count($field); $a++) : ?>
+                    <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
+                  <?php endfor; ?>
+                </select>
+              </div>
+              <div class="form-group col-lg-1">
+                <h5>Urutan</h5>
+                <select class="form-control" id="urutan_kolom" name="urutan" onchange="change_arah_pengurutan()" id="urutan_kolom">
+                  <option value="ASC">A-Z</option>
+                  <option value="DESC">Z-A</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-3">
+                <h5>Pencarian</h5>
+                <input type="text" class="form-control" name="pencarian_phrase" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
+              </div>
+              <div class="form-group col-lg-2">
+                <h5>Kolom Pencarian</h5>
+                <select class="form-control" onchange="change_pencarian_kolom()" name="kolom_pencarian" id="pencarian_kolom">
+                  <option value="all">Semua</option>
+                  <?php for ($a = 0; $a < count($field); $a++) : ?>
+                    <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
+                  <?php endfor; ?>
+                </select>
+              </div>
             </div>
-            <div class="form-group col-lg-3">
-              <h5>Kolom Pengurutan</h5>
-              <select class="form-control" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
-                <?php for ($a = 0; $a < count($field); $a++) : ?>
-                  <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
-                <?php endfor; ?>
-              </select>
-            </div>
-            <div class="form-group col-lg-1">
-              <h5>Urutan</h5>
-              <select class="form-control" id="urutan_kolom" onchange="change_arah_pengurutan()" id="urutan_kolom">
-                <option value="ASC">A-Z</option>
-                <option value="DESC">Z-A</option>
-              </select>
-            </div>
-            <div class="form-group col-lg-3">
-              <h5>Pencarian</h5>
-              <input type="text" class="form-control" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
-            </div>
-            <div class="form-group col-lg-2">
-              <h5>Kolom Pencarian</h5>
-              <select class="form-control" onchange="change_pencarian_kolom()" id="pencarian_kolom">
-                <option value="all">Semua</option>
-                <?php for ($a = 0; $a < count($field); $a++) : ?>
-                  <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
-                <?php endfor; ?>
-              </select>
-            </div>
-          </div>
+            <button class="btn btn-primary btn-sm" type="submit">Export to Excel</button><br />
+          </form>
           <div class="table-responsive">
 
-          <form action="<?php echo base_url(); ?>sirup/export" method="POST">
-                <button class="btn btn-primary btn-sm" type="submit">Export to Excel</button><br />
             <table class="table table-hover table-striped">
               <thead>
                 <tr>
@@ -90,7 +91,6 @@
               <tbody id="table_content_container">
               </tbody>
             </table>
-            </form>
           </div>
           <nav class="d-flex justify-content-center">
             <ul class="pagination">
@@ -176,28 +176,17 @@
           html += `
           <tr id = "sirup_row${a}">
             <td>${respond["data"][a]["sirup_rup"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_rup"]}" name="sirup_rup${a}">
             <td>${respond["data"][a]["pencarian_sirup_frase"]}</td>
-            <input type="hidden" value="${respond["data"][a]["pencarian_sirup_frase"]}" name="pencarian_sirup_frase${a}">
             <td>${respond["data"][a]["sirup_paket"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_paket"]}" name="sirup_paket${a}">
             <td>${format_number(respond["data"][a]["sirup_total"])}</td>
-            <input type="hidden" value="${format_number(respond["data"][a]["sirup_total"])}" name="sirup_total${a}">
             <td>${respond["data"][a]["sirup_jenis_pengadaan"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_jenis_pengadaan"]}" name="sirup_jenis_pengadaan${a}">
             <td>${respond["data"][a]["sirup_satuan_kerja"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_satuan_kerja"]}" name="sirup_satuan_kerja${a}">
             <td>${respond["data"][a]["sirup_volume_pekerjaan"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_volume_pekerjaan"]}" name="sirup_volume_pekerjaan${a}">
             <td>${respond["data"][a]["sirup_uraian_pekerjaan"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_uraian_pekerjaan"]}" name="sirup_uraian_pekerjaan${a}">
             <td>${respond["data"][a]["sirup_spesifikasi_pekerjaan"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_spesifikasi_pekerjaan"]}" name="sirup_spesifikasi_pekerjaan${a}">
             <td>${respond["data"][a]["sirup_tgl_create"]}</td>
-            <input type="hidden" value="${respond["data"][a]["sirup_tgl_create"]}" name="sirup_tgl_create${a}">
             <td><button type = "button" onclick = "load_edit(${a})" class = "btn btn-light btn-sm" data-toggle="modal" data-target="#updateSirupModal"><i class="icon md-search" aria-hidden="true"></i></button></td>
           </tr>
-          <input type="hidden" name="count_data" value="${a}">
           `;
         }
         $("#table_content_container").html(html);

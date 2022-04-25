@@ -446,4 +446,23 @@ class M_sirup extends CI_Model
     );
     return selectRow("mstr_sirup", $where);
   }
+
+  public function export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (sirup_rup like '%" . $pencarian_phrase . "%' or sirup_paket like '%" . $pencarian_phrase . "%' or sirup_klpd like '%" . $pencarian_phrase . "%' or sirup_satuan_kerja like '%" . $pencarian_phrase . "%' or sirup_tahun_anggaran like '%" . $pencarian_phrase . "%' or sirup_jenis_pengadaan like '%" . $pencarian_phrase . "%' or sirup_total like '%" . $pencarian_phrase . "%' or sirup_metode_pemilihan like '%" . $pencarian_phrase . "%' or sirup_histori_paket like '%" . $pencarian_phrase . "%' or sirup_tgl_perbarui_paket like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "
+    select *
+    from mstr_sirup
+    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+    where sirup_status = 'aktif' and 
+    sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+    return executeQuery($sql);
+  }
 }

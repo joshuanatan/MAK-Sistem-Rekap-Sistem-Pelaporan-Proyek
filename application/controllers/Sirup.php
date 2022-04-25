@@ -233,6 +233,15 @@ class Sirup extends CI_Controller
 
   public function export()
   {
-    $this->load->view('sirup/sirup_export');
+    $this->load->model("m_sirup");
+    $kolom_pengurutan = $_POST['kolom_pengurutan'];
+    $arah_kolom_pengurutan = $_POST['urutan'];
+    $pencarian_phrase = $_POST['pencarian_phrase'];
+    $kolom_pencarian = $_POST['kolom_pencarian'];
+
+    $data['data'] = $this->m_sirup->export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)->result_array();
+
+    $data['pencarian_phrase'] = $pencarian_phrase;
+    $this->load->view('sirup/sirup_export', $data);
   }
 }
