@@ -98,9 +98,7 @@ class Sch_sirup extends CI_Controller
 
         $response = json_decode($response, true);
         $last_index = count($response["data"]) - 1;
-        if ($response["data"][$last_index]["pagu"] < 100000000) {
-          break;
-        }
+
         $count++;
       } else {
         echo "Fail";
@@ -117,6 +115,7 @@ class Sch_sirup extends CI_Controller
     inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
     where sirup_general_status_query_today = 0 and sirup_general is not null";
     $result = executeQuery($sql);
+
     if ($result->num_rows() > 0) {
       $result = $result->result_array();
       echo count($result);
@@ -367,11 +366,10 @@ class Sch_sirup extends CI_Controller
   }
   public function revalidate_search_similarity()
   {
-    $sql = "select *, locate(pencarian_sirup_frase,sirup_paket) as similarity
+    $sql = "select *
     from mstr_sirup
-    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-    where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0
-    having similarity > 0";
+    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = mstr_sirup.id_fk_pencarian_sirup
+    where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0";
     $result = executeQuery($sql);
     $result = $result->result_array();
     for ($a = 0; $a < count($result); $a++) {
