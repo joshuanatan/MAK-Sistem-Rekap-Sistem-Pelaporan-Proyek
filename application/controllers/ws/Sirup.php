@@ -5,13 +5,17 @@ class Sirup extends CI_Controller
   {
     parent::__construct();
   }
-  public function delete_pencarian($id_pk_pencarian_sirup)
+  public function delete_pencarian($id_pk_pencarian_sirup, $keyword)
   {
     $this->load->model("m_pencarian_sirup");
     $result = $this->m_pencarian_sirup->set_delete($id_pk_pencarian_sirup);
     if ($result) {
       $result = $this->m_pencarian_sirup->delete();
-      if ($result) {
+      $this->load->model("m_sirup");
+      $id_pencarian_sirup = $this->m_sirup->get_sirup_id_pencarian($keyword);
+      $id_pencarian_sirup = $id_pencarian_sirup->result_array();
+      $delete = $this->m_sirup->delete_sirup($id_pencarian_sirup[0]['id_pk_pencarian_sirup']);
+      if ($result && $delete) {
         $respond["status"] = "success";
         $respond["msg"] = "data berhasil di hapus";
       } else {
