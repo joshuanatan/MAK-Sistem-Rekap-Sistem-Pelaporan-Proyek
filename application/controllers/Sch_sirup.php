@@ -219,14 +219,14 @@ class Sch_sirup extends CI_Controller
     #asumsi history paket aja yang beda
     $sirup_rup = str_replace(" ", "", explode("Nama Paket", explode("Kode RUP", $response)[1])[0]);
     $this->list_rup .= $sirup_rup . " ";
-    $sirup_paket = explode("Nama KLPD", explode("Nama Paket", $response)[1])[0];
-    $sirup_klpd = explode("Satuan Kerja", explode("Nama KLPD", $response)[1])[0];
-    $sirup_satuan_kerja = explode("Tahun Anggaran", explode("Satuan Kerja", $response)[1])[0];
+    $sirup_paket = explode("Nama KLPD", explode("Nama Paket ", $response)[1])[0];
+    $sirup_klpd = explode("Satuan Kerja", explode("Nama KLPD ", $response)[1])[0];
+    $sirup_satuan_kerja = explode("Tahun Anggaran", explode("Satuan Kerja ", $response)[1])[0];
     $sirup_tahun_anggaran = explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", explode("Tahun Anggaran", $response)[1])[0];
     $sirup_lokasi = explode("Volume Pekerjaan", explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", $response)[1])[0];
-    $sirup_volume_pekerjaan = explode("Uraian Pekerjaan", explode("Volume Pekerjaan", $response)[1])[0];
-    $sirup_uraian_pekerjaan = explode("Spesifikasi Pekerjaan", explode("Uraian Pekerjaan", $response)[1])[0];
-    $sirup_spesifikasi_pekerjaan = explode("Produk Dalam Negeri", explode("Spesifikasi Pekerjaan", $response)[1])[0];
+    $sirup_volume_pekerjaan = explode("Uraian Pekerjaan", explode("Volume Pekerjaan ", $response)[1])[0];
+    $sirup_uraian_pekerjaan = explode("Spesifikasi Pekerjaan", explode("Uraian Pekerjaan ", $response)[1])[0];
+    $sirup_spesifikasi_pekerjaan = explode("Produk Dalam Negeri", explode("Spesifikasi Pekerjaan ", $response)[1])[0];
     $sirup_produk_dalam_negri = trim(explode("Usaha Kecil/Koperasi", explode("Produk Dalam Negeri", $response)[1])[0]);
     $sirup_usaha_kecil = trim(explode("Pengadaan Berkelanjutan atau Sustainable Public Procurement (SPP)", explode("Usaha Kecil/Koperasi", $response)[1])[0]);
 
@@ -238,11 +238,11 @@ class Sch_sirup extends CI_Controller
 
     $sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
 
-    $sirup_jenis_pengadaan = explode("Total Pagu", explode("Jenis Pengadaan No. Jenis Pengadaan Pagu Jenis Pengadaan", $response)[1])[0];
+    $sirup_jenis_pengadaan = explode("Total Pagu", explode("Jenis Pengadaan No. Jenis Pengadaan Pagu Jenis Pengadaan 1. ", $response)[1])[0];
 
     $sirup_total_pagu = explode("Metode Pemilihan", explode("Total Pagu", $response)[2])[0];
 
-    $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa", explode("Metode Pemilihan", $response)[1])[0];
+    $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa", explode("Metode Pemilihan ", $response)[1])[0];
 
     if (strpos($response, 'History Paket') == false) {
       $sirup_histori_paket = "";
@@ -260,7 +260,7 @@ class Sch_sirup extends CI_Controller
     #echo "sumberdana atas:".$sumber_dana;
     $pemanfaatan_barang = explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", explode("Pemanfaatan Barang/Jasa Mulai Akhir", $response)[1])[0];
     $jadwal_pelaksanaan = explode("Jadwal Pemilihan Penyedia Mulai Akhir", explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", $response)[1])[0];
-    $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket", $response)[1];
+    $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket ", $response)[1];
     if (strpos($response, 'History Paket') !== false) {
       $sirup_histori_paket = explode("Tanggal Perbarui Paket", explode("History Paket", $response)[1])[0];
       $pemilihan_penyedia = explode("History Paket", explode("Jadwal Pemilihan Penyedia Mulai Akhir", $response)[1])[0];
