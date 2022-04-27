@@ -677,12 +677,13 @@
 
   function hapus_pencarian(row) {
     var id = $(`#id_pencarian${row}`).val();
+    var keyword = $(`#frase_pencarian${row}`).val();
     if (id == 0) {
       $('#konfirmasiHapusPencarianModal').modal('hide');
       $(`#pencarian_row${row}`).remove();
     } else {
       $.ajax({
-        url: "<?php echo base_url(); ?>ws/sirup/delete_pencarian/" + id,
+        url: "<?php echo base_url(); ?>ws/sirup/delete_pencarian/" + id + "/" + keyword ,
         type: "DELETE",
         dataType: "JSON",
         success: function(respond) {

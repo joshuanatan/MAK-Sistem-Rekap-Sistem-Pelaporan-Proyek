@@ -198,18 +198,6 @@ class Sch_sirup extends CI_Controller
       $response = preg_replace('/\t+/', ' ', $response);
       $response = preg_replace('/\n\r+/', '', $response);
 
-      if ($response == "") {
-        echo "fail hehehehhe $id";
-        $where = array(
-          "id_pk_sirup_detil" => $id_pk_sirup_detil
-        );
-        $data = array(
-          "sirup_detil_last_checkpoint" => date("Y-m-d H:i:s"),
-          "sirup_detil_status_query_today" => 0
-        );
-        updateRow("temp_sirup_detil", $data, $where);
-        continue;
-      }
       $data = array(
         "sirup_detil_query_response" => $response,
         "sirup_detil_query_rup" => $id,

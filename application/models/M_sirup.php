@@ -465,4 +465,18 @@ class M_sirup extends CI_Model
     sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
     return executeQuery($sql);
   }
+
+  public function get_sirup_id_pencarian($keyword)
+  {
+    $sql = "select id_pk_pencarian_sirup from mstr_pencarian_sirup 
+    where pencarian_sirup_status = aktif and pencarian_sirup_frase = '" . $keyword . "'";
+    return executeQuery($sql);
+  }
+
+  public function delete_sirup($id_pk_pencarian_sirup)
+  {
+    $sql = "delete from mstr_sirup where id_fk_pencarian_sirup = " . $id_pk_pencarian_sirup;
+    executeQuery($sql);
+    return $sql;
+  }
 }
