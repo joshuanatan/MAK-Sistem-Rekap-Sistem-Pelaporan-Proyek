@@ -334,22 +334,27 @@ class Sch_sirup extends CI_Controller
   }
   public function revalidate_search_similarity()
   {
-    $sql = "select *
-    from mstr_sirup
-    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = mstr_sirup.id_fk_pencarian_sirup
-    where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0";
-    $result = executeQuery($sql);
-    $result = $result->result_array();
-    for ($a = 0; $a < count($result); $a++) {
-      $where = array(
-        "id_pk_sirup" => $result[$a]["id_pk_sirup"]
-      );
-      $data = array(
-        "sirup_status_sesuai_pencarian" => 1
-      );
-      updateRow("mstr_sirup", $data, $where);
-    }
+    $sql = "update mstr_sirup set sirup_status_sesuai_pencarian = 1";
+    executeQuery(($sql));
   }
+  // public function revalidate_search_similarity()
+  // {
+  //   $sql = "select *
+  //   from mstr_sirup
+  //   left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = mstr_sirup.id_fk_pencarian_sirup
+  //   where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0";
+  //   $result = executeQuery($sql);
+  //   $result = $result->result_array();
+  //   for ($a = 0; $a < count($result); $a++) {
+  //     $where = array(
+  //       "id_pk_sirup" => $result[$a]["id_pk_sirup"]
+  //     );
+  //     $data = array(
+  //       "sirup_status_sesuai_pencarian" => 1
+  //     );
+  //     updateRow("mstr_sirup", $data, $where);
+  //   }
+  // }
   public function truncate_all_temp(){
     $sql = "truncate table temp_sirup_detil";
     executeQuery($sql);
@@ -363,7 +368,7 @@ class Sch_sirup extends CI_Controller
     $this->query_sirup();
     $this->extract_sirup_item();
     $this->query_sirup_detail();
-    $this->revalidate_search_similarity();
-    // $this->truncate_all_temp();
+    // $this->revalidate_search_similarity();
+    $this->truncate_all_temp();
   }
 }
