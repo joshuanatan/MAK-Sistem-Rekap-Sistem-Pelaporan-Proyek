@@ -15,6 +15,7 @@ class Sch_sirup extends CI_Controller
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/extract_sirup_item'>function extract_sirup_item()</a><br/>";
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup_detail'>function query_sirup_detail()</a><br/>";
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/revalidate_search_similarity'>function revalidate_search_similarity()</a><br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/delete_temp_data'>function delete_temp_data()</a><br/>";
     //   } else {
     //     echo "babai.";
     //     exit();
@@ -151,7 +152,7 @@ class Sch_sirup extends CI_Controller
     select * from temp_sirup_detil
     inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general 
     inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
-    where sirup_detil_status_query_today = 0 and sirup_general is not null limit 500";
+    where sirup_detil_status_query_today = 0 and sirup_general is not null and is_executed = 0 limit 25";
     $result = executeQuery($sql);
     $result = $result->result_array();
 
@@ -168,7 +169,8 @@ class Sch_sirup extends CI_Controller
       );
       $data = array(
         "sirup_detil_last_checkpoint" => date("Y-m-d H:i:s"),
-        "sirup_detil_status_query_today" => 1
+        "sirup_detil_status_query_today" => 1,
+        "is_executed" => 1
       );
       updateRow("temp_sirup_detil", $data, $where);
 
@@ -374,6 +376,27 @@ class Sch_sirup extends CI_Controller
         "log_auto_sirup_date" => date("Y-m-d H:i:s")
       );
       insertRow("log_auto_sirup", $data);
+    }
+  }
+  public function delete_temp_data()
+  {
+    $sql = "truncate temp_sirup_general";
+    $general = executeQuery($sql);
+
+    $sql = "truncate temp_sirup_detil";
+    $sirup_detil = executeQuery($sql);
+
+    $sql = "truncate temp_sirup_detil_query";
+    $sirup_detil_query = executeQuery($sql);
+    
+    if(!isset($general)) {
+      echo "Failed general delete";
+    }
+    if(!isset($sirup_detil)) {
+      echo "Failed sirup detil delete";
+    }
+    if(!isset($sirup_detil_query)) {
+      echo "Failed sirup detil query delete";
     }
   }
 }
