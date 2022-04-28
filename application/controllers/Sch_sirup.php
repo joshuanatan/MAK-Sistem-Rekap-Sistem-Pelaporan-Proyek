@@ -380,23 +380,18 @@ class Sch_sirup extends CI_Controller
   }
   public function delete_temp_data()
   {
-    $sql = "truncate temp_sirup_general";
-    $general = executeQuery($sql);
+    $sql = "delete from temp_sirup_detil
+    where is_executed = 1";
+    executeQuery($sql);
+    $sql = "truncate table temp_sirup_detil_query";
+    executeQuery($sql);
+    $sql = "truncate table temp_sirup_general";
+    executeQuery($sql);
+  }
 
-    $sql = "truncate temp_sirup_detil";
-    $sirup_detil = executeQuery($sql);
-
-    $sql = "truncate temp_sirup_detil_query";
-    $sirup_detil_query = executeQuery($sql);
-    
-    if(!isset($general)) {
-      echo "Failed general delete";
-    }
-    if(!isset($sirup_detil)) {
-      echo "Failed sirup detil delete";
-    }
-    if(!isset($sirup_detil_query)) {
-      echo "Failed sirup detil query delete";
-    }
+  public function cron_sirup(){
+    $this->query_sirup_detail();
+    $this->revalidate_search_similarity();
+    $this->delete_temp_data();
   }
 }
