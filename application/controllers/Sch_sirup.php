@@ -15,7 +15,6 @@ class Sch_sirup extends CI_Controller
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/extract_sirup_item'>function extract_sirup_item()</a><br/>";
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup_detail'>function query_sirup_detail()</a><br/>";
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/revalidate_search_similarity'>function revalidate_search_similarity()</a><br/>";
-    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/delete_temp_data'>function delete_temp_data()</a><br/>";
     //   } else {
     //     echo "babai.";
     //     exit();
@@ -29,12 +28,6 @@ class Sch_sirup extends CI_Controller
   {
     $sql = "update mstr_pencarian_sirup set pencarian_sirup_status_query_today = 0";
     executeQuery($sql);
-    $data = array(
-      "log_auto_sirup" => "Reset status query",
-      "log_auto_sirup_desc" => "Mengembalikan status jadi 0 agar bisa diquery",
-      "log_auto_sirup_date" => date("Y-m-d H:i:s")
-    );
-    insertRow("log_auto_sirup", $data);
   }
   public function query_sirup()
   {
@@ -46,9 +39,8 @@ class Sch_sirup extends CI_Controller
       $pencarian_sirup_tahun = date('Y');
       $pencarian_sirup_frase = urlencode($result[$query_sirup_row]["pencarian_sirup_frase"]);
       $pencarian_sirup_jenis = $result[$query_sirup_row]["pencarian_sirup_jenis"];
-      $amount = 150; #ini paling ideal untuk masuk ke text type, karena gamuat juga anyway.
+      $amount = 50; #ini paling ideal untuk masuk ke text type, karena gamuat juga anyway.
 
-      $count = 0;
       $where = array(
         "id_pk_pencarian_sirup" => $id_pk_pencarian_sirup
       );
@@ -59,52 +51,46 @@ class Sch_sirup extends CI_Controller
       updateRow("mstr_pencarian_sirup", $data, $where);
 
 
-      echo $count . "<br/>";
-      #urutin pagu itu ada di kolom 2 dengan order dir nya DESC.
-      $start = $amount * $count;
-      // new
-      $url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&jenisPengadaan=$pencarian_sirup_jenis" . "&minPagu=&maxPagu=&bulan=&draw=1&columns=&order[0][column]=5&order[0][dir]=DESC&start=0&length=999&search[value]=" . $pencarian_sirup_frase . "&search[regex]=false";
+      $count = 0;
+      do{
+        #urutin pagu itu ada di kolom 2 dengan order dir nya DESC.
+        $start = $amount * $count;
+        // new
+        if($pencarian_sirup_jenis == 0){
+          $pencarian_sirup_jenis = "";
+        }
+        $url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&jenisPengadaan=$pencarian_sirup_jenis" . "&minPagu=&maxPagu=&bulan=&draw=1&columns=&order[0][column]=5&order[0][dir]=DESC&start=$start&length=$amount&search[value]=" . $pencarian_sirup_frase . "&search[regex]=false";
 
-      // $url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount  . "&search%5Bvalue%5D=" . $pencarian_sirup_frase . "&search%5Bregex%5D=false";
-      // old
-      //$url = "https://sirup.lkpp.go.id/sirup/ro/cari/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&keyword=" . $pencarian_sirup_frase . "&jenisPengadaan=$pencarian_sirup_jenis&metodePengadaan=0&draw=1&order%5B0%5D%5Bcolumn%5D=2&order%5B0%5D%5Bdir%5D=DESC&start=$start&length=" . $amount . "&search%5Bvalue%5D=&search%5Bregex%5D=false";
-      echo $url . "<br/>";
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+        ));
+        $response = curl_exec($curl);
 
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-        CURLOPT_URL => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-      ));
-      $response = curl_exec($curl);
+        if ($response) {
+          $data = array(
+            "sirup_general" => $response,
+            "id_fk_pencarian_sirup" => $id_pk_pencarian_sirup,
+            "sirup_general_tgl_create" => date("Y-m-d H:i:s")
+          );
+          insertRow("temp_sirup_general", $data);
 
-      if ($response) {
-        $data = array(
-          "sirup_general" => $response,
-          "id_fk_pencarian_sirup" => $id_pk_pencarian_sirup,
-          "sirup_general_tgl_create" => date("Y-m-d H:i:s")
-        );
-        insertRow("temp_sirup_general", $data);
-
-        $data = array(
-          "log_auto_sirup" => "Get daftar SiRUP",
-          "log_auto_sirup_desc" => "Mendapatkan daftar SiRUP dengan query " . $pencarian_sirup_frase . " - " . $pencarian_sirup_frase,
-          "log_auto_sirup_date" => date("Y-m-d H:i:s")
-        );
-        insertRow("log_auto_sirup", $data);
-
-
-        $response = json_decode($response, true);
-        $last_index = count($response["data"]) - 1;
-
-        $count++;
-      } else {
-        echo "Fail";
-        break;
+          $response = json_decode($response, true);
+          if($response["recordsTotal"] < $amount * ($count+1)){
+            break;
+          }
+          $count++;
+        } else {
+          echo "Fail";
+          break;
+        }
       }
+      while(true);
     }
   }
   public function extract_sirup_item()
@@ -112,21 +98,22 @@ class Sch_sirup extends CI_Controller
 
     #note. 1 kali narik, bisa aja udah ketarik semua dan ada yang ga diatas 100 juta. Jadi wajar kalau yang ketarik 58 data tapi pas diekstrak ga dapet 58 (might be less)
     $sql = "
-    select * from temp_sirup_general 
-    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
-    where sirup_general_status_query_today = 0 and sirup_general is not null";
+    select * from temp_sirup_general
+    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup";
     $result = executeQuery($sql);
 
     if ($result->num_rows() > 0) {
       $result = $result->result_array();
-      echo count($result);
       for ($sirup_general_row = 0; $sirup_general_row < count($result); $sirup_general_row++) {
-        echo "<br/>=======================================================<br/>";
         $result_temp = $result[$sirup_general_row]["sirup_general"];
         $data = json_decode($result_temp, true);
         $list = $data["data"];
+        echo "========= list ======== <br/>";
+        echo "sirup_general_row: ".$result[$sirup_general_row]["sirup_general"]."<br/>";
+        print_r($list);
+        echo " -----";
+        echo "========= end list ======== <br/>";
         for ($a = 0; $a < count($list); $a++) {
-          echo number_format($list[$a]["pagu"]) . "<br/>";
           $data = array(
             "no_sirup" => $list[$a]["id"],
             "pagu" => $list[$a]["pagu"],
@@ -150,12 +137,14 @@ class Sch_sirup extends CI_Controller
     #oke ini yang sangat lama disini, karena kita kurang 1 step untuk pecahin jadi satuan row baru natni di query masing=masing.
     $sql = "
     select * from temp_sirup_detil
-    inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general 
-    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup 
+    inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general
+    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup
     where sirup_detil_status_query_today = 0 and sirup_general is not null and is_executed = 0 limit 25";
     $result = executeQuery($sql);
     $result = $result->result_array();
-
+    echo "=============query sirup detail result================<br/><br/>";
+    print_r($result);
+    echo "<br/>=============================<br/><br/>";
     for ($temp_sirup_detil_row = 0; $temp_sirup_detil_row < count($result); $temp_sirup_detil_row++) {
       $this->load->model("m_sirup");
       $id_pk_sirup_detil = $result[$temp_sirup_detil_row]["id_pk_sirup_detil"];
@@ -205,30 +194,25 @@ class Sch_sirup extends CI_Controller
         "sirup_detil_query_rup" => $id,
         "sirup_detil_query_tgl_create" => date("Y-m-d H:i:s")
       );
+      print_r($data);
       insertRow("temp_sirup_detil_query", $data);
 
       $this->extract_data($response, $pagu, $id_pk_pencarian_sirup, $search_phrase);
     }
-    $data = array(
-      "log_auto_sirup" => "Ekstrak Data SiRUP",
-      "log_auto_sirup_desc" => "Mendapatkan, mengekstrak, dan memasukan ada SiRUP ke database MAK-CRM dengan kode RUP " . $this->list_rup,
-      "log_auto_sirup_date" => date("Y-m-d H:i:s")
-    );
-    insertRow("log_auto_sirup", $data);
   }
   private function extract_data($response, $sirup_total, $id_fk_pencarian_sirup, $search_phrase)
   {
     #asumsi history paket aja yang beda
     $sirup_rup = str_replace(" ", "", explode("Nama Paket", explode("Kode RUP", $response)[1])[0]);
     $this->list_rup .= $sirup_rup . " ";
-    $sirup_paket = explode("Nama KLPD", explode("Nama Paket ", $response)[1])[0];
-    $sirup_klpd = explode("Satuan Kerja", explode("Nama KLPD ", $response)[1])[0];
-    $sirup_satuan_kerja = explode("Tahun Anggaran", explode("Satuan Kerja ", $response)[1])[0];
+    $sirup_paket = explode("Nama KLPD", explode("Nama Paket", $response)[1])[0];
+    $sirup_klpd = explode("Satuan Kerja", explode("Nama KLPD", $response)[1])[0];
+    $sirup_satuan_kerja = explode("Tahun Anggaran", explode("Satuan Kerja", $response)[1])[0];
     $sirup_tahun_anggaran = explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", explode("Tahun Anggaran", $response)[1])[0];
     $sirup_lokasi = explode("Volume Pekerjaan", explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", $response)[1])[0];
-    $sirup_volume_pekerjaan = explode("Uraian Pekerjaan", explode("Volume Pekerjaan ", $response)[1])[0];
-    $sirup_uraian_pekerjaan = explode("Spesifikasi Pekerjaan", explode("Uraian Pekerjaan ", $response)[1])[0];
-    $sirup_spesifikasi_pekerjaan = explode("Produk Dalam Negeri", explode("Spesifikasi Pekerjaan ", $response)[1])[0];
+    $sirup_volume_pekerjaan = explode("Uraian Pekerjaan", explode("Volume Pekerjaan", $response)[1])[0];
+    $sirup_uraian_pekerjaan = explode("Spesifikasi Pekerjaan", explode("Uraian Pekerjaan", $response)[1])[0];
+    $sirup_spesifikasi_pekerjaan = explode("Produk Dalam Negeri", explode("Spesifikasi Pekerjaan", $response)[1])[0];
     $sirup_produk_dalam_negri = trim(explode("Usaha Kecil/Koperasi", explode("Produk Dalam Negeri", $response)[1])[0]);
     $sirup_usaha_kecil = trim(explode("Pengadaan Berkelanjutan atau Sustainable Public Procurement (SPP)", explode("Usaha Kecil/Koperasi", $response)[1])[0]);
 
@@ -240,11 +224,11 @@ class Sch_sirup extends CI_Controller
 
     $sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
 
-    $sirup_jenis_pengadaan = explode("Total Pagu", explode("Jenis Pengadaan No. Jenis Pengadaan Pagu Jenis Pengadaan 1. ", $response)[1])[0];
+    $sirup_jenis_pengadaan = explode("Total Pagu", explode("Jenis Pengadaan No. Jenis Pengadaan Pagu Jenis Pengadaan", $response)[1])[0];
 
     $sirup_total_pagu = explode("Metode Pemilihan", explode("Total Pagu", $response)[2])[0];
 
-    $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa", explode("Metode Pemilihan ", $response)[1])[0];
+    $sirup_metode_pemilihan = explode("Pemanfaatan Barang/Jasa", explode("Metode Pemilihan", $response)[1])[0];
 
     if (strpos($response, 'History Paket') == false) {
       $sirup_histori_paket = "";
@@ -259,10 +243,9 @@ class Sch_sirup extends CI_Controller
     }
     $lokasi_pekerjaan = explode("Volume Pekerjaan", explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", $response)[1])[0];
     $sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
-    #echo "sumberdana atas:".$sumber_dana;
     $pemanfaatan_barang = explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", explode("Pemanfaatan Barang/Jasa Mulai Akhir", $response)[1])[0];
     $jadwal_pelaksanaan = explode("Jadwal Pemilihan Penyedia Mulai Akhir", explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", $response)[1])[0];
-    $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket ", $response)[1];
+    $sirup_tgl_perbarui_paket = explode("Tanggal Perbarui Paket", $response)[1];
     if (strpos($response, 'History Paket') !== false) {
       $sirup_histori_paket = explode("Tanggal Perbarui Paket", explode("History Paket", $response)[1])[0];
       $pemilihan_penyedia = explode("History Paket", explode("Jadwal Pemilihan Penyedia Mulai Akhir", $response)[1])[0];
@@ -298,10 +281,7 @@ class Sch_sirup extends CI_Controller
       #data udah pernah diinsert dan tidak ada perubahan.
       return false;
     }
-    echo "<br/>id sirup dari extract:" . $id_pk_sirup . "<br/>===================<br/>";
     $preg = '/[0-9]\.\ /';
-    #echo $lokasi_pekerjaan."<br/>";
-    #echo $lokasi_pekerjaan;
     $lokasi_pekerjaan = preg_split($preg, $lokasi_pekerjaan);
     print_r($lokasi_pekerjaan);
     for ($a = 1; $a < count($lokasi_pekerjaan); $a++) { #ini mulai dari 1 karena contoh data itu 1. asdfasdf, kalau di preg_split, asdfasdf itu ada di index 1 bukan index 0. index0nya kosong. POC juga sama kalau misalnya pake test hahahahah test bbebee, kalau di split pake test, dia 0 nya itu null.
@@ -356,30 +336,28 @@ class Sch_sirup extends CI_Controller
   }
   public function revalidate_search_similarity()
   {
-    $sql = "select *
-    from mstr_sirup
-    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = mstr_sirup.id_fk_pencarian_sirup
-    where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0";
-    $result = executeQuery($sql);
-    $result = $result->result_array();
-    for ($a = 0; $a < count($result); $a++) {
-      $where = array(
-        "id_pk_sirup" => $result[$a]["id_pk_sirup"]
-      );
-      $data = array(
-        "sirup_status_sesuai_pencarian" => 1
-      );
-      updateRow("mstr_sirup", $data, $where);
-      $data = array(
-        "log_auto_sirup" => "Changing status similarity SiRUP",
-        "log_auto_sirup_desc" => "Mengupdate status SiRUP yang sesuai dengan pencarian dengan ID sirup: '" . $result[$a]["sirup_rup"] . "' dan paket sirup: '" . $result[$a]["sirup_paket"] . "' dan frase pencarian: '" . $result[$a]["pencarian_sirup_frase"] . "'",
-        "log_auto_sirup_date" => date("Y-m-d H:i:s")
-      );
-      insertRow("log_auto_sirup", $data);
-    }
+    $sql = "update mstr_sirup set sirup_status_sesuai_pencarian = 1";
+    executeQuery(($sql));
   }
-  public function delete_temp_data()
-  {
+  // public function revalidate_search_similarity()
+  // {
+  //   $sql = "select *
+  //   from mstr_sirup
+  //   left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = mstr_sirup.id_fk_pencarian_sirup
+  //   where sirup_status = 'aktif' and id_fk_pencarian_sirup > 0";
+  //   $result = executeQuery($sql);
+  //   $result = $result->result_array();
+  //   for ($a = 0; $a < count($result); $a++) {
+  //     $where = array(
+  //       "id_pk_sirup" => $result[$a]["id_pk_sirup"]
+  //     );
+  //     $data = array(
+  //       "sirup_status_sesuai_pencarian" => 1
+  //     );
+  //     updateRow("mstr_sirup", $data, $where);
+  //   }
+  // }
+  public function truncate_all_temp(){
     $sql = "delete from temp_sirup_detil
     where is_executed = 1";
     executeQuery($sql);
@@ -388,10 +366,21 @@ class Sch_sirup extends CI_Controller
     $sql = "truncate table temp_sirup_general";
     executeQuery($sql);
   }
-
-  public function cron_sirup(){
+  public function execute_all_function(){
+    $this->reset_status_query();
+    $this->truncate_all_temp();
+    $this->query_sirup();
+    $this->extract_sirup_item();
     $this->query_sirup_detail();
     $this->revalidate_search_similarity();
-    $this->delete_temp_data();
+  }
+
+  public function test_cron(){
+      $data = array(
+          "date" => date("Y-m-d H:i:s")
+      );
+      insertRow("testcron",$data);
+      $this->query_sirup_detail();
+      $this->revalidate_search_similarity();
   }
 }

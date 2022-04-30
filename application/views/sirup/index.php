@@ -37,9 +37,13 @@
               </div>
               <div class="form-group col-lg-1">
                 <h5>&nbsp;</h5>
+                <button type="button" class="btn btn-primary btn-sm" onclick="refresh_sirup()">Perbaharui Data</button>
+              </div>
+              <div class="form-group col-lg-1">
+                <h5>&nbsp;</h5>
               </div>
 
-              <div class="form-group col-lg-3">
+              <div class="form-group col-lg-2">
                 <h5>Kolom Pengurutan</h5>
                 <select class="form-control" name="kolom_pengurutan" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
                   <?php for ($a = 0; $a < count($field); $a++) : ?>
@@ -68,7 +72,7 @@
                 </select>
               </div>
             </div>
-            <button class="btn btn-primary btn-sm" type="submit">Export to Excel</button><br />
+            <button class="btn btn-success btn-sm" type="submit">Export Excel</button><br />
           </form>
           <div class="table-responsive">
 
@@ -123,6 +127,19 @@
 </body>
 
 </html>
+
+<script>
+  const refresh_sirup = () => {
+    alert("Data sedang diperbaharui, silahkan tunggu beberapa saat");
+    $.ajax({
+      url:"<?php echo base_url();?>sch_sirup/execute_all_function",
+      type:"GET",
+      async:true,
+    }).then(() => {
+      window.location.reload();
+    })
+  }
+</script>
 
 <script>
   var base_url = "<?php echo base_url(); ?>";
