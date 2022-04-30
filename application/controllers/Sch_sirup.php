@@ -97,7 +97,7 @@ class Sch_sirup extends CI_Controller
 
     #note. 1 kali narik, bisa aja udah ketarik semua dan ada yang ga diatas 100 juta. Jadi wajar kalau yang ketarik 58 data tapi pas diekstrak ga dapet 58 (might be less)
     $sql = "
-    select * from temp_sirup_general
+    select * from temp_sirup_general 
     inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup";
     $result = executeQuery($sql);
 
@@ -139,6 +139,7 @@ class Sch_sirup extends CI_Controller
     inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general
     inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup
     where sirup_detil_status_query_today = 0 and sirup_general is not null and is_executed = 0 limit 25";
+
     $result = executeQuery($sql);
     $result = $result->result_array();
     echo "=============query sirup detail result================<br/><br/>";
