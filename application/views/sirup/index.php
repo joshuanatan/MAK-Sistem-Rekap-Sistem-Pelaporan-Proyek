@@ -74,6 +74,15 @@
             </div>
             <button class="btn btn-success btn-sm" type="submit">Export Excel</button><br />
           </form>
+          <br>
+          <div class="form-group col-lg-2">
+                <h5>Funnel Prospek</h5>
+                <select class="form-control" name="sirup_funnel" onchange="change_sirup_funnel()" id="sirup_funnel">
+                    <option value="0" selected>Default</option>
+                    <option value="1">Sudah Funnel Propsek</option>
+                    <option value="2">Belum Funnel Propsek</option>
+                </select>
+              </div>
           <div class="table-responsive">
 
             <table class="table table-hover table-striped">
@@ -147,6 +156,7 @@
   var arah_kolom_pengurutan = "DESC";
   var pencarian_phrase = "";
   var kolom_pencarian = "all";
+  var funnel = "0";
   var current_page = 1;
   var content = [];
   reload_table();
@@ -154,6 +164,12 @@
   function change_kolom_pengurutan() {
     var pengurutan = $("#kolom_pengurutan").val();
     kolom_pengurutan = pengurutan;
+    reload_table();
+  }
+
+  function change_sirup_funnel() {
+    var sirup_funnel = $("#sirup_funnel").val();
+    funnel = sirup_funnel;
     reload_table();
   }
 
@@ -181,7 +197,7 @@
   }
 
   function reload_table() {
-    var url = `<?php echo base_url(); ?>ws/sirup/get_data_system?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
+    var url = `<?php echo base_url(); ?>ws/sirup/get_data_system?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}&funnel=${funnel}`;
     $.ajax({
       url: url,
       type: "GET",

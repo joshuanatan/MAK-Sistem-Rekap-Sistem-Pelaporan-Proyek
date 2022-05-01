@@ -85,8 +85,9 @@ class Sirup extends CI_Controller
     $pencarian_phrase = $this->input->get("pencarian_phrase");
     $kolom_pencarian = $this->input->get("kolom_pencarian");
     $current_page = $this->input->get("current_page");
+    $funnel = $this->input->get("funnel");
     $this->load->model("m_sirup");
-    $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel)->result_array();
     #echo $this->db->last_query();
 
     $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page);
