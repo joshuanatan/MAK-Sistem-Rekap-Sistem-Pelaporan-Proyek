@@ -313,10 +313,10 @@ class M_sirup extends CI_Model
     }
     $sirup_funnel = "";
     if ($funnel == "1") {
-      $sirup_funnel = " and mstr_prospek.no_sirup is not null";
+      $sirup_funnel = " and mstr_prospek.no_sirup is not null ";
     }
     if ($funnel == "2") {
-      $sirup_funnel = " and mstr_prospek.no_sirup is null";
+      $sirup_funnel = " and mstr_prospek.no_sirup is null ";
     }
     if ($this->session->user_role == "Sales Engineer" || $this->session->user_role == "Area Sales Manager" || $this->session->user_role == "Supervisor") {
 
