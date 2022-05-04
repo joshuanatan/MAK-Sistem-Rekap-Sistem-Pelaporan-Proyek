@@ -448,4 +448,22 @@ class Prospek extends CI_Controller
     updateRow("mstr_prospek", $data,$where);
     redirect("prospek/index");
   }
+
+  public function export()
+  {
+    $this->load->model("m_prospek");
+    $kolom_pengurutan = $_POST['kolom_pengurutan'];
+    $arah_kolom_pengurutan = $_POST['urutan'];
+    $pencarian_phrase = $_POST['pencarian_phrase'];
+    $kolom_pencarian = $_POST['kolom_pencarian'];
+
+    $data['data'] = $this->m_prospek->export_prospek($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)->result_array();
+    if($data['data']) {
+      for($i=0;$i<count($data['data']);$i++) {
+        $data['produk'][$i] = $this->m_prospek->get_prospek_produk($data['data'][$i]['id_pk_prospek'])->result_array();
+      }
+    }
+    $data['pencarian_phrase'] = $pencarian_phrase;
+    $this->load->view('prospek/prospek_export', $data);
+  }
 }

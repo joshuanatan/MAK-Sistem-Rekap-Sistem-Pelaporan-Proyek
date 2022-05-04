@@ -339,7 +339,7 @@ class M_prospek extends CI_Model
   }
   public function get_prospek_produk($id_fk_prospek)
   {
-    $sql = "SELECT id_pk_prospek_produk, tbl_prospek_produk.id_fk_produk, mstr_produk.produk_nama as nama_produk, detail_prospek_quantity, detail_prospek_keterangan, detail_prospek_status, prospek_produk_price, produk_harga_ekat, produk_price_list
+    $sql = "SELECT id_pk_prospek_produk, id_fk_prospek, tbl_prospek_produk.id_fk_produk, mstr_produk.produk_nama as nama_produk, detail_prospek_quantity, detail_prospek_keterangan, detail_prospek_status, prospek_produk_price, produk_harga_ekat, produk_price_list
        FROM tbl_prospek_produk
        INNER JOIN mstr_produk on tbl_prospek_produk.id_fk_produk = mstr_produk.id_pk_produk
        WHERE id_fk_prospek = $id_fk_prospek AND detail_prospek_status='aktif'";
@@ -993,6 +993,28 @@ class M_prospek extends CI_Model
   public function get_ekat()
   {
     $sql = "SELECT * FROM mstr_ekatalog;";
+    return executeQuery($sql);
+  }
+
+  public function export_prospek($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)
+  {
+    $search_query = "";
+    if ($pencarian_phrase != "") {
+      if ($kolom_pencarian == "all") {
+        $search_query = "and (prospek_kode like '%" . $pencarian_phrase . "%' or provinsi_nama like '%" . $pencarian_phrase . "%' or kabupaten_nama like '%" . $pencarian_phrase . "%' or rs_nama like '%" . $pencarian_phrase . "%' or prospek_principle like '%" . $pencarian_phrase . "%' or total_price_prospek like '%" . $pencarian_phrase . "%' or no_sirup like '%" . $pencarian_phrase . "%' or no_ekatalog like '%" . $pencarian_phrase . "%' or funnel_percentage like '%" . $pencarian_phrase . "%' or estimasi_pembelian like '%" . $pencarian_phrase . "%' or funnel like '%" . $pencarian_phrase . "%' or notes_kompetitor like '%" . $pencarian_phrase . "%' or notes_prospek like '%" . $pencarian_phrase . "%' or prospek_status like '%" . $pencarian_phrase . "%')";
+      } else {
+        $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
+      }
+    }
+    $sql = "SELECT prospek_kode, id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_sirup, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori as rs_kategori, funnel,user_username,
+       IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
+       FROM mstr_prospek
+       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
+       INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_rs.id_fk_kabupaten
+       INNER JOIN mstr_provinsi on mstr_provinsi.id_pk_provinsi = mstr_kabupaten.id_fk_provinsi
+       INNER JOIN mstr_user on mstr_user.id_pk_user = mstr_prospek.prospek_id_create
+       WHERE prospek_status='aktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+
     return executeQuery($sql);
   }
 }

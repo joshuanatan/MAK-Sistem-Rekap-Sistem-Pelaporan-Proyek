@@ -172,8 +172,8 @@
                     <thead>
                       <tr>
                         <th>Produk <strong><a href="<?php echo base_url(); ?>produk" target="_blank">Buka Produk</a></th>
-                        <th>Harga</th>
-                        <th>Harga Diinginkan</th>
+                        <th>Harga Price List</th>
+                        <th>Diskon (%)</th>
                         <th>Quantity</th>
                         <th>Keterangan Produk</th>
                         <th>Action</th>
@@ -192,20 +192,20 @@
                               <?php endfor; ?>
                             </select>
                           </td>
-                          <td>
+                          <!-- <td>
                             <table style="width:100%; border:none;">
                               <tr>
-                                <td style="border:none;">Price List</td>
+                                <td style="border:none;">Price List</td> -->
                                 <td style="border:none; text-align:right;" id="harga_produk_price_list<?php echo $a; ?>">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_price_list"], 0, ",", "."); ?></td>
-                              </tr>
+                              <!-- </tr>
                               <tr>
                                 <td style="border:none;">Harga Ekatalog</td>
                                 <td style="border:none; text-align:right;" id="harga_produk_ekatalog<?php echo $a; ?>">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_harga_ekat"], 0, ",", "."); ?></td>
                               </tr>
                             </table>
-                          </td>
-                          <td><input type="text" class='form-control nf-input' name="detail_price<?php echo $a; ?>" value='<?php echo number_format($dataprospekproduk[$a]["prospek_produk_price"], 0, ",", "."); ?>'></td>
-                          <td><input type='text' class='form-control nf-input' name='detail_quantity<?php echo $a; ?>' id='qty_produk_insert<?php echo $a; ?>' min="0" value='<?php echo $dataprospekproduk[$a]["detail_prospek_quantity"]; ?>'></td>
+                          </td> -->
+                          <td><input type="text" style="text-align:right;" class='form-control nf-input' name="detail_price<?php echo $a; ?>" value='<?php echo number_format($dataprospekproduk[$a]["prospek_produk_price"], 0, ",", "."); ?>'></td>
+                          <td><input type='text' style="text-align:right;" class='form-control nf-input' name='detail_quantity<?php echo $a; ?>' id='qty_produk_insert<?php echo $a; ?>' min="0" value='<?php echo $dataprospekproduk[$a]["detail_prospek_quantity"]; ?>'></td>
                           <td>
                             <textarea class='form-control' name='detail_keterangan<?php echo $a; ?>' id='keterangan_produk_insert<?php echo $a; ?>'><?php echo $dataprospekproduk[$a]["detail_prospek_keterangan"]; ?></textarea>
                           </td>
