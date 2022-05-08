@@ -24,56 +24,55 @@
     <div class="page-content">
       <div class="panel">
         <div class="panel-body">
-          <form action="<?php echo base_url(); ?>sirup/export" method="POST">
-
-            <div class="row">
-              <div class="form-group col-lg-1">
-                <h5>&nbsp;</h5>
-                <a href="<?php echo base_url(); ?>sirup/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
-              </div>
-              <div class="form-group col-lg-1">
-                <h5>&nbsp;</h5>
-                <button type="button" class="btn btn-primary btn-sm" data-target="#pencarianModal" data-toggle="modal">Lihat Pencarian</button>
-              </div>
-              <div class="form-group col-lg-1">
-                <h5>&nbsp;</h5>
-                <button type="button" class="btn btn-primary btn-sm" onclick="refresh_sirup()">Perbaharui Data</button>
-              </div>
-              <div class="form-group col-lg-1">
-                <h5>&nbsp;</h5>
-              </div>
-
-              <div class="form-group col-lg-2">
-                <h5>Kolom Pengurutan</h5>
-                <select class="form-control" name="kolom_pengurutan" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
-                  <?php for ($a = 0; $a < count($field); $a++) : ?>
-                    <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
-                  <?php endfor; ?>
-                </select>
-              </div>
-              <div class="form-group col-lg-1">
-                <h5>Urutan</h5>
-                <select class="form-control" id="urutan_kolom" name="urutan" onchange="change_arah_pengurutan()" id="urutan_kolom">
-                  <option value="ASC">A-Z</option>
-                  <option value="DESC">Z-A</option>
-                </select>
-              </div>
-              <div class="form-group col-lg-3">
-                <h5>Pencarian</h5>
-                <input type="text" class="form-control" name="pencarian_phrase" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
-              </div>
-              <div class="form-group col-lg-2">
-                <h5>Kolom Pencarian</h5>
-                <select class="form-control" onchange="change_pencarian_kolom()" name="kolom_pencarian" id="pencarian_kolom">
-                  <option value="all">Semua</option>
-                  <?php for ($a = 0; $a < count($field); $a++) : ?>
-                    <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
-                  <?php endfor; ?>
-                </select>
-              </div>
+          <div class="row">
+            <div class="form-group col-lg-1">
+              <h5>&nbsp;</h5>
+              <a href="<?php echo base_url(); ?>sirup/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
             </div>
-            <button class="btn btn-success btn-sm" type="submit">Export Excel</button><br />
-          </form>
+            
+            <div class="form-group col-lg-1">
+              <h5>&nbsp;</h5>
+              <button type="button" class="btn btn-primary btn-sm" data-target="#pencarianModal" data-toggle="modal">Lihat Pencarian</button>
+            </div>
+            <div class="form-group col-lg-1">
+              <h5>&nbsp;</h5>
+              <button type="button" class="btn btn-primary btn-sm" onclick="refresh_sirup()">Perbaharui Data</button>
+            </div>
+            
+            <div class="form-group col-lg-1">
+              <h5>&nbsp;</h5>
+              <a href = "<?php echo base_url();?>sirup/export" class="btn btn-success btn-sm">Export Excel</a>
+            </div>
+
+            <div class="form-group col-lg-2">
+              <h5>Kolom Pengurutan</h5>
+              <select class="form-control" name="kolom_pengurutan" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
+                <?php for ($a = 0; $a < count($field); $a++) : ?>
+                  <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
+                <?php endfor; ?>
+              </select>
+            </div>
+            <div class="form-group col-lg-1">
+              <h5>Urutan</h5>
+              <select class="form-control" id="urutan_kolom" name="urutan" onchange="change_arah_pengurutan()" id="urutan_kolom">
+                <option value="ASC">A-Z</option>
+                <option value="DESC">Z-A</option>
+              </select>
+            </div>
+            <div class="form-group col-lg-3">
+              <h5>Pencarian</h5>
+              <input type="text" class="form-control" name="pencarian_phrase" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
+            </div>
+            <div class="form-group col-lg-2">
+              <h5>Kolom Pencarian</h5>
+              <select class="form-control" onchange="change_pencarian_kolom()" name="kolom_pencarian" id="pencarian_kolom">
+                <option value="all">Semua</option>
+                <?php for ($a = 0; $a < count($field); $a++) : ?>
+                  <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
+                <?php endfor; ?>
+              </select>
+            </div>
+          </div>
           <br>
           <div class="form-group col-lg-2">
                 <h5>Funnel Prospek</h5>

@@ -149,4 +149,14 @@ class Ekatalog extends CI_Controller
     );
     $this->load->view("ekatalog/ekatalog-buatan", $data);
   }
+  public function export()
+  {
+    $this->load->model("m_sirup");
+    $sql = "select * from mstr_ekatalog
+    inner join tbl_ekatalog_produk on mstr_ekatalog.id_pk_ekatalog = tbl_ekatalog_produk.id_fk_ekatalog";
+    $result = executeQuery($sql);
+    $data["data"] = $result->result_array();
+    
+    $this->load->view('ekatalog/ekatalog_export', $data);
+  }
 }

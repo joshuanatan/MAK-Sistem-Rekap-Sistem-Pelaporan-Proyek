@@ -31,6 +31,7 @@
             </div>
             <div class="form-group col-lg-1">
               <h5>&nbsp;</h5>
+              <a href = "<?php echo base_url();?>sirup/export" class="btn btn-success btn-sm">Export Excel</a>
             </div>
             <div class="form-group col-lg-1">
             </div>
