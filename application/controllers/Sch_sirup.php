@@ -52,11 +52,11 @@ class Sch_sirup extends CI_Controller
 
 
       $count = 0;
-      do{
+      do {
         #urutin pagu itu ada di kolom 2 dengan order dir nya DESC.
         $start = $amount * $count;
         // new
-        if($pencarian_sirup_jenis == 0){
+        if ($pencarian_sirup_jenis == 0) {
           $pencarian_sirup_jenis = "";
         }
         $url = "https://sirup.lkpp.go.id/sirup/ro/caripaket2/search?tahunAnggaran=" . $pencarian_sirup_tahun . "&jenisPengadaan=$pencarian_sirup_jenis" . "&minPagu=&maxPagu=&bulan=&draw=1&columns=&order[0][column]=5&order[0][dir]=DESC&start=$start&length=$amount&search[value]=" . $pencarian_sirup_frase . "&search[regex]=false";
@@ -81,7 +81,7 @@ class Sch_sirup extends CI_Controller
           insertRow("temp_sirup_general", $data);
 
           $response = json_decode($response, true);
-          if($response["recordsTotal"] < $amount * ($count+1)){
+          if ($response["recordsTotal"] < $amount * ($count + 1)) {
             break;
           }
           $count++;
@@ -89,8 +89,7 @@ class Sch_sirup extends CI_Controller
           echo "Fail";
           break;
         }
-      }
-      while(true);
+      } while (true);
     }
   }
   public function extract_sirup_item()
@@ -109,7 +108,7 @@ class Sch_sirup extends CI_Controller
         $data = json_decode($result_temp, true);
         $list = $data["data"];
         echo "========= list ======== <br/>";
-        echo "sirup_general_row: ".$result[$sirup_general_row]["sirup_general"]."<br/>";
+        echo "sirup_general_row: " . $result[$sirup_general_row]["sirup_general"] . "<br/>";
         print_r($list);
         echo " -----";
         echo "========= end list ======== <br/>";
@@ -137,8 +136,10 @@ class Sch_sirup extends CI_Controller
     #oke ini yang sangat lama disini, karena kita kurang 1 step untuk pecahin jadi satuan row baru natni di query masing=masing.
     $sql = "
     select * from temp_sirup_detil
-    inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general 
-    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup";
+    inner join temp_sirup_general on temp_sirup_general.id_pk_sirup_general =  temp_sirup_detil.id_fk_sirup_general
+    inner join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup = temp_sirup_general.id_fk_pencarian_sirup
+    where sirup_detil_status_query_today = 0 and sirup_general is not null and is_executed = 0 limit 25";
+
     $result = executeQuery($sql);
     $result = $result->result_array();
     echo "=============query sirup detail result================<br/><br/>";
@@ -157,7 +158,8 @@ class Sch_sirup extends CI_Controller
       );
       $data = array(
         "sirup_detil_last_checkpoint" => date("Y-m-d H:i:s"),
-        "sirup_detil_status_query_today" => 1
+        "sirup_detil_status_query_today" => 1,
+        "is_executed" => 1
       );
       updateRow("temp_sirup_detil", $data, $where);
 
@@ -355,20 +357,56 @@ class Sch_sirup extends CI_Controller
   //     updateRow("mstr_sirup", $data, $where);
   //   }
   // }
-  public function truncate_all_temp(){
-    $sql = "truncate table temp_sirup_detil";
+  public function truncate_all_temp()
+  {
+    $sql = "delete from temp_sirup_detil
+    where is_executed = 1";
     executeQuery($sql);
     $sql = "truncate table temp_sirup_detil_query";
     executeQuery($sql);
     $sql = "truncate table temp_sirup_general";
     executeQuery($sql);
   }
-  public function execute_all_function(){
+  public function execute_all_function()
+  {
     $this->reset_status_query();
+    $this->truncate_all_temp();
     $this->query_sirup();
     $this->extract_sirup_item();
     $this->query_sirup_detail();
-    // $this->revalidate_search_similarity();
-    $this->truncate_all_temp();
+    $this->revalidate_search_similarity();
+  }
+
+  public function cron_delete_temp()
+  {
+    $data = array(
+      "date" => date("H:i:s")
+    );
+    insertRow("testcron", $data);
+    $sql = "select * from temp_sirup_detil where is_executed = 0";
+
+    $check = executeQuery($sql);
+    $not_empty = $check->result_array();
+    if (!$not_empty) {
+      $sql = "delete from temp_sirup_detil
+        where is_executed = 1";
+      executeQuery($sql);
+      $sql = "truncate table temp_sirup_detil_query";
+      executeQuery($sql);
+      $sql = "truncate table temp_sirup_general";
+      executeQuery($sql);
+    } else {
+      // do nothing
+    }
+  }
+
+  public function test_cron()
+  {
+    $data = array(
+      "date" => date("Y-m-d H:i:s")
+    );
+    insertRow("testcron", $data);
+    $this->query_sirup_detail();
+    $this->revalidate_search_similarity();
   }
 }
