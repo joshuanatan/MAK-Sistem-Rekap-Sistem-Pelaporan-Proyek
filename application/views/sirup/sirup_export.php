@@ -21,13 +21,10 @@ header("Content-Disposition: attachment; filename=Sirup_export_" . date("Y-m-d-H
                 <th>Volume Pekerjaan</th>
                 <th>Uraian Pekerjaan</th>
                 <th>Spesifikasi Pekerjaan</th>
+                <th>Lokasi Pekerjaan</th>
                 <th>KLPD</th>
                 <th>Tahun Anggaran</th>
                 <th>Produk Dalam Negri</th>
-                <th>Usaha Kecil</th>
-                <th>Aspek Ekonomi</th>
-                <th>Aspek Sosial</th>
-                <th>Aspek Lingkungan</th>
                 <th>Pra DIPA</th>
                 <th>Metode Pemilihan</th>
                 <th>Jadwal Pemilihan</th>
@@ -49,13 +46,10 @@ header("Content-Disposition: attachment; filename=Sirup_export_" . date("Y-m-d-H
                     <td><?php echo $data[$i]["sirup_volume_pekerjaan"] ?></td>
                     <td><?php echo $data[$i]["sirup_uraian_pekerjaan"] ?></td>
                     <td><?php echo $data[$i]["sirup_spesifikasi_pekerjaan"] ?></td>
+                    <td><?php echo $data[$i]["lokasi_pekerjaan"] ?></td>
                     <td><?php echo $data[$i]["sirup_klpd"] ?></td>
                     <td><?php echo $data[$i]["sirup_tahun_anggaran"] ?></td>
                     <td><?php echo $data[$i]["sirup_produk_dalam_negri"] ?></td>
-                    <td><?php echo $data[$i]["sirup_usaha_kecil"] ?></td>
-                    <td><?php echo $data[$i]["sirup_aspek_ekonomi"] ?></td>
-                    <td><?php echo $data[$i]["sirup_aspek_sosial"] ?></td>
-                    <td><?php echo $data[$i]["sirup_aspek_lingkungan"] ?></td>
                     <td><?php echo $data[$i]["sirup_pra_dipa"] ?></td>
                     <td><?php echo $data[$i]["sirup_metode_pemilihan"] ?></td>
                     <td><?php echo $data[$i]["sirup_jadwal_pemilihan"] ?></td>
