@@ -95,7 +95,7 @@ class Sirup extends CI_Controller
     if (!isset($total_data)) {
       $total_data = 0;
     } else {
-      $total_data->num_rows();
+      $total_data = count($total_data->result_array());
     }
 
     $this->load->library("pagination");

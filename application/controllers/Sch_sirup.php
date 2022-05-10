@@ -15,6 +15,7 @@ class Sch_sirup extends CI_Controller
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/extract_sirup_item'>function extract_sirup_item()</a><br/>";
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/query_sirup_detail'>function query_sirup_detail()</a><br/>";
     echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/revalidate_search_similarity'>function revalidate_search_similarity()</a><br/>";
+    echo "<a target = '_blank' href = '" . base_url() . "sch_sirup/update_sirup_weekly'>function update_sirup_weekly()</a><br/>";
     //   } else {
     //     echo "babai.";
     //     exit();
@@ -406,6 +407,29 @@ class Sch_sirup extends CI_Controller
       "date" => date("Y-m-d H:i:s")
     );
     insertRow("testcron", $data);
+    $this->query_sirup_detail();
+    $this->revalidate_search_similarity();
+  }
+
+  public function update_sirup_weekly()
+  {
+    $data = array(
+      "date" => date("d-m-Y H:i:s")
+    );
+    insertRow("testcron", $data);
+
+    $sql = "truncate table temp_sirup_detil_query";
+    executeQuery($sql);
+    $sql = "truncate table temp_sirup_detil";
+    executeQuery($sql);
+    $sql = "truncate table temp_sirup_general";
+    executeQuery($sql);
+    $sql = "truncate table mstr_sirup";
+    executeQuery($sql);
+
+    $this->reset_status_query();
+    $this->query_sirup();
+    $this->extract_sirup_item();
     $this->query_sirup_detail();
     $this->revalidate_search_similarity();
   }
