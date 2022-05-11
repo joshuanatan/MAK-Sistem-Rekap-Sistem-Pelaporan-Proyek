@@ -21,7 +21,8 @@ header("Content-Disposition: attachment; filename=Sirup_export_" . date("Y-m-d-H
                 <th>Volume Pekerjaan</th>
                 <th>Uraian Pekerjaan</th>
                 <th>Spesifikasi Pekerjaan</th>
-                <th>Lokasi Pekerjaan</th>
+                <th>Kabupaten</th>
+                <th>Provinsi</th>
                 <th>KLPD</th>
                 <th>Tahun Anggaran</th>
                 <th>Produk Dalam Negri</th>
@@ -46,7 +47,8 @@ header("Content-Disposition: attachment; filename=Sirup_export_" . date("Y-m-d-H
                     <td><?php echo $data[$i]["sirup_volume_pekerjaan"] ?></td>
                     <td><?php echo $data[$i]["sirup_uraian_pekerjaan"] ?></td>
                     <td><?php echo $data[$i]["sirup_spesifikasi_pekerjaan"] ?></td>
-                    <td><?php echo $data[$i]["lokasi_pekerjaan"] ?></td>
+                    <td><?php echo $kabupaten[$i] ?></td>
+                    <td><?php echo $provinsi[$i] ?></td>
                     <td><?php echo $data[$i]["sirup_klpd"] ?></td>
                     <td><?php echo $data[$i]["sirup_tahun_anggaran"] ?></td>
                     <td><?php echo $data[$i]["sirup_produk_dalam_negri"] ?></td>

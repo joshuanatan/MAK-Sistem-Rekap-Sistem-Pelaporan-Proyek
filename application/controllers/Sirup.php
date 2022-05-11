@@ -249,6 +249,37 @@ class Sirup extends CI_Controller
     sirup_status_sesuai_pencarian != 0";
     $data["data"] = executeQuery($sql)->result_array();
 
+    for ($i = 0; $i < count($data['data']); $i++) {
+      if (strpos($data['data'][$i]['lokasi_pekerjaan'], "(Kota)") !== false) {
+        $kabupaten = explode(" ", explode("(Kota)", $data['data'][$i]['lokasi_pekerjaan'])[0]);
+        $count_kabupaten = count($kabupaten) - 1;
+        $arr_kabupaten[$i] = $kabupaten[$count_kabupaten - 1] . " (Kota)";
+      } else {
+        $kabupaten = explode(" ", explode("(Kab.)", $data['data'][$i]['lokasi_pekerjaan'])[0]);
+        $count_kabupaten = count($kabupaten) - 1;
+        $arr_kabupaten[$i] = $kabupaten[$count_kabupaten - 1] . " (Kab.)";
+      }
+
+      $sql = "SELECT kabupaten, provinsi FROM tbl_provinsi_kabupaten_sirup WHERE kabupaten LIKE '%" . $arr_kabupaten[$i] . "%'";
+      $execute = executeQuery($sql);
+      $result = $execute->result_array();
+
+      if (count($result) > 1) {
+        for ($j = 0; $j < count($result); $j++) {
+          if (strpos($data['data'][$i]['lokasi_pekerjaan'], $result[$j]['kabupaten']) !== false) {
+            $data['kabupaten'][$i] = $result[$j]['kabupaten'];
+            $data['provinsi'][$i] = $result[$j]['provinsi'];
+            break;
+          }
+        }
+      } else {
+        $data['kabupaten'][$i] = $result[0]['kabupaten'];
+        $data['provinsi'][$i] = $result[0]['provinsi'];
+      }
+    }
+
+
+    $data['pencarian_phrase'] = $pencarian_phrase;
     $this->load->view('sirup/sirup_export', $data);
   }
 }
