@@ -25,7 +25,6 @@
       <div class="panel">
         <div class="panel-body">
           <form action="<?php echo base_url(); ?>sirup/export" method="POST">
-
             <div class="row">
               <div class="form-group col-lg-1">
                 <h5>&nbsp;</h5>
@@ -41,6 +40,7 @@
               </div>
               <div class="form-group col-lg-1">
                 <h5>&nbsp;</h5>
+                <button class="btn btn-success btn-sm" type="submit">Export Excel</button><br />
               </div>
 
               <div class="form-group col-lg-2">
@@ -72,7 +72,6 @@
                 </select>
               </div>
             </div>
-            <button class="btn btn-success btn-sm" type="submit">Export Excel</button><br />
           </form>
           <br>
           <div class="form-group col-lg-2">
