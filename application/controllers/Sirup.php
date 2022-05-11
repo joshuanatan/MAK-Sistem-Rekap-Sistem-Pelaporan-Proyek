@@ -234,21 +234,15 @@ class Sirup extends CI_Controller
   public function export()
   {
     $this->load->model("m_sirup");
-    // $kolom_pengurutan = $_POST['kolom_pengurutan'];
-    // $arah_kolom_pengurutan = $_POST['urutan'];
-    // $pencarian_phrase = $_POST['pencarian_phrase'];
-    // $kolom_pencarian = $_POST['kolom_pencarian'];
+    $kolom_pengurutan = $_POST['kolom_pengurutan'];
+    $arah_kolom_pengurutan = $_POST['urutan'];
+    $pencarian_phrase = $_POST['pencarian_phrase'];
+    $kolom_pencarian = $_POST['kolom_pencarian'];
 
-    // $data['data'] = $this->m_sirup->export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)->result_array();
-    // $data['pencarian_phrase'] = $pencarian_phrase;
+    $data['data'] = $this->m_sirup->export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)->result_array();
 
-    $sql = "select *
-    from mstr_sirup
-    left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-    where sirup_status = 'aktif' and 
-    sirup_status_sesuai_pencarian != 0";
-    $data["data"] = executeQuery($sql)->result_array();
-
+    // var_dump($data['data'][1]['lokasi_pekerjaan']);
+    // die();
     for ($i = 0; $i < count($data['data']); $i++) {
       if (strpos($data['data'][$i]['lokasi_pekerjaan'], "(Kota)") !== false) {
         $kabupaten = explode(" ", explode("(Kota)", $data['data'][$i]['lokasi_pekerjaan'])[0]);
