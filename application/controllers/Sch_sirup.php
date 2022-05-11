@@ -143,9 +143,9 @@ class Sch_sirup extends CI_Controller
 
     $result = executeQuery($sql);
     $result = $result->result_array();
-    echo "=============query sirup detail result================<br/><br/>";
-    print_r($result);
-    echo "<br/>=============================<br/><br/>";
+    // echo "=============query sirup detail result================<br/><br/>";
+    // print_r($result);
+    // echo "<br/>=============================<br/><br/>";
     for ($temp_sirup_detil_row = 0; $temp_sirup_detil_row < count($result); $temp_sirup_detil_row++) {
       $this->load->model("m_sirup");
       $id_pk_sirup_detil = $result[$temp_sirup_detil_row]["id_pk_sirup_detil"];
@@ -195,7 +195,7 @@ class Sch_sirup extends CI_Controller
         "sirup_detil_query_rup" => $id,
         "sirup_detil_query_tgl_create" => date("Y-m-d H:i:s")
       );
-      print_r($data);
+      // print_r($data);
       insertRow("temp_sirup_detil_query", $data);
 
       $this->extract_data($response, $pagu, $id_pk_pencarian_sirup, $search_phrase);
@@ -242,7 +242,38 @@ class Sch_sirup extends CI_Controller
         $sirup_jadwal_pemilihan = explode("History Paket", explode("Jadwal Pemilihan Penyedia Mulai Akhir", $response)[1])[0];
       }
     }
+
     $lokasi_pekerjaan = explode("Volume Pekerjaan", explode("Lokasi Pekerjaan No. Provinsi Kabupaten/Kota Detail Lokasi", $response)[1])[0];
+    if (strpos($lokasi_pekerjaan, "(Kota)") !== false) {
+      $kabupaten = explode(" ", explode("(Kota)", $lokasi_pekerjaan)[0]);
+      $count_kabupaten = count($kabupaten) - 1;
+      $kabupaten = $kabupaten[$count_kabupaten - 1] . " (Kota)";
+    } else {
+      $kabupaten = explode(" ", explode("(Kab.)", $lokasi_pekerjaan)[0]);
+      $count_kabupaten = count($kabupaten) - 1;
+      $kabupaten = $kabupaten[$count_kabupaten - 1] . " (Kab.)";
+    }
+
+
+    $sql = "SELECT kabupaten, provinsi FROM tbl_provinsi_kabupaten_sirup WHERE kabupaten LIKE '%" . $kabupaten . "%'";
+    $execute = executeQuery($sql);
+    $result = $execute->result_array();
+    if (count($result) > 1) {
+      for ($j = 0; $j < count($result); $j++) {
+        if (strpos($lokasi_pekerjaan, $result[$j]['kabupaten'])) {
+          $kabupaten = $result[$j]['kabupaten'];
+          $provinsi = $result[$j]['provinsi'];
+
+          break;
+        }
+      }
+    } else {
+      $kabupaten = $result[0]['kabupaten'];
+      $provinsi = $result[0]['provinsi'];
+    }
+
+
+
     $sumber_dana = explode("Total Pagu", explode("Sumber Dana No. Sumber Dana T.A. KLPD MAK Pagu", $response)[1])[0];
     $pemanfaatan_barang = explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", explode("Pemanfaatan Barang/Jasa Mulai Akhir", $response)[1])[0];
     $jadwal_pelaksanaan = explode("Jadwal Pemilihan Penyedia Mulai Akhir", explode("Jadwal Pelaksanaan Kontrak Mulai Akhir", $response)[1])[0];
@@ -273,9 +304,9 @@ class Sch_sirup extends CI_Controller
     executeQuery($sql, $args);
 
     if (strpos($sirup_paket, $search_phrase) !== false) {
-      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 1, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan);
+      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 1, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan, $kabupaten, $provinsi);
     } else {
-      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 0, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan);
+      $id_pk_sirup = $this->m_sirup->insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, "aktif", 0, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan, $kabupaten, $provinsi);
     }
     if (!$id_pk_sirup) {
       echo "fail";
@@ -284,7 +315,7 @@ class Sch_sirup extends CI_Controller
     }
     $preg = '/[0-9]\.\ /';
     $lokasi_pekerjaan = preg_split($preg, $lokasi_pekerjaan);
-    print_r($lokasi_pekerjaan);
+    // print_r($lokasi_pekerjaan);
     for ($a = 1; $a < count($lokasi_pekerjaan); $a++) { #ini mulai dari 1 karena contoh data itu 1. asdfasdf, kalau di preg_split, asdfasdf itu ada di index 1 bukan index 0. index0nya kosong. POC juga sama kalau misalnya pake test hahahahah test bbebee, kalau di split pake test, dia 0 nya itu null.
       if ($lokasi_pekerjaan[$a] != "") {
         $this->m_sirup->insert_lokasi_pekerjaan($lokasi_pekerjaan[$a], $id_pk_sirup);
@@ -296,7 +327,7 @@ class Sch_sirup extends CI_Controller
     }
     #echo $sumber_dana."<br/>";
     $sumber_dana = preg_split($preg, $sumber_dana);
-    print_r($sumber_dana);
+    // print_r($sumber_dana);
     for ($a = 1; $a < count($sumber_dana); $a++) {
       if ($sumber_dana[$a]) {
         $this->m_sirup->insert_sumber_dana($sumber_dana[$a], $id_pk_sirup);
@@ -306,7 +337,7 @@ class Sch_sirup extends CI_Controller
     }
     #echo $pemanfaatan_barang."<br/>";
     $pemanfaatan_barang = preg_split($preg, $pemanfaatan_barang);
-    print_r($pemanfaatan_barang);
+    // print_r($pemanfaatan_barang);
     for ($a = 0; $a < count($pemanfaatan_barang); $a++) { #untuk pemanfaatan barang dia gapake nomor 1., jadi actually ga ada preg split anyway.
       if ($pemanfaatan_barang[$a]) {
         $this->m_sirup->insert_pemanfaatan_barang($pemanfaatan_barang[$a], $id_pk_sirup);
@@ -316,7 +347,7 @@ class Sch_sirup extends CI_Controller
     }
     echo $jadwal_pelaksanaan . "<br/>";
     $jadwal_pelaksanaan = preg_split($preg, $jadwal_pelaksanaan);
-    print_r($jadwal_pelaksanaan);
+    // print_r($jadwal_pelaksanaan);
     for ($a = 0; $a < count($jadwal_pelaksanaan); $a++) {
       if ($jadwal_pelaksanaan[$a]) {
         $this->m_sirup->insert_jadwal_pelaksanaan($jadwal_pelaksanaan[$a], $id_pk_sirup);
@@ -326,7 +357,7 @@ class Sch_sirup extends CI_Controller
     }
     echo $pemilihan_penyedia . "<br/>";
     $pemilihan_penyedia = preg_split($preg, $pemilihan_penyedia);
-    print_r($pemilihan_penyedia);
+    // print_r($pemilihan_penyedia);
     for ($a = 0; $a < count($pemilihan_penyedia); $a++) {
       if ($pemilihan_penyedia[$a]) {
         $this->m_sirup->insert_pemilihan_penyedia($pemilihan_penyedia[$a], $id_pk_sirup);

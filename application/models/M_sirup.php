@@ -62,7 +62,7 @@
 class M_sirup extends CI_Model
 {
 
-  public function insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, $sirup_status, $sirup_status_sesuai_pencarian = 1, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan)
+  public function insert($sirup_rup, $sirup_paket, $sirup_klpd, $sirup_satuan_kerja, $sirup_tahun_anggaran, $sirup_volume_pekerjaan, $sirup_uraian_pekerjaan, $sirup_spesifikasi_pekerjaan, $sirup_produk_dalam_negri, $sirup_usaha_kecil, $sirup_pra_dipa, $sirup_jenis_pengadaan, $sirup_total, $sirup_metode_pemilihan, $sirup_histori_paket, $sirup_tgl_perbarui_paket, $sirup_id_create, $id_fk_pencarian_sirup, $sirup_status, $sirup_status_sesuai_pencarian = 1, $sirup_aspek_ekonomi, $sirup_aspek_sosial, $sirup_aspek_lingkungan, $sirup_total_pagu, $sirup_jadwal_pemilihan, $kabupaten, $provinsi)
   {
     $sql = "delete from mstr_sirup where sirup_rup = ? and sirup_tgl_update is null and id_fk_pencarian_sirup != 0";
     #hapus yan gapernah diupdate (which is masih original) dan yang id_fk_pencarian_sirup tidak 0 (yg which is ini bukan diinput manual)
@@ -97,7 +97,9 @@ class M_sirup extends CI_Model
       "sirup_aspek_sosial" => $sirup_aspek_sosial,
       "sirup_aspek_lingkungan" => $sirup_aspek_lingkungan,
       "sirup_total_pagu" => $sirup_total_pagu,
-      "sirup_jadwal_pemilihan" => $sirup_jadwal_pemilihan
+      "sirup_jadwal_pemilihan" => $sirup_jadwal_pemilihan,
+      "sirup_kabupaten" => $kabupaten,
+      "sirup_provinsi" => $provinsi
     );
     #insertRow("mstr_sirup_archieve", $data); #masukin ke archieve
     return insertRow("mstr_sirup", $data); #masukin ke table utama
