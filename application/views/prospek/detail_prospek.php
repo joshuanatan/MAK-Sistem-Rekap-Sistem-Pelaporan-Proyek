@@ -95,8 +95,8 @@
               <thead>
                 <tr>
                   <th>Nama Barang</th>
-                  <th>Harga</th>
-                  <th>Harga yang Diinginkan</th>
+                  <th>Harga Price List</th>
+                  <th>Diskon (%)</th>
                   <th>Quantity</th>
                   <th>Keterangan</th>
                 </tr>
@@ -105,20 +105,20 @@
                 <?php for ($a = 0; $a < count($dataprospekproduk); $a++) : ?>
                   <tr>
                     <td><?php echo $dataprospekproduk[$a]["nama_produk"] ?></td>
-                    <td>
+                    <!-- <td>
                       <table style="width:100%; border:none;">
                         <tr>
-                          <td style="border:none;">Price List</td>
+                          <td style="border:none;">Price List</td> -->
                           <td style="border:none; text-align:right;">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_price_list"], 0, ",", "."); ?></td>
-                        </tr>
+                        <!-- </tr>
                         <tr>
                           <td style="border:none;">Harga Ekatalog</td>
                           <td style="border:none; text-align:right;">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_harga_ekat"], 0, ",", "."); ?></td>
                         </tr>
                       </table>
-                    </td>
-                    <td>Rp. <?php echo number_format($dataprospekproduk[$a]["prospek_produk_price"], 0, ",", "."); ?></td>
-                    <td><?php echo number_format($dataprospekproduk[$a]["detail_prospek_quantity"], 0, ",", "."); ?></td>
+                    </td> -->
+                    <td style="border:none; text-align:right;"><?php echo number_format($dataprospekproduk[$a]["prospek_produk_price"], 0, ",", "."); ?></td>
+                    <td style="border:none; text-align:right;"><?php echo number_format($dataprospekproduk[$a]["detail_prospek_quantity"], 0, ",", "."); ?></td>
                     <td><?php echo $dataprospekproduk[$a]["detail_prospek_keterangan"]; ?></td>
                   </tr>
                 <?php endfor; ?>
