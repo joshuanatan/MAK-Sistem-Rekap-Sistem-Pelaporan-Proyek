@@ -34,8 +34,8 @@
             <div class="panel">
               <div class="panel-body">
                 <div class="form-group">
-                  <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode;?>
-                  <input type="text" class="form-control" name="kodeprospek" value="<?php echo $generated_id;?>" readOnly>
+                  <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode; ?>
+                  <input type="text" class="form-control" name="kodeprospek" value="<?php echo $generated_id; ?>" readOnly>
                 </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
@@ -103,10 +103,10 @@
                     </table>
                   </div>
                 <?php endif; ?>
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <label class="form-control-label">Prospek Principle</label>
                   <input type="text" class="form-control" name="prospek_principle" placeholder="Prospek Principle">
-                </div>
+                </div> -->
                 <div class="form-group">
                   <label class="form-control-label">Notes Kompetitor</label>
                   <textarea type="text" class="form-control" name="notes_kompetitor" placeholder="Notes Kompetitor"></textarea>
@@ -145,62 +145,62 @@
                 </div>
                 <div class="form-group" id="nomorPo">
                   <label class="form-control-label">Nomor PO</label>
-                  <input class="form-control" type="text" name = 'nomorekatalog'>
+                  <input class="form-control" type="text" name='nomorekatalog'>
                 </div>
                 <div class="form-group" id="nomorFaktur">
                   <label class="form-control-label">Nomor Faktur</label>
-                  <input class="form-control" type="text" name = 'nomorfaktur'>
+                  <input class="form-control" type="text" name='nomorfaktur'>
                 </div>
                 <div class="form-group" id="ratingGroup">
                   <label class="form-control-label">Rating</label>
-                  <select class = 'form-control' style="width:100%;" name = 'rating' id="rating">
+                  <select class='form-control' style="width:100%;" name='rating' id="rating">
                     <option selected disabled>------ Pilih Rating ------</option>
-                    <option value = "0">[0] - Lose kompetitor</option>
-                    <option value = "0,05">[0,05] - Pindah anggaran</option>
-                    <option value = "0,1">[0,1] - Mapping</option>
-                    <option value = "0,2">[0,2] - Done SPH//Inhar</option>
-                    <option value = "0,3">[0,3] - Done detailing/presentasi/demo/FV</option>
-                    <option value = "0,4">[0,4] - Spesifikasi Produk & pagu angaran di ACC</option>
-                    <option value = "0,5">[0,5] - Proses Klik E Catalog/PL/Negosiasi Harga (Swasta)</option>
-                    <option value = "0,6">[0,6] - Sudah ada ID Paket/Sudah PO</option>
-                    <option value = "0,7">[0,7] - Proses kontrak/SPK/Sudah Pembayaran DP</option>
-                    <option value = "0,8">[0,8] - Barang sudah terkirim</option>
-                    <option value = "0,9">[0,9] - Barang sudah diterima</option>
-                    <option value = "1">[1] - Faktur/Pembayaran Lunas</option>
+                    <option value="0">[0] - Lose kompetitor</option>
+                    <option value="0,05">[0,05] - Pindah anggaran</option>
+                    <option value="0,1">[0,1] - Mapping</option>
+                    <option value="0,2">[0,2] - Done SPH//Inhar</option>
+                    <option value="0,3">[0,3] - Done detailing/presentasi/demo/FV</option>
+                    <option value="0,4">[0,4] - Spesifikasi Produk & pagu angaran di ACC</option>
+                    <option value="0,5">[0,5] - Proses Klik E Catalog/PL/Negosiasi Harga (Swasta)</option>
+                    <option value="0,6">[0,6] - Sudah ada ID Paket/Sudah PO</option>
+                    <option value="0,7">[0,7] - Proses kontrak/SPK/Sudah Pembayaran DP</option>
+                    <option value="0,8">[0,8] - Barang sudah terkirim</option>
+                    <option value="0,9">[0,9] - Barang sudah diterima</option>
+                    <option value="1">[1] - Faktur/Pembayaran Lunas</option>
                   </select>
                 </div>
                 <div class="form-group" id="danaGroup">
                   <label class="form-control-label">Sumber Dana</label>
-                  <select class = 'form-control' style="width:100%;" name = 'sumberdana' id="sumberdana">
+                  <select class='form-control' style="width:100%;" name='sumberdana' id="sumberdana">
                     <option selected disabled>------ Pilih Sumber Dana ------</option>
-                    <option value = "APBD">APBD</option>
-                    <option value = "DAK">DAK</option>
-                    <option value = "APBD-P">APBD-P</option>
-                    <option value = "APBN">APBN</option>
-                    <option value = "APBN-P">APBN-P</option>
-                    <option value = "Private">Private</option>
-                    <option value = "BLUD">BLUD</option>
+                    <option value="APBD">APBD</option>
+                    <option value="DAK">DAK</option>
+                    <option value="APBD-P">APBD-P</option>
+                    <option value="APBN">APBN</option>
+                    <option value="APBN-P">APBN-P</option>
+                    <option value="Private">Private</option>
+                    <option value="BLUD">BLUD</option>
                   </select>
                 </div>
                 <div class="form-group" id="principalGroup">
                   <label class="form-control-label">Principal</label>
-                  <select class = 'form-control' style="width:100%;" name = 'principal' id="principal">
+                  <select class='form-control' style="width:100%;" name='prospek_principle' id="prospek_principle">
                     <option selected disabled>------ Pilih Principal ------</option>
-                    <option value = "MAK">MAK</option>
-                    <option value = "Wecare">Wecare</option>
-                    <option value = "Greenmedika / Alpinion">Greenmedika / Alpinion</option>
-                    <option value = "Greenmedika / Esaote">Greenmedika / Esaote</option>
-                    <option value = "KaWe">KaWe</option>
-                    <option value = "Physioled">Physioled</option>
+                    <option value="MAK">MAK</option>
+                    <option value="Wecare">Wecare</option>
+                    <option value="Greenmedika / Alpinion">Greenmedika / Alpinion</option>
+                    <option value="Greenmedika / Esaote">Greenmedika / Esaote</option>
+                    <option value="KaWe">KaWe</option>
+                    <option value="Physioled">Physioled</option>
                   </select>
                 </div>
                 <div class="form-group" id="jenisPengadaanGroup">
                   <label class="form-control-label">Jenis Pengadaan</label>
-                  <select class = 'form-control' style="width:100%;" name = 'jenispengadaan' id="jenispengadaan">
+                  <select class='form-control' style="width:100%;" name='jenispengadaan' id="jenispengadaan">
                     <option selected disabled>------ Pilih Jenis Pengadaan ------</option>
-                    <option value = "E-katalog">E-katalog</option>
-                    <option value = "PL">PL</option>
-                    <option value = "Tender">Tender</option>
+                    <option value="E-katalog">E-katalog</option>
+                    <option value="PL">PL</option>
+                    <option value="Tender">Tender</option>
                   </select>
                 </div>
                 <label class="form-control-label">Detail Produk</label>
@@ -609,6 +609,7 @@
                 <td><input type = 'number' class = 'form-control nf-input' name = 'detail_quantity${row}' min="0"></td>
                 <td>
                   <textarea class = 'form-control' name = 'detail_keterangan${row}' id ='keterangan_produk_insert${row}'></textarea>
+                  <input type="hidden" name='detail_price${row}' id='detail_price${row}'>
                 </td>
                 <td>
                   <button type = 'button' class = 'btn btn-danger btn-sm' onclick = 'deleteProdukData(this)'><i class = 'icon md-delete'></i></button>
@@ -635,9 +636,10 @@
         dataType: "JSON",
         success: function(respond) {
           $(`#harga_produk_insert${row}`).text("Rp. " + format_number(respond['data_price'][0]['produk_price_list']));
-          html += `
-            <input type="hidden" value="${respond['data_price'][0]['produk_price_list']}" name="detail_price${row}">
-          `;
+          document.getElementById(`detail_price${row}`).value = respond['data_price'][0]['produk_price_list'];
+          // html += `
+          //   <input type="hidden" name="detail_price${row}" value="${respond['data_price'][0]['produk_price_list']}">
+          // `;
         }
       });
     }
