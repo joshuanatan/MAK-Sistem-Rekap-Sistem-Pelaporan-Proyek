@@ -101,7 +101,7 @@ class M_prospek extends CI_Model
   }
   public function get_prospek_detail($id_pk_prospek, $id_user)
   {
-    $sql = "SELECT id_pk_prospek, prospek_kode, prospek_kode, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_faktur, no_ekatalog, funnel, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create
+    $sql = "SELECT id_pk_prospek, prospek_kode, prospek_kode, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_faktur, no_ekatalog, funnel, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, sumber_dana, jenis_pengadaan, rating, prospek_id_create
     FROM mstr_prospek
     INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
     INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_rs.id_fk_kabupaten
@@ -684,7 +684,7 @@ class M_prospek extends CI_Model
 
   //Edit
 
-  public function edit_prospek_se($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user)
+  public function edit_prospek_se($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek,
@@ -701,12 +701,15 @@ class M_prospek extends CI_Model
       "funnel" => $funnel,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_se_prospek($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage)
+  public function edit_prospek_se_prospek($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek,
@@ -724,12 +727,15 @@ class M_prospek extends CI_Model
       "funnel_percentage" => $funnel_percentage,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_se_loss($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss)
+  public function edit_prospek_se_loss($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek,
@@ -746,12 +752,15 @@ class M_prospek extends CI_Model
       "note_loss" => $note_loss,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user)
+  public function edit_prospek_asm($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -767,12 +776,15 @@ class M_prospek extends CI_Model
       "funnel" => $funnel,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm_prospek($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage)
+  public function edit_prospek_asm_prospek($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -789,12 +801,15 @@ class M_prospek extends CI_Model
       "funnel_percentage" => $funnel_percentage,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm_loss($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss)
+  public function edit_prospek_asm_loss($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -811,12 +826,15 @@ class M_prospek extends CI_Model
       "note_loss" => $note_loss,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm_sirup($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_faktur)
+  public function edit_prospek_asm_sirup($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_faktur, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -834,12 +852,15 @@ class M_prospek extends CI_Model
       "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user)
+  public function edit_prospek_sm($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -856,12 +877,15 @@ class M_prospek extends CI_Model
       "funnel" => $funnel,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm_prospek($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage)
+  public function edit_prospek_sm_prospek($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -879,12 +903,15 @@ class M_prospek extends CI_Model
       "funnel_percentage" => $funnel_percentage,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm_loss($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss)
+  public function edit_prospek_sm_loss($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -902,12 +929,15 @@ class M_prospek extends CI_Model
       "note_loss" => $note_loss,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm_ekatalog($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_ekatalog)
+  public function edit_prospek_sm_ekatalog($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_ekatalog, $sumber_dana, $jenis_pengadaan, $rating)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -925,7 +955,10 @@ class M_prospek extends CI_Model
       "no_ekatalog" => $no_ekatalog,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
-      "prospek_tgl_update" => date("Y-m-d H:i:s")
+      "prospek_tgl_update" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
     );
     return updateRow("mstr_prospek", $data, $where);
   }
@@ -949,7 +982,7 @@ class M_prospek extends CI_Model
 
   public function edit_get_prospek($id_pk_prospek)
   {
-    $sql = "SELECT id_pk_prospek, prospek_kode, prospek_kode, mstr_prospek.id_fk_provinsi, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_prospek.id_fk_kabupaten, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_prospek.id_fk_rs, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, funnel, funnel_percentage, no_faktur, no_ekatalog, note_loss, estimasi_pembelian, prospek_status, prospek_id_create
+    $sql = "SELECT id_pk_prospek, prospek_kode, prospek_kode, mstr_prospek.id_fk_provinsi, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_prospek.id_fk_kabupaten, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_prospek.id_fk_rs, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, funnel, funnel_percentage, no_faktur, no_ekatalog, note_loss, rating, sumber_dana, jenis_pengadaan, estimasi_pembelian, prospek_status, prospek_id_create
       FROM mstr_prospek
       INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
     INNER JOIN mstr_kabupaten on mstr_kabupaten.id_pk_kabupaten = mstr_rs.id_fk_kabupaten
