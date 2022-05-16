@@ -47,7 +47,7 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
                     </td>
                     <td align="right"><?php echo number_format($data[$i]["total_price_prospek"]) ?></td>
                     <td><?php echo $data[$i]["notes_kompetitor"] ?></td>
-                    <td><?php echo $data[$i]["no_sirup"] ?></td>
+                    <td><?php echo $data[$i]["no_faktur"] ?></td>
                     <td><?php echo $data[$i]["no_ekatalog"] ?></td>
                     <td><?php echo $data[$i]["funnel"] ?></td>
                     <td><?php echo $data[$i]["estimasi_pembelian"] ?></td>
