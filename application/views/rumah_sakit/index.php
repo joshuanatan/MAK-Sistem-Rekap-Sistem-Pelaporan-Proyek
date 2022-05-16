@@ -207,17 +207,24 @@
             <input type="text" class="form-control" name="fax" placeholder="Fax">
           </div>
           <div class="form-group">
-            <label class="form-control-label">Jenis Rumah Sakit</label> <strong><a href="<?php echo base_url(); ?>jenis_rs" target="_blank">Buka Jenis Rumah Sakit</a></strong>
+            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <!-- <strong><a href="<?php echo base_url(); ?>jenis_rs" target="_blank">Buka Jenis Rumah Sakit</a></strong> -->
             <br />
-            <div class="row">
-              <div class="col-lg-2">
+            <!-- <div class="row"> -->
+              <!-- <div class="col-lg-2">
                 <button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="load_jenis_rumah_sakit()"><i class="icon md-refresh"></i></button>
-              </div>
-              <div class="col-lg-10">
+              </div> -->
+              <!-- <div class="col-lg-10"> -->
                 <select class="form-control dropdown_jenis" name="jenisrumahsakit" class="">
+                  <option value="BUMN">BUMN</option>
+                  <option value="Dinkes">Dinkes</option>
+                  <option value="Pemerintah">Pemerintah</option>
+                  <option value="Pemerintah/TNI">Pemerintah/TNI</option>
+                  <option value="RSUD">RSUD</option>
+                  <option value="Swasta">Swasta</option>
                 </select>
-              </div>
-            </div>
+              <!-- </div> -->
+            <!-- </div> -->
           </div>
           <div class="form-group">
             <label class="form-control-label">Penyelenggara</label> <strong><a href="<?php echo base_url(); ?>penyelenggara" target="_blank">Buka Daftar Penyelenggara</a></strong>
@@ -331,17 +338,24 @@
             <input type="text" class="form-control" id="edit_fax" name="fax" placeholder="Fax">
           </div>
           <div class="form-group">
-            <label class="form-control-label">Jenis Rumah Sakit</label> <strong><a href="<?php echo base_url(); ?>jenis_rs" target="_blank">Buka Jenis Rumah Sakit</a></strong>
+            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <!-- <strong><a href="<?php echo base_url(); ?>jenis_rs" target="_blank">Buka Jenis Rumah Sakit</a></strong> -->
             <br />
-            <div class="row">
-              <div class="col-lg-2">
+            <!-- <div class="row"> -->
+              <!-- <div class="col-lg-2">
                 <button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="load_jenis_rumah_sakit()"><i class="icon md-refresh"></i></button>
-              </div>
-              <div class="col-lg-10">
+              </div> -->
+              <!-- <div class="col-lg-10"> -->
                 <select class="form-control dropdown_jenis" id="edit_jenisrumahsakit" name="jenisrumahsakit">
+                  <option value="BUMN">BUMN</option>
+                  <option value="Dinkes">Dinkes</option>
+                  <option value="Pemerintah">Pemerintah</option>
+                  <option value="Pemerintah/TNI">Pemerintah/TNI</option>
+                  <option value="RSUD">RSUD</option>
+                  <option value="Swasta">Swasta</option>
                 </select>
-              </div>
-            </div>
+              <!-- </div> -->
+            <!-- </div> -->
           </div>
           <div class="form-group">
             <label class="form-control-label">Penyelenggara</label> <strong><a href="<?php echo base_url(); ?>penyelenggara" target="_blank">Buka Daftar Penyelenggara</a></strong>
@@ -563,7 +577,7 @@
             <td>${respond["data"][a]["rs_kode_pos"]}</td>
             <td>${respond["data"][a]["rs_telepon"]}</td>
             <td>${respond["data"][a]["rs_fax"]}</td>
-            <td>${respond["data"][a]["jenis_rs"]}</td>
+            <td>${respond["data"][a]["id_fk_jenis_rs"]}</td>
             <td>${respond["data"][a]["penyelenggara"]}</td>
             <td>
               <button type = "button" onclick = "load_edit(${a})" class = "btn btn-primary btn-sm"><i class = "icon md-edit"></i></button>
@@ -610,24 +624,24 @@
   }
 </script>
 <script id="script load jenis rs dan penyelenggara">
-  load_jenis_rumah_sakit();
+  // load_jenis_rumah_sakit();
 
-  function load_jenis_rumah_sakit() {
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/rumah_sakit/get_jenis_rumah_sakit",
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond["data"].length; a++) {
-          html += `
-          <option value = ${respond["data"][a]["id_pk_jenis_rs"]}>(${respond["data"][a]["jenis_rs_kode"]}) ${respond["data"][a]["jenis_rs_nama"]}</option>
-          `;
-        }
-        $(".dropdown_jenis").html(html);
-      }
-    })
-  }
+  // function load_jenis_rumah_sakit() {
+  //   $.ajax({
+  //     url: "<?php echo base_url(); ?>ws/rumah_sakit/get_jenis_rumah_sakit",
+  //     type: "GET",
+  //     dataType: "JSON",
+  //     success: function(respond) {
+  //       var html = "";
+  //       for (var a = 0; a < respond["data"].length; a++) {
+  //         html += `
+  //         <option value = ${respond["data"][a]["id_pk_jenis_rs"]}>(${respond["data"][a]["jenis_rs_kode"]}) ${respond["data"][a]["jenis_rs_nama"]}</option>
+  //         `;
+  //       }
+  //       $(".dropdown_jenis").html(html);
+  //     }
+  //   })
+  // }
   load_penyelenggara();
 
   function load_penyelenggara() {
