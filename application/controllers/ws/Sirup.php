@@ -5,13 +5,15 @@ class Sirup extends CI_Controller
   {
     parent::__construct();
   }
-  public function delete_pencarian($id_pk_pencarian_sirup)
+  public function delete_pencarian($id_pk_pencarian_sirup, $keyword)
   {
     $this->load->model("m_pencarian_sirup");
     $result = $this->m_pencarian_sirup->set_delete($id_pk_pencarian_sirup);
     if ($result) {
       $result = $this->m_pencarian_sirup->delete();
-      if ($result) {
+      $this->load->model("m_sirup");
+      $delete = $this->m_sirup->delete_sirup($id_pk_pencarian_sirup);
+      if ($result && $delete) {
         $respond["status"] = "success";
         $respond["msg"] = "data berhasil di hapus";
       } else {
@@ -83,10 +85,18 @@ class Sirup extends CI_Controller
     $pencarian_phrase = $this->input->get("pencarian_phrase");
     $kolom_pencarian = $this->input->get("kolom_pencarian");
     $current_page = $this->input->get("current_page");
+    $funnel = $this->input->get("funnel");
     $this->load->model("m_sirup");
-    $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel)->result_array();
     #echo $this->db->last_query();
-    $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page);
+
+    if (!isset($total_data)) {
+      $total_data = 0;
+    } else {
+      $total_data = count($total_data->result_array());
+    }
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
@@ -163,7 +173,7 @@ class Sirup extends CI_Controller
       $tgl_perbarui_paket = $this->input->post("tgl_perbarui_paket");
 
       $this->load->model("m_sirup");
-      if($this->m_sirup->check_duplicate_insert($kode_rup)->num_rows() == 0){
+      if ($this->m_sirup->check_duplicate_insert($kode_rup)->num_rows() == 0) {
         $id_sirup = $this->m_sirup->insert($kode_rup, $nama_paket, $nama_klpd, $satuan_kerja, $tahun_anggaran, $volume_pekerjaan, $uraian_pekerjaan, $spesifikasi_pekerjaan, $produk_dalam_negeri, $usaha_kecil, $pra_dipa_dpa, $jenis_pengadaan, $total_pagu, $metode_pemilihan, $histori_paket, $tgl_perbarui_paket, $this->session->id_user, 0, "aktif");
 
         $lokasi_pekerjaan_check = $this->input->post("lokasi_pekerjaan_check");
@@ -212,7 +222,7 @@ class Sirup extends CI_Controller
         }
         $response["msg"] = "Data SiRUP {$kode_rup} berhasil ditambahkan";
         $response["status"] = true;
-      }else {
+      } else {
         $response["status"] = false;
         $response["msg"] = "Kode RUP sudah terdaftar";
       }
@@ -264,9 +274,9 @@ class Sirup extends CI_Controller
       $tgl_perbaharui_paket = $this->input->post("tgl_perbarui_paket");
 
       $this->load->model("m_sirup");
-      if($this->m_sirup->check_duplicate_update($id_pk_sirup,$kode_rup)->num_rows() == 0){
+      if ($this->m_sirup->check_duplicate_update($id_pk_sirup, $kode_rup)->num_rows() == 0) {
         $this->m_sirup->update($id_pk_sirup, $kode_rup, $nama_paket, $nama_klpd, $satuan_kerja, $tahun_anggaran, $volume_pekerjaan, $uraian_pekerjaan, $spesifikasi_pekerjaan, $produk_dalam_negeri, $usaha_kecil, $pra_dipa_dpa, $jenis_pengadaan, $total_pagu, $metode_pemilihan, $histori_paket, $tgl_perbaharui_paket);
-      
+
 
         $lokasi_pekerjaan_check = $this->input->post("lokasi_pekerjaan_check");
         if ($lokasi_pekerjaan_check != "") {
@@ -372,8 +382,7 @@ class Sirup extends CI_Controller
         }
         $response["status"] = true;
         $response["msg"] = "Data SiRUP {$kode_rup} berhasil diubah";
-      }
-      else{
+      } else {
         $response["status"] = false;
         $response["msg"] = "Kode RUP sudah terdaftar";
       }

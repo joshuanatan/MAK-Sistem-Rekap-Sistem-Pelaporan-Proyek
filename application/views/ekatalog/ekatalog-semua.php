@@ -29,7 +29,11 @@
               <h5>&nbsp;</h5>
               <a href = "<?php echo base_url();?>ekatalog/buatan" class="btn btn-primary btn-sm">Tambah Data</a>
             </div>
-            <div class="form-group col-lg-2"></div>
+            <div class="form-group col-lg-1">
+              <h5>&nbsp;</h5>
+              <a href = "<?php echo base_url();?>ekatalog/export" class="btn btn-success btn-sm">Export Excel</a>
+            </div>
+            <div class="form-group col-lg-1"></div>
             <div class="form-group col-lg-3">
               <h5>Kolom Pengurutan</h5>
               <select class="form-control" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">

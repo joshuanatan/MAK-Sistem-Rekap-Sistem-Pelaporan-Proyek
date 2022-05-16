@@ -92,11 +92,11 @@
                     <span class="site-menu-title">Penyelenggara Rumah Sakit</span>
                   </a>
                 </li>
-                <li class="site-menu-item">
+                <!-- <li class="site-menu-item">
                   <a class="animsition-link" href="<?php echo base_url(); ?>jenis_rs">
                     <span class="site-menu-title">Jenis Rumah Sakit</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -233,11 +233,11 @@
                     <span class="site-menu-title">Penyelenggara Rumah Sakit</span>
                   </a>
                 </li>
-                <li class="site-menu-item">
+                <!-- <li class="site-menu-item">
                   <a class="animsition-link" href="<?php echo base_url(); ?>jenis_rs">
                     <span class="site-menu-title">Jenis Rumah Sakit</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -279,12 +279,18 @@
             <span class="site-menu-title">Prospek</span>
           </a>
         </li>
+        <li class="dropdown site-menu-item has-sub">
+          <a href="<?php echo base_url(); ?>sirup" data-dropdown-toggle="false">
+            <i class="site-menu-icon md-collection-bookmark" aria-hidden="true"></i>
+            <span class="site-menu-title">SiRUP</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 <?php endif; ?>
 <div class="alert alert-success alert-dismissible" role="alert">
-  Currently login: <strong><?php echo $this->session->nama_user;?></strong> <strong>[ <?php echo $this->session->user_role;?> ]</strong>
+  Currently login: <strong><?php echo $this->session->nama_user; ?></strong> <strong>[ <?php echo $this->session->user_role; ?> ]</strong>
 </div>
 <div class="modal fade" id="modal_update_profile">
   <div class="modal-dialog modal-simple modal-center">
