@@ -19,7 +19,7 @@
     <div class="page-header">
       <h1 class="page-title">Profile</h1>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>welcome/home">Home</a></li>
         <li class="breadcrumb-item active">Profile</li>
       </ol>
     </div>

@@ -15,7 +15,7 @@
     <div class="page-header">
       <h1 class="page-title">Data SiRUP Buatan</h1>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>welcome/home">Home</a></li>
         <li class="breadcrumb-item"><a href="#">SiRUP</a></li>
         <li class="breadcrumb-item active">Buatan</li>
       </ol>
