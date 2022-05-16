@@ -216,6 +216,7 @@
               </div> -->
               <!-- <div class="col-lg-10"> -->
                 <select class="form-control dropdown_jenis" name="jenisrumahsakit" class="">
+                  <option value="none" selected disabled hidden>-- Silahkan Pilih Jenis Outlet --</option>
                   <option value="BUMN">BUMN</option>
                   <option value="Dinkes">Dinkes</option>
                   <option value="Pemerintah">Pemerintah</option>
@@ -347,6 +348,7 @@
               </div> -->
               <!-- <div class="col-lg-10"> -->
                 <select class="form-control dropdown_jenis" id="edit_jenisrumahsakit" name="jenisrumahsakit">
+                  <option value="none" selected disabled hidden>-- Silahkan Pilih Jenis Outlet --</option>
                   <option value="BUMN">BUMN</option>
                   <option value="Dinkes">Dinkes</option>
                   <option value="Pemerintah">Pemerintah</option>
