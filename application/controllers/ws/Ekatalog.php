@@ -43,8 +43,21 @@ class Ekatalog extends CI_Controller
       $ekatalog_status_paket = $this->input->post("status_paket");
       $ekatalog_posisi_paket = $this->input->post("posisi_paket");
 
+      //new stuffs
+      $ekatalog_id = $this->input->post("id");
+      $ekatalog_nama_pp = $this->input->post("nama_pp");
+      $ekatalog_position_pp = $this->input->post("position_pp");
+      $ekatalog_nip_pp = $this->input->post("nip_pp");
+      $ekatalog_email_pp = $this->input->post("email_pp");
+      $ekatalog_phone_number_pp = $this->input->post("phone_number_pp");
+      $ekatalog_nama_buyer = $this->input->post("nama_buyer");
+      $ekatalog_position_buyer = $this->input->post("position_buyer");
+      $ekatalog_nip_buyer = $this->input->post("nip_buyer");
+      $ekatalog_email_buyer = $this->input->post("email_buyer");
+      $ekatalog_phone_number_buyer = $this->input->post("phone_number_buyer");
+
       $this->load->model("m_ekatalog");
-      $id_ekatalog = $this->m_ekatalog->insert($ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket);
+      $id_ekatalog = $this->m_ekatalog->insert($ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket, $ekatalog_id, $ekatalog_nama_pp, $ekatalog_position_pp, $ekatalog_nip_pp, $ekatalog_email_pp, $ekatalog_phone_number_pp, $ekatalog_nama_buyer, $ekatalog_position_buyer, $ekatalog_nip_buyer, $ekatalog_email_buyer, $ekatalog_phone_number_buyer);
 
       $check = $this->input->post("produk_ekatalog");
       if ($check != "") {
@@ -107,8 +120,21 @@ class Ekatalog extends CI_Controller
       $ekatalog_status_paket = $this->input->post("status_paket");
       $ekatalog_posisi_paket = $this->input->post("posisi_paket");
 
+      $ekatalog_id = $this->input->post("id");
+      $ekatalog_nama_pp = $this->input->post("nama_pp");
+      $ekatalog_position_pp = $this->input->post("position_pp");
+      $ekatalog_nip_pp = $this->input->post("nip_pp");
+      $ekatalog_email_pp = $this->input->post("email_pp");
+      $ekatalog_phone_number_pp = $this->input->post("phone_number_pp");
+      $ekatalog_nama_buyer = $this->input->post("nama_buyer");
+      $ekatalog_position_buyer = $this->input->post("position_buyer");
+      $ekatalog_nip_buyer = $this->input->post("nip_buyer");
+      $ekatalog_email_buyer = $this->input->post("email_buyer");
+      $ekatalog_phone_number_buyer = $this->input->post("phone_number_buyer");
+
+
       $this->load->model("m_ekatalog");
-      $this->m_ekatalog->update($id_pk_ekatalog, $ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket);
+      $this->m_ekatalog->update($id_pk_ekatalog, $ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket, $ekatalog_id, $ekatalog_nama_pp, $ekatalog_position_pp, $ekatalog_nip_pp, $ekatalog_email_pp, $ekatalog_phone_number_pp, $ekatalog_nama_buyer, $ekatalog_position_buyer, $ekatalog_nip_buyer, $ekatalog_email_buyer, $ekatalog_phone_number_buyer);
 
       $response["msg"] = "Data ekatalog {$ekatalog_id_paket} berhasil diubah";
       $response["status"] = true;

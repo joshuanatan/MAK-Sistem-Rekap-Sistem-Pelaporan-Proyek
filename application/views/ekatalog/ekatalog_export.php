@@ -13,6 +13,7 @@ header("Content-Disposition: attachment; filename=Ekatalog_export_" . date("Y-m-
         <thead>
             <tr>
                 <th>Nama Paket</th>
+                <th>ID</th>
                 <th>ID Paket</th>
                 <th>ID Sirup</th>
                 <th>Instansi</th>
@@ -24,6 +25,8 @@ header("Content-Disposition: attachment; filename=Ekatalog_export_" . date("Y-m-
                 <th>Total Produk</th>
                 <th>Total Harga</th>
                 <th>Status Paket</th>
+                <th>PP/Comittee</th>
+                <th>PPK/Buyer</th>
                 <th>Tanggal Buat Ekatalog</th>
                 <th>Tanggal Perubahan</th>
                 <th>Nama Produk</th>
@@ -39,6 +42,7 @@ header("Content-Disposition: attachment; filename=Ekatalog_export_" . date("Y-m-
             <?php for ($i = 0; $i < count($data); $i++) : ?>
                 <tr>
                     <td><?php echo $data[$i]["ekatalog_komoditas"];?></td>
+                    <td><?php echo $data[$i]["ekatalog_id"];?></td>
                     <td><?php echo $data[$i]["ekatalog_id_paket"];?></td>
                     <td><?php echo $data[$i]["ekatalog_id_sirup"];?></td>
                     <td><?php echo $data[$i]["ekatalog_instansi"];?></td>
@@ -50,6 +54,20 @@ header("Content-Disposition: attachment; filename=Ekatalog_export_" . date("Y-m-
                     <td><?php echo $data[$i]["ekatalog_total_produk"];?></td>
                     <td><?php echo $data[$i]["ekatalog_total_harga"];?></td>
                     <td><?php echo $data[$i]["ekatalog_status_paket"];?></td>
+                    <td>
+                        Nama: <?php echo $data[$i]["ekatalog_nama_pp"];?><br/>
+                        Jabatan: <?php echo $data[$i]["ekatalog_position_pp"];?><br/>
+                        NIP: <?php echo $data[$i]["ekatalog_nip_pp"];?><br/>
+                        Email: <?php echo $data[$i]["ekatalog_email_pp"];?><br/>
+                        No Telp: <?php echo $data[$i]["ekatalog_phone_number_pp"];?>
+                    </td>
+                    <td>
+                        Nama: <?php echo $data[$i]["ekatalog_nama_buyer"];?><br/>
+                        Jabatan: <?php echo $data[$i]["ekatalog_position_buyer"];?><br/>
+                        NIP: <?php echo $data[$i]["ekatalog_nip_buyer"];?><br/>
+                        Email: <?php echo $data[$i]["ekatalog_email_buyer"];?><br/>
+                        No Telp: <?php echo $data[$i]["ekatalog_phone_number_buyer"];?>
+                    </td>
                     <td><?php echo $data[$i]["ekatalog_tgl_buat_online"];?></td>
                     <td><?php echo $data[$i]["ekatalog_tgl_ubah_online"];?></td>
                     <td><?php echo $data[$i]["ekatalog_produk_nama_produk"];?></td>

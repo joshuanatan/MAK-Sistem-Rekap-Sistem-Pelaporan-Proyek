@@ -29,7 +29,7 @@ class M_ekatalog extends CI_Model
     ekatalog_id_delete int
     )
   */
-  public function insert($ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket)
+  public function insert($ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket, $ekatalog_id, $ekatalog_nama_pp, $ekatalog_position_pp, $ekatalog_nip_pp, $ekatalog_email_pp, $ekatalog_phone_number_pp, $ekatalog_nama_buyer, $ekatalog_position_buyer, $ekatalog_nip_buyer, $ekatalog_email_buyer, $ekatalog_phone_number_buyer)
   {
     $data = array(
       "ekatalog_komoditas" => $ekatalog_komoditas,
@@ -49,11 +49,22 @@ class M_ekatalog extends CI_Model
       "ekatalog_posisi_paket" => $ekatalog_posisi_paket,
       "ekatalog_status" => "aktif",
       "ekatalog_tgl_create" => date("Y-m-d H:i:s"),
-      "ekatalog_id_create" => $this->session->id_user
+      "ekatalog_id_create" => $this->session->id_user,
+      "ekatalog_id" => $ekatalog_id,
+      "ekatalog_nama_pp" => $ekatalog_nama_pp,
+      "ekatalog_position_pp" => $ekatalog_position_pp,
+      "ekatalog_nip_pp" => $ekatalog_nip_pp,
+      "ekatalog_email_pp" => $ekatalog_email_pp,
+      "ekatalog_phone_number_pp" => $ekatalog_phone_number_pp,
+      "ekatalog_nama_buyer" => $ekatalog_nama_buyer,
+      "ekatalog_position_buyer" => $ekatalog_position_buyer,
+      "ekatalog_nip_buyer" => $ekatalog_nip_buyer,
+      "ekatalog_email_buyer" => $ekatalog_email_buyer,
+      "ekatalog_phone_number_buyer" => $ekatalog_phone_number_buyer,
     );
     return insertRow("mstr_ekatalog", $data);
   }
-  public function update($id_pk_ekatalog, $ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket)
+  public function update($id_pk_ekatalog, $ekatalog_komoditas, $ekatalog_id_paket, $ekatalog_nama_paket, $ekatalog_instansi, $ekatalog_satuan_kerja, $ekatalog_npwp_satuan_kerja, $ekatalog_alamat_satuan_kerja, $ekatalog_alamat_pengiriman, $ekatalog_tgl_buat_online, $ekatalog_tgl_ubah_online, $ekatalog_tahun_anggaran, $ekatalog_total_produk, $ekatalog_total_harga, $ekatalog_status_paket, $ekatalog_posisi_paket, $ekatalog_id, $ekatalog_nama_pp, $ekatalog_position_pp, $ekatalog_nip_pp, $ekatalog_email_pp, $ekatalog_phone_number_pp, $ekatalog_nama_buyer, $ekatalog_position_buyer, $ekatalog_nip_buyer, $ekatalog_email_buyer, $ekatalog_phone_number_buyer)
   {
     $where = array(
       "id_pk_ekatalog" => $id_pk_ekatalog
@@ -75,7 +86,19 @@ class M_ekatalog extends CI_Model
       "ekatalog_status_paket" => $ekatalog_status_paket,
       "ekatalog_posisi_paket" => $ekatalog_posisi_paket,
       "ekatalog_tgl_update" => date("Y-m-d H:i:s"),
-      "ekatalog_id_update" => $this->session->id_user
+      "ekatalog_id_update" => $this->session->id_user, 
+      "ekatalog_id_create" => $this->session->id_user,
+      "ekatalog_id" => $ekatalog_id,
+      "ekatalog_nama_pp" => $ekatalog_nama_pp,
+      "ekatalog_position_pp" => $ekatalog_position_pp,
+      "ekatalog_nip_pp" => $ekatalog_nip_pp,
+      "ekatalog_email_pp" => $ekatalog_email_pp,
+      "ekatalog_phone_number_pp" => $ekatalog_phone_number_pp,
+      "ekatalog_nama_buyer" => $ekatalog_nama_buyer,
+      "ekatalog_position_buyer" => $ekatalog_position_buyer,
+      "ekatalog_nip_buyer" => $ekatalog_nip_buyer,
+      "ekatalog_email_buyer" => $ekatalog_email_buyer,
+      "ekatalog_phone_number_buyer" => $ekatalog_phone_number_buyer,
     );
     updateRow("mstr_ekatalog", $data, $where);
   }
@@ -99,7 +122,7 @@ class M_ekatalog extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status, DATE_FORMAT(ekatalog_tgl_buat_online, '%d %M %Y') as format_tgl_buat_online, DATE_FORMAT(ekatalog_tgl_ubah_online, '%d %M %Y') as format_tgl_ubah_online, ifnull(ekatalog_tgl_update, ekatalog_tgl_create) as ekatalog_tgl_update, ifnull(user_username, 'SYSTEM') as user_username 
+    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status, DATE_FORMAT(ekatalog_tgl_buat_online, '%d %M %Y') as format_tgl_buat_online, DATE_FORMAT(ekatalog_tgl_ubah_online, '%d %M %Y') as format_tgl_ubah_online, ifnull(ekatalog_tgl_update, ekatalog_tgl_create) as ekatalog_tgl_update, ifnull(user_username, 'SYSTEM') as user_username, ekatalog_nama_pp, ekatalog_position_pp, ekatalog_nip_pp, ekatalog_email_pp, ekatalog_phone_number_pp, ekatalog_nama_buyer, ekatalog_position_buyer, ekatalog_nip_buyer, ekatalog_email_buyer, ekatalog_phone_number_buyer, ekatalog_id 
     FROM mstr_ekatalog
     left join mstr_user on mstr_user.id_pk_user = mstr_ekatalog.ekatalog_id_create 
     WHERE ekatalog_status != 'nonaktif' " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
@@ -128,7 +151,7 @@ class M_ekatalog extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_tgl_create, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status, DATE_FORMAT(ekatalog_tgl_buat_online, '%d %M %Y') as format_tgl_buat_online, DATE_FORMAT(ekatalog_tgl_ubah_online, '%d %M %Y') as format_tgl_ubah_online FROM mstr_ekatalog WHERE ekatalog_status != 'nonaktif' and ekatalog_id_create = 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_tgl_create, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status, DATE_FORMAT(ekatalog_tgl_buat_online, '%d %M %Y') as format_tgl_buat_online, DATE_FORMAT(ekatalog_tgl_ubah_online, '%d %M %Y') as format_tgl_ubah_online, ekatalog_nama_pp, ekatalog_position_pp, ekatalog_nip_pp, ekatalog_email_pp, ekatalog_phone_number_pp, ekatalog_nama_buyer, ekatalog_position_buyer, ekatalog_nip_buyer, ekatalog_email_buyer, ekatalog_phone_number_buyer, ekatalog_id FROM mstr_ekatalog WHERE ekatalog_status != 'nonaktif' and ekatalog_id_create = 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     return executeQuery($sql);
   }
   public function get_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
@@ -154,7 +177,7 @@ class M_ekatalog extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status, DATE_FORMAT(ekatalog_tgl_buat_online, '%d %M %Y') as format_tgl_buat_online, DATE_FORMAT(ekatalog_tgl_ubah_online, '%d %M %Y') as format_tgl_ubah_online FROM mstr_ekatalog WHERE ekatalog_status != 'nonaktif' and ekatalog_id_create = ? " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+    $sql = "SELECT id_pk_ekatalog, ekatalog_komoditas, ekatalog_id_paket, ekatalog_nama_paket, ekatalog_instansi, ekatalog_satuan_kerja, ekatalog_npwp_satuan_kerja, ekatalog_alamat_satuan_kerja, ekatalog_alamat_pengiriman, ekatalog_tgl_buat_online, ekatalog_tgl_ubah_online, ekatalog_tahun_anggaran, ekatalog_total_produk, ekatalog_total_harga, ekatalog_total_harga_online, ekatalog_status_paket, ekatalog_posisi_paket, ekatalog_status, DATE_FORMAT(ekatalog_tgl_buat_online, '%d %M %Y') as format_tgl_buat_online, DATE_FORMAT(ekatalog_tgl_ubah_online, '%d %M %Y') as format_tgl_ubah_online, ekatalog_nama_pp, ekatalog_position_pp, ekatalog_nip_pp, ekatalog_email_pp, ekatalog_phone_number_pp, ekatalog_nama_buyer, ekatalog_position_buyer, ekatalog_nip_buyer, ekatalog_email_buyer, ekatalog_phone_number_buyer, ekatalog_id FROM mstr_ekatalog WHERE ekatalog_status != 'nonaktif' and ekatalog_id_create = ? " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
     $args = array(
       $this->session->id_user
     );

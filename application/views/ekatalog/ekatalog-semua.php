@@ -277,6 +277,56 @@
             <input type="text" class="form-control" readonly name="posisi_paket" id="edit_posisi_paket">
           </div>
           <div class="table-responsive">
+            <label class="form-control-label">PP/Comittee/Pemesan</label>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td>Nama</td>
+                <td><input type="text" class="form-control" readonly name="nama_pp" id="edit_nama_pp"></td>
+              </tr>
+              <tr>
+                <td>Jabatan</td>
+                <td><input type="text" class="form-control" readonly name="position_pp" id="edit_position_pp"></td>
+              </tr>
+              <tr>
+                <td>NIP</td>
+                <td><input type="text" class="form-control" readonly name="nip_pp" id="edit_nip_pp"></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input type="text" class="form-control" readonly name="email_pp" id="edit_email_pp"></td>
+              </tr>
+              <tr>
+                <td>No. Telp</td>
+                <td><input type="text" class="form-control" readonly name="phone_number_pp" id="edit_phone_number_pp"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="table-responsive">
+            <label class="form-control-label">PPK/Buyer/Pembeli</label>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <td>Nama</td>
+                <td><input type="text" class="form-control" readonly name="nama_buyer" id="edit_nama_buyer"></td>
+              </tr>
+              <tr>
+                <td>Jabatan</td>
+                <td><input type="text" class="form-control" readonly name="position_buyer" id="edit_position_buyer"></td>
+              </tr>
+              <tr>
+                <td>NIP</td>
+                <td><input type="text" class="form-control" readonly name="nip_buyer" id="edit_nip_buyer"></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input type="text" class="form-control" readonly name="email_buyer" id="edit_email_buyer"></td>
+              </tr>
+              <tr>
+                <td>No. Telp</td>
+                <td><input type="text" class="form-control" readonly name="phone_number_buyer" id="edit_phone_number_buyer"></td>
+              </tr>
+            </table>
+          </div>
+          <div class="table-responsive">
             <table class="table table-bordered table-hover">
               <thead>
                 <th>Nama Produk</th>
@@ -321,6 +371,16 @@
     $("#edit_total_harga_info").text(content[row]["ekatalog_total_harga_online"]);
     $("#edit_status_paket").val(content[row]["ekatalog_status_paket"]);
     $("#edit_posisi_paket").val(content[row]["ekatalog_posisi_paket"]);
+    $("#edit_nama_pp").val(content[row]["ekatalog_nama_pp"]);
+    $("#edit_position_pp").val(content[row]["ekatalog_position_pp"]);
+    $("#edit_nip_pp").val(content[row]["ekatalog_nip_pp"]);
+    $("#edit_email_pp").val(content[row]["ekatalog_email_pp"]);
+    $("#edit_phone_number_pp").val(content[row]["ekatalog_phone_number_pp"]);
+    $("#edit_nama_buyer").val(content[row]["ekatalog_nama_buyer"]);
+    $("#edit_position_buyer").val(content[row]["ekatalog_position_buyer"]);
+    $("#edit_nip_buyer").val(content[row]["ekatalog_nip_buyer"]);
+    $("#edit_email_buyer").val(content[row]["ekatalog_email_buyer"]);
+    $("#edit_phone_number_buyer").val(content[row]["ekatalog_phone_number_buyer"]);
 
     $(".produk_ekatalog_row").remove();
     $.ajax({
