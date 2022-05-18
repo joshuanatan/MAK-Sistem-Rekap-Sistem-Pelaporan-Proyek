@@ -69,6 +69,13 @@ class User extends CI_Controller
             }
           }
         } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+          $this->load->model("m_user_provinsi");
+          $asm_provinsi = $this->input->post("asm_provinsi");
+          if($asm_provinsi != "") {
+            foreach($asm_provinsi as $a) {
+              $this->m_user_provinsi->insert($id_user, $a);
+            }
+          }
           $this->load->model("m_user_kabupaten");
           $asm_kabupaten = $this->input->post("asm_kabupaten");
           if ($asm_kabupaten != "") {

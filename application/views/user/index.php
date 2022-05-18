@@ -138,7 +138,7 @@
             </div>
             <div id="div_sales_engineer">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container" name="supervisor">
                 </select>
@@ -180,7 +180,7 @@
             </div>
             <div id="div_supervisor_asm">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_asm" name="supervisor_asm">
                 </select>
@@ -196,12 +196,14 @@
                 </select>
               </div>
               <div class="form-group">
+                <br>
+                <label class="form-control-label">Kabupaten</label>
                 <div class = "scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
-                        <th>Checklist</th>
-                        <th>Provinsi</th>
+                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
+                        <th>Kabupaten</th>
                       </tr>
                     </thead>
                     <tbody id="asm_table_kabupaten">
@@ -256,7 +258,7 @@
             </div>
             <div id="edit_div_sales_engineer">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_edit" name="supervisor">
                 </select>
@@ -317,7 +319,7 @@
             </div>
             <div id="edit_div_supervisor_asm">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_asm_edit" name="supervisor_asm">
                 </select>
@@ -338,8 +340,8 @@
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
-                        <th>Checklist</th>
-                        <th>Provinsi</th>
+                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
+                        <th>Kabupaten</th>
                       </tr>
                     </thead>
                     <tbody id="edit_asm_table_kabupaten">
@@ -354,7 +356,7 @@
                     <thead>
                       <tr>
                         <th>Checklist</th>
-                        <th>Provinsi</th>
+                        <th>Kabupaten</th>
                       </tr>
                     </thead>
                     <tbody id="edit_asm_table_kabupaten_unassigned">
@@ -538,6 +540,13 @@
           </tr>`;
       }
       $("#table_rs").html(html);
+    }
+  }
+
+  function toggle_kab(source) {
+    checkboxes = document.getElementsByName('asm_kabupaten[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
     }
   }
 
