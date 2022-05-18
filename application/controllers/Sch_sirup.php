@@ -27,7 +27,7 @@ class Sch_sirup extends CI_Controller
   }
   public function reset_status_query()
   {
-    $sql = "update mstr_pencarian_sirup set pencarian_sirup_status_query_today = 0";
+    $sql = "update mstr_pencarian_sirup set pencarian_sirup_status_query_today = 0 where pencarian_sirup_status = 'aktif'";
     executeQuery($sql);
   }
   public function query_sirup()
@@ -398,6 +398,11 @@ class Sch_sirup extends CI_Controller
     executeQuery($sql);
     $sql = "truncate table temp_sirup_general";
     executeQuery($sql);
+    $data = array(
+      "date" => date("H:i:s"),
+      "keterangan" => "Deleting all temp"
+    );
+    insertRow("testcron", $data);
   }
   public function execute_all_function()
   {
@@ -412,7 +417,8 @@ class Sch_sirup extends CI_Controller
   public function cron_delete_temp()
   {
     $data = array(
-      "date" => date("H:i:s")
+      "date" => date("H:i:s"),
+      "keterangan" => "Deleting temp"
     );
     insertRow("testcron", $data);
     $sql = "select * from temp_sirup_detil where is_executed = 0";
@@ -435,7 +441,8 @@ class Sch_sirup extends CI_Controller
   public function test_cron()
   {
     $data = array(
-      "date" => date("Y-m-d H:i:s")
+      "date" => date("Y-m-d H:i:s"),
+      "keterangan" => "Pulling data"
     );
     insertRow("testcron", $data);
     $this->query_sirup_detail();
@@ -445,7 +452,8 @@ class Sch_sirup extends CI_Controller
   public function update_sirup_weekly()
   {
     $data = array(
-      "date" => date("d-m-Y H:i:s")
+      "date" => date("d-m-Y H:i:s"),
+      "keterangan" => "Updating Sirup"
     );
     insertRow("testcron", $data);
 
