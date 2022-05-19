@@ -1084,4 +1084,34 @@ class M_prospek extends CI_Model
 
     return executeQuery($sql);
   }
+
+  public function get_total_prospek_price() {
+    $sql = "SELECT total_price_prospek 
+    FROM mstr_prospek 
+    WHERE prospek_status = 'aktif' AND prospek_id_create = ?";
+    $args = array(
+      $this->session->id_user
+    );
+    return executeQuery($sql, $args);
+  }
+  public function get_total_prospek_pemerintah() {
+    $sql = "SELECT total_price_prospek 
+    FROM mstr_prospek 
+    LEFT JOIN mstr_rs ON mstr_rs.id_pk_rs = mstr_prospek.id_fk_rs
+    WHERE prospek_status = 'aktif' AND prospek_id_create = ? AND rs_kategori = 'Pemerintah'";
+    $args = array(
+      $this->session->id_user
+    );
+    return executeQuery($sql, $args);
+  }
+  public function get_total_prospek_swasta() {
+    $sql = "SELECT total_price_prospek 
+    FROM mstr_prospek 
+    LEFT JOIN mstr_rs ON mstr_rs.id_pk_rs = mstr_prospek.id_fk_rs
+    WHERE prospek_status = 'aktif' AND prospek_id_create = ? AND rs_kategori = 'Swasta'";
+    $args = array(
+      $this->session->id_user
+    );
+    return executeQuery($sql, $args);
+  }
 }

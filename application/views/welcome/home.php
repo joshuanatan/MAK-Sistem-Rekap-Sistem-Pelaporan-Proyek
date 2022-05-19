@@ -31,6 +31,31 @@
           <th>:</th>
           <td style="padding-left:20px"><?php echo ucwords($this->session->user_role) ?></td>
         </tr>
+        <tr>
+          <th>Total Prospek</th>
+          <th>:</th>
+          <td align="right">Rp. <?php echo number_format($user_data['total_price']);?></td>
+        </tr>
+        <tr>
+          <th>Sirup Funnel<th> 
+          <th>:</th>
+          <td><?php echo $user_data['funnel'];?></td>
+        </tr>
+        <tr>
+          <th>Sirup Not Funnel<th> 
+          <th>:</th>
+          <td><?php echo $user_data['not_funnel'];?></td>
+        </tr>
+        <tr>
+          <th>Total Prospek Pemerintah<th> 
+          <th>:</th>
+          <td align="right">Rp. <?php echo number_format($user_data['total_prospek_pemerintah']);?></td>
+        </tr>
+        <tr>
+          <th>Total Prospek Swasta<th> 
+          <th>:</th>
+          <td align="right">Rp. <?php echo number_format($user_data['total_prospek_swasta']);?></td>
+        </tr>
       </table>
     </div>
   </div>
