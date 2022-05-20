@@ -937,7 +937,83 @@
       }
       $("#edit_se_table_rs_unassigned").html(html);
 
-    } else if (content[row]["user_role"].trim() == "Supervisor" || content[row]["user_role"].trim() == "Area Sales Manager") {
+    } else if (content[row]["user_role"].trim() == "Area Sales Manager") {
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_supervisor_asm").show();
+      $("#edit_div_sm").hide();
+
+
+      supervisor_list = load_supervisor(content[row]["user_role"]);
+      var html = "<option value = 0 disabled>Pilih Supervisor</option>";
+      for (var a = 0; a < supervisor_list.length; a++) {
+        html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
+      }
+      $("#supervisor_list_container_asm_edit").html(html);
+      $("#supervisor_list_container_asm_edit").val(content[row]["user_supervisor"]);
+
+      var respond = "";
+      var html = "";
+      var id_provinsi = 0;
+
+      respond = load_selected_kabupaten_asm(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[a]['kabupaten_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_kabupaten").html(html);
+
+      respond = load_selected_provinsi_asm(content[row]["id_pk_user"]);
+      html_prov = "";
+      for (var a = 0; a < respond.length; a++) {
+        html_prov += `
+          <tr>
+            <td><input type="checkbox" checked onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+
+      $("#edit_asm_table_provinsi").html(html_prov);
+
+      $("#edit_asm_provinsi").val(respond[0]["id_fk_provinsi"]);
+      id_provinsi = respond[0]["id_fk_provinsi"];
+
+      respond = load_unselected_kabupaten_asm(content[row]["id_pk_user"], id_provinsi);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[a]['kabupaten_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_kabupaten_unassigned").html(html);
+
+      respond = load_unselected_provinsi_asm(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_provinsi_unassigned").html(html);
+
+      respond = load_supervisee(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr id = "row${respond[a]["id_pk_user"]}">
+            <td>${respond[a]['user_username']}</td>
+            <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "remove_supervisee(${respond[a]["id_pk_user"]})"><i class = "icon md-delete"></i></button></td>
+          </tr>`;
+      }
+      $("#supervisee_list_container_asm_edit").html(html);
+    } else if (content[row]["user_role"].trim() == "Supervisor") {
       $("#edit_div_sales_engineer").hide();
       $("#edit_div_supervisor_asm").show();
       $("#edit_div_sm").hide();
@@ -1073,10 +1149,38 @@
     return response_return;
   }
 
+  function load_selected_kabupaten_asm(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_selected_kabupaten_asm/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
   function load_selected_provinsi(id_user) {
     var response_return = "";
     $.ajax({
       url: `<?php echo base_url(); ?>ws/user/get_selected_provinsi/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_selected_provinsi_asm(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_selected_provinsi_asm/${id_user}`,
       type: "GET",
       async: false,
       dataType: "JSON",
@@ -1101,10 +1205,38 @@
     return response_return;
   }
 
+  function load_unselected_kabupaten_asm(id_user, id_provinsi) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_unselected_kabupaten_asm/${id_user}/${id_provinsi}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
   function load_unselected_provinsi(id_user) {
     var response_return = "";
     $.ajax({
       url: `<?php echo base_url(); ?>ws/user/get_unselected_provinsi/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_unselected_provinsi_asm(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_unselected_provinsi_asm/${id_user}`,
       type: "GET",
       async: false,
       dataType: "JSON",

@@ -211,10 +211,26 @@ class User extends CI_Controller
     echo json_encode($result->result_array());
   }
 
+  public function get_selected_kabupaten_asm($id_pk_user)
+  {
+    $this->load->model("m_user_kabupaten");
+    $result = $this->m_user_kabupaten->get_selected_kabupaten_asm($id_pk_user);
+    #echo $this->db->last_query();
+    echo json_encode($result->result_array());
+  }
+
   public function get_selected_provinsi($id_pk_user)
   {
     $this->load->model("m_user_provinsi");
     $result = $this->m_user_provinsi->get_selected_provinsi($id_pk_user);
+    #echo $this->db->last_query();
+    echo json_encode($result->result_array());
+  }
+
+  public function get_selected_provinsi_asm($id_pk_user)
+  {
+    $this->load->model("m_user_provinsi");
+    $result = $this->m_user_provinsi->get_selected_provinsi_asm($id_pk_user);
     #echo $this->db->last_query();
     echo json_encode($result->result_array());
   }
@@ -226,12 +242,27 @@ class User extends CI_Controller
     echo json_encode($result->result_array());
   }
 
+  public function get_unselected_kabupaten_asm($id_pk_user, $id_provinsi)
+  {
+    $this->load->model("m_user_kabupaten");
+    $result = $this->m_user_kabupaten->get_unselected_kabupaten_asm($id_pk_user, $id_provinsi);
+    echo json_encode($result->result_array());
+  }
+
   public function get_unselected_provinsi($id_pk_user)
   {
     $this->load->model("m_user_provinsi");
     $result = $this->m_user_provinsi->get_unselected_provinsi($id_pk_user);
     echo json_encode($result->result_array());
   }
+
+  public function get_unselected_provinsi_asm($id_pk_user)
+  {
+    $this->load->model("m_user_provinsi");
+    $result = $this->m_user_provinsi->get_unselected_provinsi_asm($id_pk_user);
+    echo json_encode($result->result_array());
+  }
+
   public function get_selected_rs($id_pk_user)
   {
     $this->load->model("m_user_rs");
