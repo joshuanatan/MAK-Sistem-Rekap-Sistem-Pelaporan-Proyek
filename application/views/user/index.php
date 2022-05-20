@@ -188,12 +188,30 @@
               <div id="drop_provinsi">
                 <label class="form-control-label">Provinsi</label>
                 <br>
-                <select onchange="asm_change_provinsi()" id="asm_provinsi" class="form-control">
+                <div class = "scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                      <thead>
+                        <tr>
+                          <th><input type="checkbox" onClick="toggle_prov(this)" onchange="asm_change_provinsi()"> &nbsp; Checklist</th>
+                          <th>Provinsi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                          <tr>
+                            <td><input type="checkbox" value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>" name = "asm_provinsi[]" onchange="asm_change_provinsi()"></td>
+                            <td><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></td>
+                          </tr>
+                        <?php endfor; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                <!-- <select onchange="asm_change_provinsi()" id="asm_provinsi" class="form-control">
                   <option>Pilih</option>
                   <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
                     <option value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></option>
                   <?php endfor; ?>
-                </select>
+                </select> -->
               </div>
               <div class="form-group">
                 <br>
@@ -325,14 +343,26 @@
                 </select>
               </div>
               <div id="drop_provinsi" class="form-group">
-                <label class="form-control-label">Provinsi</label>
+                <label class="form-control-label">Assigned Provinsi</label>
                 <br>
-                <select onchange="edit_asm_change_provinsi()" id="edit_asm_provinsi" class="form-control">
-                  <option>Pilih</option>
-                  <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
-                    <option value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></option>
-                  <?php endfor; ?>
-                </select>
+                <div class = "scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                      <thead>
+                        <tr>
+                          <th><input type="checkbox" onClick="toggle_prov(this)" onchange="asm_change_provinsi()"> &nbsp; Checklist</th>
+                          <th>Provinsi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                          <tr>
+                            <td><input type="checkbox" value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>" name = "asm_provinsi[]" onchange="asm_change_provinsi()"></td>
+                            <td><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></td>
+                          </tr>
+                        <?php endfor; ?>
+                      </tbody>
+                    </table>
+                  </div>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Assigned Kabupaten</label>
@@ -550,25 +580,36 @@
     }
   }
 
-  function asm_change_provinsi() {
-    var id_provinsi = $("#asm_provinsi").val();
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/user/data_kabupaten/" + id_provinsi,
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          html += `
-            <tr>
-              <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
-              <td>${respond[a]['kabupaten_nama']}</td>
-            </tr>`;
-        }
-        $("#asm_table_kabupaten").html(html);
-      }
-    });
+  function toggle_prov(source) {
+    checkboxes = document.getElementsByName('asm_provinsi[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
 
+  function asm_change_provinsi() {
+    var id = [];
+    var values = $('input[name="asm_provinsi[]"]:checked').each(function() {
+      id.push(this.value);
+    });
+    var html = "";
+    for(var i=0;i<id.length;i++) {
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/user/data_kabupaten/" + id[i],
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+          for (var a = 0; a < respond.length; a++) {
+            html += `
+              <tr>
+                <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+                <td>${respond[a]['kabupaten_nama']}</td>
+              </tr>`;
+          }
+          $("#asm_table_kabupaten").html(html);
+        }
+      });
+    }
   }
 
   function edit_sales_engineer_change_provinsi() {
@@ -994,6 +1035,20 @@
     var response_return = "";
     $.ajax({
       url: `<?php echo base_url(); ?>ws/user/get_unselected_kabupaten/${id_user}/${id_provinsi}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_unselected_provinsi(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_unselected_provinsi/${id_user}`,
       type: "GET",
       async: false,
       dataType: "JSON",

@@ -18,14 +18,14 @@ class M_user_provinsi extends CI_model
     );
     return executeQuery($sql, $args);
   }
-  public function get_unselected_provinsi($id_fk_user, $id_provinsi)
+  public function get_unselected_provinsi($id_fk_user)
   {
     $sql = "
-    select id_pk_provinsi, provinsi_nama from mstr_provinsi where provinsi_status = 'aktif' and id_pk_provinsi = ? and id_pk_provinsi not in (
+    select id_pk_provinsi, provinsi_nama from mstr_provinsi where provinsi_status = 'aktif' and id_pk_provinsi not in (
       select id_fk_provinsi from tbl_user_provinsi where id_fk_user = ? and user_provinsi_status = 'aktif'
     ) ";
     $args = array(
-      $id_provinsi, $id_fk_user
+      $id_fk_user
     );
     return executeQuery($sql, $args);
   }
