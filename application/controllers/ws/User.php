@@ -38,12 +38,11 @@ class User extends CI_Controller
       $temp_user_email = $this->input->post('email');
       $temp_user_telepon = $this->input->post('telepon');
       $temp_user_role = $this->input->post('role');
-      
+
       $temp_user_supervisor = 0;
       if (strtolower($temp_user_role) == "sales engineer") {
         $temp_user_supervisor = $this->input->post('supervisor');
-      }
-      else if(strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
+      } else if (strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
 
         $temp_user_supervisor = $this->input->post('supervisor_asm');
       }
@@ -69,6 +68,13 @@ class User extends CI_Controller
             }
           }
         } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+          $this->load->model("m_user_provinsi");
+          $asm_provinsi = $this->input->post("asm_provinsi");
+          if ($asm_provinsi != "") {
+            foreach ($asm_provinsi as $a) {
+              $this->m_user_provinsi->insert($id_user, $a);
+            }
+          }
           $this->load->model("m_user_kabupaten");
           $asm_kabupaten = $this->input->post("asm_kabupaten");
           if ($asm_kabupaten != "") {
@@ -103,8 +109,7 @@ class User extends CI_Controller
       $temp_user_supervisor = 0;
       if (strtolower($temp_user_role) == "sales engineer") {
         $temp_user_supervisor = $this->input->post('supervisor');
-      }
-      else if(strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
+      } else if (strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
 
         $temp_user_supervisor = $this->input->post('supervisor_asm');
       }
@@ -133,11 +138,19 @@ class User extends CI_Controller
           }
         } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
           $this->load->model("m_user_kabupaten");
+          $this->load->model("m_user_provinsi");
           $this->m_user_kabupaten->deactive_data($temp_id_user);
+          $this->m_user_provinsi->deactive_data($temp_id_user);
           $asm_kabupaten = $this->input->post("asm_kabupaten");
+          $asm_provinsi = $this->input->post("asm_provinsi");
           if ($asm_kabupaten != "") {
             foreach ($asm_kabupaten as $a) {
               $this->m_user_kabupaten->insert($temp_id_user, $a);
+            }
+          }
+          if ($asm_provinsi != "") {
+            foreach ($asm_provinsi as $a) {
+              $this->m_user_provinsi->insert($temp_id_user, $a);
             }
           }
         }
@@ -158,6 +171,9 @@ class User extends CI_Controller
 
       $this->load->model("m_user_kabupaten");
       $this->m_user_kabupaten->deactive_data($id_user);
+
+      $this->load->model("m_user_provinsi");
+      $this->m_user_provinsi->deactive_data($id_user);
 
       $this->load->model("m_user_rs");
       $this->m_user_rs->deactive_data($id_user);
@@ -194,12 +210,59 @@ class User extends CI_Controller
     #echo $this->db->last_query();
     echo json_encode($result->result_array());
   }
+
+  public function get_selected_kabupaten_asm($id_pk_user)
+  {
+    $this->load->model("m_user_kabupaten");
+    $result = $this->m_user_kabupaten->get_selected_kabupaten_asm($id_pk_user);
+    #echo $this->db->last_query();
+    echo json_encode($result->result_array());
+  }
+
+  public function get_selected_provinsi($id_pk_user)
+  {
+    $this->load->model("m_user_provinsi");
+    $result = $this->m_user_provinsi->get_selected_provinsi($id_pk_user);
+    #echo $this->db->last_query();
+    echo json_encode($result->result_array());
+  }
+
+  public function get_selected_provinsi_asm($id_pk_user)
+  {
+    $this->load->model("m_user_provinsi");
+    $result = $this->m_user_provinsi->get_selected_provinsi_asm($id_pk_user);
+    #echo $this->db->last_query();
+    echo json_encode($result->result_array());
+  }
+
   public function get_unselected_kabupaten($id_pk_user, $id_provinsi)
   {
     $this->load->model("m_user_kabupaten");
     $result = $this->m_user_kabupaten->get_unselected_kabupaten($id_pk_user, $id_provinsi);
     echo json_encode($result->result_array());
   }
+
+  public function get_unselected_kabupaten_asm($id_pk_user, $id_provinsi)
+  {
+    $this->load->model("m_user_kabupaten");
+    $result = $this->m_user_kabupaten->get_unselected_kabupaten_asm($id_pk_user, $id_provinsi);
+    echo json_encode($result->result_array());
+  }
+
+  public function get_unselected_provinsi($id_pk_user)
+  {
+    $this->load->model("m_user_provinsi");
+    $result = $this->m_user_provinsi->get_unselected_provinsi($id_pk_user);
+    echo json_encode($result->result_array());
+  }
+
+  public function get_unselected_provinsi_asm($id_pk_user)
+  {
+    $this->load->model("m_user_provinsi");
+    $result = $this->m_user_provinsi->get_unselected_provinsi_asm($id_pk_user);
+    echo json_encode($result->result_array());
+  }
+
   public function get_selected_rs($id_pk_user)
   {
     $this->load->model("m_user_rs");
@@ -323,32 +386,31 @@ class User extends CI_Controller
     }
     echo json_encode($response);
   }
-  public function get_supervisee($id_pk_user_supervisor){
-    if(is_numeric($id_pk_user_supervisor)){
+  public function get_supervisee($id_pk_user_supervisor)
+  {
+    if (is_numeric($id_pk_user_supervisor)) {
       $this->load->model("m_user");
       $result = $this->m_user->get_supervisee($id_pk_user_supervisor);
-      if($result->num_rows() > 0){
+      if ($result->num_rows() > 0) {
         $response["status"] = true;
         $response["content"] = $result->result_array();
-      }
-      else{
+      } else {
         $response["status"] = false;
       }
-    }
-    else{
+    } else {
       $response["status"] = false;
       $response["msg"] = "Invalid ID";
     }
     echo json_encode($response);
   }
-  public function delete_supervisee($id_pk_user){
-    if(is_numeric($id_pk_user)){
+  public function delete_supervisee($id_pk_user)
+  {
+    if (is_numeric($id_pk_user)) {
       $this->load->model("m_user");
       $this->m_user->reset_supervisor($id_pk_user);
       $response["status"] = true;
       $response["msg"] = "Supervisee berhasil dihapus";
-    }
-    else{
+    } else {
       $response["status"] = true;
       $response["msg"] = "Invalid ID";
     }

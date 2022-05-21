@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>global/fonts/font-awesome/font-awesome.css">
 
   <style>
-    .scroll-detail-table-wrapper{
-      overflow-y:scroll;
-      max-height:300px;
+    .scroll-detail-table-wrapper {
+      overflow-y: scroll;
+      max-height: 300px;
     }
   </style>
 
@@ -138,7 +138,7 @@
             </div>
             <div id="div_sales_engineer">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container" name="supervisor">
                 </select>
@@ -161,7 +161,7 @@
               </div>
               <div class="form-group">
                 <h5>Daftar Rumah Sakit</h5>
-                <div class = "scroll-detail-table-wrapper">
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
@@ -180,7 +180,7 @@
             </div>
             <div id="div_supervisor_asm">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_asm" name="supervisor_asm">
                 </select>
@@ -188,20 +188,40 @@
               <div id="drop_provinsi">
                 <label class="form-control-label">Provinsi</label>
                 <br>
-                <select onchange="asm_change_provinsi()" id="asm_provinsi" class="form-control">
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" onClick="toggle_prov(this)" onchange="asm_change_provinsi()"> &nbsp; Checklist</th>
+                        <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
+                        <tr>
+                          <td><input type="checkbox" value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>" name="asm_provinsi[]" onchange="asm_change_provinsi()"></td>
+                          <td><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></td>
+                        </tr>
+                      <?php endfor; ?>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- <select onchange="asm_change_provinsi()" id="asm_provinsi" class="form-control">
                   <option>Pilih</option>
                   <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
                     <option value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></option>
                   <?php endfor; ?>
-                </select>
+                </select> -->
               </div>
               <div class="form-group">
-                <div class = "scroll-detail-table-wrapper">
+                <br>
+                <label class="form-control-label">Kabupaten</label>
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
-                        <th>Checklist</th>
-                        <th>Provinsi</th>
+                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
+                        <th>Kabupaten</th>
                       </tr>
                     </thead>
                     <tbody id="asm_table_kabupaten">
@@ -256,7 +276,7 @@
             </div>
             <div id="edit_div_sales_engineer">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_edit" name="supervisor">
                 </select>
@@ -279,8 +299,8 @@
               </div>
               <div class="form-group">
                 <h5>Assigned Rumah Sakit</h5>
-                
-                <div class = "scroll-detail-table-wrapper">
+
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
@@ -298,7 +318,7 @@
               </div>
               <div class="form-group">
                 <h5>Unassigned Rumah Sakit</h5>
-                <div class = "scroll-detail-table-wrapper">
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
@@ -317,29 +337,53 @@
             </div>
             <div id="edit_div_supervisor_asm">
               <div class="form-group">
-                <label class="form-control-label">Supervisor</label>
+                <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_asm_edit" name="supervisor_asm">
                 </select>
               </div>
               <div id="drop_provinsi" class="form-group">
-                <label class="form-control-label">Provinsi</label>
+                <label class="form-control-label">Assigned Provinsi</label>
                 <br>
-                <select onchange="edit_asm_change_provinsi()" id="edit_asm_provinsi" class="form-control">
-                  <option>Pilih</option>
-                  <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
-                    <option value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></option>
-                  <?php endfor; ?>
-                </select>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" onClick="toggle_prov(this)" onchange="asm_change_provinsi()"> &nbsp; Checklist</th>
+                        <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_asm_table_provinsi">
+
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Assigned Kabupaten</label>
-                <div class = "scroll-detail-table-wrapper">
+              <div id="drop_provinsi" class="form-group">
+                <label class="form-control-label">Unassigned Provinsi</label>
+                <br>
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
                         <th>Checklist</th>
                         <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_asm_table_provinsi_unassigned">
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Assigned Kabupaten</label>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
+                        <th>Kabupaten</th>
                       </tr>
                     </thead>
                     <tbody id="edit_asm_table_kabupaten">
@@ -349,12 +393,12 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Unassigned Kabupaten</label>
-                <div class = "scroll-detail-table-wrapper">
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
                         <th>Checklist</th>
-                        <th>Provinsi</th>
+                        <th>Kabupaten</th>
                       </tr>
                     </thead>
                     <tbody id="edit_asm_table_kabupaten_unassigned">
@@ -364,7 +408,7 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Supervisee</label>
-                <div class = "scroll-detail-table-wrapper">
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
@@ -381,7 +425,7 @@
             <div id="edit_div_sm">
               <div class="form-group">
                 <label class="form-control-label">Supervisee</label>
-                <div class = "scroll-detail-table-wrapper">
+                <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
@@ -446,7 +490,7 @@
   function create_change_access() {
     var jabatan = $("#drop_access").val();
     if (jabatan == "Sales Engineer") {
-      
+
       supervisor_list = load_supervisor(jabatan);
       var html = "<option value = 0 disabled>Pilih Supervisor</option>";
       for (var a = 0; a < supervisor_list.length; a++) {
@@ -464,7 +508,7 @@
         html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
       }
       $("#supervisor_list_container_asm").html(html);
-      
+
       $("#div_sales_engineer").hide();
       $("#div_supervisor_asm").show();
     } else {
@@ -483,7 +527,7 @@
         html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
       }
       $("#supervisor_list_container_edit").html(html);
-      
+
       $("#edit_div_supervisor_asm").hide();
       $("#edit_div_sales_engineer").show();
       $("#edit_div_sm").hide();
@@ -541,25 +585,43 @@
     }
   }
 
-  function asm_change_provinsi() {
-    var id_provinsi = $("#asm_provinsi").val();
-    $.ajax({
-      url: "<?php echo base_url(); ?>ws/user/data_kabupaten/" + id_provinsi,
-      type: "GET",
-      dataType: "JSON",
-      success: function(respond) {
-        var html = "";
-        for (var a = 0; a < respond.length; a++) {
-          html += `
-            <tr>
-              <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
-              <td>${respond[a]['kabupaten_nama']}</td>
-            </tr>`;
-        }
-        $("#asm_table_kabupaten").html(html);
-      }
-    });
+  function toggle_kab(source) {
+    checkboxes = document.getElementsByName('asm_kabupaten[]');
+    for (var i = 0, n = checkboxes.length; i < n; i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
 
+  function toggle_prov(source) {
+    checkboxes = document.getElementsByName('asm_provinsi[]');
+    for (var i = 0, n = checkboxes.length; i < n; i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
+
+  function asm_change_provinsi() {
+    var id = [];
+    var values = $('input[name="asm_provinsi[]"]:checked').each(function() {
+      id.push(this.value);
+    });
+    var html = "";
+    for (var i = 0; i < id.length; i++) {
+      $.ajax({
+        url: "<?php echo base_url(); ?>ws/user/data_kabupaten/" + id[i],
+        type: "GET",
+        dataType: "JSON",
+        success: function(respond) {
+          for (var a = 0; a < respond.length; a++) {
+            html += `
+              <tr>
+                <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+                <td>${respond[a]['kabupaten_nama']}</td>
+              </tr>`;
+          }
+          $("#asm_table_kabupaten").html(html);
+        }
+      });
+    }
   }
 
   function edit_sales_engineer_change_provinsi() {
@@ -598,30 +660,36 @@
     }
   }
 
+
   function edit_asm_change_provinsi() {
-    var id_provinsi = $("#edit_asm_provinsi").val();
-    respond = load_unselected_kabupaten(content[active_row]["id_pk_user"], id_provinsi);
-    html = "";
-    for (var a = 0; a < respond.length; a++) {
-      html += `
+    var id = [];
+    var values = $('input[name="asm_provinsi[]"]:checked').each(function() {
+      id.push(this.value);
+    });
+    var html = "";
+    for (var i = 0; i < id.length; i++) {
+      respond = load_unselected_kabupaten(content[active_row]["id_pk_user"], id[i]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
         <tr>
           <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
           <td>${respond[a]['kabupaten_nama']}</td>
         </tr>`;
+      }
+      $("#edit_asm_table_kabupaten_unassigned").html(html);
     }
-    $("#edit_asm_table_kabupaten_unassigned").html(html);
-    $("#edit_asm_table_kabupaten").html("");
   }
 
-  function remove_supervisee(id_supervisee){
-    if(confirm("Apakah Anda yakin akan menghapus supervisee ini?")){
+  function remove_supervisee(id_supervisee) {
+    if (confirm("Apakah Anda yakin akan menghapus supervisee ini?")) {
       $.ajax({
-        url:"<?php echo base_url();?>ws/user/delete_supervisee/"+id_supervisee,
-        type:"DELETE",
-        dataType:"JSON",
-        success:function(respond){
+        url: "<?php echo base_url(); ?>ws/user/delete_supervisee/" + id_supervisee,
+        type: "DELETE",
+        dataType: "JSON",
+        success: function(respond) {
           alert(respond["msg"]);
-          if(respond["status"]){
+          if (respond["status"]) {
             $(`#row${id_supervisee}`).remove();
             reload_content(); /*untuk update current supervisornya*/
           }
@@ -818,7 +886,7 @@
         html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
       }
       $("#supervisor_list_container_edit").html(html);
-      
+
       $("#supervisor_list_container_edit").val(content[row]["user_supervisor"]);
 
       var id_provinsi = 0;
@@ -869,12 +937,88 @@
       }
       $("#edit_se_table_rs_unassigned").html(html);
 
-    } else if (content[row]["user_role"].trim() == "Supervisor" || content[row]["user_role"].trim() == "Area Sales Manager") {
+    } else if (content[row]["user_role"].trim() == "Area Sales Manager") {
       $("#edit_div_sales_engineer").hide();
       $("#edit_div_supervisor_asm").show();
       $("#edit_div_sm").hide();
 
-      
+
+      supervisor_list = load_supervisor(content[row]["user_role"]);
+      var html = "<option value = 0 disabled>Pilih Supervisor</option>";
+      for (var a = 0; a < supervisor_list.length; a++) {
+        html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
+      }
+      $("#supervisor_list_container_asm_edit").html(html);
+      $("#supervisor_list_container_asm_edit").val(content[row]["user_supervisor"]);
+
+      var respond = "";
+      var html = "";
+      var id_provinsi = 0;
+
+      respond = load_selected_kabupaten_asm(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[a]['kabupaten_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_kabupaten").html(html);
+
+      respond = load_selected_provinsi_asm(content[row]["id_pk_user"]);
+      html_prov = "";
+      for (var a = 0; a < respond.length; a++) {
+        html_prov += `
+          <tr>
+            <td><input type="checkbox" checked onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+
+      $("#edit_asm_table_provinsi").html(html_prov);
+
+      $("#edit_asm_provinsi").val(respond[0]["id_fk_provinsi"]);
+      id_provinsi = respond[0]["id_fk_provinsi"];
+
+      respond = load_unselected_kabupaten_asm(content[row]["id_pk_user"], id_provinsi);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[a]['kabupaten_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_kabupaten_unassigned").html(html);
+
+      respond = load_unselected_provinsi_asm(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_provinsi_unassigned").html(html);
+
+      respond = load_supervisee(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr id = "row${respond[a]["id_pk_user"]}">
+            <td>${respond[a]['user_username']}</td>
+            <td><button type = "button" class = "btn btn-danger btn-sm" onclick = "remove_supervisee(${respond[a]["id_pk_user"]})"><i class = "icon md-delete"></i></button></td>
+          </tr>`;
+      }
+      $("#supervisee_list_container_asm_edit").html(html);
+    } else if (content[row]["user_role"].trim() == "Supervisor") {
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_supervisor_asm").show();
+      $("#edit_div_sm").hide();
+
+
       supervisor_list = load_supervisor(content[row]["user_role"]);
       var html = "<option value = 0 disabled>Pilih Supervisor</option>";
       for (var a = 0; a < supervisor_list.length; a++) {
@@ -897,6 +1041,19 @@
           </tr>`;
       }
       $("#edit_asm_table_kabupaten").html(html);
+
+      respond = load_selected_provinsi(content[row]["id_pk_user"]);
+      html_prov = "";
+      for (var a = 0; a < respond.length; a++) {
+        html_prov += `
+          <tr>
+            <td><input type="checkbox" checked onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+
+      $("#edit_asm_table_provinsi").html(html_prov);
+
       $("#edit_asm_provinsi").val(respond[0]["id_fk_provinsi"]);
       id_provinsi = respond[0]["id_fk_provinsi"];
 
@@ -910,6 +1067,17 @@
           </tr>`;
       }
       $("#edit_asm_table_kabupaten_unassigned").html(html);
+
+      respond = load_unselected_provinsi(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_asm_table_provinsi_unassigned").html(html);
 
       respond = load_supervisee(content[row]["id_pk_user"]);
       html = "";
@@ -981,10 +1149,94 @@
     return response_return;
   }
 
+  function load_selected_kabupaten_asm(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_selected_kabupaten_asm/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_selected_provinsi(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_selected_provinsi/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_selected_provinsi_asm(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_selected_provinsi_asm/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
   function load_unselected_kabupaten(id_user, id_provinsi) {
     var response_return = "";
     $.ajax({
       url: `<?php echo base_url(); ?>ws/user/get_unselected_kabupaten/${id_user}/${id_provinsi}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_unselected_kabupaten_asm(id_user, id_provinsi) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_unselected_kabupaten_asm/${id_user}/${id_provinsi}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_unselected_provinsi(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_unselected_provinsi/${id_user}`,
+      type: "GET",
+      async: false,
+      dataType: "JSON",
+      success: function(respond) {
+        response_return = respond;
+      }
+    });
+    return response_return;
+  }
+
+  function load_unselected_provinsi_asm(id_user) {
+    var response_return = "";
+    $.ajax({
+      url: `<?php echo base_url(); ?>ws/user/get_unselected_provinsi_asm/${id_user}`,
       type: "GET",
       async: false,
       dataType: "JSON",
@@ -1008,8 +1260,8 @@
     });
     return response_return;
   }
-  
-  function load_supervisor(jabatan){
+
+  function load_supervisor(jabatan) {
     var response_return = [];
     $.ajax({
       url: "<?php echo base_url(); ?>ws/user/get_supervisor_candidate/" + jabatan,
@@ -1017,7 +1269,7 @@
       async: false,
       dataType: "JSON",
       success: function(respond) {
-        if(respond["status"]){
+        if (respond["status"]) {
           response_return = respond["content"];
         }
       }
@@ -1025,7 +1277,7 @@
     return response_return;
   }
 
-  function load_supervisee(id_user){
+  function load_supervisee(id_user) {
     var response_return = [];
     $.ajax({
       url: "<?php echo base_url(); ?>ws/user/get_supervisee/" + id_user,
@@ -1033,7 +1285,7 @@
       async: false,
       dataType: "JSON",
       success: function(respond) {
-        if(respond["status"]){
+        if (respond["status"]) {
           response_return = respond["content"];
         }
       }
@@ -1041,7 +1293,7 @@
     return response_return;
   }
 
-  function reload_content(){
+  function reload_content() {
     var url = `<?php echo base_url(); ?>ws/${ctrl}/get_data?kolom_pengurutan=${kolom_pengurutan}&arah_kolom_pengurutan=${arah_kolom_pengurutan}&pencarian_phrase=${pencarian_phrase}&kolom_pencarian=${kolom_pencarian}&current_page=${current_page}`;
     $.ajax({
       url: url,
