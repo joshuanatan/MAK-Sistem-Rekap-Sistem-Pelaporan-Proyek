@@ -35,6 +35,18 @@ class M_user_provinsi extends CI_model
     }
 
     $sql = "select id_pk_user_provinsi, id_pk_provinsi, provinsi_nama, id_fk_provinsi from tbl_user_provinsi inner join mstr_provinsi on mstr_provinsi.id_pk_provinsi = tbl_user_provinsi.id_fk_provinsi where user_provinsi_status = 'aktif' and id_fk_user IN ($id_user)";
+    $result = executeQuery($sql)->result_array();
+
+    $id_provinsi = "";
+    for ($i = 0; $i < count($result); $i++) {
+      if ($id_provinsi != "") {
+        $id_provinsi = $id_provinsi . "," . $result[$i]['id_pk_provinsi'];
+      } else {
+        $id_provinsi = $result[$i]['id_pk_provinsi'];
+      }
+    }
+
+    $sql = "select id_pk_user_provinsi, id_pk_provinsi, provinsi_nama, id_fk_provinsi from tbl_user_provinsi inner join mstr_provinsi on mstr_provinsi.id_pk_provinsi = tbl_user_provinsi.id_fk_provinsi where id_fk_provinsi in ($id_provinsi) and user_provinsi_status = 'aktif' and id_fk_user IN ($id_fk_user)";
 
     return executeQuery($sql);
   }
@@ -66,9 +78,21 @@ class M_user_provinsi extends CI_model
       }
     }
 
+    $sql = "select id_pk_user_provinsi, id_pk_provinsi, provinsi_nama, id_fk_provinsi from tbl_user_provinsi inner join mstr_provinsi on mstr_provinsi.id_pk_provinsi = tbl_user_provinsi.id_fk_provinsi where user_provinsi_status = 'aktif' and id_fk_user IN ($id_user)";
+    $result = executeQuery($sql)->result_array();
+
+    $id_provinsi = "";
+    for ($i = 0; $i < count($result); $i++) {
+      if ($id_provinsi != "") {
+        $id_provinsi = $id_provinsi . "," . $result[$i]['id_pk_provinsi'];
+      } else {
+        $id_provinsi = $result[$i]['id_pk_provinsi'];
+      }
+    }
+
     $sql = "
-    select id_pk_provinsi, provinsi_nama from mstr_provinsi where provinsi_status = 'aktif' and id_pk_provinsi not in (
-      select id_fk_provinsi from tbl_user_provinsi where id_fk_user in ($id_user) and user_provinsi_status = 'aktif'
+    select id_pk_provinsi, provinsi_nama from mstr_provinsi where id_pk_provinsi in ($id_provinsi) and provinsi_status = 'aktif' and id_pk_provinsi not in (
+      select id_fk_provinsi from tbl_user_provinsi where id_fk_user in ($id_fk_user) and user_provinsi_status = 'aktif'
     ) ";
     return executeQuery($sql);
   }
