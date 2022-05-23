@@ -417,7 +417,7 @@ class Sch_sirup extends CI_Controller
   public function cron_delete_temp()
   {
     $data = array(
-      "date" => date("H:i:s"),
+      "date" => date("Y-m-d H:i:s"),
       "keterangan" => "Deleting temp"
     );
     insertRow("testcron", $data);
@@ -452,7 +452,7 @@ class Sch_sirup extends CI_Controller
   public function update_sirup_weekly()
   {
     $data = array(
-      "date" => date("d-m-Y H:i:s"),
+      "date" => date("Y-m-d H:i:s"),
       "keterangan" => "Updating Sirup"
     );
     insertRow("testcron", $data);
