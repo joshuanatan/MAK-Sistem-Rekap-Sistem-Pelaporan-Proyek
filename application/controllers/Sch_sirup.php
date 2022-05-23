@@ -370,6 +370,8 @@ class Sch_sirup extends CI_Controller
   {
     $sql = "update mstr_sirup set sirup_status_sesuai_pencarian = 1";
     executeQuery(($sql));
+    $sql = "delete from mstr_sirup where sirup_rup =''";
+    executeQuery(($sql));
   }
   // public function revalidate_search_similarity()
   // {

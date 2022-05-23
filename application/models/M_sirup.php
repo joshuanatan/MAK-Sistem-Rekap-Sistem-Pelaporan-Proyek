@@ -536,7 +536,6 @@ class M_sirup extends CI_Model
     select *
     from mstr_sirup
     left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-    left join tbl_sirup_lokasi_pekerjaan on tbl_sirup_lokasi_pekerjaan.id_fk_sirup = mstr_sirup.id_pk_sirup
     where sirup_status = 'aktif' and 
     sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
     return executeQuery($sql);
