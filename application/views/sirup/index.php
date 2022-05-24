@@ -78,8 +78,8 @@
             <h5>Funnel Prospek</h5>
             <select class="form-control" name="sirup_funnel" onchange="change_sirup_funnel()" id="sirup_funnel">
               <option value="0" selected>Default</option>
-              <option value="1">Sudah Funnel Propsek</option>
-              <option value="2">Belum Funnel Propsek</option>
+              <option value="1">Sudah Funnel Prospek</option>
+              <option value="2">Belum Funnel Prospek</option>
             </select>
           </div>
           <div class="table-responsive">
