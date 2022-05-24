@@ -8,6 +8,11 @@ date_default_timezone_set("Asia/Jakarta");
 class M_kabupaten extends CI_Model
 {
 
+  public function get_data()
+  {
+    $sql = "SELECT * FROM mstr_kabupaten where kabupaten_status='aktif'";
+    return executeQuery($sql);
+  }
   public function get_kabupaten_per_provinsi($provinsi)
   {
     $sql = "select id_pk_kabupaten,id_fk_provinsi,kabupaten_nama,kabupaten_status,kabupaten_id_create,kabupaten_id_update,kabupaten_id_delete,kabupaten_tgl_create,kabupaten_tgl_update,kabupaten_tgl_delete from v_detail_kabupaten where id_fk_provinsi = ? and kabupaten_status != 'deleted'";
@@ -92,19 +97,21 @@ class M_kabupaten extends CI_Model
     );
     return executeQuery($sql, $args);
   }
-  public function check_duplicate_insert($nama_kabupaten){
+  public function check_duplicate_insert($nama_kabupaten)
+  {
     $where = array(
       "kabupaten_nama" => $nama_kabupaten,
       "kabupaten_status !=" => "deleted"
     );
-    return selectRow("mstr_kabupaten",$where);
+    return selectRow("mstr_kabupaten", $where);
   }
-  public function check_duplicate_update($id_pk_kabupaten, $nama_kabupaten){
+  public function check_duplicate_update($id_pk_kabupaten, $nama_kabupaten)
+  {
     $where = array(
       "id_pk_kabupaten !=" => $id_pk_kabupaten,
       "kabupaten_nama" => $nama_kabupaten,
       "kabupaten_status !=" => "deleted"
     );
-    return selectRow("mstr_kabupaten",$where);
+    return selectRow("mstr_kabupaten", $where);
   }
 }
