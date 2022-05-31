@@ -414,7 +414,7 @@ class M_prospek extends CI_Model
     return executeQuery($sql);
   }
 
-  public function insert_prospek_se($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
+  public function insert_prospek_se($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $data = array(
       "id_fk_rs" => $id_fk_rs,
@@ -424,134 +424,7 @@ class M_prospek extends CI_Model
       "notes_prospek" => $notes_prospek,
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
-      "prospek_status" => "aktif",
-      "prospek_id_create" => $id_user,
-      "prospek_tgl_create" => date("Y-m-d H:i:s"),
-      "sumber_dana" => $sumber_dana,
-      "jenis_pengadaan" => $jenis_pengadaan,
-      "rating" => $rating
-    );
-    return insertRow("mstr_prospek", $data);
-  }
-
-  public function insert_prospek_se_prospek($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
-  {
-    $data = array(
-      "id_fk_rs" => $id_fk_rs,
-      "prospek_principle" => $prospek_principle,
-      "total_price_prospek" => $total_price_prospek,
-      "notes_kompetitor" => $notes_kompetitor,
-      "notes_prospek" => $notes_prospek,
-      "estimasi_pembelian" => $estimasi_pembelian,
-      "funnel" => $funnel,
-      "funnel_percentage" => $funnel_percentage,
-      "prospek_status" => "aktif",
-      "prospek_id_create" => $id_user,
-      "prospek_tgl_create" => date("Y-m-d H:i:s"),
-      "sumber_dana" => $sumber_dana,
-      "jenis_pengadaan" => $jenis_pengadaan,
-      "rating" => $rating
-    );
-    return insertRow("mstr_prospek", $data);
-  }
-
-  public function insert_prospek_se_loss($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
-  {
-    $data = array(
-      "id_fk_rs" => $id_fk_rs,
-      "prospek_principle" => $prospek_principle,
-      "total_price_prospek" => $total_price_prospek,
-      "notes_kompetitor" => $notes_kompetitor,
-      "notes_prospek" => $notes_prospek,
-      "estimasi_pembelian" => $estimasi_pembelian,
-      "funnel" => $funnel,
-      "note_loss" => $note_loss,
-      "prospek_status" => "aktif",
-      "prospek_id_create" => $id_user,
-      "prospek_tgl_create" => date("Y-m-d H:i:s"),
-      "sumber_dana" => $sumber_dana,
-      "jenis_pengadaan" => $jenis_pengadaan,
-      "rating" => $rating
-    );
-    return insertRow("mstr_prospek", $data);
-  }
-
-  public function insert_prospek_asm($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
-  {
-    $data = array(
-      "id_fk_kabupaten" => $id_fk_kabupaten,
-      "id_fk_rs" => $id_fk_rs,
-      "prospek_principle" => $prospek_principle,
-      "total_price_prospek" => $total_price_prospek,
-      "notes_kompetitor" => $notes_kompetitor,
-      "notes_prospek" => $notes_prospek,
-      "estimasi_pembelian" => $estimasi_pembelian,
-      "funnel" => $funnel,
-      "prospek_status" => "aktif",
-      "prospek_id_create" => $id_user,
-      "prospek_tgl_create" => date("Y-m-d H:i:s"),
-      "sumber_dana" => $sumber_dana,
-      "jenis_pengadaan" => $jenis_pengadaan,
-      "rating" => $rating
-    );
-    return insertRow("mstr_prospek", $data);
-  }
-
-  public function insert_prospek_asm_prospek($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
-  {
-    $data = array(
-      "id_fk_kabupaten" => $id_fk_kabupaten,
-      "id_fk_rs" => $id_fk_rs,
-      "prospek_principle" => $prospek_principle,
-      "total_price_prospek" => $total_price_prospek,
-      "notes_kompetitor" => $notes_kompetitor,
-      "notes_prospek" => $notes_prospek,
-      "estimasi_pembelian" => $estimasi_pembelian,
-      "funnel" => $funnel,
-      "funnel_percentage" => $funnel_percentage,
-      "prospek_status" => "aktif",
-      "prospek_id_create" => $id_user,
-      "prospek_tgl_create" => date("Y-m-d H:i:s"),
-      "sumber_dana" => $sumber_dana,
-      "jenis_pengadaan" => $jenis_pengadaan,
-      "rating" => $rating
-    );
-    return insertRow("mstr_prospek", $data);
-  }
-
-  public function insert_prospek_asm_loss($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
-  {
-    $data = array(
-      "id_fk_kabupaten" => $id_fk_kabupaten,
-      "id_fk_rs" => $id_fk_rs,
-      "prospek_principle" => $prospek_principle,
-      "total_price_prospek" => $total_price_prospek,
-      "notes_kompetitor" => $notes_kompetitor,
-      "notes_prospek" => $notes_prospek,
-      "estimasi_pembelian" => $estimasi_pembelian,
-      "funnel" => $funnel,
-      "note_loss" => $note_loss,
-      "prospek_status" => "aktif",
-      "prospek_id_create" => $id_user,
-      "prospek_tgl_create" => date("Y-m-d H:i:s"),
-      "sumber_dana" => $sumber_dana,
-      "jenis_pengadaan" => $jenis_pengadaan,
-      "rating" => $rating
-    );
-    return insertRow("mstr_prospek", $data);
-  }
-
-  public function insert_prospek_asm_sirup($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_faktur, $sumber_dana, $jenis_pengadaan, $rating)
-  {
-    $data = array(
-      "id_fk_kabupaten" => $id_fk_kabupaten,
-      "id_fk_rs" => $id_fk_rs,
-      "prospek_principle" => $prospek_principle,
-      "total_price_prospek" => $total_price_prospek,
-      "notes_kompetitor" => $notes_kompetitor,
-      "notes_prospek" => $notes_prospek,
-      "estimasi_pembelian" => $estimasi_pembelian,
-      "funnel" => $funnel,
+      "no_ekatalog" => $no_po,
       "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_create" => $id_user,
@@ -563,11 +436,9 @@ class M_prospek extends CI_Model
     return insertRow("mstr_prospek", $data);
   }
 
-  public function insert_prospek_sm($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
+  public function insert_prospek_se_prospek($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $data = array(
-      "id_fk_provinsi" => $id_fk_provinsi,
-      "id_fk_kabupaten" => $id_fk_kabupaten,
       "id_fk_rs" => $id_fk_rs,
       "prospek_principle" => $prospek_principle,
       "total_price_prospek" => $total_price_prospek,
@@ -575,6 +446,9 @@ class M_prospek extends CI_Model
       "notes_prospek" => $notes_prospek,
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
+      "funnel_percentage" => $funnel_percentage,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_create" => $id_user,
       "prospek_tgl_create" => date("Y-m-d H:i:s"),
@@ -585,7 +459,147 @@ class M_prospek extends CI_Model
     return insertRow("mstr_prospek", $data);
   }
 
-  public function insert_prospek_sm_prospek($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
+  public function insert_prospek_se_loss($id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
+  {
+    $data = array(
+      "id_fk_rs" => $id_fk_rs,
+      "prospek_principle" => $prospek_principle,
+      "total_price_prospek" => $total_price_prospek,
+      "notes_kompetitor" => $notes_kompetitor,
+      "notes_prospek" => $notes_prospek,
+      "estimasi_pembelian" => $estimasi_pembelian,
+      "funnel" => $funnel,
+      "note_loss" => $note_loss,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
+      "prospek_status" => "aktif",
+      "prospek_id_create" => $id_user,
+      "prospek_tgl_create" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
+    );
+    return insertRow("mstr_prospek", $data);
+  }
+
+  public function insert_prospek_asm($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
+  {
+    $data = array(
+      "id_fk_kabupaten" => $id_fk_kabupaten,
+      "id_fk_rs" => $id_fk_rs,
+      "prospek_principle" => $prospek_principle,
+      "total_price_prospek" => $total_price_prospek,
+      "notes_kompetitor" => $notes_kompetitor,
+      "notes_prospek" => $notes_prospek,
+      "estimasi_pembelian" => $estimasi_pembelian,
+      "funnel" => $funnel,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
+      "prospek_status" => "aktif",
+      "prospek_id_create" => $id_user,
+      "prospek_tgl_create" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
+    );
+    return insertRow("mstr_prospek", $data);
+  }
+
+  public function insert_prospek_asm_prospek($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
+  {
+    $data = array(
+      "id_fk_kabupaten" => $id_fk_kabupaten,
+      "id_fk_rs" => $id_fk_rs,
+      "prospek_principle" => $prospek_principle,
+      "total_price_prospek" => $total_price_prospek,
+      "notes_kompetitor" => $notes_kompetitor,
+      "notes_prospek" => $notes_prospek,
+      "estimasi_pembelian" => $estimasi_pembelian,
+      "funnel" => $funnel,
+      "funnel_percentage" => $funnel_percentage,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
+      "prospek_status" => "aktif",
+      "prospek_id_create" => $id_user,
+      "prospek_tgl_create" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
+    );
+    return insertRow("mstr_prospek", $data);
+  }
+
+  public function insert_prospek_asm_loss($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
+  {
+    $data = array(
+      "id_fk_kabupaten" => $id_fk_kabupaten,
+      "id_fk_rs" => $id_fk_rs,
+      "prospek_principle" => $prospek_principle,
+      "total_price_prospek" => $total_price_prospek,
+      "notes_kompetitor" => $notes_kompetitor,
+      "notes_prospek" => $notes_prospek,
+      "estimasi_pembelian" => $estimasi_pembelian,
+      "funnel" => $funnel,
+      "note_loss" => $note_loss,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
+      "prospek_status" => "aktif",
+      "prospek_id_create" => $id_user,
+      "prospek_tgl_create" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
+    );
+    return insertRow("mstr_prospek", $data);
+  }
+
+  public function insert_prospek_asm_sirup($id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_faktur, $sumber_dana, $jenis_pengadaan, $rating, $no_po)
+  {
+    $data = array(
+      "id_fk_kabupaten" => $id_fk_kabupaten,
+      "id_fk_rs" => $id_fk_rs,
+      "prospek_principle" => $prospek_principle,
+      "total_price_prospek" => $total_price_prospek,
+      "notes_kompetitor" => $notes_kompetitor,
+      "notes_prospek" => $notes_prospek,
+      "estimasi_pembelian" => $estimasi_pembelian,
+      "funnel" => $funnel,
+      "no_faktur" => $no_faktur,
+      "no_ekatalog" => $no_po,
+      "prospek_status" => "aktif",
+      "prospek_id_create" => $id_user,
+      "prospek_tgl_create" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
+    );
+    return insertRow("mstr_prospek", $data);
+  }
+
+  public function insert_prospek_sm($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
+  {
+    $data = array(
+      "id_fk_provinsi" => $id_fk_provinsi,
+      "id_fk_kabupaten" => $id_fk_kabupaten,
+      "id_fk_rs" => $id_fk_rs,
+      "prospek_principle" => $prospek_principle,
+      "total_price_prospek" => $total_price_prospek,
+      "notes_kompetitor" => $notes_kompetitor,
+      "notes_prospek" => $notes_prospek,
+      "estimasi_pembelian" => $estimasi_pembelian,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
+      "prospek_status" => "aktif",
+      "prospek_id_create" => $id_user,
+      "prospek_tgl_create" => date("Y-m-d H:i:s"),
+      "sumber_dana" => $sumber_dana,
+      "jenis_pengadaan" => $jenis_pengadaan,
+      "rating" => $rating
+    );
+    return insertRow("mstr_prospek", $data);
+  }
+
+  public function insert_prospek_sm_prospek($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $data = array(
       "id_fk_provinsi" => $id_fk_provinsi,
@@ -598,6 +612,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "funnel_percentage" => $funnel_percentage,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_create" => $id_user,
       "prospek_tgl_create" => date("Y-m-d H:i:s"),
@@ -608,7 +624,7 @@ class M_prospek extends CI_Model
     return insertRow("mstr_prospek", $data);
   }
 
-  public function insert_prospek_sm_loss($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
+  public function insert_prospek_sm_loss($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $data = array(
       "id_fk_provinsi" => $id_fk_provinsi,
@@ -621,6 +637,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "note_loss" => $note_loss,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_create" => $id_user,
       "prospek_tgl_create" => date("Y-m-d H:i:s"),
@@ -631,7 +649,7 @@ class M_prospek extends CI_Model
     return insertRow("mstr_prospek", $data);
   }
 
-  public function insert_prospek_sm_ekatalog($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_ekatalog, $sumber_dana, $jenis_pengadaan, $rating)
+  public function insert_prospek_sm_ekatalog($id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_ekatalog, $sumber_dana, $jenis_pengadaan, $rating, $no_faktur)
   {
     $data = array(
       "id_fk_provinsi" => $id_fk_provinsi,
@@ -644,6 +662,7 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "no_ekatalog" => $no_ekatalog,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_create" => $id_user,
       "prospek_tgl_create" => date("Y-m-d H:i:s"),
@@ -684,7 +703,7 @@ class M_prospek extends CI_Model
 
   //Edit
 
-  public function edit_prospek_se($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_se($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek,
@@ -699,6 +718,8 @@ class M_prospek extends CI_Model
       "notes_prospek" => $notes_prospek,
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -709,7 +730,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_se_prospek($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_se_prospek($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek,
@@ -725,6 +746,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "funnel_percentage" => $funnel_percentage,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -735,7 +758,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_se_loss($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_se_loss($id_pk_prospek, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek,
@@ -750,6 +773,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "note_loss" => $note_loss,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -760,7 +785,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_asm($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -774,6 +799,8 @@ class M_prospek extends CI_Model
       "notes_prospek" => $notes_prospek,
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -784,7 +811,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm_prospek($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_asm_prospek($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -799,6 +826,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "funnel_percentage" => $funnel_percentage,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -809,7 +838,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm_loss($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_asm_loss($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -824,6 +853,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "note_loss" => $note_loss,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -834,7 +865,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_asm_sirup($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_faktur, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_asm_sirup($id_pk_prospek, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_faktur, $sumber_dana, $jenis_pengadaan, $rating, $no_po)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -850,6 +881,7 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "no_faktur" => $no_faktur,
+      "no_ekatalog" => $no_po,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -860,7 +892,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_sm($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -875,6 +907,8 @@ class M_prospek extends CI_Model
       "notes_prospek" => $notes_prospek,
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -885,7 +919,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm_prospek($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_sm_prospek($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $funnel_percentage, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -901,6 +935,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "funnel_percentage" => $funnel_percentage,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -911,7 +947,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm_loss($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_sm_loss($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $note_loss, $sumber_dana, $jenis_pengadaan, $rating, $no_po, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -927,6 +963,8 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "note_loss" => $note_loss,
+      "no_ekatalog" => $no_po,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
@@ -937,7 +975,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_prospek_sm_ekatalog($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_ekatalog, $sumber_dana, $jenis_pengadaan, $rating)
+  public function edit_prospek_sm_ekatalog($id_pk_prospek, $id_fk_provinsi, $id_fk_kabupaten, $id_fk_rs, $prospek_principle, $total_price_prospek, $notes_kompetitor, $notes_prospek, $estimasi_pembelian, $funnel, $id_user, $no_ekatalog, $sumber_dana, $jenis_pengadaan, $rating, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
@@ -953,6 +991,7 @@ class M_prospek extends CI_Model
       "estimasi_pembelian" => $estimasi_pembelian,
       "funnel" => $funnel,
       "no_ekatalog" => $no_ekatalog,
+      "no_faktur" => $no_faktur,
       "prospek_status" => "aktif",
       "prospek_id_update" => $id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s"),
