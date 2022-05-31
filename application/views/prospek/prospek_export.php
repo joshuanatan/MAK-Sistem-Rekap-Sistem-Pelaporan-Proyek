@@ -13,13 +13,16 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
         <thead>
             <tr>
                 <th>PRINCIPLE</th>
-                <th>ID PROSPEK</th>
+                <th>NAMA OUTLET</th>
+                <th>NAMA OUTLET</th>
+                <th>KODE PROSPEK</th>
                 <th>NAMA BARANG</th>
                 <th>UNIT</th>
                 <th>TOTAL</th>
                 <th>KOMPETITOR</th>
-                <th>SIRUP</th>
+                <th>SIRUP/NO FAKTUR</th>
                 <th>ID PAKET/PO</th>
+                <th>RATING</th>
                 <th>FUNNEL</th>
                 <th>EST LELANG</th>
                 <th>LAST UPDATE</th>
@@ -30,6 +33,8 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
             <?php for ($i = 0; $i < count($data); $i++) : ?>
                 <tr valign=TOP>
                     <td><?php echo $data[$i]["prospek_principle"] ?></td>
+                    <td><?php echo $data[$i]["nama_rs"] ?></td>
+                    <td><?php echo $data[$i]["jenis_outlet"] ?></td>
                     <td><?php echo $data[$i]['prospek_kode']?></td> 
                     <td>
                         <?php for($j = 0; $j < count($produk[$i]); $j++):?>
@@ -49,6 +54,7 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
                     <td><?php echo $data[$i]["notes_kompetitor"] ?></td>
                     <td><?php echo $data[$i]["no_faktur"] ?></td>
                     <td><?php echo $data[$i]["no_ekatalog"] ?></td>
+                    <td><?php echo $data[$i]["rating"] ?></td>
                     <td><?php echo $data[$i]["funnel"] ?></td>
                     <td><?php echo $data[$i]["estimasi_pembelian"] ?></td>
                     <td><?php echo $data[$i]["user_username"] ?></td>
