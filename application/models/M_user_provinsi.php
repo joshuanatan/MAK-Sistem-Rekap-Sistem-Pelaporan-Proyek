@@ -30,12 +30,13 @@ class M_user_provinsi extends CI_model
       if ($id_user != "") {
         $id_user = $id_user . "," . $id_user_arr[$i]['id_pk_user'];
       } else {
-        $id_user = $id_user_arr[$i]['id_pk_user'];
+        $id_user = $id_fk_user . "," . $id_user_arr[$i]['id_pk_user'];
       }
     }
 
     $sql = "select id_pk_user_provinsi, id_pk_provinsi, provinsi_nama, id_fk_provinsi from tbl_user_provinsi inner join mstr_provinsi on mstr_provinsi.id_pk_provinsi = tbl_user_provinsi.id_fk_provinsi where user_provinsi_status = 'aktif' and id_fk_user IN ($id_user)";
     $result = executeQuery($sql)->result_array();
+
 
     $id_provinsi = "";
     for ($i = 0; $i < count($result); $i++) {
