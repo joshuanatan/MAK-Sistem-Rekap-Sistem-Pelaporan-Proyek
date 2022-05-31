@@ -13,11 +13,14 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
         <thead>
             <tr>
                 <th>PRINCIPLE</th>
+                <th>PROVINSI</th>
+                <th>KAB/KOTA</th>
                 <th>NAMA OUTLET</th>
-                <th>NAMA OUTLET</th>
+                <th>JENIS OUTLET</th>
                 <th>KODE PROSPEK</th>
                 <th>NAMA BARANG</th>
                 <th>UNIT</th>
+                <th>HNA</th>
                 <th>TOTAL</th>
                 <th>KOMPETITOR</th>
                 <th>SIRUP/NO FAKTUR</th>
@@ -33,6 +36,8 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
             <?php for ($i = 0; $i < count($data); $i++) : ?>
                 <tr valign=TOP>
                     <td><?php echo $data[$i]["prospek_principle"] ?></td>
+                    <td><?php echo $data[$i]["nama_provinsi"] ?></td>
+                    <td><?php echo $data[$i]["nama_kabupaten"] ?></td>
                     <td><?php echo $data[$i]["nama_rs"] ?></td>
                     <td><?php echo $data[$i]["jenis_outlet"] ?></td>
                     <td><?php echo $data[$i]['prospek_kode']?></td> 
@@ -47,6 +52,13 @@ header("Content-Disposition: attachment; filename=Prospek_export_" . date("Y-m-d
                         <?php for($j = 0; $j < count($produk[$i]); $j++):?>
                             <?php if($produk[$i][$j]['id_fk_prospek'] == $data[$i]['id_pk_prospek']):?>
                                 <?php echo $produk[$i][$j]['detail_prospek_quantity']?><br>
+                            <?php endif;?>
+                        <?php endfor;?>
+                    </td>
+                    <td align="right">
+                        <?php for($j = 0; $j < count($produk[$i]); $j++):?>
+                            <?php if($produk[$i][$j]['id_fk_prospek'] == $data[$i]['id_pk_prospek']):?>
+                                <?php echo number_format($produk[$i][$j]['prospek_produk_price']) ?><br>
                             <?php endif;?>
                         <?php endfor;?>
                     </td>
