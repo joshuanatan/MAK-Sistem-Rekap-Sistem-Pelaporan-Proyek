@@ -340,7 +340,7 @@ class M_prospek extends CI_Model
   }
   public function get_prospek_produk($id_fk_prospek)
   {
-    $sql = "SELECT id_pk_prospek_produk, id_fk_prospek, tbl_prospek_produk.id_fk_produk, mstr_produk.produk_nama as nama_produk, detail_prospek_quantity, detail_prospek_keterangan, detail_prospek_status, prospek_produk_price, produk_harga_ekat, produk_price_list
+    $sql = "SELECT id_pk_prospek_produk, id_fk_prospek, tbl_prospek_produk.id_fk_produk, mstr_produk.produk_nama as nama_produk, detail_prospek_quantity, detail_prospek_keterangan, detail_prospek_status, prospek_produk_price, prospek_produk_diskon, produk_harga_ekat, produk_price_list
        FROM tbl_prospek_produk
        INNER JOIN mstr_produk on tbl_prospek_produk.id_fk_produk = mstr_produk.id_pk_produk
        WHERE id_fk_prospek = $id_fk_prospek AND detail_prospek_status='aktif'";
@@ -586,6 +586,7 @@ class M_prospek extends CI_Model
       "total_price_prospek" => $total_price_prospek,
       "notes_kompetitor" => $notes_kompetitor,
       "notes_prospek" => $notes_prospek,
+      "funnel" => $funnel,
       "estimasi_pembelian" => $estimasi_pembelian,
       "no_ekatalog" => $no_po,
       "no_faktur" => $no_faktur,
@@ -673,13 +674,14 @@ class M_prospek extends CI_Model
     return insertRow("mstr_prospek", $data);
   }
 
-  public function insert_produk_prospek($id_fk_prospek, $id_fk_produk, $prospek_produk_price, $detail_prospek_quantity, $detail_prospek_keterangan)
+  public function insert_produk_prospek($id_fk_prospek, $id_fk_produk, $prospek_produk_price, $detail_prospek_quantity, $detail_prospek_keterangan, $prospek_produk_diskon)
   {
 
     $data = array(
       "id_fk_prospek" => $id_fk_prospek,
       "id_fk_produk" => $id_fk_produk,
       "prospek_produk_price" => $prospek_produk_price,
+      "prospek_produk_diskon" => $prospek_produk_diskon,
       "detail_prospek_quantity" => $detail_prospek_quantity,
       "detail_prospek_keterangan" => $detail_prospek_keterangan,
       "detail_prospek_status" => "aktif",
@@ -1002,7 +1004,7 @@ class M_prospek extends CI_Model
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_produk_prospek($id_pk_prospek_produk, $id_fk_produk, $prospek_produk_price, $detail_prospek_quantity, $detail_prospek_keterangan)
+  public function edit_produk_prospek($id_pk_prospek_produk, $id_fk_produk, $prospek_produk_price, $detail_prospek_quantity, $detail_prospek_keterangan, $prospek_produk_diskon)
   {
     $where = array(
       "id_pk_prospek_produk" => $id_pk_prospek_produk
@@ -1011,6 +1013,7 @@ class M_prospek extends CI_Model
       "id_fk_produk" => $id_fk_produk,
       "detail_prospek_quantity" => $detail_prospek_quantity,
       "prospek_produk_price" => $prospek_produk_price,
+      "prospek_produk_diskon" => $prospek_produk_diskon,
       "detail_prospek_keterangan" => $detail_prospek_keterangan,
       "detail_prospek_status" => "aktif",
       "prospek_produk_id_update" => $this->session->id_user,

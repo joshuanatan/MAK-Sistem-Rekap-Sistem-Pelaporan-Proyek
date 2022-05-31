@@ -311,7 +311,7 @@ class Prospek extends CI_Controller
         $temp_detail_prospek_quantity = $this->input->post('detail_quantity' . $a);
         $total_price = $total_price + ($temp_prospek_produk_price * (1 - $temp_prospek_diskon / 100) * $temp_detail_prospek_quantity);
         $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan' . $a);
-        $this->m_prospek->insert_produk_prospek($id_fk_prospek, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan);
+        $this->m_prospek->insert_produk_prospek($id_fk_prospek, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan, $temp_prospek_diskon);
       }
     }
     $this->m_prospek->insert_total_price($id_fk_prospek, $total_price);
@@ -436,34 +436,39 @@ class Prospek extends CI_Controller
         }
       }
 
-      $temp_data_produk = $this->input->post('data_produk');
+      $temp_data_produk = $this->input->post('data_produk[]');
       $this->load->model("m_prospek");
       $total_price = 0;
+
 
       if ($temp_data_produk != '') {
         foreach ($temp_data_produk as $a) {
           $temp_id_pk_prospek_produk = $this->input->post('id_pk_prospek_produk' . $a);
           $temp_id_fk_produk = $this->input->post('id_fk_produk' . $a);
           $temp_prospek_produk_price = $this->input->post('detail_price' . $a);
+          $temp_prospek_produk_diskon = $this->input->post('detail_diskon' . $a);
           $temp_detail_prospek_quantity = $this->input->post('detail_quantity' . $a);
-          $total_price = $total_price + ($temp_prospek_produk_price * $temp_detail_prospek_quantity);
+          $total_price = $total_price + ($temp_prospek_produk_price * (1 - $temp_prospek_produk_diskon / 100) * $temp_detail_prospek_quantity);
           $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan' . $a);
-          $this->m_prospek->edit_produk_prospek($temp_id_pk_prospek_produk, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan);
+
+          $this->m_prospek->edit_produk_prospek($temp_id_pk_prospek_produk, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan, $temp_prospek_produk_diskon);
         }
       }
 
-      $temp_data_produk = $this->input->post('data_produk_baru');
+      // $temp_data_produk = $this->input->post('data_produk_baru');
 
-      if ($temp_data_produk != '') {
-        foreach ($temp_data_produk as $a) {
-          $temp_id_fk_produk = $this->input->post('id_fk_produk' . $a);
-          $temp_prospek_produk_price = $this->input->post('detail_price' . $a);
-          $temp_detail_prospek_quantity = $this->input->post('detail_quantity' . $a);
-          $total_price = $total_price + ($temp_prospek_produk_price * $temp_detail_prospek_quantity);
-          $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan' . $a);
-          $this->m_prospek->insert_produk_prospek($id_pk_prospek, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan);
-        }
-      }
+      // if ($temp_data_produk != '') {
+      //   foreach ($temp_data_produk as $a) {
+      //     $temp_id_fk_produk = $this->input->post('id_fk_produk' . $a);
+      //     $temp_prospek_produk_price = $this->input->post('detail_price' . $a);
+      //     $temp_prospek_produk_diskon = $this->input->post('detail_diskon' . $a);
+      //     $temp_detail_prospek_quantity = $this->input->post('detail_quantity' . $a);
+      //     $total_price = $total_price + ($temp_prospek_produk_price * (1 - $temp_prospek_produk_diskon / 100) * $temp_detail_prospek_quantity);
+      //     $temp_detail_prospek_keterangan = $this->input->post('detail_keterangan' . $a);
+      //     $this->m_prospek->insert_produk_prospek($id_pk_prospek, $temp_id_fk_produk, $temp_prospek_produk_price, $temp_detail_prospek_quantity, $temp_detail_prospek_keterangan, $temp_prospek_produk_diskon);
+      //   }
+      // }
+
       $this->m_prospek->insert_total_price($id_pk_prospek, $total_price);
     } else if ($this->session->id_user != $id_user[0]["prospek_id_create"] && $this->session->user_role == "Supervisor") {
       $temp_no_faktur = $this->input->post('nomorfaktur');
