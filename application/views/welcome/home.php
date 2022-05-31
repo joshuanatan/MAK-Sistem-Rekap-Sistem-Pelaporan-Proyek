@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>global/vendor/chartist/chartist.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>global/vendor/jvectormap/jquery-jvectormap.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" integrity="sha512-kq3FES+RuuGoBW3a9R2ELYKRywUEQv0wvPTItv3DSGqjpbNtGWVdvT8qwdKkqvPzT93jp8tSF4+oN4IeTEIlQA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" integrity="sha512-CbQfNVBSMAYmnzP3IC+mZZmYMP2HUnVkV4+PwuhpiMUmITtSpS7Prr3fNncV1RBOnWxzz4pYQ5EAGG4ck46Oig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body class="animsition site-navbar-small dashboard">
@@ -30,155 +30,151 @@
 
       <div class="page-content container-fluid">
         <div class="row">
-          <div class="col-xl-6 col-lg-12">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="card card-block p-25">
-                  <div class="counter counter-lg">
-                    <div class="font-size-30 counter-label text-uppercase"><b>Total Prospek</b></div>
-                    <div class="font-size-20 text-center" style="height:calc(100% - 350px);">
-
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="prospek_jenis" onchange="total_prospek_filter()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
-                          <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
-                        </select>
-                      </div>
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="prospek_tahun" onchange="total_prospek_filter()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                          <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                        </select>
-                      </div>
-                    </div>
-                    <span id="prospek_price" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                  </div>
-                </div>
+          <div class="col-xxl-6 col-lg-12">
+            <!-- Example Panel With All -->
+            <div class="panel panel-bordered">
+              <div class="panel-heading">
+                <h3 class="panel-title">Total Prospek</h3>
               </div>
+              <div class="panel-body">
+                <span id="prospek_price" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
 
-              <div class="col-lg-12">
-                <div class="card card-block p-25 bg-blue-600">
-                  <div class="counter counter-lg">
-                    <div class="font-size-30 counter-label text-uppercase" style="color:white;"><b>Total SiRUP</b></div>
-                    <div class="font-size-20 text-center" style="height:calc(100% - 350px);">
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="sirup_funnel" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="0" role="menuitem">Semua Funnel</option>
-                          <option class="dropdown-item" value="1" role="menuitem">Sudah Funnel Prospek</option>
-                          <option class="dropdown-item" value="2" role="menuitem">Belum Funnel Prospek</option>
-                        </select>
-                      </div>
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="sirup_jenis" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
-                          <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
-                        </select>
-                      </div>
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="sirup_tahun" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                          <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                        </select>
-                      </div>
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="keyword" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                          <option value="0" selected hidden>-- Silahkan Pilih Keyword --</option>
-                          <?php for ($a = 0; $a < count($keyword); $a++) : ?>
-                            <option value="<?php echo $keyword[$a]["id_pk_pencarian_sirup"]; ?>"><?php echo $keyword[$a]["pencarian_sirup_frase"]; ?></option>
-                          <?php endfor; ?>
-                        </select>
-                      </div>
-                    </div>
-                    <span id="sirup_total" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                  </div>
-                </div>
               </div>
-
-            </div>
-          </div>
-
-          <div class="col-xl-6 col-lg-12">
-            <!-- Card -->
-            <div class="card-group">
-              <div class="col-lg-12">
-                <div class="card card-block p-25">
-                  <div class="counter counter-lg">
-                    <div class="font-size-30 counter-label text-uppercase"><b>Total Prospek Jenis Outlet</b></div>
-                    <div class="font-size-20 text-center" style="height:calc(100% - 350px);">
-
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="prospek_jenis_outlet" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
-                          <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
-                        </select>
-                      </div>
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="prospek_tahun_outlet" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                          <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                          <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                        </select>
-                      </div>
-                      <div class="dropdown vertical-align-bottom font-size-20">
-                        <select id="prospek_pemerintah" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
-                          <option class="dropdown-item" value="0" role="menuitem">Semua</option>
-                          <option class="dropdown-item" value="1" role="menuitem">Swasta</option>
-                          <option class="dropdown-item" value="2" role="menuitem">Pemerintah</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="dropdown vertical-align-bottom font-size-20">
-                      <select id="kabupaten" onchange="total_prospek_outlet()" class="js-example-basic-single btn btn-default dropdown-toggle">
-                        <option value="0" selected hidden>-- Silahkan Pilih Kabupaten --</option>
-                        <?php for ($a = 0; $a < count($kabupaten); $a++) : ?>
-                          <option value="<?php echo $kabupaten[$a]['id_pk_kabupaten']; ?>"><?php echo $kabupaten[$a]['kabupaten_nama']; ?></option>
-                        <?php endfor; ?>
-                      </select>
-                    </div>
-                    <br>
-                    <span id="prospek_price_outlet" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                  </div>
+              <div class="panel-footer">
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="prospek_jenis" onchange="total_prospek_filter()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
+                    <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
+                  </select>
+                </div>
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="prospek_tahun" onchange="total_prospek_filter()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="total" role="menuitem">Total</option>
+                    <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
+                  </select>
                 </div>
               </div>
             </div>
-            <!-- End Card -->
+            <!-- End Example Panel With All -->
           </div>
+          <div class="col-xxl-6 col-lg-12">
+            <!-- Example Panel With All -->
+            <div class="panel panel-bordered">
+              <div class="panel-heading">
+                <h3 class="panel-title">Total SiRUP</h3>
+              </div>
+              <div class="panel-body">
+                <span id="sirup_total" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
+
+              </div>
+              <div class="panel-footer">
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="sirup_funnel" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="0" role="menuitem">Semua Funnel</option>
+                    <option class="dropdown-item" value="1" role="menuitem">Sudah Funnel Prospek</option>
+                    <option class="dropdown-item" value="2" role="menuitem">Belum Funnel Prospek</option>
+                  </select>
+                </div>
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="sirup_jenis" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
+                    <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
+                  </select>
+                </div>
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="sirup_tahun" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="total" role="menuitem">Total</option>
+                    <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
+                  </select>
+                </div>
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="keyword" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
+                    <option value="0" selected>Semua Keyword</option>
+                    <?php for ($a = 0; $a < count($keyword); $a++) : ?>
+                      <option value="<?php echo $keyword[$a]["id_pk_pencarian_sirup"]; ?>"><?php echo $keyword[$a]["pencarian_sirup_frase"]; ?></option>
+                    <?php endfor; ?>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <!-- End Example Panel With All -->
+          </div>
+          <div class="col-xxl-12 col-lg-12">
+            <!-- Example Panel With All -->
+            <div class="panel panel-bordered">
+              <div class="panel-heading">
+                <h3 class="panel-title">Total Prospek Jenis Outlet</h3>
+              </div>
+              <div class="panel-body">
+                <span id="prospek_price_outlet" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
+              </div>
+              <div class="panel-footer">
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="prospek_jenis_outlet" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
+                    <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
+                  </select>
+                </div>
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="prospek_tahun_outlet" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="total" role="menuitem">Total</option>
+                    <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
+                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
+                  </select>
+                </div>
+                <div class="dropdown vertical-align-bottom font-size-20">
+                  <select id="prospek_pemerintah" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
+                    <option class="dropdown-item" value="0" role="menuitem">Semua</option>
+                    <option class="dropdown-item" value="1" role="menuitem">Swasta</option>
+                    <option class="dropdown-item" value="2" role="menuitem">Pemerintah</option>
+                  </select>
+                </div>
+                <div class="vertical-align-bottom font-size-20">
+                  <select id="kabupaten" onchange="total_prospek_outlet()" class="btn btn-default">
+                    <option value="0" selected>Semua Kabupaten</option>
+                    <?php for ($a = 0; $a < count($kabupaten); $a++) : ?>
+                      <option value="<?php echo $kabupaten[$a]['id_pk_kabupaten']; ?>"><?php echo $kabupaten[$a]['kabupaten_nama']; ?></option>
+                    <?php endfor; ?>
+                  </select>
+                </div>
+              </div>
+              <!-- End Example Panel With All -->
+            </div>
+          </div>
+
 
           <?php if ($this->session->user_role == "Administrator" || $this->session->user_role == "Sales Manager") : ?>
-            <div class="col-xl-6 col-lg-12">
-              <div class="card-group">
-                <!-- Card -->
-                <div class="col-lg-12">
-                  <div class="card card-block p-25">
-                    <div class="counter counter-lg">
-                      <div class="font-size-30 counter-label text-uppercase"><b>Total E-Katalog</b></div>
-                      <div class="font-size-20 text-center" style="height:calc(100% - 350px);">
-
-                        <div class="dropdown vertical-align-bottom font-size-20">
-                          <select id="ekatalog_tahun" onchange="total_ekatalog_filter()" class="btn btn-default dropdown-toggle">
-                            <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                            <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                            <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                            <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                            <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                          </select>
-                        </div>
-                      </div>
-                      <span id="ekatalog_price" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                      <br>
-                      <span id="ekatalog_count" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                    </div>
+            <div class="col-xxl-12 col-lg-12">
+              <!-- Example Panel With All -->
+              <div class="panel panel-bordered">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Total E-Katalog</h3>
+                </div>
+                <div class="panel-body">
+                  <span id="ekatalog_price" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
+                  <br>
+                  <span id="ekatalog_count" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
+                </div>
+                <div class="panel-footer">
+                  <div class="dropdown vertical-align-bottom font-size-20">
+                    <select id="ekatalog_tahun" onchange="total_ekatalog_filter()" class="btn btn-default dropdown-toggle">
+                      <option class="dropdown-item" value="total" role="menuitem">Total</option>
+                      <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
+                      <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
+                      <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
+                      <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
+                    </select>
                   </div>
                 </div>
-                <!-- End Card -->
+                <!-- End Example Panel With All -->
               </div>
             </div>
           <?php endif; ?>
@@ -187,11 +183,8 @@
       <?php $this->load->view("includes/footer"); ?>
       <?php $this->load->view("includes/core-script"); ?>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 <script>
-  $(document).ready(function() {
-    $('.js-example-basic-single').select2();
-  });
   var row = 0;
 </script>
 <script>
