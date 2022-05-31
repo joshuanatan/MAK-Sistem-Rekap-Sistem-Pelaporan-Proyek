@@ -1038,26 +1038,28 @@ class M_prospek extends CI_Model
     return executeQuery($sql);
   }
 
-  public function edit_sirup($id_pk_prospek, $no_faktur)
+  public function edit_sirup($id_pk_prospek, $no_faktur, $no_po)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
     );
     $data = array(
       "no_faktur" => $no_faktur,
+      "no_ekatalog" => $no_po,
       "prospek_id_update" => $this->session->id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s")
     );
     return updateRow("mstr_prospek", $data, $where);
   }
 
-  public function edit_ekatalog($id_pk_prospek, $no_ekatalog)
+  public function edit_ekatalog($id_pk_prospek, $no_ekatalog, $no_faktur)
   {
     $where = array(
       "id_pk_prospek" => $id_pk_prospek
     );
     $data = array(
       "no_ekatalog" => $no_ekatalog,
+      "no_faktur" => $no_faktur,
       "prospek_id_update" => $this->session->id_user,
       "prospek_tgl_update" => date("Y-m-d H:i:s")
     );

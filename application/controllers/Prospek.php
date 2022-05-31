@@ -331,8 +331,11 @@ class Prospek extends CI_Controller
 
   public function edit($id_pk_prospek)
   {
+
     $this->load->model("m_prospek");
     $id_user = $this->m_prospek->edit_get_id_user($id_pk_prospek)->result_array();
+
+
 
     if ($this->session->id_user == $id_user[0]["prospek_id_create"]) {
       if ($this->session->user_role == "Sales Engineer") {
@@ -413,6 +416,7 @@ class Prospek extends CI_Controller
         $temp_rating = $this->input->post('rating');
         $temp_no_po = $this->input->post('nomorekatalog');
         $temp_no_faktur = $this->input->post('nomorfaktur');
+
         $this->load->model("m_prospek");
 
         $kategori = $this->m_prospek->get_data_rs_kategori($temp_id_fk_rs)->result_array();
@@ -427,6 +431,7 @@ class Prospek extends CI_Controller
           $temp_funnel_percentage = $this->input->post('funnel_percentage');
           $this->m_prospek->edit_prospek_sm_prospek($id_pk_prospek, $temp_id_fk_provinsi, $temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_id_user, $temp_funnel_percentage, $temp_sumber_dana, $temp_jenis_pengadaan, $temp_rating, $temp_no_po, $temp_no_faktur);
         } else {
+
           $this->m_prospek->edit_prospek_sm($id_pk_prospek, $temp_id_fk_provinsi, $temp_id_fk_kabupaten, $temp_id_fk_rs, $temp_prospek_principle, $temp_total_price_prospek, $temp_notes_kompetitor, $temp_notes_prospek, $temp_estimasi_pembelian, $temp_funnel, $temp_id_user, $temp_sumber_dana, $temp_jenis_pengadaan, $temp_rating, $temp_no_po, $temp_no_faktur);
         }
       }
@@ -463,11 +468,13 @@ class Prospek extends CI_Controller
     } else if ($this->session->id_user != $id_user[0]["prospek_id_create"] && $this->session->user_role == "Supervisor") {
       $temp_no_faktur = $this->input->post('nomorfaktur');
       $this->load->model("m_prospek");
-      $this->m_prospek->edit_sirup($id_pk_prospek, $temp_no_faktur);
+      $temp_no_po = $this->input->post('nomorekatalog');
+      $this->m_prospek->edit_sirup($id_pk_prospek, $temp_no_faktur, $temp_no_po);
     } else if ($this->session->id_user != $id_user[0]["prospek_id_create"] && $this->session->user_role == "Sales Manager") {
       $temp_no_ekatalog = $this->input->post('nomorekatalog');
+      $temp_no_faktur = $this->input->post('nomorfaktur');
       $this->load->model("m_prospek");
-      $this->m_prospek->edit_ekatalog($id_pk_prospek, $temp_no_ekatalog);
+      $this->m_prospek->edit_ekatalog($id_pk_prospek, $temp_no_ekatalog, $temp_no_faktur);
     }
 
     #ini terpisah sendiri gara2 taunya belakangan dan fungsi insernya agak ribet. toh semua prospek yg ngubah, regardless role apa yg buat

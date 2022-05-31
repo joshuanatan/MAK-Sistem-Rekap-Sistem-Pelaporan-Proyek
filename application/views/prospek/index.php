@@ -32,7 +32,7 @@
           <br>
           <form action="<?php echo base_url(); ?>prospek/export" method="POST">
             <div class="row">
-              <?php if(strtolower($this->session->user_role) != "administrator"):?>
+              <?php if (strtolower($this->session->user_role) != "administrator") : ?>
                 <div class="form-group col-lg-1">
                   <h5>&nbsp;</h5>
                   <a href="<?php echo base_url(); ?>prospek/add_prospek" type="button" class="btn btn-primary btn-sm">Tambah Prospek</a>
@@ -41,16 +41,16 @@
                   <h5>&nbsp;</h5>
                   <button class="btn btn-success btn-sm" type="submit">Export Excel</button>
                 </div>
-              <?php endif;?>
-              <?php if(strtolower($this->session->user_role) != "sales engineer" && strtolower($this->session->user_role) != "administrator"):?>
+              <?php endif; ?>
+              <?php if (strtolower($this->session->user_role) != "sales engineer" && strtolower($this->session->user_role) != "administrator") : ?>
                 <div class="form-group col-lg-1">
                   <h5>&nbsp;</h5>
                   <a href="<?php echo base_url(); ?>prospek/supervisee" type="button" class="btn btn-primary btn-sm">Prospek Supervisee</a>
                 </div>
-              <?php endif;?>
-              <?php if(strtolower($this->session->user_role) != "administrator"):?>
+              <?php endif; ?>
+              <?php if (strtolower($this->session->user_role) != "administrator") : ?>
                 <div class="form-group col-lg-1"></div>
-              <?php endif;?>
+              <?php endif; ?>
               <div class="form-group col-lg-3">
                 <h5>Kolom Pengurutan</h5>
                 <select class="form-control" name="kolom_pengurutan" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
@@ -66,50 +66,50 @@
                   <option value="DESC">Z-A</option>
                 </select>
               </div>
-              <?php if(strtolower($this->session->user_role) != "administrator"):?>
+              <?php if (strtolower($this->session->user_role) != "administrator") : ?>
                 <div class="form-group col-lg-3">
-              <?php else:?>
-                <div class="form-group col-lg-6">
-              <?php endif;?>
-                <h5>Pencarian</h5>
-                <input type="text" name="pencarian_phrase" class="form-control" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
-              </div>
-              <div class="form-group col-lg-2">
-                <h5>Kolom Pencarian</h5>
-                <select class="form-control" name="kolom_pencarian" onchange="change_pencarian_kolom()" id="pencarian_kolom">
-                  <option value="all">Semua</option>
-                  <?php for ($a = 0; $a < count($field); $a++) : ?>
-                    <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
-                  <?php endfor; ?>
-                </select>
-              </div>
-            </div>
-            
-            <?php if(strtolower($this->session->user_role) == "sales manager"):?>
-            <div class="row">
-              <div class="form-group col-lg-2">
-                <h5>Tampilkan</h5>
-                <select class="form-control" onchange="change_base_url()" id="status_tampilkan">
-                  <option value="get_data">Semua</option>
-                  <option value="get_data_ekat">Sudah ada E-katalog</option>
-                  <option value="get_data_belum_ekat">Belum ada E-katalog</option>
-                </select>
-              </div>
-            </div>
-            <?php endif;?>
-            
-            <?php if(strtolower($this->session->user_role) == "supervisor"):?>
-            <div class="row">
-              <div class="form-group col-lg-2">
-                <h5>Tampilkan</h5>
-                <select class="form-control" onchange="change_base_url()" id="status_tampilkan">
-                  <option value="get_data">Semua</option>
-                  <option value="get_data_sirup">Sudah ada SiRUP</option>
-                  <option value="get_data_belum_sirup">Belum ada SiRUP</option>
-                </select>
-              </div>
-            </div>
-            <?php endif;?>
+                <?php else : ?>
+                  <div class="form-group col-lg-6">
+                  <?php endif; ?>
+                  <h5>Pencarian</h5>
+                  <input type="text" name="pencarian_phrase" class="form-control" onclick="change_pencarian()" oninput="change_pencarian()" id="pencarian">
+                  </div>
+                  <div class="form-group col-lg-2">
+                    <h5>Kolom Pencarian</h5>
+                    <select class="form-control" name="kolom_pencarian" onchange="change_pencarian_kolom()" id="pencarian_kolom">
+                      <option value="all">Semua</option>
+                      <?php for ($a = 0; $a < count($field); $a++) : ?>
+                        <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
+                </div>
+
+                <?php if (strtolower($this->session->user_role) == "sales manager") : ?>
+                  <div class="row">
+                    <div class="form-group col-lg-2">
+                      <h5>Tampilkan</h5>
+                      <select class="form-control" onchange="change_base_url()" id="status_tampilkan">
+                        <option value="get_data">Semua</option>
+                        <option value="get_data_ekat">Sudah ada E-katalog</option>
+                        <option value="get_data_belum_ekat">Belum ada E-katalog</option>
+                      </select>
+                    </div>
+                  </div>
+                <?php endif; ?>
+
+                <?php if (strtolower($this->session->user_role) == "supervisor") : ?>
+                  <div class="row">
+                    <div class="form-group col-lg-2">
+                      <h5>Tampilkan</h5>
+                      <select class="form-control" onchange="change_base_url()" id="status_tampilkan">
+                        <option value="get_data">Semua</option>
+                        <option value="get_data_sirup">Sudah ada SiRUP</option>
+                        <option value="get_data_belum_sirup">Belum ada SiRUP</option>
+                      </select>
+                    </div>
+                  </div>
+                <?php endif; ?>
           </form>
           <br>
           <div class="scroll-provinsi-table-wrapper">
@@ -192,8 +192,8 @@
 </script>
 
 <script>
-  function change_base_url(){
-    final_base_url = base_url+"ws/prospek/"+$("#status_tampilkan").val();
+  function change_base_url() {
+    final_base_url = base_url + "ws/prospek/" + $("#status_tampilkan").val();
     console.log(final_base_url);
     reload_table();
   }
@@ -206,7 +206,7 @@
   var current_page = 1;
   var content = [];
   var base_url = "<?php echo base_url(); ?>";
-  var final_base_url = base_url+"ws/prospek/get_data";
+  var final_base_url = base_url + "ws/prospek/get_data";
   var user_role = "<?php echo $this->session->user_role ?>";
   var user_id = "<?php echo $this->session->id_user ?>";
   reload_table();
@@ -234,22 +234,17 @@
             htmlDeleteButton = ``;
           }
           var funnel_html = "";
-          if(respond["data"][a]["funnel"].toLowerCase() == "belum ditentukan"){
+          if (respond["data"][a]["funnel"].toLowerCase() == "pindah ta") {
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-primary'>${respond["data"][a]["funnel"]}</button>`;
-          }
-          else if(respond["data"][a]["funnel"].toLowerCase() == "lead"){
+          } else if (respond["data"][a]["funnel"].toLowerCase() == "lead") {
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-info'>${respond["data"][a]["funnel"]}</button>`;
-          }
-          else if(respond["data"][a]["funnel"].toLowerCase() == "prospek"){
+          } else if (respond["data"][a]["funnel"].toLowerCase() == "prospek") {
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-warning'>${respond["data"][a]["funnel"]}</button>`;
-          }
-          else if(respond["data"][a]["funnel"].toLowerCase() == "hot prospek"){
+          } else if (respond["data"][a]["funnel"].toLowerCase() == "hot prospek") {
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-danger'>${respond["data"][a]["funnel"]}</button>`;
-          }
-          else if(respond["data"][a]["funnel"].toLowerCase() == "win"){
+          } else if (respond["data"][a]["funnel"].toLowerCase() == "done") {
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-success'>${respond["data"][a]["funnel"]}</button>`;
-          }
-          else if(respond["data"][a]["funnel"].toLowerCase() == "loss"){
+          } else if (respond["data"][a]["funnel"].toLowerCase() == "lose") {
             funnel_html = `<button type = 'button' class = 'col-lg-12 btn btn-sm btn-dark'>${respond["data"][a]["funnel"]}</button>`;
           }
           // Previous Table

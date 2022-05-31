@@ -34,8 +34,8 @@
               <div class="panel-body">
                 <h4 class="title">Edit Prospek</h4>
                 <div class="form-group">
-                  <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode; ?>
-                  <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" required value="<?php echo $dataprospek[0]["prospek_kode"]; ?>">
+                  <label class="form-control-label">ID Prospek</label>
+                  <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" value="<?php echo $dataprospek[0]["prospek_kode"]; ?>">
                 </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
@@ -143,11 +143,12 @@
                                                                                                         echo "disabled";
                                                                                                       } ?>>
                     <option value="<?php echo $dataprospek[0]["funnel"]; ?>" selected hidden><?php echo $dataprospek[0]["funnel"]; ?></option>
-                    <option value="Lead">Lead</option>
-                    <option value="Prospek">Prospek</option>
+                    <option value="Pindah TA">Pindah TA</option>
+                    <option value="Done">Done</option>
                     <option value="Hot Prospek">Hot Prospek</option>
-                    <option value="Win">Win</option>
-                    <option value="Loss">Loss</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Loss">Lose</option>
+                    <option value="Prospek">Prospek</option>
                   </select>
                 </div>
                 <div class="form-group" id="funnelPercentage" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) {
@@ -787,7 +788,7 @@
 
             <div class="form-group">
               <label class="form-control-label">Nama Rumah Sakit</label>
-              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
+              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit">
             </div>
             <div class="form-group">
               <label class="form-control-label">Kelas Rumah Sakit</label>
