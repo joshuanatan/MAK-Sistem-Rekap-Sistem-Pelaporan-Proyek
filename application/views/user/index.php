@@ -213,7 +213,7 @@
                   <?php endfor; ?>
                 </select> -->
               </div>
-              <div class="form-group">
+              <div id="drop_kabupaten" class="form-group">
                 <br>
                 <label class="form-control-label">Kabupaten</label>
                 <div class="scroll-detail-table-wrapper">
@@ -523,7 +523,9 @@
 
       $("#div_sales_engineer").hide();
 
-      $("#div_supervisor_asm").hide();
+      $("#div_supervisor_asm").show();
+      $("#drop_provinsi").hide();
+      $("#drop_kabupaten").hide();
     } else {
       $("#div_sales_engineer").hide();
       $("#div_supervisor_asm").hide();
