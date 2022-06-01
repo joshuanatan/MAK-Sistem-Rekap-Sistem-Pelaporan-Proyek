@@ -213,7 +213,7 @@
                   <?php endfor; ?>
                 </select> -->
               </div>
-              <div class="form-group">
+              <div id="drop_kabupaten" class="form-group">
                 <br>
                 <label class="form-control-label">Kabupaten</label>
                 <div class="scroll-detail-table-wrapper">
@@ -342,7 +342,7 @@
                 <select class="form-control" id="supervisor_list_container_asm_edit" name="supervisor_asm">
                 </select>
               </div>
-              <div id="drop_provinsi" class="form-group">
+              <!-- <div id="drop_provinsi" class="form-group">
                 <label class="form-control-label">Assigned Provinsi</label>
                 <br>
                 <div class="scroll-detail-table-wrapper">
@@ -375,14 +375,14 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> -->
               <div class="form-group">
                 <label class="form-control-label">Assigned Kabupaten</label>
                 <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
-                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
+                        <!-- <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th> -->
                         <th>Kabupaten</th>
                       </tr>
                     </thead>
@@ -391,21 +391,21 @@
                   </table>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="form-control-label">Unassigned Kabupaten</label>
-                <div class="scroll-detail-table-wrapper">
-                  <table class="table table-hover table-striped w-full">
-                    <thead>
-                      <tr>
-                        <th>Checklist</th>
-                        <th>Kabupaten</th>
-                      </tr>
-                    </thead>
-                    <tbody id="edit_asm_table_kabupaten_unassigned">
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <!-- <div class="form-group">
+                  <label class="form-control-label">Unassigned Kabupaten</label>
+                  <div class="scroll-detail-table-wrapper">
+                    <table class="table table-hover table-striped w-full">
+                      <thead>
+                        <tr>
+                          <th>Checklist</th>
+                          <th>Kabupaten</th>
+                        </tr>
+                      </thead>
+                      <tbody id="edit_asm_table_kabupaten_unassigned">
+                      </tbody>
+                    </table>
+                  </div>
+                </div> -->
               <div class="form-group">
                 <label class="form-control-label">Supervisee</label>
                 <div class="scroll-detail-table-wrapper">
@@ -500,7 +500,7 @@
 
       $("#div_supervisor_asm").hide();
       $("#div_sales_engineer").show();
-    } else if (jabatan == "Supervisor" || jabatan == "Area Sales Manager") {
+    } else if (jabatan == "Supervisor") {
 
       supervisor_list = load_supervisor(jabatan);
       var html = "<option value = 0 disabled>Pilih Supervisor</option>";
@@ -510,7 +510,22 @@
       $("#supervisor_list_container_asm").html(html);
 
       $("#div_sales_engineer").hide();
+
       $("#div_supervisor_asm").show();
+
+    } else if (jabatan == "Area Sales Manager") {
+      supervisor_list = load_supervisor(jabatan);
+      var html = "<option value = 0 disabled>Pilih Supervisor</option>";
+      for (var a = 0; a < supervisor_list.length; a++) {
+        html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
+      }
+      $("#supervisor_list_container_asm").html(html);
+
+      $("#div_sales_engineer").hide();
+
+      $("#div_supervisor_asm").show();
+      $("#drop_provinsi").hide();
+      $("#drop_kabupaten").hide();
     } else {
       $("#div_sales_engineer").hide();
       $("#div_supervisor_asm").hide();
@@ -960,7 +975,7 @@
       for (var a = 0; a < respond.length; a++) {
         html += `
           <tr>
-            <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <!-- <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td> -->
             <td>${respond[a]['kabupaten_nama']}</td>
           </tr>`;
       }

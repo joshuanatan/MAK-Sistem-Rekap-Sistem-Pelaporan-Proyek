@@ -15,7 +15,7 @@ class M_kabupaten extends CI_Model
   }
   public function get_kabupaten_per_provinsi($provinsi)
   {
-    $sql = "select id_pk_kabupaten,id_fk_provinsi,kabupaten_nama,kabupaten_status,kabupaten_id_create,kabupaten_id_update,kabupaten_id_delete,kabupaten_tgl_create,kabupaten_tgl_update,kabupaten_tgl_delete from v_detail_kabupaten where id_fk_provinsi = ? and kabupaten_status != 'deleted'";
+    $sql = "select id_pk_kabupaten,id_fk_provinsi,kabupaten_nama,kabupaten_status,kabupaten_id_create,kabupaten_id_update,kabupaten_id_delete,kabupaten_tgl_create,kabupaten_tgl_update,kabupaten_tgl_delete from mstr_kabupaten where id_fk_provinsi = ? and kabupaten_status != 'deleted'";
     $args = array(
       $provinsi
     );
