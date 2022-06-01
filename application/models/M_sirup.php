@@ -370,7 +370,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Area Sales Manager") {
@@ -412,7 +412,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Sales Manager") {
@@ -470,7 +470,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     } else {
@@ -478,7 +478,7 @@ class M_sirup extends CI_Model
         select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-        where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     }
@@ -564,7 +564,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Area Sales Manager") {
@@ -606,7 +606,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Sales Manager") {
@@ -664,7 +664,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else {
