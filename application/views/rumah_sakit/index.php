@@ -73,7 +73,7 @@
                   <th>Kode Pos</th>
                   <th>Telepon</th>
                   <th>Fax</th>
-                  <th>Jenis RS</th>
+                  <th>Jenis Outlet</th>
                   <th>Penyelenggara</th>
                   <th>Action</th>
                 </tr>
@@ -207,24 +207,24 @@
             <input type="text" class="form-control" name="fax" placeholder="Fax">
           </div>
           <div class="form-group">
-            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <label class="form-control-label">Jenis Outlet</label>
             <!-- <strong><a href="<?php echo base_url(); ?>jenis_rs" target="_blank">Buka Jenis Rumah Sakit</a></strong> -->
             <br />
             <!-- <div class="row"> -->
-              <!-- <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
                 <button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="load_jenis_rumah_sakit()"><i class="icon md-refresh"></i></button>
               </div> -->
-              <!-- <div class="col-lg-10"> -->
-                <select class="form-control dropdown_jenis" name="jenisrumahsakit" class="">
-                  <option value="none" selected disabled hidden>-- Silahkan Pilih Jenis Outlet --</option>
-                  <option value="BUMN">BUMN</option>
-                  <option value="Dinkes">Dinkes</option>
-                  <option value="Pemerintah">Pemerintah</option>
-                  <option value="Pemerintah/TNI">Pemerintah/TNI</option>
-                  <option value="RSUD">RSUD</option>
-                  <option value="Swasta">Swasta</option>
-                </select>
-              <!-- </div> -->
+            <!-- <div class="col-lg-10"> -->
+            <select class="form-control dropdown_jenis" name="jenisrumahsakit" class="">
+              <option value="none" selected disabled hidden>-- Silahkan Pilih Jenis Outlet --</option>
+              <option value="BUMN">BUMN</option>
+              <option value="Dinkes">Dinkes</option>
+              <option value="Pemerintah">Pemerintah</option>
+              <option value="Pemerintah/TNI">Pemerintah/TNI</option>
+              <option value="RSUD">RSUD</option>
+              <option value="Swasta">Swasta</option>
+            </select>
+            <!-- </div> -->
             <!-- </div> -->
           </div>
           <div class="form-group">
@@ -339,24 +339,24 @@
             <input type="text" class="form-control" id="edit_fax" name="fax" placeholder="Fax">
           </div>
           <div class="form-group">
-            <label class="form-control-label">Jenis Rumah Sakit</label>
+            <label class="form-control-label">Jenis Outlet</label>
             <!-- <strong><a href="<?php echo base_url(); ?>jenis_rs" target="_blank">Buka Jenis Rumah Sakit</a></strong> -->
             <br />
             <!-- <div class="row"> -->
-              <!-- <div class="col-lg-2">
+            <!-- <div class="col-lg-2">
                 <button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="load_jenis_rumah_sakit()"><i class="icon md-refresh"></i></button>
               </div> -->
-              <!-- <div class="col-lg-10"> -->
-                <select class="form-control dropdown_jenis" id="edit_jenisrumahsakit" name="jenisrumahsakit">
-                  <option value="none" selected disabled hidden>-- Silahkan Pilih Jenis Outlet --</option>
-                  <option value="BUMN">BUMN</option>
-                  <option value="Dinkes">Dinkes</option>
-                  <option value="Pemerintah">Pemerintah</option>
-                  <option value="Pemerintah/TNI">Pemerintah/TNI</option>
-                  <option value="RSUD">RSUD</option>
-                  <option value="Swasta">Swasta</option>
-                </select>
-              <!-- </div> -->
+            <!-- <div class="col-lg-10"> -->
+            <select class="form-control dropdown_jenis" id="edit_jenisrumahsakit" name="jenisrumahsakit">
+              <option value="none" selected disabled hidden>-- Silahkan Pilih Jenis Outlet --</option>
+              <option value="BUMN">BUMN</option>
+              <option value="Dinkes">Dinkes</option>
+              <option value="Pemerintah">Pemerintah</option>
+              <option value="Pemerintah/TNI">Pemerintah/TNI</option>
+              <option value="RSUD">RSUD</option>
+              <option value="Swasta">Swasta</option>
+            </select>
+            <!-- </div> -->
             <!-- </div> -->
           </div>
           <div class="form-group">
