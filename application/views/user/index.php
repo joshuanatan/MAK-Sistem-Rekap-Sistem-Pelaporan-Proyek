@@ -512,6 +512,8 @@
       $("#div_sales_engineer").hide();
 
       $("#div_supervisor_asm").show();
+      $("#drop_provinsi").show();
+      $("#drop_kabupaten").show();
 
     } else if (jabatan == "Area Sales Manager") {
       supervisor_list = load_supervisor(jabatan);
