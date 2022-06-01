@@ -335,14 +335,52 @@
                 </div>
               </div>
             </div>
-            <div id="edit_div_supervisor_asm">
+            <div id="edit_div_asm">
               <div class="form-group">
                 <label class="form-control-label">Upline</label>
                 <br>
                 <select class="form-control" id="supervisor_list_container_asm_edit" name="supervisor_asm">
                 </select>
               </div>
-              <!-- <div id="drop_provinsi" class="form-group">
+              <div class="form-group">
+                <label class="form-control-label">Assigned Kabupaten</label>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <!-- <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th> -->
+                        <th>Kabupaten</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_asm_table_kabupaten">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Supervisee</label>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Supervisee</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="supervisee_list_container_asm_edit">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div id="edit_div_supervisor">
+              <div class="form-group">
+                <label class="form-control-label">Upline</label>
+                <br>
+                <select class="form-control" id="supervisor_list_container_asm_edit" name="supervisor_asm">
+                </select>
+              </div>
+              <div class="form-group">
                 <label class="form-control-label">Assigned Provinsi</label>
                 <br>
                 <div class="scroll-detail-table-wrapper">
@@ -359,7 +397,7 @@
                   </table>
                 </div>
               </div>
-              <div id="drop_provinsi" class="form-group">
+              <div class="form-group">
                 <label class="form-control-label">Unassigned Provinsi</label>
                 <br>
                 <div class="scroll-detail-table-wrapper">
@@ -375,14 +413,14 @@
                     </tbody>
                   </table>
                 </div>
-              </div> -->
+              </div>
               <div class="form-group">
                 <label class="form-control-label">Assigned Kabupaten</label>
                 <div class="scroll-detail-table-wrapper">
                   <table class="table table-hover table-striped w-full">
                     <thead>
                       <tr>
-                        <!-- <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th> -->
+                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
                         <th>Kabupaten</th>
                       </tr>
                     </thead>
@@ -391,21 +429,21 @@
                   </table>
                 </div>
               </div>
-              <!-- <div class="form-group">
-                  <label class="form-control-label">Unassigned Kabupaten</label>
-                  <div class="scroll-detail-table-wrapper">
-                    <table class="table table-hover table-striped w-full">
-                      <thead>
-                        <tr>
-                          <th>Checklist</th>
-                          <th>Kabupaten</th>
-                        </tr>
-                      </thead>
-                      <tbody id="edit_asm_table_kabupaten_unassigned">
-                      </tbody>
-                    </table>
-                  </div>
-                </div> -->
+              <div class="form-group">
+                <label class="form-control-label">Unassigned Kabupaten</label>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Checklist</th>
+                        <th>Kabupaten</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_asm_table_kabupaten_unassigned">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
               <div class="form-group">
                 <label class="form-control-label">Supervisee</label>
                 <div class="scroll-detail-table-wrapper">
@@ -512,6 +550,8 @@
       $("#div_sales_engineer").hide();
 
       $("#div_supervisor_asm").show();
+      $("#drop_provinsi").show();
+      $("#drop_kabupaten").show();
 
     } else if (jabatan == "Area Sales Manager") {
       supervisor_list = load_supervisor(jabatan);
@@ -543,10 +583,11 @@
       }
       $("#supervisor_list_container_edit").html(html);
 
-      $("#edit_div_supervisor_asm").hide();
+      $("#edit_div_supervisor").hide();
+      $("#edit_div_asm").hide();
       $("#edit_div_sales_engineer").show();
       $("#edit_div_sm").hide();
-    } else if (jabatan == "Supervisor" || jabatan == "Area Sales Manager") {
+    } else if (jabatan == "Supervisor") {
 
       supervisor_list = load_supervisor(jabatan);
       var html = "<option value = 0 disabled>Pilih Supervisor</option>";
@@ -554,14 +595,27 @@
         html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
       }
       $("#supervisor_list_container_asm_edit").html(html);
-
       $("#edit_div_sales_engineer").hide();
-      $("#edit_div_supervisor_asm").show();
+      $("#edit_div_supervisor").show();
       $("#edit_div_sm").hide();
+      $("#edit_div_asm").hide();
+    } else if (jabatan == "Area Sales Manager") {
+      supervisor_list = load_supervisor(jabatan);
+      var html = "<option value = 0 disabled>Pilih Supervisor</option>";
+      for (var a = 0; a < supervisor_list.length; a++) {
+        html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
+      }
+      $("#supervisor_list_container_asm_edit").html(html);
+      $("#edit_div_supervisor").hide();
+      $("#edit_div_sales_engineer").hide();
+      $("#edit_div_asm").show();
+      $("#edit_div_sm").hide();
+
     } else {
       $("#edit_div_sales_engineer").hide();
       $("#edit_div_sm").show();
-      $("#edit_div_supervisor_asm").hide();
+      $("#edit_div_supervisor").hide();
+      $("#edit_div_asm").hide();
     }
   }
 
@@ -891,7 +945,8 @@
     $("#edit_role").val(content[row]["user_role"].trim());
 
     if (content[row]["user_role"].trim() == "Sales Engineer") {
-      $("#edit_div_supervisor_asm").hide();
+      $("#edit_div_supervisor").hide();
+      $("#edit_div_asm").hide();
       $("#edit_div_sales_engineer").show();
       $("#edit_div_sm").hide();
 
@@ -954,7 +1009,8 @@
 
     } else if (content[row]["user_role"].trim() == "Area Sales Manager") {
       $("#edit_div_sales_engineer").hide();
-      $("#edit_div_supervisor_asm").show();
+      $("#edit_div_asm").show();
+      $("#edit_div_supervisor").hide();
       $("#edit_div_sm").hide();
 
 
@@ -1030,7 +1086,8 @@
       $("#supervisee_list_container_asm_edit").html(html);
     } else if (content[row]["user_role"].trim() == "Supervisor") {
       $("#edit_div_sales_engineer").hide();
-      $("#edit_div_supervisor_asm").show();
+      $("#edit_div_supervisor").show();
+      $("#edit_div_asm").hide();
       $("#edit_div_sm").hide();
 
 
@@ -1106,7 +1163,8 @@
       $("#supervisee_list_container_asm_edit").html(html);
     } else {
       $("#edit_div_sales_engineer").hide();
-      $("#edit_div_supervisor_asm").hide();
+      $("#edit_div_supervisor").hide();
+      $("#edit_div_asm").hide();
       $("#edit_div_sm").show();
 
       respond = load_supervisee(content[row]["id_pk_user"]);
