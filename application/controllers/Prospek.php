@@ -136,7 +136,8 @@ class Prospek extends CI_Controller
     $result5 = $this->m_prospek->get_sirup();
     $result6 = $this->m_prospek->get_ekat();
     $result7 = $this->m_prospek->get_curr_year_prospek();
-    $generated_id = "PRPK-RSUD-" . date("Y") . '-' . (count($result7->result_array()) + 1);
+    $number = str_pad((count($result7->result_array()) + 1), 3, '0', STR_PAD_LEFT);
+    $generated_id = "PRPK-RSUD-" . $number . '-' . date("Y");
     $data = array(
       'datars' => $result1->result_array(),
       'dataproduk' => $result2->result_array(),

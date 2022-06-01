@@ -1073,7 +1073,7 @@ class M_prospek extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-    $sql = "SELECT prospek_kode, id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_faktur, no_ekatalog, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori as rs_kategori, funnel,user_username,
+    $sql = "SELECT prospek_kode, id_pk_prospek, mstr_provinsi.provinsi_nama as nama_provinsi, mstr_kabupaten.kabupaten_nama as nama_kabupaten, mstr_rs.rs_nama as nama_rs, id_fk_jenis_rs as jenis_outlet,  prospek_principle, total_price_prospek, notes_kompetitor, notes_prospek, no_faktur, no_ekatalog, rating, funnel_percentage, estimasi_pembelian, note_loss, prospek_status, prospek_id_create, mstr_rs.rs_kategori as rs_kategori, funnel,user_username,
        IF((funnel = 'Prospek') AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_sirup, IF(funnel = 'Win' AND mstr_rs.rs_kategori = 'Pemerintah', 1,0) as flag_ekatalog
        FROM mstr_prospek
        INNER JOIN mstr_rs on mstr_prospek.id_fk_rs = mstr_rs.id_pk_rs
