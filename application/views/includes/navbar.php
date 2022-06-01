@@ -269,7 +269,7 @@
       </ul>
     </div>
   </div>
-<?php else : ?>
+<?php elseif (strtolower($this->session->user_role) == "area sales manager") : ?>
   <div class="site-menubar">
     <div class="site-menubar-body">
       <ul class="site-menu" data-plugin="menu">
@@ -285,6 +285,25 @@
             <span class="site-menu-title">SiRUP</span>
           </a>
         </li>
+      </ul>
+    </div>
+  </div>
+<?php else : ?>
+  <div class="site-menubar">
+    <div class="site-menubar-body">
+      <ul class="site-menu" data-plugin="menu">
+        <li class="dropdown site-menu-item has-sub">
+          <a href="<?php echo base_url(); ?>prospek" data-dropdown-toggle="false">
+            <i class="site-menu-icon md-assignment-check" aria-hidden="true"></i>
+            <span class="site-menu-title">Prospek</span>
+          </a>
+        </li>
+        <!-- <li class="dropdown site-menu-item has-sub">
+          <a href="<?php echo base_url(); ?>sirup" data-dropdown-toggle="false">
+            <i class="site-menu-icon md-collection-bookmark" aria-hidden="true"></i>
+            <span class="site-menu-title">SiRUP</span>
+          </a>
+        </li> -->
       </ul>
     </div>
   </div>

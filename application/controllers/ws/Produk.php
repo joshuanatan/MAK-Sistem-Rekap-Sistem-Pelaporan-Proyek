@@ -33,7 +33,7 @@ class Produk extends CI_Controller
     } else {
       $this->load->model("m_produk");
       $temp_produk_no_katalog = $this->input->post('nokatalogproduk');
-      if($this->m_produk->check_duplicate_insert($temp_produk_no_katalog)->num_rows() == 0){
+      if ($this->m_produk->check_duplicate_insert($temp_produk_no_katalog)->num_rows() == 0) {
 
         $config['upload_path'] = './docs/upload/image/produk/';
         $config['allowed_types'] = 'gif|jpg|png';
@@ -57,8 +57,7 @@ class Produk extends CI_Controller
         $this->m_produk->insert($temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_deskripsi, $temp_produk_file, $temp_produk_status);
         $response["status"] = true;
         $response["msg"] = "Data {$temp_produk_no_katalog} berhasil ditambah";
-      }
-      else{
+      } else {
         $response["status"] = false;
         $response["msg"] = "No katalog sudah terdaftar";
       }
@@ -96,34 +95,33 @@ class Produk extends CI_Controller
       $this->load->model("m_produk");
       $temp_id_pk_produk = $this->input->post('idproduk');
       $temp_produk_no_katalog = $this->input->post('nokatalogproduk');
-      if($this->m_produk->check_duplicate_update($temp_id_pk_produk,$temp_produk_no_katalog)->num_rows() == 0){
+      if ($this->m_produk->check_duplicate_update($temp_id_pk_produk, $temp_produk_no_katalog)->num_rows() == 0) {
         $config['upload_path'] = './docs/upload/image/produk/';
-        $config['allowed_types'] = 'gif|jpg|png';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
 
         $this->load->library('upload', $config);
 
         $temp_produk_file = $this->input->post("foto_produk_current");
-        if ($this->upload->do_upload('foto_produk')) {
+        if ($this->upload->do_upload('foto_produk_edit')) {
           $data = $this->upload->data();
           $temp_produk_file = $data["file_name"];
+          $temp_produk_principal = $this->input->post('principalproduk');
+          $temp_produk_no_sap = $this->input->post('nosapproduk');
+          $temp_produk_nama = $this->input->post('namaproduk');
+          $temp_produk_kategori = $this->input->post('kategoriproduk');
+          $temp_produk_price_list = $this->input->post('pricelistproduk');
+          // $temp_produk_harga_ekat = $this->input->post('hargaekatproduk');
+          $temp_produk_deskripsi = $this->input->post('deskripsiproduk');
+          $this->m_produk->edit_produk($temp_id_pk_produk, $temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_deskripsi, $temp_produk_file);
+          $response["status"] = true;
+          $response["msg"] = "Data {$temp_produk_no_katalog} berhasil diubah";
+        } else {
+          $response["status"] = true;
+          $msg = $this->upload->display_errors();
+          $response["msg"] = strip_tags(strval($msg));
         }
-
-        $temp_produk_principal = $this->input->post('principalproduk');
-        $temp_produk_no_sap = $this->input->post('nosapproduk');
-        $temp_produk_nama = $this->input->post('namaproduk');
-        $temp_produk_kategori = $this->input->post('kategoriproduk');
-        $temp_produk_price_list = $this->input->post('pricelistproduk');
-        // $temp_produk_harga_ekat = $this->input->post('hargaekatproduk');
-        $temp_produk_deskripsi = $this->input->post('deskripsiproduk');
-        $this->m_produk->edit_produk($temp_id_pk_produk, $temp_produk_no_katalog, $temp_produk_principal, $temp_produk_no_sap, $temp_produk_nama, $temp_produk_kategori, $temp_produk_price_list, $temp_produk_deskripsi, $temp_produk_file);
-        $response["status"] = true;
-        $response["msg"] = "Data {$temp_produk_no_katalog} berhasil diubah";
       }
-      else{
-        $response["status"] = false;
-        $response["msg"] = "No katalog sudah terdaftar";
-      }
+      echo json_encode($response);
     }
-    echo json_encode($response);
   }
 }

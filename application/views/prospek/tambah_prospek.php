@@ -34,7 +34,7 @@
             <div class="panel">
               <div class="panel-body">
                 <div class="form-group">
-                  <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode; ?>
+                  <label class="form-control-label">ID Prospek</label>
                   <input type="text" class="form-control" name="kodeprospek" value="<?php echo $generated_id; ?>" readOnly>
                 </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
@@ -668,7 +668,7 @@
             <input type="hidden" value="-" name="direktur">
             <div class="form-group">
               <label class="form-control-label">Nama Rumah Sakit</label>
-              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
+              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit">
             </div>
             <div class="form-group">
               <label class="form-control-label">Kelas Rumah Sakit</label>

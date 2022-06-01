@@ -194,12 +194,12 @@
               <label>Foto Produk Saat Ini </label>
               <br />
               <a class="inline-block" id="displayfotoproduk" data-plugin="magnificPopup" data-close-btn-inside="false" data-fixed-contentPos="true" data-main-class="mfp-margin-0s mfp-with-zoom" data-zoom='{"enabled": "true","duration":"300"}'>
-                <img class="img-fluid col-lg-6 col-sm-12" id="displayfoto" alt="..." />
+                <img class="img-fluid col-lg-6 col-sm-12" onerror="this.onerror=null; this.src='<?php echo base_url() ?>docs/upload/image/produk/default.png'" id="displayfoto" alt="..." />
               </a>
               <br />
               <br />
               <label>Foto Produk Baru </label><br />
-              <input type="file" name="foto_produk">
+              <input type="file" name="foto_produk_edit">
               <input type="hidden" name="foto_produk_current" id="sourceimage" value="">
             </div>
           </div>
@@ -357,9 +357,16 @@
     $("#pricelistproduk").val(format_number(content[row]["produk_price_list"]));
     // $("#hargaekatproduk").val(format_number(content[row]["produk_harga_ekat"]));
     $("#deskripsiproduk").val(content[row]["produk_deskripsi"]);
-    $("#displayfotoproduk").attr("href", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
-    $("#displayfoto").attr("src", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
-    $("#sourceimage").val(`${content[row]["produk_foto"]}`);
+    if (!`${content[row]["produk_foto"]}`) {
+      $("#displayfotoproduk").attr("href", `${base_url}docs/upload/image/produk/default.png`);
+      $("#displayfoto").attr("src", `${base_url}docs/upload/image/produk/default.png`);
+      $("#sourceimage").val(`default.png`);
+    } else {
+      $("#displayfotoproduk").attr("href", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
+      $("#displayfoto").attr("src", `${base_url}docs/upload/image/produk/${content[row]["produk_foto"]}`);
+      $("#sourceimage").val(`${content[row]["produk_foto"]}`);
+    }
+
     $("#edit_button").attr("onclick", `update_row(${row})`);
     $("#modalEdit").modal("show");
   }
@@ -406,7 +413,7 @@
         if (respond["status"]) {
           $("#modalEdit").modal("hide");
           reload_table();
-        } 
+        }
       }
     });
   }
@@ -419,7 +426,7 @@
       dataType: "JSON",
       success: function(respond) {
         alert(respond["msg"]);
-        if(respond["status"]){
+        if (respond["status"]) {
           $("#modalDelete").modal("hide");
           $(`#produk_row${row}`).remove();
         }

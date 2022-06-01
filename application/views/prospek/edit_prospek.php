@@ -34,8 +34,8 @@
               <div class="panel-body">
                 <h4 class="title">Edit Prospek</h4>
                 <div class="form-group">
-                  <label class="form-control-label">ID Prospek</label> - <i>Kode Terakhir: </i><?php echo $last_kode; ?>
-                  <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" required value="<?php echo $dataprospek[0]["prospek_kode"]; ?>">
+                  <label class="form-control-label">ID Prospek</label>
+                  <input type="text" class="form-control" name="kodeprospek" placeholder="ID Prospek" value="<?php echo $dataprospek[0]["prospek_kode"]; ?>">
                 </div>
                 <?php if ($this->session->user_role == "Sales Engineer") : ?>
                   <div class="form-group">
@@ -143,11 +143,12 @@
                                                                                                         echo "disabled";
                                                                                                       } ?>>
                     <option value="<?php echo $dataprospek[0]["funnel"]; ?>" selected hidden><?php echo $dataprospek[0]["funnel"]; ?></option>
-                    <option value="Lead">Lead</option>
-                    <option value="Prospek">Prospek</option>
+                    <option value="Pindah TA">Pindah TA</option>
+                    <option value="Done">Done</option>
                     <option value="Hot Prospek">Hot Prospek</option>
-                    <option value="Win">Win</option>
-                    <option value="Loss">Loss</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Loss">Lose</option>
+                    <option value="Prospek">Prospek</option>
                   </select>
                 </div>
                 <div class="form-group" id="funnelPercentage" <?php if ($this->session->id_user != $dataprospek[0]["prospek_id_create"]) {
@@ -285,7 +286,7 @@
                         <th>Diskon (%)</th>
                         <th>Quantity</th>
                         <th>Keterangan Produk</th>
-                        <th>Action</th>
+                        <!-- <th>Action</th> -->
                       </tr>
                     </thead>
                     <tbody>
@@ -305,7 +306,8 @@
                             <table style="width:100%; border:none;">
                               <tr>
                                 <td style="border:none;">Price List</td> -->
-                          <td style="border:none; text-align:right;" id="harga_produk_price_list<?php echo $a; ?>">Rp. <?php echo number_format($dataprospekproduk[$a]["produk_price_list"], 0, ",", "."); ?></td>
+                          <input type="hidden" name="detail_price<?php echo $a; ?>" value='<?php echo ($dataprospekproduk[$a]["prospek_produk_price"]); ?>'>
+                          <td style="border:none; text-align:right;" id="harga_produk_price_list<?php echo $a; ?>">Rp. <?php echo number_format($dataprospekproduk[$a]["prospek_produk_price"], 0, ",", "."); ?></td>
                           <!-- </tr>
                               <tr>
                                 <td style="border:none;">Harga Ekatalog</td>
@@ -313,21 +315,21 @@
                               </tr>
                             </table>
                           </td> -->
-                          <td><input type="text" style="text-align:right;" class='form-control nf-input' name="detail_price<?php echo $a; ?>" value='<?php echo number_format($dataprospekproduk[$a]["prospek_produk_price"], 0, ",", "."); ?>'></td>
+                          <td><input type="number" style="text-align:right;" class='form-control nf-input' min="0" max="100" name="detail_diskon<?php echo $a; ?>" value='<?php echo number_format($dataprospekproduk[$a]["prospek_produk_diskon"]); ?>'></td>
                           <td><input type='text' style="text-align:right;" class='form-control nf-input' name='detail_quantity<?php echo $a; ?>' id='qty_produk_insert<?php echo $a; ?>' min="0" value='<?php echo $dataprospekproduk[$a]["detail_prospek_quantity"]; ?>'></td>
                           <td>
                             <textarea class='form-control' name='detail_keterangan<?php echo $a; ?>' id='keterangan_produk_insert<?php echo $a; ?>'><?php echo $dataprospekproduk[$a]["detail_prospek_keterangan"]; ?></textarea>
                           </td>
-                          <td>
+                          <!-- <td>
                             <button type='button' class='btn btn-danger btn-sm' onclick='deleteExistingProdukData(<?php echo $a; ?>)'><i class='icon md-delete'></i></button>
-                          </td>
+                          </td> -->
                         </tr>
                       <?php endfor; ?>
-                      <tr id="tambah_produk_button_container">
+                      <!-- <tr id="tambah_produk_button_container">
                         <td colspan=7>
                           <button type="button" class="btn btn-primary btn-sm col-lg-12" onclick="tambahRowProduk()">Tambah Produk</button>
                         </td>
-                      </tr>
+                      </tr> -->
                     </tbody>
                   </table>
                 </div>
@@ -787,7 +789,7 @@
 
             <div class="form-group">
               <label class="form-control-label">Nama Rumah Sakit</label>
-              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit" required>
+              <input type="text" class="form-control" name="namarumahsakit" placeholder="Nama Rumah Sakit">
             </div>
             <div class="form-group">
               <label class="form-control-label">Kelas Rumah Sakit</label>

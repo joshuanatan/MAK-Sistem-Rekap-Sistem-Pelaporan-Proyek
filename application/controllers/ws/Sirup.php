@@ -33,6 +33,15 @@ class Sirup extends CI_Controller
     $result = $result->result_array();
     echo json_encode($result);
   }
+
+  public function get_detail_status($id_pk_sirup)
+  {
+    $this->load->model("m_sirup");
+    $result = $this->m_sirup->get_detail_status($id_pk_sirup);
+    $result = $result->result_array();
+    echo json_encode($result);
+  }
+
   public function get_detail_sumber_dana($id_pk_sirup)
   {
     $this->load->model("m_sirup");
@@ -90,7 +99,7 @@ class Sirup extends CI_Controller
     $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel)->result_array();
     #echo $this->db->last_query();
 
-    $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page);
+    $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel);
 
     if (!isset($total_data)) {
       $total_data = 0;
@@ -110,15 +119,32 @@ class Sirup extends CI_Controller
     $pencarian_phrase = $this->input->get("pencarian_phrase");
     $kolom_pencarian = $this->input->get("kolom_pencarian");
     $current_page = $this->input->get("current_page");
+    $funnel = $this->input->get("funnel");
+
     $this->load->model("m_sirup");
-    $response["data"] = $this->m_sirup->search_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    $response["data"] = $this->m_sirup->search_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel)->result_array();
     #echo $this->db->last_query();
-    $total_data = $this->m_sirup->get_data_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    $total_data = $this->m_sirup->get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel);
+
+    if (!isset($total_data)) {
+      $total_data = 0;
+    } else {
+      $total_data = count($total_data->result_array());
+    }
 
     $this->load->library("pagination");
     $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
 
     echo json_encode($response);
+    // $response["data"] = $this->m_sirup->search_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->result_array();
+    // #echo $this->db->last_query();
+    // $total_data = $this->m_sirup->get_data_with_creator($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)->num_rows();
+
+    // $this->load->library("pagination");
+    // $response["page"] = $this->pagination->generate_pagination_rules($current_page, $total_data, 20);
+
+    // echo json_encode($response);
   }
 
   public function delete($id_pk_sirup)
@@ -391,6 +417,31 @@ class Sirup extends CI_Controller
       $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
     }
     echo json_encode($response);
+  }
+
+  public function edit()
+  {
+    $this->form_validation->set_rules("sirup_status_notes", "sirup_status_notes", "required");
+    $this->form_validation->set_rules("sirup_status_no_funnel", "sirup_status_no_funnel", "required");
+    if ($this->form_validation->run()) {
+
+      $sirup_status_funnel = $this->input->post("sirup_status_funnel");
+      $sirup_status_notes = $this->input->post("sirup_status_notes");
+      $sirup_status_no_funnel = $this->input->post("sirup_status_no_funnel");
+      $id_pk_sirup = $this->input->post("id_sirup_status");
+
+      try {
+        $this->load->model("m_sirup");
+        $edit = $this->m_sirup->edit($id_pk_sirup, $sirup_status_funnel, $sirup_status_notes, $sirup_status_no_funnel);
+        $response["status"] = true;
+        $response["msg"] = "Data berhasil di update";
+        echo json_encode($response);
+      } catch (Exception $e) {
+        $response["status"] = false;
+        $response["msg"] = str_replace("</p>", "", str_replace("<p>", "", validation_errors()));
+        echo json_encode($response);
+      }
+    }
   }
   public function delete_lokasi_pekerjaan($id)
   {
