@@ -165,6 +165,15 @@ class M_sirup extends CI_Model
     );
     return executeQuery($sql, $args);
   }
+
+  public function get_detail_status($id_pk_sirup)
+  {
+    $sql = "select sirup_funnel, sirup_notes, sirup_no_funnel from mstr_sirup where id_pk_sirup = ?"; #2
+    $args = array(
+      $id_pk_sirup
+    );
+    return executeQuery($sql, $args);
+  }
   public function get_detail_sumber_dana($id_fk_sirup)
   {
     $sql = "select id_pk_sumber_dana, sumber_dana from tbl_sirup_sumber_dana where id_fk_sirup = ?"; #5
@@ -219,6 +228,21 @@ class M_sirup extends CI_Model
       "sirup_metode_pemilihan" => $sirup_metode_pemilihan,
       "sirup_histori_paket" => $sirup_histori_paket,
       "sirup_tgl_perbarui_paket" => $sirup_tgl_perbarui_paket,
+      "sirup_id_update" => $this->session->id_user,
+      "sirup_tgl_update" => date("Y-m-d H:i:s")
+    );
+    updateRow("mstr_sirup", $data, $where);
+  }
+
+  public function edit($id_pk_sirup, $status_funnel, $notes, $no_funnel)
+  {
+    $where = array(
+      "id_pk_sirup" => $id_pk_sirup
+    );
+    $data = array(
+      "sirup_funnel" => $status_funnel,
+      "sirup_notes" => $notes,
+      "sirup_no_funnel" => $no_funnel,
       "sirup_id_update" => $this->session->id_user,
       "sirup_tgl_update" => date("Y-m-d H:i:s")
     );
@@ -320,7 +344,7 @@ class M_sirup extends CI_Model
     if ($funnel == "2") {
       $sirup_funnel = " and mstr_prospek.no_faktur is null ";
     }
-    if ($this->session->user_role == "Sales Engineer" || $this->session->user_role == "Area Sales Manager" || $this->session->user_role == "Supervisor") {
+    if ($this->session->user_role == "Sales Engineer" || $this->session->user_role == "Supervisor") {
 
       $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
         join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
@@ -329,7 +353,7 @@ class M_sirup extends CI_Model
 
       $kabupaten = executeQuery($query_kabupaten)->result_array();
 
-      $like_kabupaten = " tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
         $pattern = "/\KOTA |\KABUPATEN /";
         $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
@@ -337,7 +361,7 @@ class M_sirup extends CI_Model
         if ($i == count($kabupaten) - 1) {
           $like_kabupaten .= " '%" . $components[1] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
+          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -345,9 +369,108 @@ class M_sirup extends CI_Model
         select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-        left join tbl_sirup_lokasi_pekerjaan on tbl_sirup_lokasi_pekerjaan.id_fk_sirup = mstr_sirup.id_pk_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where sirup_id_create = " . $this->session->id_user . " and " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+
+      return executeQuery($sql);
+    } else if ($this->session->user_role == "Area Sales Manager") {
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor = " . $this->session->id_user;
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user != "") {
+          $id_user = $id_user . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+      $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
+        join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
+        join mstr_user on tbl_user_kabupaten.id_fk_user = mstr_user.id_pk_user
+        where tbl_user_kabupaten.user_kabupaten_status = 'aktif' and tbl_user_kabupaten.id_fk_user in ($id_user)";
+
+      $kabupaten = executeQuery($query_kabupaten)->result_array();
+
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
+      for ($i = 0; $i < count($kabupaten); $i++) {
+        $pattern = "/\KOTA |\KABUPATEN /";
+        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+
+        if ($i == count($kabupaten) - 1) {
+          $like_kabupaten .= " '%" . $components[1] . "%' ";
+        } else {
+          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        }
+      }
+
+      $sql = "
+        select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+
+      return executeQuery($sql);
+    } else if ($this->session->user_role == "Sales Manager") {
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor = " . $this->session->id_user;
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user_asm = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user_asm != "") {
+          $id_user_asm = $id_user_asm . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user_asm = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor in ($id_user_asm)";
+
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user != "") {
+          $id_user = $id_user . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+
+      $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
+        join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
+        join mstr_user on tbl_user_kabupaten.id_fk_user = mstr_user.id_pk_user
+        where tbl_user_kabupaten.user_kabupaten_status = 'aktif' and tbl_user_kabupaten.id_fk_user in ($id_user)";
+
+      $kabupaten = executeQuery($query_kabupaten)->result_array();
+
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
+      for ($i = 0; $i < count($kabupaten); $i++) {
+        $pattern = "/\KOTA |\KABUPATEN /";
+        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+
+        if ($i == count($kabupaten) - 1) {
+          $like_kabupaten .= " '%" . $components[1] . "%' ";
+        } else {
+          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        }
+      }
+
+      $sql = "
+        select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
 
       return executeQuery($sql);
     } else {
@@ -355,8 +478,7 @@ class M_sirup extends CI_Model
         select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+        where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     }
@@ -399,7 +521,7 @@ class M_sirup extends CI_Model
     where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query;
     return executeQuery($sql);
   }
-  public function get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page)
+  public function get_data_system($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $current_page, $funnel)
   {
     $search_query = "";
     if ($pencarian_phrase != "") {
@@ -409,8 +531,14 @@ class M_sirup extends CI_Model
         $search_query = "and (" . $kolom_pencarian . " like '%" . $pencarian_phrase . "%')";
       }
     }
-
-    if ($this->session->user_role == "Sales Engineer" || $this->session->user_role == "Area Sales Manager" || $this->session->user_role == "Supervisor") {
+    $sirup_funnel = "";
+    if ($funnel == "1") {
+      $sirup_funnel = " and mstr_prospek.no_faktur is not null ";
+    }
+    if ($funnel == "2") {
+      $sirup_funnel = " and mstr_prospek.no_faktur is null ";
+    }
+    if ($this->session->user_role == "Sales Engineer" || $this->session->user_role == "Supervisor") {
 
       $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
         join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
@@ -419,7 +547,7 @@ class M_sirup extends CI_Model
 
       $kabupaten = executeQuery($query_kabupaten)->result_array();
 
-      $like_kabupaten = " tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
         $pattern = "/\KOTA |\KABUPATEN /";
         $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
@@ -427,7 +555,7 @@ class M_sirup extends CI_Model
         if ($i == count($kabupaten) - 1) {
           $like_kabupaten .= " '%" . $components[1] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
+          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -435,8 +563,108 @@ class M_sirup extends CI_Model
         select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
-        left join tbl_sirup_lokasi_pekerjaan on tbl_sirup_lokasi_pekerjaan.id_fk_sirup = mstr_sirup.id_pk_sirup
-        where sirup_id_create = " . $this->session->id_user . " and " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+
+      return executeQuery($sql);
+    } else if ($this->session->user_role == "Area Sales Manager") {
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor = " . $this->session->id_user;
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user != "") {
+          $id_user = $id_user . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+      $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
+        join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
+        join mstr_user on tbl_user_kabupaten.id_fk_user = mstr_user.id_pk_user
+        where tbl_user_kabupaten.user_kabupaten_status = 'aktif' and tbl_user_kabupaten.id_fk_user in ($id_user)";
+
+      $kabupaten = executeQuery($query_kabupaten)->result_array();
+
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
+      for ($i = 0; $i < count($kabupaten); $i++) {
+        $pattern = "/\KOTA |\KABUPATEN /";
+        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+
+        if ($i == count($kabupaten) - 1) {
+          $like_kabupaten .= " '%" . $components[1] . "%' ";
+        } else {
+          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        }
+      }
+
+      $sql = "
+        select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
+
+      return executeQuery($sql);
+    } else if ($this->session->user_role == "Sales Manager") {
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor = " . $this->session->id_user;
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user_asm = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user_asm != "") {
+          $id_user_asm = $id_user_asm . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user_asm = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor in ($id_user_asm)";
+
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user != "") {
+          $id_user = $id_user . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+
+      $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
+        join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
+        join mstr_user on tbl_user_kabupaten.id_fk_user = mstr_user.id_pk_user
+        where tbl_user_kabupaten.user_kabupaten_status = 'aktif' and tbl_user_kabupaten.id_fk_user in ($id_user)";
+
+      $kabupaten = executeQuery($query_kabupaten)->result_array();
+
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
+      for ($i = 0; $i < count($kabupaten); $i++) {
+        $pattern = "/\KOTA |\KABUPATEN /";
+        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+
+        if ($i == count($kabupaten) - 1) {
+          $like_kabupaten .= " '%" . $components[1] . "%' ";
+        } else {
+          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        }
+      }
+
+      $sql = "
+        select id_pk_sirup,sirup_rup,sirup_paket,sirup_klpd,sirup_satuan_kerja,sirup_tahun_anggaran,sirup_volume_pekerjaan,sirup_uraian_pekerjaan,sirup_spesifikasi_pekerjaan,sirup_produk_dalam_negri,sirup_usaha_kecil,sirup_pra_dipa,sirup_jenis_pengadaan,sirup_total,sirup_metode_pemilihan,sirup_histori_paket,sirup_tgl_perbarui_paket,sirup_status,sirup_tgl_create,sirup_tgl_update,sirup_tgl_delete,sirup_id_create,sirup_id_update,sirup_id_delete,id_fk_pencarian_sirup, if(pencarian_sirup_tahun is null,'',pencarian_sirup_tahun) as pencarian_sirup_tahun, if(pencarian_sirup_frase is null,'',pencarian_sirup_frase) as pencarian_sirup_frase, if(pencarian_sirup_jenis is null,'',pencarian_sirup_jenis) as pencarian_sirup_jenis
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;;
 
       return executeQuery($sql);
     } else {

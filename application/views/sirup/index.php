@@ -218,6 +218,7 @@
             <td>${respond["data"][a]["sirup_spesifikasi_pekerjaan"]}</td>
             <td>${respond["data"][a]["sirup_tgl_create"]}</td>
             <td><button type = "button" onclick = "load_edit(${a})" class = "btn btn-light btn-sm" data-toggle="modal" data-target="#updateSirupModal"><i class="icon md-search" aria-hidden="true"></i></button></td>
+            <td><button type = "button" class = "btn btn-primary btn-sm" onclick = "load_edit_status(${a})"><i class = "icon md-edit"></i></button></td>
           </tr>
           `;
         }
@@ -258,6 +259,29 @@
     $(".pagination").html(html);
   }
 </script>
+<div class="modal fade" id="editSirupModal">
+  <div class="modal-dialog modal-center modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">Edit Status SiRUP</h4>
+      </div>
+      <form id="update_form">
+        <input type="hidden" name="id_sirup_status" id="edit_status_id_sirup">
+        <div class="modal-body" id="edit_status">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="update_row()">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="updateSirupModal">
   <div class="modal-dialog modal-center modal-lg">
@@ -423,6 +447,89 @@
 </div>
 <script>
   var content = "";
+
+  function load_edit_status(row) {
+    $("#edit_status_id_sirup").val(content[row]["id_pk_sirup"]);
+
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/get_detail_status/" + content[row]["id_pk_sirup"],
+      type: "GET",
+      dataType: "JSON",
+      success: function(respond) {
+        var html = "";
+        for (var a = 0; a < respond.length; a++) {
+          if (respond[a]["sirup_funnel"] == "1") {
+            html += `
+              <div class="form-group">
+                <label class="form-control-label">Funnel Prospek</label>
+                  <select class="form-control" name="sirup_status_funnel">
+                    <option value="1" selected>Sudah Funnel Prospek</option>
+                    <option value="0">Belum Funnel Prospek</option>
+                  </select>
+              </div>`;
+          } else {
+            html += `
+              <div class="form-group">
+                <label class="form-control-label">Funnel Prospek</label>
+                  <select class="form-control" name="sirup_status_funnel">
+                    <option value="1">Sudah Funnel Prospek</option>
+                    <option value="0" selected>Belum Funnel Prospek</option>
+                  </select>
+              </div>`;
+          }
+          if (respond[a]["sirup_notes"] == null) {
+            html += `
+            <div class="form-group">
+              <label class="form-control-label">Notes</label>
+              <textarea class="form-control" name="sirup_status_notes"></textarea>
+            </div>`;
+          } else {
+            html += `
+            <div class="form-group">
+              <label class="form-control-label">Notes</label>
+              <textarea class="form-control" name="sirup_status_notes">${respond[a]["sirup_notes"]}</textarea>
+            </div>`;
+          }
+
+          if (respond[a]["sirup_no_funnel"] == null) {
+            html += `
+              <div class="form-group">
+                <label class="form-control-label">Nomor Funnel</label>
+                  <input type="text" class="form-control" name="sirup_status_no_funnel">
+              </div>`;
+          } else {
+            html += `
+              <div class="form-group">
+                <label class="form-control-label">Notes</label>
+                <input type="text" class="form-control" value="${respond[a]["sirup_no_funnel"]}" name="sirup_status_no_funnel">
+              </div>`;
+          }
+        }
+        $("#edit_status").html(html);
+      }
+    });
+    $("#editSirupModal").modal("show");
+  }
+
+  function update_row() {
+    nf_reformat_all();
+    var fd = new FormData($("#update_form")[0]);
+    $.ajax({
+      url: "<?php echo base_url(); ?>ws/sirup/edit",
+      type: "POST",
+      data: fd,
+      contentType: false,
+      processData: false,
+      dataType: "JSON",
+      success: function(respond) {
+        alert(respond["msg"]);
+        if (respond["status"]) {
+          $("#editSirupModal").modal("hide");
+          reload_table();
+        }
+      }
+    })
+  }
 
   function load_edit(row) {
     $("#edit_id_sirup").val(content[row]["id_pk_sirup"]);
