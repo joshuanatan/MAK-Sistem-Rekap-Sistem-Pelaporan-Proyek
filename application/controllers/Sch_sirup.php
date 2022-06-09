@@ -465,8 +465,7 @@ class Sch_sirup extends CI_Controller
     executeQuery($sql);
     $sql = "truncate table temp_sirup_general";
     executeQuery($sql);
-    $sql = "truncate table mstr_sirup";
-    executeQuery($sql);
+
 
     $this->reset_status_query();
     $this->query_sirup();
