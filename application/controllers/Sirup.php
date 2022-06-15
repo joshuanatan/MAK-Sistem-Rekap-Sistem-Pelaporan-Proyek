@@ -238,8 +238,9 @@ class Sirup extends CI_Controller
     $arah_kolom_pengurutan = $_POST['urutan'];
     $pencarian_phrase = $_POST['pencarian_phrase'];
     $kolom_pencarian = $_POST['kolom_pencarian'];
+    $funnel = $_POST["funnel"]; 
 
-    $data['data'] = $this->m_sirup->export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian)->result_array();
+    $data['data'] = $this->m_sirup->export_sirup($kolom_pengurutan, $arah_kolom_pengurutan, $pencarian_phrase, $kolom_pencarian, $funnel)->result_array();
 
     // var_dump($data['data'][1]['lokasi_pekerjaan']);
     // die();
