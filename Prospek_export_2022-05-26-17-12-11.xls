@@ -1,0 +1,121 @@
+<html>
+
+<body>
+    <h2>MAK Prospek Export</h2>
+    <h3>Exported at: 2022-05-26-17-12-11</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>PRINCIPLE</th>
+                <th>ID PROSPEK</th>
+                <th>NAMA BARANG</th>
+                <th>UNIT</th>
+                <th>TOTAL</th>
+                <th>KOMPETITOR</th>
+                <th>SIRUP</th>
+                <th>ID PAKET/PO</th>
+                <th>FUNNEL</th>
+                <th>EST LELANG</th>
+                <th>LAST UPDATE</th>
+                <th>KETERANGAN</th>
+            </tr>
+        </thead>
+        <tbody>
+                            <tr valign=TOP>
+                    <td>MAK</td>
+                    <td>PRPK-RSUD-001-2022</td> 
+                    <td>
+                                                                                    Ranjang Operasi  <br>
+                                                                        </td>
+                    <td>
+                                                                                    15<br>
+                                                                        </td>
+                    <td align="right">225,000,000</td>
+                    <td>Kompetitor jual harga ini sekitar 20-30% lebih murah.
+Kompetitor tidak mencantumkan ongkos kirim</td>
+                    <td></td>
+                    <td>AK1-P2108-4228876</td>
+                    <td>Win</td>
+                    <td>2022-04-13</td>
+                    <td>ASM User</td>
+                    <td>Prospek pembayaran agak tersendat karena uang masih harus menunggu approval dari komite.
+Prospek tidak mencari barang termurah, namun fokus pada kualitas.
+Keberhasilan pengadaan ini akan diberikan proyek hingga 5 tahun ke depan.</td>
+                </tr>
+                            <tr valign=TOP>
+                    <td>MAK</td>
+                    <td>PRPK-RSUD-002-2022</td> 
+                    <td>
+                                                                                    Ranjang Operasi  <br>
+                                                                        </td>
+                    <td>
+                                                                                    140<br>
+                                                                        </td>
+                    <td align="right">1,400,000,000</td>
+                    <td>-</td>
+                    <td>28168908</td>
+                    <td></td>
+                    <td>Prospek</td>
+                    <td>2022-04-14</td>
+                    <td>SE User</td>
+                    <td>-</td>
+                </tr>
+                            <tr valign=TOP>
+                    <td>MAK</td>
+                    <td>PRPK-RSUD-003-2022</td> 
+                    <td>
+                                                                                    Ranjang Operasi  <br>
+                                                                        </td>
+                    <td>
+                                                                                    12<br>
+                                                                        </td>
+                    <td align="right">187,200,000</td>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td>Win</td>
+                    <td>2022-04-28</td>
+                    <td>Joshua Natan</td>
+                    <td>-</td>
+                </tr>
+                            <tr valign=TOP>
+                    <td>-</td>
+                    <td>PRPK-RSUD-099-2021</td> 
+                    <td>
+                                                                                    Ranjang Operasi  <br>
+                                                                        </td>
+                    <td>
+                                                                                    100<br>
+                                                                        </td>
+                    <td align="right">1,500,000,000</td>
+                    <td>-</td>
+                    <td>28170065</td>
+                    <td></td>
+                    <td>Prospek</td>
+                    <td>2021-11-27</td>
+                    <td>Supervisor User</td>
+                    <td>-</td>
+                </tr>
+                            <tr valign=TOP>
+                    <td>-</td>
+                    <td>PRPK-RSUD-100-2021</td> 
+                    <td>
+                                                                                    Ranjang Operasi  <br>
+                                                                        </td>
+                    <td>
+                                                                                    144<br>
+                                                                        </td>
+                    <td align="right">1,776,960,000</td>
+                    <td>-</td>
+                    <td></td>
+                    <td>AK1-P2109-4254991</td>
+                    <td>Win</td>
+                    <td>2021-12-01</td>
+                    <td>SM User</td>
+                    <td>-</td>
+                </tr>
+                    </tbody>
+    </table>
+</body>
+
+</html>

@@ -27,163 +27,122 @@
       </div>
 
       <hr />
-
-      <div class="page-content container-fluid">
-        <div class="row">
-          <div class="col-xxl-6 col-lg-12">
-            <!-- Example Panel With All -->
-            <div class="panel panel-bordered">
-              <div class="panel-heading">
-                <h3 class="panel-title">Total Prospek</h3>
-              </div>
-              <div class="panel-body">
-                <span id="prospek_price" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-
-              </div>
-              <div class="panel-footer">
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="prospek_jenis" onchange="total_prospek_filter()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
-                    <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
-                  </select>
-                </div>
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="prospek_tahun" onchange="total_prospek_filter()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                    <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                  </select>
-                </div>
-              </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- Card -->
+          <div class="card p-30 flex-row justify-content-between">
+            <div class="white">
+              <i class="icon icon-circle icon-2x wb-clipboard bg-yellow-600" aria-hidden="true"></i>
             </div>
-            <!-- End Example Panel With All -->
-          </div>
-          <div class="col-xxl-6 col-lg-12">
-            <!-- Example Panel With All -->
-            <div class="panel panel-bordered">
-              <div class="panel-heading">
-                <h3 class="panel-title">Total SiRUP</h3>
+            <div class="counter counter-md counter text-right">
+              <div class="counter-number-group">
+                <span class="counter-number">Rp <?php echo number_format($prospek_pie_chart["total"][0]["jmlh"]); ?></span>
               </div>
-              <div class="panel-body">
-                <span id="sirup_total" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-
-              </div>
-              <div class="panel-footer">
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="sirup_funnel" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="0" role="menuitem">Semua Funnel</option>
-                    <option class="dropdown-item" value="1" role="menuitem">Sudah Funnel Prospek</option>
-                    <option class="dropdown-item" value="2" role="menuitem">Belum Funnel Prospek</option>
-                  </select>
-                </div>
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="sirup_jenis" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
-                    <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
-                  </select>
-                </div>
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="sirup_tahun" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                    <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                  </select>
-                </div>
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="keyword" onchange="total_sirup_filter()" class="btn btn-default dropdown-toggle">
-                    <option value="0" selected>Semua Keyword</option>
-                    <?php for ($a = 0; $a < count($keyword); $a++) : ?>
-                      <option value="<?php echo $keyword[$a]["id_pk_pencarian_sirup"]; ?>"><?php echo $keyword[$a]["pencarian_sirup_frase"]; ?></option>
-                    <?php endfor; ?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <!-- End Example Panel With All -->
-          </div>
-          <div class="col-xxl-12 col-lg-12">
-            <!-- Example Panel With All -->
-            <div class="panel panel-bordered">
-              <div class="panel-heading">
-                <h3 class="panel-title">Total Prospek Jenis Outlet</h3>
-              </div>
-              <div class="panel-body">
-                <span id="prospek_price_outlet" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-              </div>
-              <div class="panel-footer">
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="prospek_jenis_outlet" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="0" role="menuitem">Sendiri</option>
-                    <option class="dropdown-item" value="1" role="menuitem">Sendiri dan Supervisee</option>
-                  </select>
-                </div>
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="prospek_tahun_outlet" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                    <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                    <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                  </select>
-                </div>
-                <div class="dropdown vertical-align-bottom font-size-20">
-                  <select id="prospek_pemerintah" onchange="total_prospek_outlet()" class="btn btn-default dropdown-toggle">
-                    <option class="dropdown-item" value="0" role="menuitem">Semua</option>
-                    <option class="dropdown-item" value="1" role="menuitem">Swasta</option>
-                    <option class="dropdown-item" value="2" role="menuitem">Pemerintah</option>
-                  </select>
-                </div>
-                <div class="vertical-align-bottom font-size-20">
-                  <select id="kabupaten" onchange="total_prospek_outlet()" class="btn btn-default">
-                    <option value="0" selected>Semua Kabupaten</option>
-                    <?php for ($a = 0; $a < count($kabupaten); $a++) : ?>
-                      <option value="<?php echo $kabupaten[$a]['id_pk_kabupaten']; ?>"><?php echo $kabupaten[$a]['kabupaten_nama']; ?></option>
-                    <?php endfor; ?>
-                  </select>
-                </div>
-              </div>
-              <!-- End Example Panel With All -->
+              <div class="counter-label text-capitalize font-size-16">Total Funnel</div>
             </div>
           </div>
-
-
-          <?php if ($this->session->user_role == "Administrator" || $this->session->user_role == "Sales Manager") : ?>
-            <div class="col-xxl-12 col-lg-12">
-              <!-- Example Panel With All -->
-              <div class="panel panel-bordered">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Total E-Katalog</h3>
-                </div>
-                <div class="panel-body">
-                  <span id="ekatalog_price" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                  <br>
-                  <span id="ekatalog_count" class="font-size-20 text-center counter-number" style="font-weight:bold;"></span>
-                </div>
-                <div class="panel-footer">
-                  <div class="dropdown vertical-align-bottom font-size-20">
-                    <select id="ekatalog_tahun" onchange="total_ekatalog_filter()" class="btn btn-default dropdown-toggle">
-                      <option class="dropdown-item" value="total" role="menuitem">Total</option>
-                      <option class="dropdown-item" value="<?php echo date("Y"); ?>" role="menuitem"><?php echo date("Y"); ?></option>
-                      <option class="dropdown-item" value="<?php echo date("Y", strtotime('-1 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-1 year')); ?></option>
-                      <option class="dropdown-item" value="<?php echo date("Y", strtotime('-2 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-2 year')); ?></option>
-                      <option class="dropdown-item" value="<?php echo date("Y", strtotime('-3 year')); ?>" role="menuitem"><?php echo date("Y", strtotime('-3 year')); ?></option>
-                    </select>
-                  </div>
-                </div>
-                <!-- End Example Panel With All -->
-              </div>
+          <!-- End Card -->
+        </div>
+        <div class="col-lg-6">
+          <!-- Card -->
+          <div class="card p-30 flex-row justify-content-between">
+            <div class="white">
+              <i class="icon icon-circle icon-2x wb-clipboard bg-green-600" aria-hidden="true"></i>
             </div>
-          <?php endif; ?>
+            <div class="counter counter-md counter text-right">
+              <div class="counter-number-group">
+                <span class="counter-number">Rp <?php echo number_format($prospek_pie_chart["win"][0]["jmlh"]); ?></span>
+              </div>
+              <div class="counter-label text-capitalize font-size-16">Funnel Win</div>
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
+        <div class="col-lg-6">
+          <!-- Card -->
+          <div class="card p-30 flex-row justify-content-between">
+            <div class="white">
+              <i class="icon icon-circle icon-2x wb-clipboard bg-blue-600" aria-hidden="true"></i>
+            </div>
+            <div class="counter counter-md counter text-right">
+              <div class="counter-number-group">
+                <span class="counter-number">Rp <?php echo number_format($prospek_pie_chart["lead"][0]["jmlh"] + $prospek_pie_chart["prospek"][0]["jmlh"] + $prospek_pie_chart["hot_prospek"][0]["jmlh"] + $prospek_pie_chart["belum"][0]["jmlh"] + $prospek_pie_chart["na"][0]["jmlh"]); ?></span>
+              </div>
+              <div class="counter-label text-capitalize font-size-16">Funnel In Progress</div>
+            </div>
+          </div>
+          <!-- End Card -->
+        </div>
+
+        <div class="col-lg-6">
+          <!-- Card -->
+          <div class="card p-30 flex-row justify-content-between">
+            <div class="white">
+              <i class="icon icon-circle icon-2x wb-clipboard bg-red-600" aria-hidden="true"></i>
+            </div>
+            <div class="counter counter-md counter text-right">
+              <div class="counter-number-group">
+                <span class="counter-number">Rp <?php echo number_format($prospek_pie_chart["lose"][0]["jmlh"]); ?></span>
+              </div>
+              <div class="counter-label text-capitalize font-size-16">Funnel Loss</div>
+            </div>
+          </div>
+          <!-- End Card -->
         </div>
       </div>
-      <?php $this->load->view("includes/footer"); ?>
-      <?php $this->load->view("includes/core-script"); ?>
+      <div class="row">
+        <div class="col-lg-6 col-xl-4">
+          <!-- Example Pie -->
+          <div class="example-wrap m-md-0">
+            <h4 class="example-title">Prospek</h4>
+            <p>Status Prospek</p>
+            <div class="example text-center max-width">
+              <canvas id="ProspekPie" height="250"></canvas>
+            </div>
+          </div>
+          <!-- End Example Pie -->
+        </div>
+        <div class="col-lg-6 col-xl-4">
+          <!-- Example Pie -->
+          <div class="example-wrap m-md-0">
+            <h4 class="example-title">E-Katalog</h4>
+            <p>Status Klik E-Katalog</p>
+            <div class="example text-center max-width">
+              <canvas id="EkatalogPie" height="250"></canvas>
+            </div>
+          </div>
+          <!-- End Example Pie -->
+        </div>
+        <div class="col-lg-6 col-xl-4">
+          <!-- Example Pie -->
+          <div class="example-wrap m-md-0">
+            <h4 class="example-title">E-Katalog</h4>
+            <p>Hubungan E-Katalog dan SiRUP</p>
+            <div class="example text-center max-width">
+              <canvas id="EkatalogSirupPie" height="250"></canvas>
+            </div>
+          </div>
+          <!-- End Example Pie -->
+        </div>
+        <div class="col-lg-12 col-xl-12">
+          <!-- Example Bar -->
+          <div class="example-wrap">
+            <h4 class="example-title">SiRUP</h4>
+            <p>Jumlah SiRUP Per Kata Kunci</p>
+            <div class="example text-center">
+              <canvas id="SirupBar" height="150" width="450"></canvas>
+            </div>
+          </div>
+          <!-- End Example Bar -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php $this->load->view("includes/footer"); ?>
+  <?php $this->load->view("includes/core-script"); ?>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
+<script src="<?php echo base_url(); ?>/global/vendor/chart-js/Chart.js"></script>
 <script>
   var row = 0;
 </script>
@@ -259,3 +218,156 @@
 </script>
 
 </html>
+
+<script>
+  (function(global, factory) {
+    if (typeof define === "function" && define.amd) {
+      define("/charts/chartjs", ["jquery", "Site"], factory);
+    } else if (typeof exports !== "undefined") {
+      factory(require("jquery"), require("Site"));
+    } else {
+      var mod = {
+        exports: {}
+      };
+      factory(global.jQuery, global.Site);
+      global.chartsChartjs = mod.exports;
+    }
+  })(this, function(_jquery, _Site) {
+    "use strict";
+
+    _jquery = babelHelpers.interopRequireDefault(_jquery);
+    (0, _jquery.default)(document).ready(function($$$1) {
+      (0, _Site.run)();
+    });
+    Chart.defaults.global.responsive = true;
+
+    (function() {
+      var barChartData = {
+        labels: [<?php echo $sirup_bar_chart["label"] ?>],
+        datasets: [{
+          label: "Jumlah Sirup",
+          backgroundColor: "rgba(204, 213, 219, .2)",
+          borderColor: Config.colors("blue-grey", 300),
+          hoverBackgroundColor: "rgba(204, 213, 219, .3)",
+          borderWidth: 2,
+          data: [<?php echo $sirup_bar_chart["content"] ?>]
+        }]
+      };
+      var myBar = new Chart(document.getElementById("SirupBar").getContext("2d"), {
+        type: 'bar',
+        data: barChartData,
+        options: {
+          responsive: true,
+          scales: {
+            xAxes: [{
+              display: true
+            }],
+            yAxes: [{
+              display: true
+            }]
+          }
+        }
+      });
+    })();
+
+    (function() {
+      var pieData = {
+        labels: ["Win", "Lose", "Lead", "Prospek", "Hot Prospek"],
+        datasets: [{
+          data: [
+            <?php echo $prospek_pie_chart["win"][0]["jmlh"] ?>,
+            <?php echo $prospek_pie_chart["lose"][0]["jmlh"] ?>,
+            <?php echo $prospek_pie_chart["lead"][0]["jmlh"] ?>,
+            <?php echo $prospek_pie_chart["prospek"][0]["jmlh"] ?>,
+            <?php echo $prospek_pie_chart["hot_prospek"][0]["jmlh"] ?>,
+          ],
+          backgroundColor: [
+            Config.colors("green", 400),
+            Config.colors("gray", 400),
+            Config.colors("blue", 400),
+            Config.colors("yellow", 400),
+            Config.colors("orange", 400)
+          ],
+          hoverBackgroundColor: [
+            Config.colors("green", 600),
+            Config.colors("gray", 600),
+            Config.colors("blue", 600),
+            Config.colors("yellow", 600),
+            Config.colors("orange", 600)
+          ]
+        }]
+      };
+      var myPie = new Chart(document.getElementById("ProspekPie").getContext("2d"), {
+        type: 'pie',
+        data: pieData,
+        options: {
+          responsive: true
+        }
+      });
+    })();
+
+    (function() {
+      var pieData = {
+        labels: ["Batal", "Proses Kirim", "Proses Kontrak", "Proses Nego", "Selesai"],
+        datasets: [{
+          data: [
+            <?php echo $ekatalog_pie_chart["batal"][0]["jmlh"] ?>,
+            <?php echo $ekatalog_pie_chart["kirim"][0]["jmlh"] ?>,
+            <?php echo $ekatalog_pie_chart["kontrak"][0]["jmlh"] ?>,
+            <?php echo $ekatalog_pie_chart["nego"][0]["jmlh"] ?>,
+            <?php echo $ekatalog_pie_chart["selesai"][0]["jmlh"] ?>,
+          ],
+          backgroundColor: [
+            Config.colors("red", 400),
+            Config.colors("blue", 400),
+            Config.colors("yellow", 400),
+            Config.colors("orange", 400),
+            Config.colors("green", 400),
+          ],
+          hoverBackgroundColor: [
+            Config.colors("red", 600),
+            Config.colors("blue", 600),
+            Config.colors("yellow", 600),
+            Config.colors("orange", 600),
+            Config.colors("green", 600),
+          ]
+        }]
+      };
+      var myPie = new Chart(document.getElementById("EkatalogPie").getContext("2d"), {
+        type: 'pie',
+        data: pieData,
+        options: {
+          responsive: true
+        }
+      });
+    })();
+
+    (function() {
+      var pieData = {
+        labels: ["Terdaftar di SiRUP", "Tidak Terdapat di SiRUP"],
+        datasets: [{
+          data: [
+            <?php echo count($ekatalog_sirup) ?>,
+            <?php echo count($ekatalog_tidak_sirup) ?>,
+          ],
+          backgroundColor: [
+            Config.colors("green", 400),
+            Config.colors("red", 400),
+          ],
+          hoverBackgroundColor: [
+            Config.colors("green", 600),
+            Config.colors("red", 600),
+          ]
+        }]
+      };
+      var myPie = new Chart(document.getElementById("EkatalogSirupPie").getContext("2d"), {
+        type: 'pie',
+        data: pieData,
+        options: {
+          responsive: true
+        }
+      });
+    })();
+
+  });
+</script>

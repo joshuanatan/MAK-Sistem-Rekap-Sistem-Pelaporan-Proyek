@@ -596,25 +596,7 @@
         type: "GET",
         dataType: "JSON",
         success: function(respond) {
-          if (prospek == "Prospek" && "<?php echo $this->session->user_role; ?>" == "Supervisor" && respond["data_rs_kategori"][0]["rs_kategori"] == "Pemerintah") {
-            var html4 = "";
-            $("#noteSirup").show();
-            html4 += `
-                <label class="form-control-label">No SiRUP</label>
-                <select class = 'js-example-basic-single form-control' style='width:100%;' name = 'no_sirup' id='noSirup' onchange='showDetailSirup()'>
-                  <option value="<?php echo $dataprospek[0]["no_sirup"]; ?>" selected hidden><?php echo $dataprospek[0]["no_sirup"]; ?></option>
-                <?php for ($i = 0; $i < count($datasirup); $i++) : ?>
-                  <option value = "<?php echo $datasirup[$i]["sirup_rup"]; ?>"><?php echo $datasirup[$i]["sirup_rup"]; ?></option>
-                <?php endfor; ?>
-                </select>
-                <label class="form-control-label">Detail SiRUP</label>
-                <table class="table table-hover table-striped w-full border" id ="detailSirup">
-                </table>
-              `;
-            $("#funnelPercentage").html("");
-            $("#noEkatalog").html("");
-            $("#noteLoss").html("");
-          } else if (prospek == "Win" && "<?php echo $this->session->user_role; ?>" == "Sales Manager" && respond["data_rs_kategori"][0]["rs_kategori"] == "Pemerintah") {
+          if (prospek == "Win" && "<?php echo $this->session->user_role; ?>" == "Sales Manager" && respond["data_rs_kategori"][0]["rs_kategori"] == "Pemerintah") {
             var html2 = "";
             var no_ekatalog = $(`#no_ekatalog`).val();
             $("#noEkatalog").show();
@@ -670,7 +652,7 @@
           $("#noEkatalog").html(html2);
           showDetailEkat();
           $("#noteLoss").html(html3);
-          $("#noteSirup").html(html4);
+          // $("#noteSirup").html(html4);
           showDetailSirup();
           $('.js-example-basic-single').select2();
         }

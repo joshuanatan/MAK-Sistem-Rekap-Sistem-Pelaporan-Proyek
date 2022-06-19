@@ -1,64 +1,5 @@
 <?php
-/*
-  drop table if exists mstr_sirup;
-  create table mstr_sirup(
-      id_pk_sirup int primary key auto_increment,
-      sirup_rup varchar(100),
-      sirup_paket text,
-      sirup_klpd varchar(100),
-      sirup_satuan_kerja varchar(100),
-      sirup_tahun_anggaran int,
-      sirup_volume_pekerjaan varchar(300),
-      sirup_uraian_pekerjaan varchar(300),
-      sirup_spesifikasi_pekerjaan varchar(300),
-      sirup_produk_dalam_negri varchar(15),
-      sirup_usaha_kecil varchar(15),
-      sirup_pra_dipa varchar(15),
-      sirup_jenis_pengadaan varchar(300),
-      sirup_total int,
-      sirup_metode_pemilihan varchar(100),
-      sirup_histori_paket varchar(100),
-      sirup_tgl_perbarui_paket varchar(100),
-      sirup_status varchar(30),
-      sirup_tgl_create datetime,
-      sirup_tgl_update datetime,
-      sirup_tgl_delete datetime,
-      sirup_id_create int,
-      sirup_id_update int,
-      sirup_id_delete int,
-      id_fk_pencarian_sirup int
-  );
 
-  create table tbl_sirup_lokasi_pekerjaan(
-      id_pk_lokasi_pekerjaan int primary key auto_increment,
-      lokasi_pekerjaan varchar(1000),
-      id_fk_sirup int
-  );
-  select * from tbl_sirup_lokasi_pekerjaan;
-  create table tbl_sirup_sumber_dana(
-      id_pk_sumber_dana int primary key auto_increment,
-      sumber_dana varchar(1000),
-      id_fk_sirup int
-  );
-  select * from tbl_sirup_sumber_dana;
-  create table tbl_sirup_pemanfaatan_barang(
-      id_pk_pemanfaatan_barang int primary key auto_increment,
-      pemanfaatan_barang varchar(1000),
-      id_fk_sirup int
-  );
-  select * from tbl_sirup_pemanfaatan_barang;
-  create table tbl_sirup_jadwal_pelaksanaan(
-      id_pk_jadwal_pelaksanaan int primary key auto_increment,
-      jadwal_pelaksanaan varchar(1000),
-      id_fk_sirup int
-  );
-  select * from tbl_sirup_jadwal_pelaksanaan;
-  create table tbl_sirup_pemilihan_penyedia(
-      id_pk_pemilihan_penyedia int primary key auto_increment,
-      pemilihan_penyedia varchar(1000),
-      id_fk_sirup int
-  );
-*/
 class M_sirup extends CI_Model
 {
 
@@ -355,14 +296,20 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
+      
       }
 
       $sql = "
@@ -370,7 +317,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Area Sales Manager") {
@@ -397,13 +344,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -412,7 +364,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Sales Manager") {
@@ -455,13 +407,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -470,7 +427,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan . " limit 20 offset " . (20 * ($current_page - 1));
 
       return executeQuery($sql);
     } else {
@@ -549,13 +506,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -564,7 +526,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Area Sales Manager") {
@@ -591,13 +553,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -606,7 +573,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Sales Manager") {
@@ -649,13 +616,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -664,7 +636,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else {
@@ -778,13 +750,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -793,7 +770,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Area Sales Manager") {
@@ -820,13 +797,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -835,7 +817,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else if ($this->session->user_role == "Sales Manager") {
@@ -878,13 +860,18 @@ class M_sirup extends CI_Model
 
       $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
       for ($i = 0; $i < count($kabupaten); $i++) {
-        $pattern = "/\KOTA |\KABUPATEN /";
-        $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+        // $pattern = "/\KOTA |\KABUPATEN /";
+        // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+        // if ($i == count($kabupaten) - 1) {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+        // } else {
+        //   $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        // }
         if ($i == count($kabupaten) - 1) {
-          $like_kabupaten .= " '%" . $components[1] . "%' ";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
         } else {
-          $like_kabupaten .= " '%" . $components[1] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
         }
       }
 
@@ -893,7 +880,7 @@ class M_sirup extends CI_Model
         from mstr_sirup 
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
-        where " . $like_kabupaten . " and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel . $search_query . " order by " . $kolom_pengurutan . " " . $arah_kolom_pengurutan;
 
       return executeQuery($sql);
     } else {
@@ -920,7 +907,7 @@ class M_sirup extends CI_Model
     executeQuery($sql);
     return $sql;
   }
-  public function sirup_funnel($funnel)
+  public function sirup_funnel_backup($funnel)
   {
     $sirup_funnel = "";
     if ($funnel == "1") {
@@ -943,13 +930,18 @@ class M_sirup extends CI_Model
       } else {
         $like_kabupaten = " and tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
-          $pattern = "/\KOTA |\KABUPATEN /";
-          $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
+          // $pattern = "/\KOTA |\KABUPATEN /";
+          // $components = preg_split($pattern, $kabupaten[$i]['kabupaten_nama']);
 
+          // if ($i == count($kabupaten) - 1) {
+          //   $like_kabupaten .= " '%" . $components[1] . "%' ";
+          // } else {
+          //   $like_kabupaten .= " '%" . $components[1] . "%' OR tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
+          // }
           if ($i == count($kabupaten) - 1) {
-            $like_kabupaten .= " '%" . $components[1] . "%' ";
+            $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
           } else {
-            $like_kabupaten .= " '%" . $components[1] . "%' OR tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
+            $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
           }
         }
       }
@@ -961,7 +953,6 @@ class M_sirup extends CI_Model
         left join tbl_sirup_lokasi_pekerjaan on tbl_sirup_lokasi_pekerjaan.id_fk_sirup = mstr_sirup.id_pk_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
         where sirup_id_create = " . $this->session->id_user . " " . $like_kabupaten . " and sirup_status = 'aktif' " . $sirup_funnel;
-
       return executeQuery($sql);
     } else {
       $sql = "
@@ -970,6 +961,92 @@ class M_sirup extends CI_Model
         left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
         left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
         where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 " . $sirup_funnel;
+
+      return executeQuery($sql);
+    }
+  }
+  
+  public function sirup_funnel($funnel)
+  {
+    if ($this->session->user_role == "Supervisor") {
+
+      $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
+        join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
+        join mstr_user on tbl_user_kabupaten.id_fk_user = mstr_user.id_pk_user
+        where tbl_user_kabupaten.user_kabupaten_status = 'aktif' and tbl_user_kabupaten.id_fk_user = " . $this->session->id_user;
+
+      $kabupaten = executeQuery($query_kabupaten)->result_array();
+
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
+      for ($i = 0; $i < count($kabupaten); $i++) {
+        if ($i == count($kabupaten) - 1) {
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
+        } else {
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        }
+      }
+
+      $sql = "
+        select count(id_pk_sirup) as jmlh
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_funnel = $funnel and sirup_status_sesuai_pencarian != 0 ";
+      return executeQuery($sql);
+    } else if ($this->session->user_role == "Area Sales Manager") {
+      $sql = "select id_pk_user from mstr_user where user_status = 'aktif' and user_supervisor = " . $this->session->id_user;
+      $result = executeQuery($sql);
+
+      $id_user_arr = $result->result_array();
+      $id_user = "";
+
+      for ($i = 0; $i < count($id_user_arr); $i++) {
+        if ($id_user != "") {
+          $id_user = $id_user . "," . $id_user_arr[$i]['id_pk_user'];
+        } else {
+          $id_user = $id_user_arr[$i]['id_pk_user'];
+        }
+      }
+
+      $query_kabupaten = "select kabupaten_nama from mstr_kabupaten
+        join tbl_user_kabupaten on tbl_user_kabupaten.id_fk_kabupaten = mstr_kabupaten.id_pk_kabupaten
+        join mstr_user on tbl_user_kabupaten.id_fk_user = mstr_user.id_pk_user
+        where tbl_user_kabupaten.user_kabupaten_status = 'aktif' and tbl_user_kabupaten.id_fk_user in ($id_user)";
+
+      $kabupaten = executeQuery($query_kabupaten)->result_array();
+
+      $like_kabupaten = " mstr_sirup.sirup_kabupaten LIKE";
+      for ($i = 0; $i < count($kabupaten); $i++) {
+        if ($i == count($kabupaten) - 1) {
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' ";
+        } else {
+          $like_kabupaten .= " '%" . $kabupaten[$i]["kabupaten_nama"] . "%' OR mstr_sirup.sirup_kabupaten LIKE";
+        }
+      }
+
+      $sql = "
+        select count(id_pk_sirup) as jmlh
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where (" . $like_kabupaten . ") and sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0  and sirup_funnel = $funnel";
+
+      return executeQuery($sql);
+    } else if ($this->session->user_role == "Sales Manager") {
+      $sql = "
+        select count(id_pk_sirup) as jmlh
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        left join mstr_prospek on mstr_prospek.no_faktur = mstr_sirup.sirup_rup
+        where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 and sirup_funnel = $funnel";
+
+      return executeQuery($sql);
+    } else {
+      $sql = "
+        select count(id_pk_sirup) as jmlh
+        from mstr_sirup 
+        left join mstr_pencarian_sirup on mstr_pencarian_sirup.id_pk_pencarian_sirup =  mstr_sirup.id_fk_pencarian_sirup
+        where sirup_status = 'aktif' and sirup_status_sesuai_pencarian != 0 and sirup_funnel = $funnel";
 
       return executeQuery($sql);
     }
