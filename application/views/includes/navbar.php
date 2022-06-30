@@ -170,7 +170,7 @@
       </ul>
     </div>
   </div>
-<?php elseif (strtolower($this->session->user_role) == "supervisor") : ?>
+<?php elseif (strtolower($this->session->user_role) == "supervisor" || strtolower($this->session->user_role) == "sales engineer") : ?>
   <div class="site-menubar">
     <div class="site-menubar-body">
       <ul class="site-menu" data-plugin="menu">

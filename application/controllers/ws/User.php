@@ -40,9 +40,10 @@ class User extends CI_Controller
       $temp_user_role = $this->input->post('role');
 
       $temp_user_supervisor = 0;
-      if (strtolower($temp_user_role) == "sales engineer") {
-        $temp_user_supervisor = $this->input->post('supervisor');
-      } else if (strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
+      // if (strtolower($temp_user_role) == "sales engineer") {
+      //   $temp_user_supervisor = $this->input->post('supervisor');
+      // } else 
+      if (strtolower($temp_user_role) == "sales engineer" || strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
 
         $temp_user_supervisor = $this->input->post('supervisor_asm');
       }
@@ -54,20 +55,21 @@ class User extends CI_Controller
         $response["msg"] = "Email sudah terdaftar";
       } else {
         $id_user = $this->m_user->insert($temp_user_username, $temp_user_password, $temp_user_email, $temp_user_telepon, $temp_user_role, $temp_user_supervisor);
-        if ($temp_user_role == "Sales Engineer") {
-          $id_kabupaten = $this->input->post("kabupaten");
+        // if ($temp_user_role == "Sales Engineer") {
+        //   $id_kabupaten = $this->input->post("kabupaten");
 
-          $this->load->model("m_user_kabupaten");
-          $this->m_user_kabupaten->insert($id_user, $id_kabupaten);
+        //   $this->load->model("m_user_kabupaten");
+        //   $this->m_user_kabupaten->insert($id_user, $id_kabupaten);
 
-          $this->load->model("m_user_rs");
-          $rumah_sakit = $this->input->post("se_rs");
-          if ($rumah_sakit != "") {
-            foreach ($rumah_sakit as $rs) {
-              $this->m_user_rs->insert($id_user, $rs);
-            }
-          }
-        } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+        //   $this->load->model("m_user_rs");
+        //   $rumah_sakit = $this->input->post("se_rs");
+        //   if ($rumah_sakit != "") {
+        //     foreach ($rumah_sakit as $rs) {
+        //       $this->m_user_rs->insert($id_user, $rs);
+        //     }
+        //   }
+        // } else 
+        if ($temp_user_role == "Sales Engineer" || $temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
           $this->load->model("m_user_provinsi");
           $asm_provinsi = $this->input->post("asm_provinsi");
           if ($asm_provinsi != "") {
@@ -107,9 +109,10 @@ class User extends CI_Controller
       $temp_user_role = $this->input->post('role');
 
       $temp_user_supervisor = 0;
-      if (strtolower($temp_user_role) == "sales engineer") {
-        $temp_user_supervisor = $this->input->post('supervisor');
-      } else if (strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
+      // if (strtolower($temp_user_role) == "sales engineer") {
+      //   $temp_user_supervisor = $this->input->post('supervisor');
+      // } else 
+      if (strtolower($temp_user_role) == "sales engineer" || strtolower($temp_user_role) == "supervisor" || strtolower($temp_user_role) == "area sales manager") {
 
         $temp_user_supervisor = $this->input->post('supervisor_asm');
       }
@@ -121,22 +124,23 @@ class User extends CI_Controller
         $response["msg"] = "Email sudah terdaftar";
       } else {
         $this->m_user->update($temp_id_user, $temp_user_username, $temp_user_email, $temp_user_telepon, $temp_user_role, $temp_user_supervisor);
-        if ($temp_user_role == "Sales Engineer") {
-          $id_kabupaten = $this->input->post("kabupaten");
+        // if ($temp_user_role == "Sales Engineer") {
+        //   $id_kabupaten = $this->input->post("kabupaten");
 
-          $this->load->model("m_user_kabupaten");
-          $this->m_user_kabupaten->deactive_data($temp_id_user);
-          $this->m_user_kabupaten->insert($temp_id_user, $id_kabupaten);
+        //   $this->load->model("m_user_kabupaten");
+        //   $this->m_user_kabupaten->deactive_data($temp_id_user);
+        //   $this->m_user_kabupaten->insert($temp_id_user, $id_kabupaten);
 
-          $this->load->model("m_user_rs");
-          $this->m_user_rs->deactive_data($temp_id_user);
-          $rumah_sakit = $this->input->post("se_rs");
-          if ($rumah_sakit != "") {
-            foreach ($rumah_sakit as $rs) {
-              $this->m_user_rs->insert($temp_id_user, $rs);
-            }
-          }
-        } else if ($temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
+        //   $this->load->model("m_user_rs");
+        //   $this->m_user_rs->deactive_data($temp_id_user);
+        //   $rumah_sakit = $this->input->post("se_rs");
+        //   if ($rumah_sakit != "") {
+        //     foreach ($rumah_sakit as $rs) {
+        //       $this->m_user_rs->insert($temp_id_user, $rs);
+        //     }
+        //   }
+        // } else 
+        if ($temp_user_role == "Sales Engineer" || $temp_user_role == "Supervisor" || $temp_user_role == "Area Sales Manager") {
           $this->load->model("m_user_kabupaten");
           $this->load->model("m_user_provinsi");
           $this->m_user_kabupaten->deactive_data($temp_id_user);

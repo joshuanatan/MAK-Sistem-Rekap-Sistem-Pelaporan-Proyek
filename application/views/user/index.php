@@ -282,22 +282,70 @@
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-control-label">Provinsi</label>
+                <label class="form-control-label">Assigned Provinsi</label>
                 <br>
-                <select onchange="edit_sales_engineer_change_provinsi()" class="form-control" id="edit_select_provinsi">
-                  <option>Pilih</option>
-                  <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
-                    <option value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></option>
-                  <?php endfor; ?>
-                </select>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" onClick="toggle_prov(this)" onchange="asm_change_provinsi()"> &nbsp; Checklist</th>
+                        <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_se_table_provinsi">
+
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div class="form-group">
-                <label class="form-control-label">Kabupaten</label>
+                <label class="form-control-label">Unassigned Provinsi</label>
                 <br>
-                <select onchange="edit_sales_engineer_change_kabupaten()" class="form-control" name="kabupaten" id="edit_select_kabupaten">
-                </select>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Checklist</th>
+                        <th>Provinsi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_se_table_provinsi_unassigned">
+
+                    </tbody>
+                  </table>
+                </div>
               </div>
               <div class="form-group">
+                <label class="form-control-label">Assigned Kabupaten</label>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" onClick="toggle_kab(this)"> &nbsp; Checklist</th>
+                        <th>Kabupaten</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_se_table_kabupaten">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-control-label">Unassigned Kabupaten</label>
+                <div class="scroll-detail-table-wrapper">
+                  <table class="table table-hover table-striped w-full">
+                    <thead>
+                      <tr>
+                        <th>Checklist</th>
+                        <th>Kabupaten</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_se_table_kabupaten_unassigned">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <div class="form-group">
                 <h5>Assigned Rumah Sakit</h5>
 
                 <div class="scroll-detail-table-wrapper">
@@ -333,7 +381,7 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div id="edit_div_asm">
               <div class="form-group">
@@ -527,18 +575,19 @@
 
   function create_change_access() {
     var jabatan = $("#drop_access").val();
-    if (jabatan == "Sales Engineer") {
+    // if (jabatan == "Sales Engineer") {
 
-      supervisor_list = load_supervisor(jabatan);
-      var html = "<option value = 0 disabled>Pilih Supervisor</option>";
-      for (var a = 0; a < supervisor_list.length; a++) {
-        html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
-      }
-      $("#supervisor_list_container").html(html);
+    //   supervisor_list = load_supervisor(jabatan);
+    //   var html = "<option value = 0 disabled>Pilih Supervisor</option>";
+    //   for (var a = 0; a < supervisor_list.length; a++) {
+    //     html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
+    //   }
+    //   $("#supervisor_list_container").html(html);
 
-      $("#div_supervisor_asm").hide();
-      $("#div_sales_engineer").show();
-    } else if (jabatan == "Supervisor") {
+    //   $("#div_supervisor_asm").hide();
+    //   $("#div_sales_engineer").show();
+    // } else 
+    if (jabatan == "Supervisor" || jabatan == "Sales Engineer") {
 
       supervisor_list = load_supervisor(jabatan);
       var html = "<option value = 0 disabled>Pilih Supervisor</option>";
@@ -574,20 +623,21 @@
 
   function edit_change_access() {
     var jabatan = $("#edit_role").val();
-    if (jabatan == "Sales Engineer") {
+    // if (jabatan == "Sales Engineer") {
 
-      supervisor_list = load_supervisor(jabatan);
-      var html = "<option value = 0 disabled>Pilih Supervisor</option>";
-      for (var a = 0; a < supervisor_list.length; a++) {
-        html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
-      }
-      $("#supervisor_list_container_edit").html(html);
+    //   supervisor_list = load_supervisor(jabatan);
+    //   var html = "<option value = 0 disabled>Pilih Supervisor</option>";
+    //   for (var a = 0; a < supervisor_list.length; a++) {
+    //     html += `<option value = "${supervisor_list[a]["id_pk_user"]}">${supervisor_list[a]["user_username"]} - ${supervisor_list[a]["user_role"]}</option>`;
+    //   }
+    //   $("#supervisor_list_container_edit").html(html);
 
-      $("#edit_div_supervisor").hide();
-      $("#edit_div_asm").hide();
-      $("#edit_div_sales_engineer").show();
-      $("#edit_div_sm").hide();
-    } else if (jabatan == "Supervisor") {
+    //   $("#edit_div_supervisor").hide();
+    //   $("#edit_div_asm").hide();
+    //   $("#edit_div_sales_engineer").show();
+    //   $("#edit_div_sm").hide();
+    // } else 
+    if (jabatan == "Supervisor" || jabatan == "Sales Engineer") {
 
       supervisor_list = load_supervisor(jabatan);
       var html = "<option value = 0 disabled>Pilih Supervisor</option>";
@@ -747,6 +797,7 @@
         </tr>`;
       }
       $("#edit_asm_table_kabupaten_unassigned").html(html);
+      $("#edit_se_table_kabupaten_unassigned").html(html);
     }
   }
 
@@ -959,53 +1010,60 @@
 
       $("#supervisor_list_container_edit").val(content[row]["user_supervisor"]);
 
-      var id_provinsi = 0;
-      var id_kabupaten = 0;
       var respond = "";
       var html = "";
+      var id_provinsi = 0;
+
+      respond = load_selected_provinsi(content[row]["id_pk_user"]);
+      html_prov = "";
+      for (var a = 0; a < respond.length; a++) {
+        html_prov += `
+          <tr>
+            <td><input type="checkbox" checked onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>
+        `;
+        $("#edit_se_provinsi").val(respond[a]["id_fk_provinsi"]);
+      }
+      $("#edit_se_table_provinsi").html(html_prov);
+      respond = load_unselected_provinsi(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_se_table_provinsi_unassigned").html(html);
+      // $("#edit_se_table_rs_unassigned").html(html);
+
 
       respond = load_selected_kabupaten(content[row]["id_pk_user"]);
-      if (respond.length > 0) {
-        id_kabupaten = respond[0]['id_pk_kabupaten'];
-        id_provinsi = respond[0]["id_fk_provinsi"];
-      }
-      $("#edit_select_provinsi").val(id_provinsi);
-
-      respond = load_kabupaten(id_provinsi);
-      html = "<option value = 'none'>---- Pilih Kabupaten ----</option>";
-      for (var a = 0; a < respond.length; a++) {
-        html += `<option value ="${respond[a]['id_pk_kabupaten']}">${respond[a]['kabupaten_nama']}</option>`;
-      }
-      $("#edit_select_kabupaten").html(html);
-      $("#edit_select_kabupaten").val(id_kabupaten);
-
-      respond = load_selected_rs(content[row]["id_pk_user"]);
       html = "";
       for (var a = 0; a < respond.length; a++) {
         html += `
           <tr>
-            <td><input type="checkbox" checked value="${respond[a]['id_pk_rs']}" name = "se_rs[]"></td>
-            <td>${respond[a]['rs_nama']}</td>
-            <td>${respond[a]['rs_kelas']}</td>
-            <td>${respond[a]['rs_alamat']}</td>
-            <td>${respond[a]['rs_kategori']}</td>
+            <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[a]['kabupaten_nama']}</td>
           </tr>`;
       }
-      $("#edit_se_table_rs").html(html);
 
-      respond = load_unselected_rs(content[row]["id_pk_user"], id_kabupaten);
+      $("#edit_se_table_kabupaten").html(html);
+
+      id_provinsi = respond[0]["id_fk_provinsi"];
+
+      respond = load_unselected_kabupaten(content[row]["id_pk_user"], id_provinsi);
       html = "";
-      for (var a = 0; a < respond.length; a++) {
+      for (var b = 0; b < respond.length; b++) {
         html += `
           <tr>
-            <td><input type="checkbox" value="${respond[a]['id_pk_rs']}" name = "se_rs[]"></td>
-            <td>${respond[a]['rs_nama']}</td>
-            <td>${respond[a]['rs_kelas']}</td>
-            <td>${respond[a]['rs_alamat']}</td>
-            <td>${respond[a]['rs_kategori']}</td>
+            <td><input type="checkbox" value="${respond[b]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[b]['kabupaten_nama']}</td>
           </tr>`;
       }
-      $("#edit_se_table_rs_unassigned").html(html);
+      $("#edit_se_table_kabupaten_unassigned").html(html);
+
 
     } else if (content[row]["user_role"].trim() == "Area Sales Manager") {
       $("#edit_div_sales_engineer").hide();
