@@ -331,6 +331,7 @@ class M_sirup extends CI_Model
       $kabupaten = executeQuery($query_kabupaten)->result_array();
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -374,6 +375,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -469,6 +471,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -512,6 +515,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -642,6 +646,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -685,6 +690,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -744,6 +750,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -806,6 +813,7 @@ class M_sirup extends CI_Model
 
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and tbl_sirup_lokasi_pekerjaan.lokasi_pekerjaan LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -857,6 +865,7 @@ class M_sirup extends CI_Model
       $kabupaten = executeQuery($query_kabupaten)->result_array();
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
@@ -897,6 +906,7 @@ class M_sirup extends CI_Model
       $kabupaten = executeQuery($query_kabupaten)->result_array();
       if ($kabupaten == []) {
         $like_kabupaten = "";
+        die();
       } else {
         $like_kabupaten = " and mstr_sirup.sirup_kabupaten LIKE";
         for ($i = 0; $i < count($kabupaten); $i++) {
