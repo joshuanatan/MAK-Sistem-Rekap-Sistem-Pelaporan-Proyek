@@ -282,22 +282,6 @@
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-control-label">Provinsi</label>
-                <br>
-                <select onchange="edit_sales_engineer_change_provinsi()" class="form-control" id="edit_select_provinsi">
-                  <option>Pilih</option>
-                  <?php for ($a = 0; $a < count($data_provinsi); $a++) : ?>
-                    <option value="<?php echo $data_provinsi[$a]["id_pk_provinsi"]; ?>"><?php echo $data_provinsi[$a]["provinsi_nama"]; ?></option>
-                  <?php endfor; ?>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-control-label">Kabupaten</label>
-                <br>
-                <select onchange="edit_sales_engineer_change_kabupaten()" class="form-control" name="kabupaten" id="edit_select_kabupaten">
-                </select>
-              </div>
-              <div class="form-group">
                 <label class="form-control-label">Assigned Provinsi</label>
                 <br>
                 <div class="scroll-detail-table-wrapper">
@@ -812,7 +796,8 @@
           <td>${respond[a]['kabupaten_nama']}</td>
         </tr>`;
       }
-      $("#edit_asm_table_kabupaten_unassigned").append(html);
+      $("#edit_asm_table_kabupaten_unassigned").html(html);
+      $("#edit_se_table_kabupaten_unassigned").html(html);
     }
   }
 
@@ -1029,17 +1014,6 @@
       var html = "";
       var id_provinsi = 0;
 
-      respond = load_selected_kabupaten(content[row]["id_pk_user"]);
-      html = "";
-      for (var a = 0; a < respond.length; a++) {
-        html += `
-          <tr>
-            <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
-            <td>${respond[a]['kabupaten_nama']}</td>
-          </tr>`;
-      }
-      $("#edit_se_table_kabupaten").html(html);
-
       respond = load_selected_provinsi(content[row]["id_pk_user"]);
       html_prov = "";
       for (var a = 0; a < respond.length; a++) {
@@ -1052,8 +1026,32 @@
         $("#edit_se_provinsi").val(respond[a]["id_fk_provinsi"]);
       }
       $("#edit_se_table_provinsi").html(html_prov);
+      respond = load_unselected_provinsi(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
+            <td>${respond[a]['provinsi_nama']}</td>
+          </tr>`;
+      }
+      $("#edit_se_table_provinsi_unassigned").html(html);
+      // $("#edit_se_table_rs_unassigned").html(html);
 
-      id_provinsi = respond[a]["id_fk_provinsi"];
+
+      respond = load_selected_kabupaten(content[row]["id_pk_user"]);
+      html = "";
+      for (var a = 0; a < respond.length; a++) {
+        html += `
+          <tr>
+            <td><input type="checkbox" checked value="${respond[a]['id_pk_kabupaten']}" name = "asm_kabupaten[]"></td>
+            <td>${respond[a]['kabupaten_nama']}</td>
+          </tr>`;
+      }
+
+      $("#edit_se_table_kabupaten").html(html);
+
+      id_provinsi = respond[0]["id_fk_provinsi"];
 
       respond = load_unselected_kabupaten(content[row]["id_pk_user"], id_provinsi);
       html = "";
@@ -1066,17 +1064,6 @@
       }
       $("#edit_se_table_kabupaten_unassigned").html(html);
 
-      respond = load_unselected_provinsi(content[row]["id_pk_user"]);
-      html = "";
-      for (var a = 0; a < respond.length; a++) {
-        html += `
-          <tr>
-            <td><input type="checkbox" onchange="edit_asm_change_provinsi()" value="${respond[a]['id_pk_provinsi']}" name = "asm_provinsi[]"></td>
-            <td>${respond[a]['provinsi_nama']}</td>
-          </tr>`;
-      }
-      $("#edit_se_table_provinsi_unassigned").html(html);
-      // $("#edit_se_table_rs_unassigned").html(html);
 
     } else if (content[row]["user_role"].trim() == "Area Sales Manager") {
       $("#edit_div_sales_engineer").hide();
