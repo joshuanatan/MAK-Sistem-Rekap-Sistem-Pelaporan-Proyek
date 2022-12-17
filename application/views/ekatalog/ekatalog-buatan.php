@@ -33,6 +33,7 @@
             <div class="form-group col-lg-3">
               <h5>Kolom Pengurutan</h5>
               <select class="form-control" onchange="change_kolom_pengurutan()" id="kolom_pengurutan">
+                <option value="" disabled>Pilih Kolom Pengurutan</option>
                 <?php for ($a = 0; $a < count($field); $a++) : ?>
                   <option value="<?php echo $field[$a]["field_value"]; ?>"><?php echo $field[$a]["field_text"]; ?></option>
                 <?php endfor; ?>
